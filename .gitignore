@@ -4,3 +4,5 @@
 
 /IfSharp/.paket/load
 /IfSharp/packages
+
+.vs/
