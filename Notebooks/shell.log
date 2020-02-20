@@ -1,0 +1,8 @@
+2020-02-20 10:30:37 - Microsoft (R) F# Interactive version 10.2.3 for F# 4.5
+2020-02-20 10:30:37 - Copyright (c) Microsoft Corporation. All Rights Reserved.
+2020-02-20 10:30:37 - For help type #help;;
+2020-02-20 10:30:37 - > val it : ResizeArray<System.Type * (obj -> seq<string * string> * string)> =
+2020-02-20 10:30:37 -   seq []
+2020-02-20 10:30:37 - --> Added 'D:\Desktop\Programme\IFSharp' to library include path
+2020-02-20 10:30:37 - --> Referenced 'D:\Desktop\Programme\IFSharp\IfSharp.Kernel.dll' (file may be locked by F# Interactive process)
+2020-02-20 10:30:37 - --> Referenced 'D:\Desktop\Programme\IFSharp\NetMQ.dll' (file may be locked by F# Interactive process)
