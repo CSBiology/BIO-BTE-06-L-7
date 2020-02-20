@@ -118,3 +118,12 @@
 2020-02-20 10:45:53 -     |> GenericChart.toChartHTML
 2020-02-20 10:45:53 -     |> Util.Html
 2020-02-20 10:45:53 -     |> Display
+2020-02-20 10:56:19 - Microsoft (R) F# Interactive version 10.2.3 for F# 4.5
+2020-02-20 10:56:19 - Copyright (c) Microsoft Corporation. All Rights Reserved.
+2020-02-20 10:56:19 - For help type #help;;
+2020-02-20 10:56:19 - > val it : ResizeArray<System.Type * (obj -> seq<string * string> * string)> =
+2020-02-20 10:56:19 -   seq []
+2020-02-20 10:56:19 - --> Added 'D:\Desktop\Programme\IFSharp' to library include path
+2020-02-20 10:56:19 - --> Referenced 'D:\Desktop\Programme\IFSharp\IfSharp.Kernel.dll' (file may be locked by F# Interactive process)
+2020-02-20 10:56:19 - --> Referenced 'D:\Desktop\Programme\IFSharp\NetMQ.dll' (file may be locked by F# Interactive process)
+2020-02-20 10:56:23 - Reporting 0 opened comms
