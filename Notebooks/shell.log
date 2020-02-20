@@ -118,3 +118,68 @@
 2020-02-20 10:45:53 -     |> GenericChart.toChartHTML
 2020-02-20 10:45:53 -     |> Util.Html
 2020-02-20 10:45:53 -     |> Display
+2020-02-20 10:57:09 - Microsoft (R) F# Interactive version 10.2.3 for F# 4.5
+2020-02-20 10:57:09 - Copyright (c) Microsoft Corporation. All Rights Reserved.
+2020-02-20 10:57:09 - For help type #help;;
+2020-02-20 10:57:09 - > val it : ResizeArray<System.Type * (obj -> seq<string * string> * string)> =
+2020-02-20 10:57:09 -   seq []
+2020-02-20 10:57:09 - --> Referenced 'C:\Windows\Microsoft.NET\Framework64\v4.0.30319\netstandard.dll' (file may be locked by F# Interactive process)
+2020-02-20 10:57:09 - --> Added 'C:\Users\jonat\source\repos\Jupyter_PraktikumBiotech\IfSharp' to library include path
+2020-02-20 10:57:09 - --> Referenced 'C:\Users\jonat\source\repos\Jupyter_PraktikumBiotech\IfSharp\IfSharp.Kernel.dll' (file may be locked by F# Interactive process)
+2020-02-20 10:57:11 - Reporting 0 opened comms
+2020-02-20 10:57:14 - shutdown request
+2020-02-20 10:57:19 - Microsoft (R) F# Interactive version 10.2.3 for F# 4.5
+2020-02-20 10:57:19 - Copyright (c) Microsoft Corporation. All Rights Reserved.
+2020-02-20 10:57:19 - For help type #help;;
+2020-02-20 10:57:19 - > val it : ResizeArray<System.Type * (obj -> seq<string * string> * string)> =
+2020-02-20 10:57:19 -   seq []
+2020-02-20 10:57:19 - --> Referenced 'C:\Windows\Microsoft.NET\Framework64\v4.0.30319\netstandard.dll' (file may be locked by F# Interactive process)
+2020-02-20 10:57:19 - --> Added 'C:\Users\jonat\source\repos\Jupyter_PraktikumBiotech\IfSharp' to library include path
+2020-02-20 10:57:19 - --> Referenced 'C:\Users\jonat\source\repos\Jupyter_PraktikumBiotech\IfSharp\IfSharp.Kernel.dll' (file may be locked by F# Interactive process)
+2020-02-20 10:57:19 - #load "..\IfSharp\Paket.fsx"
+2020-02-20 10:57:19 - Paket.Version[
+2020-02-20 10:57:19 -     "FSharp.Plotly", "1.2.0";
+2020-02-20 10:57:19 -     "FSharp.Stats", "0.2.1-beta"
+2020-02-20 10:57:19 - ]
+2020-02-20 10:57:31 - #load "..\IfSharp\Paket.Generated.Refs.fsx"
+2020-02-20 10:57:31 - #load "..\IfSharp\FSharp.Plotly.fsx"
+2020-02-20 10:57:31 - open FSharp.Plotly
+2020-02-20 10:57:31 - open FSharp.Stats
+2020-02-20 10:57:31 - open FSharp.Stats.Fitting.NonLinearRegression
+2020-02-20 10:57:33 - let x_Hours = [|0.; 19.5; 25.5; 30.; 43.; 48.5; 67.75|]
+2020-02-20 10:57:33 - let y_Count = [|0.0; 2510000.0; 4926400.0; 9802600.0; 14949400.0; 15598800.0; 16382000.0|]
+2020-02-20 10:57:33 - let model = Table.LogisticFunctionAscending
+2020-02-20 10:57:33 - let multipleSolverOptions =
+2020-02-20 10:57:33 -     LevenbergMarquardtConstrained.initialParamsOverRange x_Hours y_Count [|0. .. 0.1 .. 2.|]
+2020-02-20 10:57:33 -     |> Array.map Table.lineSolverOptions
+2020-02-20 10:57:33 - let estParamsRSS =
+2020-02-20 10:57:33 -     multipleSolverOptions
+2020-02-20 10:57:33 -     |> Array.map (fun solvO ->
+2020-02-20 10:57:33 -         let lowerBound =
+2020-02-20 10:57:33 -             solvO.InitialParamGuess
+2020-02-20 10:57:33 -             |> Array.map (fun param -> param - (abs param) * 0.2)
+2020-02-20 10:57:33 -             |> vector
+2020-02-20 10:57:33 -         let upperBound =
+2020-02-20 10:57:33 -             solvO.InitialParamGuess
+2020-02-20 10:57:33 -             |> Array.map (fun param -> param + (abs param) * 0.2)
+2020-02-20 10:57:33 -             |> vector
+2020-02-20 10:57:33 -         LevenbergMarquardtConstrained.estimatedParamsWithRSS 
+2020-02-20 10:57:33 -             model solvO 0.001 10. lowerBound upperBound x_Hours y_Count
+2020-02-20 10:57:33 -     )
+2020-02-20 10:57:33 -     |> Array.minBy snd
+2020-02-20 10:57:33 -     |> fst
+2020-02-20 10:57:33 - let fittingFunction = Table.LogisticFunctionAscending.GetFunctionValue estParamsRSS
+2020-02-20 10:57:33 - let fittedY = Array.zip [|0. .. 68.|] ([|0. .. 68.|] |> Array.map fittingFunction)
+2020-02-20 10:57:33 - let fittedLogisticFunc =
+2020-02-20 10:57:33 -     [
+2020-02-20 10:57:33 -     Chart.Point (Array.zip x_Hours y_Count)
+2020-02-20 10:57:33 -     |> Chart.withTraceName"Data Points"
+2020-02-20 10:57:33 -     Chart.Line fittedY
+2020-02-20 10:57:33 -     |> Chart.withTraceName "Fit"
+2020-02-20 10:57:33 -     ]
+2020-02-20 10:57:33 -     |> Chart.Combine
+2020-02-20 10:57:33 -     |> Chart.withY_AxisStyle "Cellcount"
+2020-02-20 10:57:33 -     |> Chart.withX_AxisStyle "Time"
+2020-02-20 10:57:33 -     |> GenericChart.toChartHTML
+2020-02-20 10:57:33 -     |> Util.Html
+2020-02-20 10:57:33 -     |> Display
