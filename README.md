@@ -1,5 +1,12 @@
 # Jupyter_PraktikumBiotech
 
+## Installation
+
+For now we just need to remember:
+
+- start the "IfSharp\ifsharp.exe" once when first downloading. So Jupyter knows the location.
+
+
 ## Change Jupyter Notebook startup folder (Windows)
 
 Use powershell <code>jupyter notebook --notebook-dir="D:\Freym\Source\Repos\Freymaurer\Jupyter_PraktikumBiotech\Notebooks"</code>.
@@ -19,3 +26,5 @@ https://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/execute.html#ch
 
 Use powershell <code>jupyter notebook password</code>.
 You will then be asked to give a password and after that to verify it. Both times the console will not show any typing but it will still recognize the input.
+
+<b>Attention! I do not know any way yet to remove password again!</b>
