@@ -35,6 +35,6 @@ ClientBin/
 
 /IfSharp/.paket/load
 /IfSharp/packages
-/Notebboks/shell.log
+/Notebooks/shell.log
 
 .vs/

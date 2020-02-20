@@ -2,8 +2,9 @@ framework: net472
 generate_load_scripts: true
 source https://api.nuget.org/v3/index.json
 #When changing the default FSharp.Core version make sure to change everywhere e.g. Clear()
+nuget BioFSharp 1.0.2
 nuget FSharp.Charting 0.91.1
-nuget FSharp.Core = 4.6.2
+nuget FSharp.Core
 nuget FSharp.Plotly 1.2.0
 nuget FSharp.Stats 0.2.1-beta beta
 nuget Itis.Angara.Base ~> 0.3.3

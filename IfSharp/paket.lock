@@ -12,12 +12,16 @@ NUGET
       Newtonsoft.Json (>= 10.0.1)
     Angara.Statistics (0.1.4)
       Angara.Serialization
+    BioFSharp (1.0.2)
+      FSharp.Core (>= 4.7)
+      FSharpAux (>= 1.0)
+      FSharpAux.IO (>= 1.0)
     DotNetZip (1.13.5)
       System.Security.Permissions (>= 4.5 < 5.0)
       System.Text.Encoding.CodePages (>= 4.5 < 5.0)
       System.Text.Encoding.Extensions (>= 4.3 < 5.0)
     FSharp.Charting (0.91.1)
-    FSharp.Core (4.6.2)
+    FSharp.Core (4.7)
     FSharp.Plotly (1.2)
       FSharp.Core
       Newtonsoft.Json
