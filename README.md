@@ -6,6 +6,11 @@ For now we just need to remember:
 
 - start the "IfSharp\ifsharp.exe" once when first downloading. So Jupyter knows the location.
 
+## Useful Link
+
+
+- Contains formatting help for markdown Jupyter. https://medium.com/ibm-data-science-experience/markdown-for-jupyter-notebooks-cheatsheet-386c05aeebed
+
 
 ## Change Jupyter Notebook startup folder (Windows)
 
