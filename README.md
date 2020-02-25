@@ -11,6 +11,7 @@ For now we just need to remember:
 
 - Contains formatting help for markdown Jupyter. https://medium.com/ibm-data-science-experience/markdown-for-jupyter-notebooks-cheatsheet-386c05aeebed
 
+- Useful for math formula. At the bottom is a copy-paste html code you can use for Jupyter. https://www.codecogs.com/latex/eqneditor.php
 
 ## Change Jupyter Notebook startup folder (Windows)
 
