@@ -25,34 +25,34 @@ type Color = {
     L : int
     }
 
-let private createHSL (color:Color) =
+let createHSL (color:Color) =
     (sprintf "hsl(%i," color.H) + string color.S + @"%," + string color.L + @"%)"
 
-let private mainColorPeachFF6F61 = {
+let mainColorPeachFF6F61 = {
     H = 5
     S = 100
     L = 69
 }
 
-let private mainColorBlue92a8d1 = {
+let mainColorBlue92a8d1 = {
     H = 219
     S = 41
     L = 70
 }
 
-let private mainColorGreen88b04b = {
+let mainColorGreen88b04b = {
     H = 84
     S = 40
     L = 49
 }
 
-let private mainColorYellowEFC050 = {
+let mainColorYellowEFC050 = {
     H = 42
     S = 83
     L = 63
 }
 
-let private createRelatedColors (color:Color) nOfColors =
+let createRelatedColors (color:Color) nOfColors =
     let wheelchange = -20
     let changeTempColor wheelChange tempColor =
         if tempColor.H + wheelChange < 0 
@@ -132,8 +132,8 @@ let oneTo50Gr4 = [|
 |]
 
 // style axis
-let private xAxis title = Axis.LinearAxis.init(Title=title,Showgrid=false,Showline=true,Mirror=StyleParam.Mirror.All,Zeroline=false,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside, Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=26.),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=20.))       
-let private yAxis title = Axis.LinearAxis.init(Title=title,Showgrid=false,Showline=true,Mirror=StyleParam.Mirror.All,Zeroline=false,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside,Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=26.),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=20.)(*,AxisType = StyleParam.AxisType.Log*))
+let xAxis title = Axis.LinearAxis.init(Title=title,Showgrid=false,Showline=true,Mirror=StyleParam.Mirror.All,Zeroline=false,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside, Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=26.),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=20.))       
+let yAxis title = Axis.LinearAxis.init(Title=title,Showgrid=false,Showline=true,Mirror=StyleParam.Mirror.All,Zeroline=false,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside,Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=26.),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=20.)(*,AxisType = StyleParam.AxisType.Log*))
 let chartConfig =
     Config.init(StaticPlot = false, Responsive = true, Editable = true,Autosizable=true,ShowEditInChartStudio=true,ToImageButtonOptions = ToImageButtonOptions.init(Format = StyleParam.ImageFormat.SVG))
 
@@ -297,7 +297,7 @@ let logisticFunction timePoints intensityPoints steepnessRange =
         )
         |> Array.minBy snd
         |> fun x ->
-            //printfn "Chosen Estimate: %A" x
+            printfn "Chosen Estimate: %A" x
             fst x
     LogisticFunction.GetFunctionValue estimate
 
@@ -601,3 +601,114 @@ chartGr4Combined
 |> Chart.withSize (1200.,600.)
 |> Chart.withConfig chartConfig
 //|> Chart.Show
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+let exmp_x_Hours = [|0.; 19.5; 25.5; 43.; 48.5; 51.25; 67.75|]
+let exmp_y_Count = [| 1659000.; 4169000.; 6585400.; 16608400.; 17257800.; nan; 18041000.|]
+
+//let model = Table.LogisticFunctionAscending
+
+let model = Table.LogisticFunctionVarYAscending
+
+/// filter out any nans
+let exmp_x_Hours_Filtered,exmp_y_Count_Filtered =
+    Array.zip timeHGr3 oneTo1Gr3
+    |> Array.filter (fun (x,y) -> isNan y = false && isNan x = false )
+    |> Array.unzip
+
+
+Chart.Line(exmp_x_Hours_Filtered,exmp_y_Count_Filtered)
+|> Chart.Show
+
+let lineSolverOptions initialParamGuess = {
+    MinimumDeltaValue       = 0.00001
+    MinimumDeltaParameters  = 0.00001
+    MaximumIterations       = 10000
+    InitialParamGuess       = initialParamGuess
+    }
+
+let steepnessRange2 =
+    [|0.01 .. 0.01 .. 1.|]
+
+let initialGuess = 
+    steepnessRange2
+    |> Array.map (fun x -> 
+        lineSolverOptions [|
+            exmp_y_Count_Filtered |> Array.max
+            x 
+            34. //(exmp_x_Hours_Filtered |> Array.max) / 2.
+            exmp_y_Count_Filtered |> Array.min 
+        |]
+    )
+
+let estParamsRSS =
+    initialGuess
+    |> Array.map (
+        fun solvO ->
+            let lowerBound =
+                solvO.InitialParamGuess
+                |> Array.map (fun param -> param - (abs param) * 0.2)
+                |> vector
+            let upperBound =
+                solvO.InitialParamGuess
+                |> Array.map (fun param -> param + (abs param) * 0.2)
+                |> vector
+            LevenbergMarquardtConstrained.estimatedParamsWithRSS 
+                model solvO 0.001 10. lowerBound upperBound exmp_x_Hours_Filtered exmp_y_Count_Filtered
+    )
+    |> Array.filter (fun (param,rss) -> not(param |> Vector.exists System.Double.IsNaN))
+    |> Array.minBy snd
+    |> fun x ->
+        let next = fst x
+        printfn "Chosen Estimate: %A" x
+        printfn "Equation: (%f / (1. + exp(-%f * (%s - %f)))) + %f" next.[0] next.[1] "x" next.[2] next.[3]
+        next
+
+
+/// Insert equation in https://www.ableitungsrechner.net/ and calculate third derivation. Get XXRoot at third derivation neighboring 
+/// exponential phase
+
+let exmp_roots_XX = [| 23.745 ; 44.005 |]
+
+let fittingFunction = model.GetFunctionValue estParamsRSS
+
+let calculateDoublingTime2 fittingFunction rootsXX =
+
+    //https://en.wikipedia.org/wiki/Doubling_time
+    // -> Cell culture doubling time
+    let growthRate nCells0 nCellsT t =
+        log2(nCellsT/nCells0)
+        |> fun x -> x/t
+
+    let doublingTime growthRate =
+        (log2(2.))/growthRate
+
+    let rootsYY = rootsXX |> Array.map fittingFunction
+    
+    let diff = rootsXX.[1] - rootsXX.[0]
+    let min,max = rootsYY.[0], rootsYY.[1]
+
+    let doublingTime =
+        growthRate min max diff
+        |> doublingTime
+
+    doublingTime
+
+calculateDoublingTime2 fittingFunction exmp_roots_XX
+
+let fittedY = Array.zip [|0. .. 68.|] ([|0. .. 68.|] |> Array.map fittingFunction)
+
+let fittedLogisticFunc =
+    [
+    Chart.Point (exmp_x_Hours, exmp_y_Count)
+    |> Chart.withTraceName"Data Points"
+    Chart.Line fittedY
+    |> Chart.withTraceName "Fit"
+    ]
+    |> Chart.Combine
+    |> Chart.withY_AxisStyle "Cellcount"
+    |> Chart.withX_AxisStyle "Time"
+    |> Chart.Show
