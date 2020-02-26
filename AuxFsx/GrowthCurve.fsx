@@ -259,7 +259,9 @@ let exponentialGrowth timePoints intensityPoints =
             upperBound
             timePoints
             intensityPoints
-        |> fst
+        |> fun x ->
+            printfn "Chosen Estimate exponential fit: %A" x
+            fst x
     expModel.GetFunctionValue estimate
 
 
@@ -297,7 +299,7 @@ let logisticFunction timePoints intensityPoints steepnessRange =
         )
         |> Array.minBy snd
         |> fun x ->
-            printfn "Chosen Estimate: %A" x
+            printfn "Chosen Estimate logistic fit: %A" x
             fst x
     LogisticFunction.GetFunctionValue estimate
 
@@ -336,7 +338,7 @@ let logisticFunctionTheoretical timePoints intensityPoints steepnessRange maxInt
         )
         |> Array.minBy snd
         |> fun x ->
-            //printfn "Chosen Estimate: %A" x
+            printfn "Chosen Estimate theoretical logistic fit: %A" x
             fst x
     LogisticFunction.GetFunctionValue estimate
 
@@ -375,15 +377,6 @@ let _,intensityPoints1To50Gr4 =
 let steepnessRange =
     [|0.01 .. 0.01 .. 1.|]//[|0.05 .. 0.01 .. 2.|]
 
-let doubleModel timepoints intensitypoints =
-    logisticFunction timepoints intensitypoints steepnessRange
-
-let doubleTheoretical timepoints intensitypoints maxIntensinty curveMidTimePoint minIntensity =
-    logisticFunctionTheoretical timepoints intensitypoints steepnessRange maxIntensinty curveMidTimePoint minIntensity
-
-let exponentialModel timePoints intensitypoints =
-    exponentialGrowth timePoints intensitypoints
-
 //let showExpFunctionFit timepoints intensitypoints =
 //    let tpArr =
 //        [|0. .. 70.|]
@@ -397,14 +390,14 @@ let exponentialModel timePoints intensitypoints =
 //        fit; originalData
 //    ] |> Chart.Combine (*|> Chart.Show*)
 
-let showLogisticFunctionFit timepoints intensitypoints name color =
+let showLogisticFunctionFit timepoints intensitypoints steepnessRange name color =
     let colorArr =
         createRelatedColors color 2
     let tpArr =
         [|0. .. 70.|]
     let fitLog =
         tpArr
-        |> Array.map (doubleModel timepoints intensitypoints)
+        |> Array.map (logisticFunction timepoints intensitypoints steepnessRange)
         |> fun x -> Chart.Line(tpArr,x, Name = "Fit with logistic function - " + name)
         |> Chart.withMarkerStyle(Color = createHSL colorArr.[1])
     let originalData =
@@ -414,7 +407,7 @@ let showLogisticFunctionFit timepoints intensitypoints name color =
         fitLog;originalData
     ] |> Chart.Combine (*|> Chart.Show*)
 
-let showTheoreticalLogisticFunctionFit timepoints intensitypoints maxIntensinty curveMidTimePoint minIntensity name color =
+let showTheoreticalLogisticFunctionFit timepoints intensitypoints steepnessRange maxIntensinty curveMidTimePoint minIntensity name color =
     let colorArr =
         createRelatedColors color 3
     let maxTimePoint =
@@ -423,12 +416,12 @@ let showTheoreticalLogisticFunctionFit timepoints intensitypoints maxIntensinty 
         [|0. .. max|]
     let fitExp =
         tpArr maxTimePoint
-        |> Array.map (exponentialModel timepoints intensitypoints)
+        |> Array.map (exponentialGrowth timepoints intensitypoints)
         |> fun x -> Chart.Line((tpArr maxTimePoint),x, Name = "Exponential fit - " + name)
         |> Chart.withMarkerStyle(Color = createHSL colorArr.[1])
     let fitTheoLog =
         tpArr (maxTimePoint + 50.)
-        |> Array.map (doubleTheoretical timepoints intensitypoints maxIntensinty curveMidTimePoint minIntensity)
+        |> Array.map (logisticFunctionTheoretical timepoints intensitypoints steepnessRange maxIntensinty curveMidTimePoint minIntensity)
         |> fun x -> Chart.Line((tpArr (maxTimePoint + 50.)),x, Name = "Theoretical fit with Logistic Function - " + name)
         |> Chart.withMarkerStyle(Color = createHSL colorArr.[2])
     let originalData =
@@ -537,10 +530,11 @@ let doublingTimeChart =
 
     //Gr 3
 let chartGr3Combined = [
-    showLogisticFunctionFit timePointsGr3 intensityPoints1To1Gr3 "1:1" mainColorPeachFF6F61
+    showLogisticFunctionFit timePointsGr3 intensityPoints1To1Gr3 steepnessRange "1:1" mainColorPeachFF6F61
     showTheoreticalLogisticFunctionFit 
         timePointsGr3 
         intensityPoints1To25Gr3 
+        steepnessRange
         (intensityPoints1To1Gr3 |> Array.max)
         ((timePointsGr3 |> Array.max) / 2. |> fun x -> x + 57. )
         (intensityPoints1To25Gr3 |> Array.min)
@@ -549,6 +543,7 @@ let chartGr3Combined = [
     showTheoreticalLogisticFunctionFit
         timePointsGr3
         intensityPoints1To50Gr3
+        steepnessRange
         (intensityPoints1To1Gr3 |> Array.max)
         ((timePointsGr3 |> Array.max) / 2. |> fun x -> x + 47. )
         (intensityPoints1To50Gr3 |> Array.min)
@@ -558,10 +553,11 @@ let chartGr3Combined = [
 
 /// Gr 4
 let chartGr4Combined = [
-    showLogisticFunctionFit timePointsGr4 intensityPoints1To1Gr4 "1:1" mainColorPeachFF6F61
+    showLogisticFunctionFit timePointsGr4 intensityPoints1To1Gr4 steepnessRange "1:1" mainColorPeachFF6F61
     showTheoreticalLogisticFunctionFit 
         timePointsGr4 
         intensityPoints1To25Gr4 
+        steepnessRange
         (intensityPoints1To1Gr4 |> Array.max)
         ((timePointsGr4 |> Array.max) / 2. |> fun x -> x + 53. )
         (intensityPoints1To25Gr4 |> Array.min)
@@ -570,6 +566,7 @@ let chartGr4Combined = [
     showTheoreticalLogisticFunctionFit
         timePointsGr4
         intensityPoints1To50Gr4
+        steepnessRange
         (intensityPoints1To1Gr4 |> Array.max)
         ((timePointsGr4 |> Array.max) / 2. |> fun x -> x + 51. )
         (intensityPoints1To50Gr4 |> Array.min)
@@ -606,109 +603,109 @@ chartGr4Combined
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-let exmp_x_Hours = [|0.; 19.5; 25.5; 43.; 48.5; 51.25; 67.75|]
-let exmp_y_Count = [| 1659000.; 4169000.; 6585400.; 16608400.; 17257800.; nan; 18041000.|]
+//let exmp_x_Hours = [|0.; 19.5; 25.5; 43.; 48.5; 51.25; 67.75|]
+//let exmp_y_Count = [| 1659000.; 4169000.; 6585400.; 16608400.; 17257800.; nan; 18041000.|]
 
-//let model = Table.LogisticFunctionAscending
+////let model = Table.LogisticFunctionAscending
 
-let model = Table.LogisticFunctionVarYAscending
+//let model = Table.LogisticFunctionVarYAscending
 
-/// filter out any nans
-let exmp_x_Hours_Filtered,exmp_y_Count_Filtered =
-    Array.zip timeHGr3 oneTo1Gr3
-    |> Array.filter (fun (x,y) -> isNan y = false && isNan x = false )
-    |> Array.unzip
-
-
-Chart.Line(exmp_x_Hours_Filtered,exmp_y_Count_Filtered)
-|> Chart.Show
-
-let lineSolverOptions initialParamGuess = {
-    MinimumDeltaValue       = 0.00001
-    MinimumDeltaParameters  = 0.00001
-    MaximumIterations       = 10000
-    InitialParamGuess       = initialParamGuess
-    }
-
-let steepnessRange2 =
-    [|0.01 .. 0.01 .. 1.|]
-
-let initialGuess = 
-    steepnessRange2
-    |> Array.map (fun x -> 
-        lineSolverOptions [|
-            exmp_y_Count_Filtered |> Array.max
-            x 
-            34. //(exmp_x_Hours_Filtered |> Array.max) / 2.
-            exmp_y_Count_Filtered |> Array.min 
-        |]
-    )
-
-let estParamsRSS =
-    initialGuess
-    |> Array.map (
-        fun solvO ->
-            let lowerBound =
-                solvO.InitialParamGuess
-                |> Array.map (fun param -> param - (abs param) * 0.2)
-                |> vector
-            let upperBound =
-                solvO.InitialParamGuess
-                |> Array.map (fun param -> param + (abs param) * 0.2)
-                |> vector
-            LevenbergMarquardtConstrained.estimatedParamsWithRSS 
-                model solvO 0.001 10. lowerBound upperBound exmp_x_Hours_Filtered exmp_y_Count_Filtered
-    )
-    |> Array.filter (fun (param,rss) -> not(param |> Vector.exists System.Double.IsNaN))
-    |> Array.minBy snd
-    |> fun x ->
-        let next = fst x
-        printfn "Chosen Estimate: %A" x
-        printfn "Equation: (%f / (1. + exp(-%f * (%s - %f)))) + %f" next.[0] next.[1] "x" next.[2] next.[3]
-        next
+///// filter out any nans
+//let exmp_x_Hours_Filtered,exmp_y_Count_Filtered =
+//    Array.zip timeHGr3 oneTo1Gr3
+//    |> Array.filter (fun (x,y) -> isNan y = false && isNan x = false )
+//    |> Array.unzip
 
 
-/// Insert equation in https://www.ableitungsrechner.net/ and calculate third derivation. Get XXRoot at third derivation neighboring 
-/// exponential phase
+//Chart.Line(exmp_x_Hours_Filtered,exmp_y_Count_Filtered)
+//|> Chart.Show
 
-let exmp_roots_XX = [| 23.745 ; 44.005 |]
+//let lineSolverOptions initialParamGuess = {
+//    MinimumDeltaValue       = 0.00001
+//    MinimumDeltaParameters  = 0.00001
+//    MaximumIterations       = 10000
+//    InitialParamGuess       = initialParamGuess
+//    }
 
-let fittingFunction = model.GetFunctionValue estParamsRSS
+//let steepnessRange2 =
+//    [|0.01 .. 0.01 .. 1.|]
 
-let calculateDoublingTime2 fittingFunction rootsXX =
+//let initialGuess = 
+//    steepnessRange2
+//    |> Array.map (fun x -> 
+//        lineSolverOptions [|
+//            exmp_y_Count_Filtered |> Array.max
+//            x 
+//            34. //(exmp_x_Hours_Filtered |> Array.max) / 2.
+//            exmp_y_Count_Filtered |> Array.min 
+//        |]
+//    )
 
-    //https://en.wikipedia.org/wiki/Doubling_time
-    // -> Cell culture doubling time
-    let growthRate nCells0 nCellsT t =
-        log2(nCellsT/nCells0)
-        |> fun x -> x/t
+//let estParamsRSS =
+//    initialGuess
+//    |> Array.map (
+//        fun solvO ->
+//            let lowerBound =
+//                solvO.InitialParamGuess
+//                |> Array.map (fun param -> param - (abs param) * 0.2)
+//                |> vector
+//            let upperBound =
+//                solvO.InitialParamGuess
+//                |> Array.map (fun param -> param + (abs param) * 0.2)
+//                |> vector
+//            LevenbergMarquardtConstrained.estimatedParamsWithRSS 
+//                model solvO 0.001 10. lowerBound upperBound exmp_x_Hours_Filtered exmp_y_Count_Filtered
+//    )
+//    |> Array.filter (fun (param,rss) -> not(param |> Vector.exists System.Double.IsNaN))
+//    |> Array.minBy snd
+//    |> fun x ->
+//        let next = fst x
+//        printfn "Chosen Estimate: %A" x
+//        printfn "Equation: (%f / (1. + exp(-%f * (%s - %f)))) + %f" next.[0] next.[1] "x" next.[2] next.[3]
+//        next
 
-    let doublingTime growthRate =
-        (log2(2.))/growthRate
 
-    let rootsYY = rootsXX |> Array.map fittingFunction
+///// Insert equation in https://www.ableitungsrechner.net/ and calculate third derivation. Get XXRoot at third derivation neighboring 
+///// exponential phase
+
+//let exmp_roots_XX = [| 23.745 ; 44.005 |]
+
+//let fittingFunction = model.GetFunctionValue estParamsRSS
+
+//let calculateDoublingTime2 fittingFunction rootsXX =
+
+//    //https://en.wikipedia.org/wiki/Doubling_time
+//    // -> Cell culture doubling time
+//    let growthRate nCells0 nCellsT t =
+//        log2(nCellsT/nCells0)
+//        |> fun x -> x/t
+
+//    let doublingTime growthRate =
+//        (log2(2.))/growthRate
+
+//    let rootsYY = rootsXX |> Array.map fittingFunction
     
-    let diff = rootsXX.[1] - rootsXX.[0]
-    let min,max = rootsYY.[0], rootsYY.[1]
+//    let diff = rootsXX.[1] - rootsXX.[0]
+//    let min,max = rootsYY.[0], rootsYY.[1]
 
-    let doublingTime =
-        growthRate min max diff
-        |> doublingTime
+//    let doublingTime =
+//        growthRate min max diff
+//        |> doublingTime
 
-    doublingTime
+//    doublingTime
 
-calculateDoublingTime2 fittingFunction exmp_roots_XX
+//calculateDoublingTime2 fittingFunction exmp_roots_XX
 
-let fittedY = Array.zip [|0. .. 68.|] ([|0. .. 68.|] |> Array.map fittingFunction)
+//let fittedY = Array.zip [|0. .. 68.|] ([|0. .. 68.|] |> Array.map fittingFunction)
 
-let fittedLogisticFunc =
-    [
-    Chart.Point (exmp_x_Hours, exmp_y_Count)
-    |> Chart.withTraceName"Data Points"
-    Chart.Line fittedY
-    |> Chart.withTraceName "Fit"
-    ]
-    |> Chart.Combine
-    |> Chart.withY_AxisStyle "Cellcount"
-    |> Chart.withX_AxisStyle "Time"
-    |> Chart.Show
+//let fittedLogisticFunc =
+//    [
+//    Chart.Point (exmp_x_Hours, exmp_y_Count)
+//    |> Chart.withTraceName"Data Points"
+//    Chart.Line fittedY
+//    |> Chart.withTraceName "Fit"
+//    ]
+//    |> Chart.Combine
+//    |> Chart.withY_AxisStyle "Cellcount"
+//    |> Chart.withX_AxisStyle "Time"
+//    |> Chart.Show
