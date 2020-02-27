@@ -453,151 +453,151 @@ let calculateDoublingTime fittingFunction rootsXX =
 
     doublingTime
 
-let doublingTimeGr31To1 =
+//let doublingTimeGr31To1 =
 
-    ///use function (from print in LogistiFunction) to determine 3rd derivative. Use wolfram alpha to calculate roots
-    let functionGr31To1 x =
-        (18041000.000002 / (1. + exp(-0.130000 * (x - 33.875000)))) + 1659000.000000
-    let rootsXX = [| 23.745 ; 44.005 |]
+//    ///use function (from print in LogistiFunction) to determine 3rd derivative. Use wolfram alpha to calculate roots
+//    let functionGr31To1 x =
+//        (18041000.000002 / (1. + exp(-0.130000 * (x - 33.875000)))) + 1659000.000000
+//    let rootsXX = [| 23.745 ; 44.005 |]
 
-    calculateDoublingTime functionGr31To1 rootsXX
+//    calculateDoublingTime functionGr31To1 rootsXX
 
-let doublingTimeGr31To25 =
+//let doublingTimeGr31To25 =
     
-    ///use function to determine 3rd derivative. Use wolfram alpha to calculate roots
-    let functionGr31To25 x =
-        (18121613.566379 / (1. + exp(-0.068163 * (x - 90.084689)))) + 77108.046495
+//    ///use function to determine 3rd derivative. Use wolfram alpha to calculate roots
+//    let functionGr31To25 x =
+//        (18121613.566379 / (1. + exp(-0.068163 * (x - 90.084689)))) + 77108.046495
 
-    /// use rootsXX to calculate Y at roots.
-    let rootsXX = [| 70.764 ; 109.405 |]
+//    /// use rootsXX to calculate Y at roots.
+//    let rootsXX = [| 70.764 ; 109.405 |]
     
-    calculateDoublingTime functionGr31To25 rootsXX
+//    calculateDoublingTime functionGr31To25 rootsXX
 
-let doublingTimeGr31To50 =
+//let doublingTimeGr31To50 =
     
-    ///use function to determine 3rd derivative. Use wolfram alpha/or https://www.desmos.com/calculator/qszsndc8px to calculate roots
-    let functionGr31To50 x =
-        (18041000.000004 / (1. + exp(-0.090000 * (x - 80.875000)))) + 33180.000003
+//    ///use function to determine 3rd derivative. Use wolfram alpha/or https://www.desmos.com/calculator/qszsndc8px to calculate roots
+//    let functionGr31To50 x =
+//        (18041000.000004 / (1. + exp(-0.090000 * (x - 80.875000)))) + 33180.000003
 
-    /// use rootsXX to calculate Y at roots.
-    let rootsXX = [| 66.242 ; 95.508 |]
+//    /// use rootsXX to calculate Y at roots.
+//    let rootsXX = [| 66.242 ; 95.508 |]
 
-    calculateDoublingTime functionGr31To50 rootsXX
+//    calculateDoublingTime functionGr31To50 rootsXX
 
-let doublingTimeGr41To1 =
+//let doublingTimeGr41To1 =
     
-    ///use function to determine 3rd derivative. Use wolfram alpha to calculate roots
-    let functionGr41To1 x =
-        (18041000.000004 / (1. + exp(-0.090000 * (x - 80.875000)))) + 33180.000003
+//    ///use function to determine 3rd derivative. Use wolfram alpha to calculate roots
+//    let functionGr41To1 x =
+//        (18041000.000004 / (1. + exp(-0.090000 * (x - 80.875000)))) + 33180.000003
 
-    /// use rootsXX to calculate Y at roots.
-    let rootsXX = [| 22.995 ; 43.255 |]
-    calculateDoublingTime functionGr41To1 rootsXX
+//    /// use rootsXX to calculate Y at roots.
+//    let rootsXX = [| 22.995 ; 43.255 |]
+//    calculateDoublingTime functionGr41To1 rootsXX
 
-let doublingTimeGr41To25 =
+//let doublingTimeGr41To25 =
     
-    ///use function to determine 3rd derivative. Use wolfram alpha to calculate roots
-    let functionGr41To25 x =
-        (18041000.000004 / (1. + exp(-0.090000 * (x - 80.875000)))) + 33180.000003
+//    ///use function to determine 3rd derivative. Use wolfram alpha to calculate roots
+//    let functionGr41To25 x =
+//        (18041000.000004 / (1. + exp(-0.090000 * (x - 80.875000)))) + 33180.000003
 
-    /// use rootsXX to calculate Y at roots.
-    let rootsXX = [| 68.964 ; 102.445 |]
-    calculateDoublingTime functionGr41To25 rootsXX
+//    /// use rootsXX to calculate Y at roots.
+//    let rootsXX = [| 68.964 ; 102.445 |]
+//    calculateDoublingTime functionGr41To25 rootsXX
 
-let doublingTimeGr41To50 =
+//let doublingTimeGr41To50 =
     
-    ///use function to determine 3rd derivative. Use wolfram alpha to calculate roots
-    let functionGr41To50 x =
-        (17637849.446985 / (1. + exp(-0.089840 * (x - 84.165639)))) + 20536.724019
+//    ///use function to determine 3rd derivative. Use wolfram alpha to calculate roots
+//    let functionGr41To50 x =
+//        (17637849.446985 / (1. + exp(-0.089840 * (x - 84.165639)))) + 20536.724019
 
-    /// use rootsXX to calculate Y at roots.
-    let rootsXX = [| 68.507 ; 98.825 |]
-    calculateDoublingTime functionGr41To50 rootsXX
+//    /// use rootsXX to calculate Y at roots.
+//    let rootsXX = [| 68.507 ; 98.825 |]
+//    calculateDoublingTime functionGr41To50 rootsXX
 
-let doublingTimeChart = 
-    [
-        Chart.Column(seq["1:1";"1:25";"1:50"],seq[doublingTimeGr31To1;doublingTimeGr31To25;doublingTimeGr31To50],Name = "Gr3")
-            |> Chart.withMarkerStyle(Color = createHSL mainColorPeachFF6F61)
-        Chart.Column(seq["1:1";"1:25";"1:50"],seq[doublingTimeGr41To1;doublingTimeGr41To25;doublingTimeGr41To50], Name = "Gr4")
-            |> Chart.withMarkerStyle(Color = createHSL mainColorBlue92a8d1)
-    ] 
-    |> Chart.Combine
+//let doublingTimeChart = 
+//    [
+//        Chart.Column(seq["1:1";"1:25";"1:50"],seq[doublingTimeGr31To1;doublingTimeGr31To25;doublingTimeGr31To50],Name = "Gr3")
+//            |> Chart.withMarkerStyle(Color = createHSL mainColorPeachFF6F61)
+//        Chart.Column(seq["1:1";"1:25";"1:50"],seq[doublingTimeGr41To1;doublingTimeGr41To25;doublingTimeGr41To50], Name = "Gr4")
+//            |> Chart.withMarkerStyle(Color = createHSL mainColorBlue92a8d1)
+//    ] 
+//    |> Chart.Combine
 
 //let groupStr = "
 //Gr3 : <span style=\"color: #FF6F61\">red</span><br>
 //Gr4 : <span style=\"color: #92a8d1\">blue</span>
 //    "
 
-    //Gr 3
-let chartGr3Combined = [
-    showLogisticFunctionFit timePointsGr3 intensityPoints1To1Gr3 steepnessRange "1:1" mainColorPeachFF6F61
-    showTheoreticalLogisticFunctionFit 
-        timePointsGr3 
-        intensityPoints1To25Gr3 
-        steepnessRange
-        (intensityPoints1To1Gr3 |> Array.max)
-        ((timePointsGr3 |> Array.max) / 2. |> fun x -> x + 57. )
-        (intensityPoints1To25Gr3 |> Array.min)
-        "1:25"
-        mainColorBlue92a8d1
-    showTheoreticalLogisticFunctionFit
-        timePointsGr3
-        intensityPoints1To50Gr3
-        steepnessRange
-        (intensityPoints1To1Gr3 |> Array.max)
-        ((timePointsGr3 |> Array.max) / 2. |> fun x -> x + 47. )
-        (intensityPoints1To50Gr3 |> Array.min)
-        "1:50"
-        mainColorGreen88b04b
-]
+//    //Gr 3
+//let chartGr3Combined = [
+//    showLogisticFunctionFit timePointsGr3 intensityPoints1To1Gr3 steepnessRange "1:1" mainColorPeachFF6F61
+//    showTheoreticalLogisticFunctionFit 
+//        timePointsGr3 
+//        intensityPoints1To25Gr3 
+//        steepnessRange
+//        (intensityPoints1To1Gr3 |> Array.max)
+//        ((timePointsGr3 |> Array.max) / 2. |> fun x -> x + 57. )
+//        (intensityPoints1To25Gr3 |> Array.min)
+//        "1:25"
+//        mainColorBlue92a8d1
+//    showTheoreticalLogisticFunctionFit
+//        timePointsGr3
+//        intensityPoints1To50Gr3
+//        steepnessRange
+//        (intensityPoints1To1Gr3 |> Array.max)
+//        ((timePointsGr3 |> Array.max) / 2. |> fun x -> x + 47. )
+//        (intensityPoints1To50Gr3 |> Array.min)
+//        "1:50"
+//        mainColorGreen88b04b
+//]
 
-/// Gr 4
-let chartGr4Combined = [
-    showLogisticFunctionFit timePointsGr4 intensityPoints1To1Gr4 steepnessRange "1:1" mainColorPeachFF6F61
-    showTheoreticalLogisticFunctionFit 
-        timePointsGr4 
-        intensityPoints1To25Gr4 
-        steepnessRange
-        (intensityPoints1To1Gr4 |> Array.max)
-        ((timePointsGr4 |> Array.max) / 2. |> fun x -> x + 53. )
-        (intensityPoints1To25Gr4 |> Array.min)
-        "1:25"
-        mainColorBlue92a8d1
-    showTheoreticalLogisticFunctionFit
-        timePointsGr4
-        intensityPoints1To50Gr4
-        steepnessRange
-        (intensityPoints1To1Gr4 |> Array.max)
-        ((timePointsGr4 |> Array.max) / 2. |> fun x -> x + 51. )
-        (intensityPoints1To50Gr4 |> Array.min)
-        "1:50"
-        mainColorGreen88b04b
-]
+///// Gr 4
+//let chartGr4Combined = [
+//    showLogisticFunctionFit timePointsGr4 intensityPoints1To1Gr4 steepnessRange "1:1" mainColorPeachFF6F61
+//    showTheoreticalLogisticFunctionFit 
+//        timePointsGr4 
+//        intensityPoints1To25Gr4 
+//        steepnessRange
+//        (intensityPoints1To1Gr4 |> Array.max)
+//        ((timePointsGr4 |> Array.max) / 2. |> fun x -> x + 53. )
+//        (intensityPoints1To25Gr4 |> Array.min)
+//        "1:25"
+//        mainColorBlue92a8d1
+//    showTheoreticalLogisticFunctionFit
+//        timePointsGr4
+//        intensityPoints1To50Gr4
+//        steepnessRange
+//        (intensityPoints1To1Gr4 |> Array.max)
+//        ((timePointsGr4 |> Array.max) / 2. |> fun x -> x + 51. )
+//        (intensityPoints1To50Gr4 |> Array.min)
+//        "1:50"
+//        mainColorGreen88b04b
+//]
 
-doublingTimeChart
-|> Chart.withTitle("Doubling times for all cell cultures",Titlefont = (Font.init(Size = 30)))
-|> Chart.withX_Axis (xAxis "Relative Dilution to origin culture")
-|> Chart.withY_Axis (yAxis "doubling time [h]")
-|> Chart.withConfig chartConfig
-//|> Chart.Show
+//doublingTimeChart
+//|> Chart.withTitle("Doubling times for all cell cultures",Titlefont = (Font.init(Size = 30)))
+//|> Chart.withX_Axis (xAxis "Relative Dilution to origin culture")
+//|> Chart.withY_Axis (yAxis "doubling time [h]")
+//|> Chart.withConfig chartConfig
+////|> Chart.Show
 
-chartGr3Combined
-|> Chart.Combine
-|> Chart.withX_Axis (xAxis "time [hours]")
-|> Chart.withY_Axis (yAxis "number of cells")
-|> Chart.withTitle("Growth curve - Gr 3",Titlefont = (Font.init(Size = 30)))
-|> Chart.withSize (1200.,600.)
-|> Chart.withConfig chartConfig
-//|> Chart.Show
+//chartGr3Combined
+//|> Chart.Combine
+//|> Chart.withX_Axis (xAxis "time [hours]")
+//|> Chart.withY_Axis (yAxis "number of cells")
+//|> Chart.withTitle("Growth curve - Gr 3",Titlefont = (Font.init(Size = 30)))
+//|> Chart.withSize (1200.,600.)
+//|> Chart.withConfig chartConfig
+////|> Chart.Show
 
-chartGr4Combined
-|> Chart.Combine
-|> Chart.withX_Axis (xAxis "time [hours]")
-|> Chart.withY_Axis (yAxis "number of cells")
-|> Chart.withTitle("Growth curve - Gr 4",Titlefont = (Font.init(Size = 30)))
-|> Chart.withSize (1200.,600.)
-|> Chart.withConfig chartConfig
-//|> Chart.Show
+//chartGr4Combined
+//|> Chart.Combine
+//|> Chart.withX_Axis (xAxis "time [hours]")
+//|> Chart.withY_Axis (yAxis "number of cells")
+//|> Chart.withTitle("Growth curve - Gr 4",Titlefont = (Font.init(Size = 30)))
+//|> Chart.withSize (1200.,600.)
+//|> Chart.withConfig chartConfig
+////|> Chart.Show
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
