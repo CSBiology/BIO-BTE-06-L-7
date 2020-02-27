@@ -453,36 +453,36 @@ let calculateDoublingTime fittingFunction rootsXX =
 
     doublingTime
 
-//let doublingTimeGr31To1 =
+let doublingTimeGr31To1 =
 
-//    ///use function (from print in LogistiFunction) to determine 3rd derivative. Use wolfram alpha to calculate roots
-//    let functionGr31To1 x =
-//        (18041000.000002 / (1. + exp(-0.130000 * (x - 33.875000)))) + 1659000.000000
-//    let rootsXX = [| 23.745 ; 44.005 |]
+    ///use function (from print in LogistiFunction) to determine 3rd derivative. Use wolfram alpha to calculate roots
+    let functionGr31To1 x =
+        (18041000.000002 / (1. + exp(-0.130000 * (x - 33.875000)))) + 1659000.000000
+    let rootsXX = [| 23.745 ; 44.005 |]
 
-//    calculateDoublingTime functionGr31To1 rootsXX
+    calculateDoublingTime functionGr31To1 rootsXX
 
-//let doublingTimeGr31To25 =
+let doublingTimeGr31To25 =
     
-//    ///use function to determine 3rd derivative. Use wolfram alpha to calculate roots
-//    let functionGr31To25 x =
-//        (18121613.566379 / (1. + exp(-0.068163 * (x - 90.084689)))) + 77108.046495
+    ///use function to determine 3rd derivative. Use wolfram alpha to calculate roots
+    let functionGr31To25 x =
+        (18121613.566379 / (1. + exp(-0.068163 * (x - 90.084689)))) + 77108.046495
 
-//    /// use rootsXX to calculate Y at roots.
-//    let rootsXX = [| 70.764 ; 109.405 |]
+    /// use rootsXX to calculate Y at roots.
+    let rootsXX = [| 70.764 ; 109.405 |]
     
-//    calculateDoublingTime functionGr31To25 rootsXX
+    calculateDoublingTime functionGr31To25 rootsXX
 
-//let doublingTimeGr31To50 =
+let doublingTimeGr31To50 =
     
-//    ///use function to determine 3rd derivative. Use wolfram alpha/or https://www.desmos.com/calculator/qszsndc8px to calculate roots
-//    let functionGr31To50 x =
-//        (18041000.000004 / (1. + exp(-0.090000 * (x - 80.875000)))) + 33180.000003
+    ///use function to determine 3rd derivative. Use wolfram alpha/or https://www.desmos.com/calculator/qszsndc8px to calculate roots
+    let functionGr31To50 x =
+        (18041000.000004 / (1. + exp(-0.090000 * (x - 80.875000)))) + 33180.000003
 
-//    /// use rootsXX to calculate Y at roots.
-//    let rootsXX = [| 66.242 ; 95.508 |]
+    /// use rootsXX to calculate Y at roots.
+    let rootsXX = [| 66.242 ; 95.508 |]
 
-//    calculateDoublingTime functionGr31To50 rootsXX
+    calculateDoublingTime functionGr31To50 rootsXX
 
 //let doublingTimeGr41To1 =
     
