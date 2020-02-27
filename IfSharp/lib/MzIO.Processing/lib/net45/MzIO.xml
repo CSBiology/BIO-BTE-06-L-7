@@ -1,0 +1,1691 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>MzIO</name></assembly>
+<members>
+<member name="M:MSNumpressFSharp.Decode.decodeSlof(System.Byte[],System.Int32,System.Double[])">
+ <summary>
+ Decodes data encoded by encodeSlof.
+ "data" is the array of bytes to be decoded (need memorycont. repr.).
+ "dataSize" is the number of bytes in data to be decoded.
+ "result" is the array where resulting doubles should be stored.
+ Returns the number of decoded doubles.
+ </summary>
+ <remarks>
+ The result vector will be exactly (|data| - 8) / 2 doubles.
+ returns the number of doubles read, or -1 if there is a problem decoding.
+ </remarks>    
+</member>
+<member name="M:MSNumpressFSharp.Decode.decodePic(System.Byte[],System.Int32,System.Double[])">
+ <summary>
+ Decodes data encoded by encodePic.
+ "data" is the array of bytes to be decoded (need memorycont. repr.).
+ "dataSize" is the number of bytes in data to be decoded.
+ "result" is the array where resulting doubles should be stored.
+ Returns the number of decoded doubles.
+ </summary>
+ <remarks>
+ Result vector guaranteed to be shorter of equal to |data| * 2
+
+ Note that this method may throw a ArrayIndexOutOfBoundsException if it deems the input data to 
+ be corrupt, i.e. that the last encoded int does not use the last byte in the data. In addition 
+ the last encoded int needs to use either the last halfbyte, or the second last followed by a 
+ 0x0 halfbyte. 
+ </remarks>    
+</member>
+<member name="M:MSNumpressFSharp.Decode.decodeLinear(System.Byte[],System.Int32,System.Double[])">
+ <summary>
+ Decodes data using MS Numpress linear prediction compression.
+ "data" is the array of bytes to be decoded.
+ "dataSize" is the number of bytes in data to be decoded.
+ "result" is the array where the resulting doubles should be stored.
+ Returns the number of decoded doubles.
+ </summary>
+ <remarks>
+ Result vector guaranteed to be shorter or equal to (|data| - 8) * 2
+
+ Note that this method may throw a ArrayIndexOutOfBoundsException if it deems the input data to 
+ be corrupt, i.e. that the last encoded int does not use the last byte in the data. In addition 
+ the last encoded int need to use either the last halfbyte, or the second last followed by a 
+ 0x0 halfbyte. 
+ </remarks>    
+</member>
+<member name="M:MSNumpressFSharp.Encode.encodeSlof(System.Double[],System.Int32,System.Byte[],System.Double)">
+ <summary>
+ Encodes ion counts by taking the natural logarithm, and storing a fixed point representation of this.
+ "data" is the array of doubles to be encoded.
+ "dataSize" is the number of doubles in data to be encoded.
+ "result" is the array where resulting bytes should be stored.
+ "fixedPoint" is the the scaling factor used for getting the fixed point repr. This is stored in the binary and automatically extracted on decoding.
+ Returns the number of encoded bytes.
+ </summary>
+ <remarks>
+ Encodes ion counts by taking the natural logarithm, and storing a
+ fixed point representation of this. This is calculated as
+ 
+ unsigned short fp = log(d+1) * fixedPoint + 0.5
+
+ the result vector is exactly |data| * 2 + 8 bytes long
+ </remarks>    
+</member>
+<member name="M:MSNumpressFSharp.Encode.encodePic(System.Double[],System.Int32,System.Byte[])">
+ <summary>
+ Encodes ion counts by simply rounding to the nearest 4 byte integer, and compressing each integer with encodeInt.
+ "data" is the array of doubles to be encoded.
+ "dataSize" is the number of doubles in data to be encoded.
+ "result" is the array where resulting bytes should be stored.
+ Returns the number of encoded bytes.
+ </summary>
+ <remarks>
+ The handleable range is therefore 0 -> 4294967294.
+ The resulting binary is maximally dataSize * 5 bytes, but much less if the 
+ data is close to 0 on average.
+ </remarks>    
+</member>
+<member name="M:MSNumpressFSharp.Encode.encodeLinear(System.Double[],System.Int32,System.Byte[],System.Double)">
+ <summary>
+ Encodes data using MS Numpress linear prediction compression.
+ "data" is the array of doubles to be encoded.
+ "dataSize" is the number of doubles in data to be encoded.
+ "result" is the array where resulting bytes should be stored.
+ "fixedPoint" is the the scaling factor used for getting the fixed point representation.
+ This is stored in the binary and automatically extracted on decoding.
+ Returns the number of encoded bytes.
+ </summary>
+ <remarks>
+ Encodes the doubles in data by first using a 
+   - lossy conversion to a 4 byte 5 decimal fixed point repressentation
+   - storing the residuals from a linear prediction after first two values
+   - encoding by encodeInt (see above) 
+ 
+ The resulting binary is maximally 8 + dataSize * 5 bytes, but much less if the 
+ data is reasonably smooth on the first order.
+
+ This encoding is suitable for typical m/z or retention time binary arrays. 
+ On a test set, the encoding was empirically show to be accurate to at least 0.002 ppm.
+ </remarks>        
+</member>
+<member name="M:MSNumpressFSharp.Encode.optimalSlofFixedPoint(System.Double[],System.Int32)">
+<summary>
+Determines the optimal fixed point for the function encodeSlof depending on the data to encode.    
+</summary>
+</member>
+<member name="M:MSNumpressFSharp.Encode.optimalLinearFixedPoint(System.Double[],System.Int32)">
+<summary>
+Determines the optimal fixed point for the function encodeLinear depending on the data to encode.    
+</summary>
+</member>
+<member name="M:MSNumpressFSharp.helpers.decodeFixedPoint(System.Byte[])">
+<summary>
+Decodes the fixed Point which was encoded in the output byte array from the function encodeLinear.    ///Used in the function decodeLinear.
+</summary>
+</member>
+<member name="M:MSNumpressFSharp.helpers.encodeFixedPoint(System.Double,System.Byte[])">
+<summary>
+Encodes a given fixed point in the output byte array.
+Used in the function encodeLinear.    
+</summary>
+</member>
+<member name="M:MSNumpressFSharp.helpers.decodeInt(Microsoft.FSharp.Core.Unit,System.Byte[],System.Int32,System.Boolean)">
+<summary>
+ Decodes ints from the half bytes in bytes. Lossless reverse of encodeInt, although not symmetrical in input arguments.    
+</summary>
+</member>
+<member name="M:MSNumpressFSharp.helpers.encodeInt(System.Int64,System.Byte[],System.Int32)">
+ <summary>
+ This encoding works on a 4 byte integer, by truncating initial zeros or ones.
+ "x" is the int to be encoded.
+ "res" is the byte array were halfbytes are stored.
+ "resOffset" is the position in res were halfbytes are written.
+ The function returns the number of resulting halfbytes
+ </summary>
+ <remarks>
+ If the initial (most significant) half byte is 0x0 or 0xf, the number of such 
+ halfbytes starting from the most significant is stored in a halfbyte. This initial 
+ count is then followed by the rest of the ints halfbytes, in little-endian order. 
+ A count halfbyte c of
+ 
+ 		0 &lt;= c &lt;= 8 		is interpreted as an initial c 		0x0 halfbytes 
+ 		9 &lt;= c &lt;= 15		is interpreted as an initial (c-8) 	0xf halfbytes
+ 
+ Ex:
+ 	int		c		rest
+ 	0 	=> 	0x8
+ 	-1	=>	0xf		0xf
+ 	23	=>	0x6 	0x7	0x1
+ 
+ @x			the int to be encoded
+	@res		the byte array were halfbytes are stored
+	@resOffset	position in res were halfbytes are written
+	@return		the number of resulting halfbytes
+ </remarks>
+</member>
+<member name="M:NumpressHelper.NumpressEncodingHelpers.encodePIC(System.Double[])">
+<summary>
+This function takes an array of floats and returns a NumpressHelper containing the array of encoded bytes, number of encoded bytes and original data length.
+</summary>
+</member>
+<member name="M:MzIO.Model.ObservableCollection`1.Count">
+<summary>
+ Gets the amount of dynamic fields of this object.
+</summary>
+</member>
+<member name="T:MzIO.Model.ObservableCollection`1">
+<summary>
+ A class of an observable collection of dynamic objects that can be accessed by their embedded ids and which inherits the dynamic object class. 
+</summary>
+</member>
+<member name="M:MzIO.Model.ObservableModelItemCollection`1.Count">
+<summary>
+ Gets the amount of dynamic fields of this object.
+</summary>
+</member>
+<member name="T:MzIO.Model.ObservableModelItemCollection`1">
+<summary>
+ A class of an observable collection of model items that can be accessed by their embedded ids and which inherits the dynamic object class.     
+</summary>
+</member>
+<member name="T:MzIO.Model.NamedModelItem">
+<summary>
+ An abstract base class of a expansible description model item that can be referenced by an id and has an additional name.
+</summary>
+</member>
+<member name="T:MzIO.Model.ModelItem">
+<summary>
+ An abstract base class of a expansible description model item that can be referenced by an id.
+</summary>
+</member>
+<member name="T:MzIO.Model.ObservableNamedItemCollection`1">
+<summary>
+ Base class of an observable collection of items that can be accessed by name. 
+</summary>
+</member>
+<member name="T:MzIO.Model.NamedItem">
+<summary>
+ An abstract base class of expansible description items that can be identified a name.
+</summary>
+</member>
+<member name="T:MzIO.Model.SpectrumReference">
+<summary>
+ Expansible description of a spectrum reference which also contains a refernece to the source file.
+</summary>
+</member>
+<member name="T:MzIO.Model.Chromatogram">
+<summary>
+ Not implemented fully yet.
+</summary>
+</member>
+<member name="T:MzIO.Model.MassSpectrum">
+<summary>
+ The class to reference the spectrum specific metadata without actual peak data.
+ Captures the settings of the isolation windows, information about precursor- and product ions 
+ and references the source files.
+</summary>
+</member>
+<member name="T:MzIO.Model.ProductList">
+<summary>
+ The dynamic object container for all product ion isolations in the current spectrum.
+</summary>
+</member>
+<member name="T:MzIO.Model.Product">
+<summary>
+ The primary class to reference the method of product ion selection and activation in a precursor ion selection scan.
+</summary>
+</member>
+<member name="T:MzIO.Model.ScanList">
+<summary>
+ The dynamic object container for descriptions of all scans of the current spectrum.
+</summary>
+</member>
+<member name="T:MzIO.Model.Scan">
+<summary>
+ A class to reference the scan or acquisition from original raw file used to create this peak list, as specified in sourceFile. 
+</summary>
+</member>
+<member name="T:MzIO.Model.ScanWindowList">
+<summary>
+ The dynamic object container for all scanwindows of the current spectrum.
+</summary>
+</member>
+<member name="T:MzIO.Model.ScanWindow">
+<summary>
+ The primary class to reference the range of m/z values over which the instrument scans and aquires a spectrum. 
+</summary>
+</member>
+<member name="T:MzIO.Model.PrecursorList">
+<summary>
+ The dynamic object container for all precursor ion isolations in the current spectrum.
+</summary>
+</member>
+<member name="T:MzIO.Model.Precursor">
+<summary>
+ The primary class to reference the method of precursor ion selection and activation.
+</summary>
+</member>
+<member name="T:MzIO.Model.SelectedIonList">
+<summary>
+ The dynamic object container for all selected ions in the current spectrum.
+</summary>
+</member>
+<member name="T:MzIO.Model.SelectedIon">
+<summary>
+ The primary class to save the selected ions using controlled (cvParam) or uncontrolled vocabulary (userParam).
+</summary>
+</member>
+<member name="T:MzIO.Model.Activation">
+<summary>
+ The primary class to reference which type and energy level was used for activation.
+</summary>
+</member>
+<member name="T:MzIO.Model.IonSelectionMethod">
+<summary>
+ An abstract base class of a expansible description ion selection method that contains the dynamic object and has an additional isolationWindow.
+</summary>
+</member>
+<member name="T:MzIO.Model.IsolationWindow">
+<summary>
+ The primary class to reference which isolation window is defined. [PSI:MS]
+</summary>
+</member>
+<member name="T:MzIO.Model.PeakList">
+<summary>
+ An abstract base class of a expansible description model item that can be referenced by an id and has an additional dataProcessingReference.
+</summary>
+</member>
+<member name="T:MzIO.Model.SoftwareList">
+<summary>
+ The model item container for processing software.
+</summary>
+</member>
+<member name="T:MzIO.Model.Software">
+<summary>
+ Expansible description of a processing software.
+</summary>
+</member>
+<member name="T:MzIO.Model.SampleList">
+<summary>
+ The model item container for samples of this experiment.
+</summary>
+</member>
+<member name="T:MzIO.Model.Sample">
+<summary>
+ Expansible description of a sample.
+</summary>
+</member>
+<member name="T:MzIO.Model.SamplePreparationList">
+<summary>
+ The model item container for all sample preparations of this experiment.
+</summary>
+</member>
+<member name="T:MzIO.Model.SamplePreparation">
+<summary>
+ Expansible description of a sample preparation.
+</summary>
+</member>
+<member name="T:MzIO.Model.SampleTreatmentList">
+<summary>
+ The model item container for all sampletreatments of this experiment.
+</summary>
+</member>
+<member name="T:MzIO.Model.SampleTreatment">
+<summary>
+ Expansible description of a sample treatment.
+</summary>
+</member>
+<member name="T:MzIO.Model.SourceFileList">
+<summary>
+ The model item container for all source files of this experiment.
+</summary>
+</member>
+<member name="T:MzIO.Model.SourceFile">
+<summary>
+ Expansible description of a source file.
+</summary>
+</member>
+<member name="T:MzIO.Model.RunReference">
+<summary>
+Not implemented fully yet.
+</summary>
+</member>
+<member name="T:MzIO.Model.InstrumentList">
+<summary>
+ The model item container for all instrument configurations of this experiment.
+</summary>
+</member>
+<member name="T:MzIO.Model.Instrument">
+<summary>
+ Expansible description of the hardware configuration of a mass spectrometer.
+</summary>
+</member>
+<member name="T:MzIO.Model.ComponentList">
+<summary>
+ The container for all mass spectrometer components of this experiment.
+</summary>
+</member>
+<member name="T:MzIO.Model.DetectorComponent">
+<summary>
+ A detector component.
+</summary>
+</member>
+<member name="T:MzIO.Model.AnalyzerComponent">
+<summary>
+ A mass analyzer (or mass filter) component.
+</summary>
+</member>
+<member name="T:MzIO.Model.SourceComponent">
+<summary>
+ A source component.
+</summary>
+</member>
+<member name="T:MzIO.Model.Component">
+<summary>
+ Expansible description of a mass spectrometer component.
+</summary>
+</member>
+<member name="T:MzIO.Model.DataProcessingList">
+<summary>
+ The model item container for all data processings of this experiment.
+</summary>
+</member>
+<member name="T:MzIO.Model.DataProcessing">
+<summary>
+ Expansible description of a data processing.
+ Captures the processing steps applied and the use of data processing software.   
+</summary>
+</member>
+<member name="T:MzIO.Model.DataProcessingStepList">
+<summary>
+ The named item container for all data processing steps in the current spectrum.
+</summary>
+</member>
+<member name="T:MzIO.Model.DataProcessingStep">
+<summary>
+ Expansible description of a data processing step and use of processing software.
+</summary>
+</member>
+<member name="T:MzIO.Model.ProjectRunList">
+<summary>
+ The project item container for ms runs.
+ Not implemented fully yet.
+</summary>
+</member>
+<member name="T:MzIO.Model.RunList">
+<summary>
+ The model item container for all ms runs of this experiment.
+</summary>
+</member>
+<member name="T:MzIO.Model.ProjectRun">
+<summary>
+ Expansible description of a ms run in a project model.
+ Represents the entry point to the storage of peak lists that are result
+ of instrument scans or data processings.
+ Not implemented fully yet.
+</summary>
+</member>
+<member name="T:MzIO.Model.Run">
+<summary>
+ Expansible description of a ms run in a mz data model.
+ Represents the entry point to the storage of peak lists that are result
+ of instrument scans or data processings.
+</summary>
+</member>
+<member name="T:MzIO.Model.RunBase">
+<summary>
+ Base class of a ms run which is associated to a sample description.
+</summary>
+</member>
+<member name="T:MzIO.Model.FileDescription">
+<summary>
+ Information pertaining to the entire mzML file 
+ (i.e. not specific to any part of the data set) is stored here.
+</summary>
+</member>
+<member name="T:MzIO.Model.Contact">
+<summary>
+ The primary class to save the informations of a contact using controlled (cvParam) or uncontrolled vocabulary (userParam).
+</summary>
+</member>
+<member name="T:MzIO.Model.FileContent">
+<summary>
+ This summarizes the different types of spectra that can be expected in the file. 
+ This is expected to aid processing software in skipping files that do not contain appropriate spectrum types for it. 
+ It should also describe the nativeID format used in the file by referring to an appropriate CV term.
+</summary>
+</member>
+<member name="T:MzIO.Model.MzIOProject">
+<summary>
+ Not implemented fully yet.
+</summary>
+</member>
+<member name="T:MzIO.Model.MzIOModel">
+<summary>
+ Exposes the root class of the mz data model.
+ Captures the use of mass spectrometers, sample descriptions, the mz data generated 
+ and the processing of that data at the level of peak lists.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.op_DynamicAssignment``2(``0,System.String,``1)">
+<summary>
+ Static member method to set value associated with the name in given dynamic object.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.op_Dynamic``1(``0,System.String)">
+<summary>
+ Static member method to return value associated with the name in given dynamic object.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)">
+<summary>
+ Overrides existing object with one saved in the dynamic object, which is accesed by the property name.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.TryGetValue(System.String)">
+<summary>
+ Gets property value.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.TryGetTypedValue``1(System.String)">
+<summary>
+ Gets property value of specified type &apos;a.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.TryGetMember(System.Dynamic.GetMemberBinder,Microsoft.FSharp.Core.byref{System.Object,Microsoft.FSharp.Core.ByRefKinds.InOut})">
+<summary>
+ Overrides existing object with one saved in the dynamic object, which is accesed by the property name.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.TryGetItemByKey(System.String,System.Object)">
+<summary>
+ Method to return value associated with the name in given dynamic object.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.TryAdd``1(System.String,``0)">
+<summary>
+ Method to try add value  with name to dynamic object and return bool.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.SetValue``1(System.String,``0)">
+<summary>
+ Sets property value, creating a new property if none exists
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.SetItem``1(System.String,``0)">
+<summary>
+ Method to set value with name of dynamic object and notify about value change.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.Rename``1(``0,System.String,System.String)">
+<summary>
+ Method to set replace property name with new name of dynamic object and notify about replacement.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.RemoveItem(System.String)">
+<summary>
+ Method to remove value with name from dynamic object and notify about deletion.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.Remove(MzIO.Model.CvParam.DynamicObj,System.String)">
+<summary>
+ Static member method to remove value associated with the name in given dynamic object.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.Remove(System.String)">
+<summary>
+ Removes item from dynamic object when it existed.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.NotifyItemSet``1(System.String,``0)">
+<summary>
+ Method to notify that value of name has been set in dynamic object.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.NotifyItemRemoved(System.String)">
+<summary>
+ Method to notify that value of name has been removed from dynamic object.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.NotifyItemAdded``1(System.String,``0)">
+<summary>
+ Method to notify that value with name has been added to dynamic object.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.NotifyCollectionReset">
+<summary>
+ Method to notify that dynamic object has been reseted.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.InsertItem``1(System.String,``0)">
+<summary>
+ Method to add value  with name to dynamic object and notify about addition.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.GetValue(MzIO.Model.CvParam.DynamicObj,System.String)">
+<summary>
+ Static member method to return value associated with the name in given dynamic object.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.GetProperties(System.Boolean)">
+<summary>
+ Returns the properties of the dynamic object.
+ Classes which inherit the dynamic object and have fixed members can exclude the returning
+ of their fixed members by setting the includeInstanceProperties to false.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.GetDynamicMemberNames">
+<summary>
+ Return both instance and dynamic names.
+ Important to return both so JSON serialization with Json.NET works.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.Count">
+<summary>
+ Method to call amount of not fixed members of dynamic object.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.ClearItems">
+<summary>
+ Method to remove all values of dynamic object and notify about resetting dynamic object.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.AddUserParam``1(MzIO.Model.CvParam.UserParam{``0})">
+<summary>
+ Adds a user param with name as property name and user param as value (name is converted to fit property naming convention).
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.AddIParamBase``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Adds a cv or user param with id or name as property name and the object as value (id/name is converted to fit property naming convention).
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.AddCvParam``1(MzIO.Model.CvParam.CvParam{``0})">
+<summary>
+ Adds a cv param with id as property name and cv param as value (id is converted to fit property naming convention).
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.Add``1(System.String,``0)">
+<summary>
+ Method to add value  with name to dynamic object.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.DynamicObj.#ctor">
+
+</member>
+<member name="T:MzIO.Model.CvParam.DynamicObj">
+<summary>
+ Dynamic object with unspecic amount and typed fields, which can be added during runtime.
+ Access specific item with its property name.
+ Mainly used to save cv and user param.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.ParamBaseConverter.createParamValue(Newtonsoft.Json.Linq.JObject)">
+<summary>
+ Deserializes json string part that contains information about the value to object of type paramvalue&lt;IConvertible&gt;.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.ParamBaseConverter.createJsonValue(System.String)">
+<summary>
+ Serializes value of either cv or user param to json string.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.ParamBaseConverter.createJsonParam``1(System.Object)">
+<summary>
+ Serializes cv or user param to json string.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.ParamBaseConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)">
+<summary>
+ Serializes cv or user param to json string.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.ParamBaseConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)">
+<summary>
+ Deserializes json string to either cv or user param.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.ParamBaseConverter.CanConvert(System.Type)">
+<summary>
+ Not supported member application.
+</summary>
+</member>
+<member name="T:MzIO.Model.CvParam.ParamBaseConverter">
+<summary>
+ This class contains information of how cvparams and userparams shall be serialized and deserialized.
+</summary>
+</member>
+<member name="T:MzIO.Model.CvParam.UserParam`1">
+<summary>
+ This class contains additional data or annotation. Uncontrolled user parameters (essentially allowing free text). 
+</summary>
+</member>
+<member name="T:MzIO.Model.CvParam.CvParam`1">
+<summary>
+ This class contains additional data or annotation. Only controlled values are allowed here. 
+</summary>
+</member>
+<member name="T:MzIO.Model.CvParam.IParamBase`1">
+<summary>
+ An interface of a expansible description that can be referenced by an id and has an additional value of type ParamValue&lt;&apos;T&gt;.
+</summary>
+</member>
+<member name="T:MzIO.Model.CvParam.ParamValue`1">
+<summary>
+ A struct used to save either value and/or unit accession.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.tryGetCvUnitAccession``2(``0)">
+<summary>
+ Tries to return value.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.tryGetValue``2(``0)">
+<summary>
+ Tries to return value.
+</summary>
+</member>
+<member name="M:MzIO.Model.CvParam.getCvAccessionOrName``2(``0)">
+<summary>
+ Retrives accession of cv or name of user param.
+</summary>
+</member>
+<member name="M:MzIO.Model.ReflectionHelper.removeProperty(System.Object,System.String)">
+<summary>
+ Removes property 
+</summary>
+</member>
+<member name="M:MzIO.Model.ReflectionHelper.updatePropertyValueAndIgnore``1(System.Object,Microsoft.FSharp.Quotations.FSharpExpr,Microsoft.FSharp.Core.FSharpFunc{``0,``0})">
+<summary>
+ Updates property value by given function and returns unit.
+</summary>
+</member>
+<member name="M:MzIO.Model.ReflectionHelper.tryUpdatePropertyValue``1(System.Object,Microsoft.FSharp.Quotations.FSharpExpr,Microsoft.FSharp.Core.FSharpFunc{``0,``0})">
+<summary>
+ Updates property value by given function.
+</summary>
+</member>
+<member name="M:MzIO.Model.ReflectionHelper.tryUpdatePropertyValueFromName``1(System.Object,System.String,Microsoft.FSharp.Core.FSharpFunc{``0,``0})">
+<summary>
+ Updates property value by given function.
+</summary>
+</member>
+<member name="M:MzIO.Model.ReflectionHelper.tryGetPropertyValueAs``1(System.Object,System.String)">
+<summary>
+ Gets property value as &apos;a option using reflection. Cast to &apos;a.
+</summary>
+</member>
+<member name="M:MzIO.Model.ReflectionHelper.tryGetPropertyValue(System.Object,System.String)">
+<summary>
+ Gets property value as option using reflection.
+</summary>
+</member>
+<member name="M:MzIO.Model.ReflectionHelper.trySetPropertyValue(System.Object,System.String,System.Object)">
+<summary>
+ Sets property value using reflection.
+</summary>
+</member>
+<member name="M:MzIO.Model.ReflectionHelper.tryGetPropertyInfo(System.Object,System.String)">
+<summary>
+ Try to get the PropertyInfo by name using reflection.
+</summary>
+</member>
+<member name="M:MzIO.Model.ReflectionHelper.tryGetPropertyName(Microsoft.FSharp.Quotations.FSharpExpr)">
+<summary>
+ Returns the proptery name from quotation expression.
+</summary>
+</member>
+<member name="M:MzIO.Model.ReflectionHelper.optApply``1(Microsoft.FSharp.Core.FSharpOption{Microsoft.FSharp.Core.FSharpFunc{``0,``0}},``0)">
+<summary>
+ Applies Some &apos;applyStyle&apos; to item. If None it returns &apos;item&apos; unchanged.
+</summary>
+</member>
+<member name="M:MzIO.Model.ReflectionHelper.optBuildApply``1(Microsoft.FSharp.Core.FSharpFunc{``0,``0},Microsoft.FSharp.Core.FSharpOption{``0})">
+<summary>
+ Applies &apos;applyStyle&apos; to item option. If None it creates a new instance.
+</summary>
+</member>
+<member name="M:MzIO.Model.ReflectionHelper.buildApply``1(Microsoft.FSharp.Core.FSharpFunc{``0,``0})">
+<summary>
+ Creates an instance of the Object according to applyStyle and applies the function.
+</summary>
+</member>
+<member name="M:MzIO.Model.ReflectionHelper.getPublicProperties(System.Type)">
+<summary>
+ Gets public properties including interface propterties.
+</summary>
+</member>
+<member name="T:MzIO.Model.Helper">
+<summary>
+ A small module to expanse the use of dynamic object to add named and model items in a specific manner.
+</summary>
+</member>
+<member name="T:MzIO.Commons.Arrays.MzIOArray">
+<summary>
+ Contains methods to convert objects to arrays, lists and IMzIOArrays.
+</summary>
+</member>
+<member name="T:MzIO.Commons.Arrays.ListWrapper`1">
+<summary>
+ Wrap IMzIOArray as lists.
+</summary>
+</member>
+<member name="T:MzIO.Commons.Arrays.ArrayWrapper`1">
+<summary>
+ Wrap IMzIOArray as arrays.
+</summary>
+</member>
+<member name="T:MzIO.Commons.Arrays.IMzIOArray`1">
+<summary>
+ Defines a simple one dimensional interface for array-like data structures.
+</summary>
+</member>
+<member name="M:MzIO.Commons.Arrays.MzIOArrayModule.IMzIOArray`1.ToCLRArray``2(MzIO.Commons.Arrays.IMzIOArray{``0})">
+<summary>
+ Convert this IMzIOArray to array of type &apos;T.
+</summary>
+</member>
+<member name="M:MzIO.Commons.Arrays.MzIOArrayModule.IList`1.ToMzIOArray``2(System.Collections.Generic.IList{``0})">
+<summary>
+ Convert this list to IMzIOArray of type &apos;T.
+</summary>
+</member>
+<member name="M:MzIO.Commons.Arrays.MzIOArrayModule.[]`1.ToMzIOArray``2(``0[])">
+<summary>
+ Convert this array to IMzIOArray of type &apos;T.
+</summary>
+</member>
+<member name="T:MzIO.Commons.Arrays.MzIOArrayModule">
+<summary>
+ Contains methods to convert arrays and lists directly to IMzIOArrays.
+</summary>
+</member>
+<member name="T:MzIO.Binary.Peak2DArray">
+<summary>
+ Contains an array of 2D peaks and how to encode/decode those wehen writeing/reading into/from MzSQL.
+</summary>
+</member>
+<member name="T:MzIO.Binary.Peak1DArray">
+<summary>
+ Contains an array of 1D peaks and how to encode/decode those wehen writeing/reading into/from MzSQL.
+</summary>
+</member>
+<member name="T:MzIO.Binary.PeakArray`1">
+<summary>
+ An abstract base class of a expansible description peak array that contains intensity data type, compression data type and peaks.
+</summary>
+</member>
+<member name="T:MzIO.Binary.BinaryDataCompressionType">
+<summary>
+ Contains information about the different compression modes for intensity, m/z and retention time values that can be used to store them in the mzSQL data base.
+</summary>
+</member>
+<member name="T:MzIO.Binary.BinaryDataType">
+<summary>
+ Contains information about the different types for intensity, m/z and retention time values that can be used to store them in the mzSQL data base.
+</summary>
+</member>
+<member name="T:MzIO.Binary.Peak2D">
+<summary>
+ Contains the three dimensional information of a peak, consisting of one intensity and the corresponding m/z amd retention time value.
+</summary>
+</member>
+<member name="T:MzIO.Binary.Peak1D">
+<summary>
+ Contains the two dimensional information of a peak, consisting of one intensity and the corresponding m/z value.
+</summary>
+</member>
+<member name="T:MzIO.Binary.Peak">
+<summary>
+ An abstract base class of a expansible description peak that contains intensity.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataDecoder.ZLib2(System.IO.Stream,MzIO.Binary.Peak1DArray)">
+<summary>
+ Decompress bytes based on zlib decompression method and convert to Peak1DArray.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataDecoder.ZLib(System.IO.Stream,MzIO.Binary.Peak2DArray)">
+<summary>
+ Decompress bytes based on zlib decompression method and convert to Peak2DArray.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataDecoder.ZLib(System.IO.Stream,MzIO.Binary.Peak1DArray)">
+<summary>
+ Decompress bytes based on zlib decompression method and convert to Peak1DArray.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataDecoder.ReadValue(System.IO.BinaryReader,MzIO.Binary.BinaryDataType)">
+<summary>
+ Converts bytes into the given binary data type.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataDecoder.NumpressDeflate2D(System.IO.Stream,MzIO.Binary.Peak2DArray)">
+<summary>
+ Decompress bytes based on numpress and zlib decompression method and convert to Peak2DArray.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataDecoder.NumpressDeflate1D(System.IO.Stream,MzIO.Binary.Peak1DArray)">
+<summary>
+ Decompress bytes based on numpress and zlib decompression method and convert to Peak1DArray.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataDecoder.Numpress2D(System.IO.Stream,MzIO.Binary.Peak2DArray)">
+<summary>
+ Decompress bytes based on numpress decompression method and convert to Peak2DArray.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataDecoder.Numpress1D(System.IO.Stream,MzIO.Binary.Peak1DArray)">
+<summary>
+ Decompress bytes based on numpress decompression method and convert to Peak1DArray.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataDecoder.NoCompression(System.IO.Stream,MzIO.Binary.Peak2DArray)">
+<summary>
+ Converts bytes directly into Peak2DArray because they musn&apos;t be decompromissed.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataDecoder.NoCompression(System.IO.Stream,MzIO.Binary.Peak1DArray)">
+<summary>
+ Converts bytes directly into Peak1DArray because they musn&apos;t be decompromissed.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataDecoder.DeflateStreamDecompress(System.Byte[])">
+<summary>
+ Decompress stream and convert to new byte array.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataDecoder.Decode(MzIO.Binary.Peak2DArray,System.Byte[])">
+<summary>
+ Convert bytes to peaks and add to Peak2DArray.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataDecoder.Decode(System.IO.Stream,MzIO.Binary.Peak2DArray)">
+<summary>
+ Convert bytes to peaks and add to Peak2DArray.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataDecoder.Decode(MzIO.Binary.Peak1DArray,System.Byte[])">
+<summary>
+ Convert bytes to peaks and add to Peak1DArray.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataDecoder.Decode(System.IO.Stream,MzIO.Binary.Peak1DArray)">
+<summary>
+ Convert stream to peaks and add to Peak1DArray.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataDecoder.ByteToFloatArray(System.Byte[])">
+<summary>
+ Convert byte array to float array.
+</summary>
+</member>
+<member name="T:MzIO.Binary.BinaryDataDecoder">
+<summary>
+Contains methods to convert bytes into peak arrays.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.ZLib2(System.IO.Stream,MzIO.Binary.Peak1DArray)">
+<summary>
+ Compress Peak1DArray with zlib compression method.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.ZLib(System.IO.Stream,MzIO.Binary.Peak2DArray)">
+<summary>
+ Compress Peak2DArray with zlib compression method.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.ZLib(System.IO.Stream,MzIO.Binary.Peak1DArray)">
+<summary>
+ Compress Peak1DArray with zlib compression method.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.ZLib(System.IO.Stream,MzIO.Binary.BinaryDataType,System.Double[])">
+<summary>
+ Compress double array with zlib compression method.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.WriteValue(System.IO.BinaryWriter,MzIO.Binary.BinaryDataType,System.Double)">
+<summary>
+ Convert value to given byte format.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.NumpressPicCompression(System.IO.Stream,System.Double[])">
+<summary>
+ Compress double array based on numpress pic compression method.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.NumpressPicAndDeflateCompression(System.IO.Stream,System.Double[])">
+<summary>
+ Compress double array based on numpress pic and zlib compression method.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.NumpressLinCompression(System.IO.Stream,System.Double[])">
+<summary>
+ Compress double array based on numpress lin compression method.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.NumpressLinAndDeflateCompression(System.IO.Stream,System.Double[])">
+<summary>
+ Compress double array based on numpress lin and zlib compression method.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.NumpressDeflate(System.IO.Stream,MzIO.Binary.Peak2DArray)">
+<summary>
+ Compress intensity values with numpress pic, m/z and retention time values with numpress lin and afterwards all three with zlib compression method.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.NumpressDeflate(System.IO.Stream,MzIO.Binary.Peak1DArray)">
+<summary>
+ Compress intensity values with numpress pic and m/z values with numpress lin and afterwards both with zlib compression method.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.Numpress(System.IO.Stream,MzIO.Binary.Peak2DArray)">
+<summary>
+ Compress intensity values with numpress pic, m/z and retention time values with numpress lin compression method.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.Numpress(System.IO.Stream,MzIO.Binary.Peak1DArray)">
+<summary>
+ Compress intensity values with numpress pic and m/z values with numpress lin compression method.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.NoCompression(System.IO.Stream,MzIO.Binary.Peak2DArray)">
+<summary>
+ Convert Peak2DArray directly to bytes because it musn&apos;t be compressed.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.NoCompression(System.IO.Stream,MzIO.Binary.Peak1DArray)">
+<summary>
+ Convert Peak1DArray directly to bytes because it musn&apos;t be compressed.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.NoCompression(System.IO.Stream,MzIO.Binary.BinaryDataType,System.Double[])">
+<summary>
+ Convert doubles directly to bytes because they musn&apos;t be compressed.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.FloatToByteArray(System.Double[])">
+<summary>
+ Convert floats to bytes.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.EncodeBase64(System.Double[],MzIO.Binary.BinaryDataCompressionType,MzIO.Binary.BinaryDataType)">
+<summary>
+ Encode compression mode based on base64. 
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.Encode(MzIO.Binary.Peak2DArray)">
+<summary>
+ Compress and encode Peak2DArray based on the encoded methods.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.Encode(MzIO.Binary.Peak1DArray)">
+<summary>
+ Compress and encode Peak1DArray based on the encoded methods.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.DeflateStreamCompress(System.IO.MemoryStream)">
+<summary>
+ Compress stream based on zlib compression method.
+</summary>
+</member>
+<member name="M:MzIO.Binary.BinaryDataEncoder.DeflateStreamCompress(System.Byte[])">
+<summary>
+ Compress byte array based on zlib compression method.
+</summary>
+</member>
+<member name="T:MzIO.Binary.BinaryDataEncoder">
+<summary>
+ Contains methods to convert peak arrays into bytes.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.HasUnit`1.MzIO-MetaData-ParamEditExtension-IHasUnit`1-SetUnit(System.String)">
+<summary>
+ Sets a specific unit accession for the param.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.HasUnit`1.MzIO-MetaData-ParamEditExtension-IHasUnit`1-NoUnit">
+<summary>
+ Remove all unit accessions of a param.
+</summary>
+</member>
+<member name="T:MzIO.MetaData.ParamEditExtension.HasUnit`1">
+<summary>
+ Contains functions to change unit of cv or user param that was used to init the type.
+</summary>
+</member>
+<member name="T:MzIO.MetaData.ParamEditExtension.IHasUnit`1">
+<summary>
+ Interface of a class to manipulate the unit of a cv or user param.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetDouble``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value as double or fails.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetSingle``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value as single or fails.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetInt64``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value as int64 or fails.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetInt32``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value as int32 or fails.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetChar``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value as char or fails.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetByte``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value as byte or fails.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetBoolean``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value as bool or fails.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetString``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value as string or fails.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetSingleOrDefault``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value as a single or default value for single.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetInt64OrDefault``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value as a int64 or default value for int64.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetInt32OrDefault``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value as a int32 or default value for int32.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetDoubleOrDefault``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value as a double or default value for double.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetCharOrDefault``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value as a char or default value for char.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetByteOrDefault``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value as a byte or default value for byte.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetBooleanOrDefault``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value as a bool or default value for bool.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetStringOrDefault``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value as a string or default value for string.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.GetValueOrDefault``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Returns value and if it has no value returns a default value, depending on the type of the value.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.HasUnit``1(MzIO.Model.CvParam.IParamBase{``0},System.String)">
+<summary>
+ Checks whether it has a specific unit or not.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.HasUnit``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Checks whether it has a unit or not.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.IParamBase`1.HasValue``1(MzIO.Model.CvParam.IParamBase{``0})">
+<summary>
+ Checks whether it has value or not.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.DynamicObj.TryGetParam(MzIO.Model.CvParam.DynamicObj,System.String)">
+<summary>
+ Has functionality to get cv or user param.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.DynamicObj.HasUserParam(MzIO.Model.CvParam.DynamicObj,System.String)">
+<summary>
+ Checks whether user param with given accession exists in dynamic object or not.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.DynamicObj.SetUserParam(MzIO.Model.CvParam.DynamicObj,System.String)">
+<summary>
+ Set value of existing user param without value in dynamic object or add it if it doesn&apos;t exist already.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.DynamicObj.SetUserParam(MzIO.Model.CvParam.DynamicObj,System.String,System.IConvertible)">
+<summary>
+ Set value of existing user param in dynamic object or add it if it doesn&apos;t exist already.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.DynamicObj.HasCvParam(MzIO.Model.CvParam.DynamicObj,System.String)">
+<summary>
+ Checks whether cv param with given accession exists in dynamic object or not.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.DynamicObj.SetCvParam(MzIO.Model.CvParam.DynamicObj,System.String)">
+<summary>
+ Set value of existing cv param without value in dynamic object or add it if it doesn&apos;t exist already.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.ParamEditExtension.DynamicObj.SetCvParam(MzIO.Model.CvParam.DynamicObj,System.String,System.IConvertible)">
+<summary>
+ Set value of existing cv param in dynamic object or add it if it doesn&apos;t exist already.
+</summary>
+</member>
+<member name="T:MzIO.MetaData.ParamEditExtension">
+<summary>
+ Contains classes with methods to edit params.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.UO.UO.IHasUnit`1.UO_Minute``1(MzIO.MetaData.ParamEditExtension.IHasUnit{``0})">
+<summary>
+Time units
+</summary>
+</member>
+<member name="M:MzIO.MetaData.UO.UO.IHasUnit`1.UO_Second``1(MzIO.MetaData.ParamEditExtension.IHasUnit{``0})">
+<summary>
+Time units
+</summary>
+</member>
+<member name="M:MzIO.MetaData.UO.UO.IHasUnit`1.UO_Electronvolt``1(MzIO.MetaData.ParamEditExtension.IHasUnit{``0})">
+<summary>
+Energy units
+</summary>
+</member>
+<member name="M:MzIO.MetaData.UO.UO.IHasUnit`1.UO_Dalton``1(MzIO.MetaData.ParamEditExtension.IHasUnit{``0})">
+<summary>
+Mass units
+</summary>
+</member>
+<member name="M:MzIO.MetaData.UO.UO.IHasUnit`1.UO_GramPerLiter``1(MzIO.MetaData.ParamEditExtension.IHasUnit{``0})">
+<summary>
+Concentration units
+</summary>
+</member>
+<member name="M:MzIO.MetaData.UO.UO.IHasUnit`1.UO_Liter``1(MzIO.MetaData.ParamEditExtension.IHasUnit{``0})">
+<summary>
+Volumn units
+</summary>
+</member>
+<member name="T:MzIO.MetaData.UO.UO">
+<summary>
+ Contains methods to set unit to specific values.
+</summary>
+</member>
+<member name="T:MzIO.MetaData.PSIMSExtension.PSIMS_Scan">
+<summary>
+Contains the accessions for different params important for scan defintions.
+</summary>
+</member>
+<member name="T:MzIO.MetaData.PSIMSExtension.PSIMS_Precursor">
+<summary>
+Contains the accessions for different params important for precursor defintions.
+</summary>
+</member>
+<member name="T:MzIO.MetaData.PSIMSExtension.PSIMS_IsolationWindow">
+<summary>
+Contains the accessions for different params important for isolation window defintions.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.SetBinaryDataType(MzIO.Model.CvParam.DynamicObj,MzIO.Binary.BinaryDataType)">
+<summary>
+ Set bianry data type of dynamic object.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.Set32BitInteger(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Check wheter the dnymic object contains a cv param with specific accession or not.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.Set32BitInteger(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Signed 32-bit little-endian integer. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.Is64BitInteger(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Check wheter the dnymic object contains a cv param with specific accession or not.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.Set64BitInteger(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Signed 64-bit little-endian integer. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.Is32BitFloat(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Check wheter the dnymic object contains a cv param with specific accession or not.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.Set32BitFloat(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ 32-bit precision little-endian floating point conforming to IEEE-754. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.Is64BitFloat(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Check wheter the dnymic object contains a cv param with specific accession or not.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.Set64BitFloat(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ 64-bit precision little-endian floating point conforming to IEEE-754. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.SetCompression(MzIO.Model.CvParam.DynamicObj,MzIO.Binary.BinaryDataCompressionType)">
+<summary>
+ Set compression type of dynamic object.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.SetNumpressZLibCompression(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Compression using both numpress compressions and zlib compression. [https://github.com/fickludd/ms-numpress]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.SetNumpressCompression(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Compression using both numpress compressions. [https://github.com/fickludd/ms-numpress]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.SetMSNumpressShortLoggedFloatCompression(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Compression using MS-Numpress short logged float compression. [https://github.com/fickludd/ms-numpress]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.SetMSNumpressPositiveIntegerCompression(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Compression using MS-Numpress positive integer compression. [https://github.com/fickludd/ms-numpress]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.SetMSNumpressLinearPredictionCompression(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Compression using MS-Numpress linear prediction compression. [https://github.com/fickludd/ms-numpress]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.IsZlibCompression(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Check wheter the dnymic object contains a cv param with specific accession or not.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.SetZlibCompression(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Zlib (gzip) Compression. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.IsNoCompression(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Check wheter the dnymic object contains a cv param with specific accession or not.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.SetNoCompression(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ No Compression. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.IsTimeArray(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Check wheter the dnymic object contains a cv param with specific accession or not.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.MS_TimeArray(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ A data array of relative time offset values from a reference time. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.IsIntensityArray(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Check wheter the dnymic object contains a cv param with specific accession or not.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.SetIntensityArray(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ A data array of intensity values. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.IsMzArray(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ Check wheter the dnymic object contains a cv param with specific accession or not.
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.DynamicObj.SetMzArray(MzIO.Model.CvParam.DynamicObj)">
+<summary>
+ A data array of m/z values. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.Scan.TryGetFilterString(MzIO.Model.Scan,Microsoft.FSharp.Core.byref{System.String,Microsoft.FSharp.Core.ByRefKinds.InOut})">
+<summary>
+ A string unique to Thermo instrument describing instrument settings for the scan. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.Scan.SetFilterString(MzIO.Model.Scan,System.String)">
+<summary>
+ A string unique to Thermo instrument describing instrument settings for the scan. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.Scan.TryGetScanStartTime(MzIO.Model.Scan,Microsoft.FSharp.Core.byref{System.Double,Microsoft.FSharp.Core.ByRefKinds.InOut})">
+<summary>
+ The time that an analyzer started a scan, relative to the start of the MS run. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.Scan.SetScanStartTime(MzIO.Model.Scan,System.Double)">
+<summary>
+ The time that an analyzer started a scan, relative to the start of the MS run. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.Activation.SetCollisionEnergy(MzIO.Model.Activation,System.Double)">
+<summary>
+ Energy for an ion experiencing collision with a stationary gas particle resulting in dissociation of the ion. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.SelectedIon.SetChargeState(MzIO.Model.SelectedIon,System.Int32)">
+<summary>
+ The charge state of the ion, single or multiple and positive or negatively charged. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.SelectedIon.TryGetSelectedIonMz(MzIO.Model.SelectedIon,Microsoft.FSharp.Core.byref{System.Double,Microsoft.FSharp.Core.ByRefKinds.InOut})">
+<summary>
+ Mass-to-charge ratio of a precursor ion selected for fragmentation. [PSI:PI]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.SelectedIon.SetSelectedIonMz(MzIO.Model.SelectedIon,System.Double)">
+<summary>
+ Mass-to-charge ratio of a precursor ion selected for fragmentation. [PSI:PI]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.IsolationWindow.TryGetIsolationWindowUpperOffset(MzIO.Model.IsolationWindow,Microsoft.FSharp.Core.byref{System.Double,Microsoft.FSharp.Core.ByRefKinds.InOut})">
+<summary>
+ The extent of the isolation window in m/z above the isolation window target m/z.
+ The lower and upper offsets may be asymmetric about the target m/z. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.IsolationWindow.SetIsolationWindowUpperOffset(MzIO.Model.IsolationWindow,System.Double)">
+<summary>
+ The extent of the isolation window in m/z above the isolation window target m/z.
+ The lower and upper offsets may be asymmetric about the target m/z. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.IsolationWindow.TryGetIsolationWindowLowerOffset(MzIO.Model.IsolationWindow,Microsoft.FSharp.Core.byref{System.Double,Microsoft.FSharp.Core.ByRefKinds.InOut})">
+<summary>
+ The extent of the isolation window in m/z below the isolation window target m/z.
+ The lower and upper offsets may be asymmetric about the target m/z. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.IsolationWindow.SetIsolationWindowLowerOffset(MzIO.Model.IsolationWindow,System.Double)">
+<summary>
+ The extent of the isolation window in m/z below the isolation window target m/z.
+ The lower and upper offsets may be asymmetric about the target m/z. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.IsolationWindow.TryGetIsolationWindowTargetMz(MzIO.Model.IsolationWindow,Microsoft.FSharp.Core.byref{System.Double,Microsoft.FSharp.Core.ByRefKinds.InOut})">
+<summary>
+ The primary or reference m/z about which the isolation window is defined. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.IsolationWindow.SetIsolationWindowTargetMz(MzIO.Model.IsolationWindow,System.Double)">
+<summary>
+ The primary or reference m/z about which the isolation window is defined. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.MassSpectrum.IsProfileSpectrum(MzIO.Model.MassSpectrum)">
+<summary>
+ A profile mass spectrum is created when data is recorded with ion current (counts per second)
+ on one axis and mass/charge ratio on another axis. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.MassSpectrum.SetProfileSpectrum(MzIO.Model.MassSpectrum)">
+<summary>
+ A profile mass spectrum is created when data is recorded with ion current (counts per second)
+ on one axis and mass/charge ratio on another axis. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.MassSpectrum.IsCentroidSpectrum(MzIO.Model.MassSpectrum)">
+<summary>
+ Processing of profile data to produce spectra that contains discrete peaks of zero width.
+ Often used to reduce the size of dataset. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.MassSpectrum.SetCentroidSpectrum(MzIO.Model.MassSpectrum)">
+<summary>
+ Processing of profile data to produce spectra that contains discrete peaks of zero width.
+ Often used to reduce the size of dataset. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.MassSpectrum.TryGetMsLevel(MzIO.Model.MassSpectrum,Microsoft.FSharp.Core.byref{System.Int32,Microsoft.FSharp.Core.ByRefKinds.InOut})">
+<summary>
+ Stages of ms achieved in a multi stage mass spectrometry experiment. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.MassSpectrum.SetMsLevel(MzIO.Model.MassSpectrum,System.Int32)">
+<summary>
+ Stages of ms achieved in a multi stage mass spectrometry experiment. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.MassSpectrum.IsMSnSpectrum(MzIO.Model.MassSpectrum)">
+<summary>
+ MSn refers to multi-stage MS2 experiments designed to record product ion spectra
+ where n is the number of product ion stages (progeny ions).
+ For ion traps, sequential MS/MS experiments can be undertaken where n &gt; 2
+ whereas for a simple triple quadrupole system n=2. Use the term ms level (MS:1000511)
+ for specifying n. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.MassSpectrum.SetMSnSpectrum(MzIO.Model.MassSpectrum)">
+<summary>
+ MSn refers to multi-stage MS2 experiments designed to record product ion spectra
+ where n is the number of product ion stages (progeny ions).
+ For ion traps, sequential MS/MS experiments can be undertaken where n &gt; 2
+ whereas for a simple triple quadrupole system n=2. Use the term ms level (MS:1000511)
+ for specifying n. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.MassSpectrum.IsMS1Spectrum(MzIO.Model.MassSpectrum)">
+<summary>
+ Mass spectrum created by a single-stage MS experiment
+ or the first stage of a multi-stage experiment. [PSI:MS]
+</summary>
+</member>
+<member name="M:MzIO.MetaData.PSIMSExtension.MassSpectrum.SetMS1Spectrum(MzIO.Model.MassSpectrum)">
+<summary>
+ Mass spectrum created by a single-stage MS experiment
+ or the first stage of a multi-stage experiment. [PSI:MS]
+</summary>
+</member>
+<member name="T:MzIO.IO.MzIOIOException">
+<summary>
+ Contains MzIO specific exceptions.
+</summary>
+</member>
+<member name="T:MzIO.IO.ITransactionScope">
+<summary>
+ Basic interface for the different readers to share basic functions.
+</summary>
+</member>
+<member name="T:MzIO.IO.IMzIOIO">
+<summary>
+Interface for the readers and writers to share a set of basic functions that are associated with the MzIOModel.
+</summary>
+</member>
+<member name="T:MzIO.IO.IMzIODataReader">
+<summary>
+Interface for the readers to share a set of basic functions that are associated with reading spectra and peak arrays.
+</summary>
+</member>
+<member name="T:MzIO.IO.IMzIODataWriter">
+<summary>
+Interface for the writers to share a set of basic functions that are associated with writing spectra and peak arrays.
+</summary>
+</member>
+<member name="M:MzIO.Json.ParamBaseConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)">
+<summary>
+This function takes a JSOn writer, an object and a JSON serializer. It returns the JSON representation of the object.
+</summary>
+</member>
+<member name="M:MzIO.Json.ParamBaseConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)">
+<summary>
+This function takes a JSON reader, an object type, the JSON representation of an object and a JSON serializer. It returns an object, which is read from the JSON representation.
+</summary>
+</member>
+<member name="M:MzIO.Json.ParamBaseConverter.CanConvert(System.Type)">
+<summary>
+This function takes an object type and returns a boolean. The boolean indicates whether this instance can convert the specified object type.
+</summary>
+</member>
+<member name="P:MzIO.Json.MzIOJson.jsonSettings">
+<summary>
+ Containssettings specified for MzIO requirements of the JSON converter.
+ Serializes loop references
+Preserves references when serializing into JSON object strucutre
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeSourceFile(System.String)">
+<summary>
+ Deserializes JSON string to fileDescription.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeSoftwares(MzIO.Model.SoftwareList)">
+<summary>
+ Deserializes JSON string to software list.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeSelectedIons(MzIO.Model.Precursor)">
+<summary>
+ Deserializes JSON string to precursor list.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeScans(MzIO.Model.ScanList)">
+<summary>
+ Deserializes JSON string to scan list.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeScanWindowList(MzIO.Model.ScanWindowList)">
+<summary>
+ Deserialize JSON string to scan.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeScan(System.String)">
+<summary>
+ Deserialize JSON string to scan.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeSamples(MzIO.Model.SampleList)">
+<summary>
+ Deserializes JSON string to sample list.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeSample(System.String)">
+<summary>
+ Deserializes JSON string to sample.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeRuns(MzIO.Model.RunList)">
+<summary>
+ Deserializes JSON string to run list.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeProducts(MzIO.Model.ProductList)">
+<summary>
+ Deserializes JSON string to product list.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializePrecursors(MzIO.Model.PrecursorList)">
+<summary>
+ Deserializes JSON string to precursor list.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeParams``1(``0)">
+<summary>
+ Deserializes JSON string to either cv or user param.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeMzIOModel(System.String)">
+<summary>
+ Deserializes JSON string to mzio model.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeMassSpectrum(System.String)">
+<summary>
+ Deserializes JSON string to spectrum.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeInstruments(MzIO.Model.InstrumentList)">
+<summary>
+ Deserializes JSON string to instrument list.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeFileDescription(MzIO.Model.FileDescription)">
+<summary>
+ Deserializes JSON string to fileDescription.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeDataProcessings(MzIO.Model.DataProcessingList)">
+<summary>
+ Deserializes JSON string to data processing list.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.deSerializeContact(MzIO.Model.Contact)">
+<summary>
+ Deserializes JSON string to fileDescription.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.ToJson(System.Object)">
+<summary>
+ Serializes object to JSON string.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.SaveMzIOModel(MzIO.Model.MzIOModel,System.String)">
+<summary>
+ Creates or overwrites existing JSON file at location.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.SaveJsonFile(System.Object,System.String)">
+<summary>
+ Creates or overwrites existing JSON file at location.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.ReadJsonFile``1(System.String)">
+<summary>
+ Deserializes JSON string at location to type &apos;T.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.MassSpectrumToJson(MzIO.Model.MassSpectrum)">
+<summary>
+ Serializes object to JSON string.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.HandleExternalModelFile(MzIO.IO.IMzIOIO,System.String)">
+<summary>
+ Checks if shadow file of MzIOModel already exists at location or not.
+ If not, then creates a new one, else deserializes existing model.
+</summary>
+</member>
+<member name="M:MzIO.Json.MzIOJson.FromJson``1(System.String)">
+<summary>
+ Deserializes JSON string to desired object of type &apos;T.
+</summary>
+</member>
+<member name="T:MzIO.Json.MzIOJson">
+<summary>
+ Contains MzIO specific Json settings and deserialize and serialize functions.
+</summary>
+</member>
+</members>
+</doc>

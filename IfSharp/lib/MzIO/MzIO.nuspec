@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>MzIO</id>
+    <version>0.0.9.10</version>
+    <title>MzIO</title>
+    <authors>Patrick Blume, Jonathan Ott</authors>
+    <owners>Timo Muehlhaus</owners>
+    <licenseUrl>https://github.com/CSBiology/MzIO/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/CSBiology/MzIO</projectUrl>
+    <iconUrl>https://github.com/CSBiology/MzIO/blob/master/docsrc/files/img/logo.png</iconUrl>
+    <description>F# port of MzIO</description>
+    <summary>F# port of MzIO</summary>
+    <releaseNotes>Fix a case where parameters were not saved correctly in the Isolation Window</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <language>F#</language>
+    <tags>F# MassSpectrometry FSharp MzIO MzMl BigData</tags>
+    <dependencies>
+      <dependency id="EntityFramework" version="0.0" />
+      <dependency id="FSharp.Core" version="[4.5.2]" />
+      <dependency id="Newtonsoft.Json" version="0.0" />
+      <dependency id="System.Xml.Linq" version="0.0" />
+    </dependencies>
+  </metadata>
+</package>
