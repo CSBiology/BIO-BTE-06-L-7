@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>System.Xml.Linq</id>
+    <version>3.5.21022.801</version>
+    <title>System.Xml.Linq.dll</title>
+    <authors>Mono development team</authors>
+    <owners>Mono development team</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>System.Xml.Linq.dll</description>
+    <releaseNotes>mini mono port to enhance .net 2.0</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <dependencies />
+  </metadata>
+</package>

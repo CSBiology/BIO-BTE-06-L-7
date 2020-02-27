@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>QConQuantifier</name></assembly>
+<members>
+<member name="P:QConQuantifier.Parameters.DTO.QConQuantifierParams.NTerminalSeries">
+
+</member>
+<member name="P:QConQuantifier.Parameters.DTO.QConQuantifierParams.MzWindow_Da">
+<summary>
+ Xic mz window
+</summary>
+</member>
+<member name="P:QConQuantifier.Parameters.DTO.QConQuantifierParams.ScanTimeWindow">
+<summary>
+ Xic time window
+</summary>
+</member>
+<member name="P:QConQuantifier.Parameters.Domain.QConQuantifierParams.EstimateLabelEfficiency">
+
+</member>
+<member name="P:QConQuantifier.Parameters.Domain.QConQuantifierParams.NTerminalSeries">
+
+</member>
+<member name="P:QConQuantifier.Parameters.Domain.QConQuantifierParams.MzWindow_Da">
+<summary>
+ Xic mz window
+</summary>
+</member>
+<member name="P:QConQuantifier.Parameters.Domain.QConQuantifierParams.ScanTimeWindow">
+<summary>
+ Xic time window
+</summary>
+</member>
+<member name="M:QConQuantifier.IO.XIC.initGetXIC(MzIO.IO.IMzIODataReader,MzIO.Commons.Arrays.IMzIOArray{MzIO.Processing.MzIOLinq.RtIndexEntry},System.Double,System.Double,System.Double,System.Double)">
+<summary>
+ Returns a XIC from a file (reader). A retention time index (rtIdx) has to be created beforhand. 
+ given rt and mz values along with their offsets this function will internally create Query items.
+</summary>
+</member>
+<member name="M:QConQuantifier.IO.XIC.getRetentionTimeIdx(MzIO.IO.IMzIODataReader)">
+<summary>
+ Creates an retention time (scan time) index. This data structure preserves the order of all ms1s to facilitate a fast XIC extraction.
+</summary>
+</member>
+<member name="M:QConQuantifier.IO.MassSpectrum.getPeaks(MzIO.IO.IMzIODataReader,MzIO.Model.MassSpectrum)">
+<summary>
+ Returns a Peak array containing all peaks of a given mass spectrum.
+</summary>
+</member>
+<member name="M:QConQuantifier.IO.Reader.getMassSpectra(MzIO.IO.IMzIODataReader)">
+<summary>
+ Returns all mass spectra present in a mzLite file. 
+</summary>
+</member>
+<member name="M:QConQuantifier.IO.Reader.createReader(System.String)">
+<summary>
+ Creates an mzLite reader. This object is used to access data stored in the mzLite format.
+</summary>
+</member>
+<member name="M:QConQuantifier.Stats.weightedMean(System.Collections.Generic.IEnumerable{System.Double},System.Collections.Generic.IEnumerable{System.Double})">
+<summary>
+ Returns the weighted mean of the values in the items sequence. 
+ The contribution of each item is given by the weight assigned in the sequence weights. 
+</summary>
+</member>
+<member name="T:QConQuantifier.PeptideLookUp.QConcatPeptide">
+
+</member>
+<member name="M:QConQuantifier.PeptideLookUp.initIsValidMz(QConQuantifier.Parameters.Domain.QConQuantifierParams,System.Collections.Generic.IEnumerable{QConQuantifier.PeptideLookUp.QConcatPeptide})">
+<summary>
+ Returns a function that evaluates if a given precursorMz is theoretically mapping to an ion originating from a QConcat peptide.
+</summary>
+</member>
+<member name="M:QConQuantifier.PeptideLookUp.initSelectModPeptideByMassRange(QConQuantifier.Parameters.Domain.QConQuantifierParams,System.Data.SQLite.SQLiteConnection)">
+<summary>
+ Returns a function that returns all peptides that lie within the range of value1 and value2.
+</summary>
+</member>
+<member name="M:QConQuantifier.PeptideLookUp.copyDBIntoMemory(System.Data.SQLite.SQLiteConnection)">
+<summary>
+ Creates a in-memory copy of the peptide data base. This speeds up the peptide look up.
+</summary>
+</member>
+<member name="M:QConQuantifier.PeptideLookUp.initSelectQConcatPeptideByProtAccession(System.Data.SQLite.SQLiteConnection)">
+<summary>
+ Prepares statement to select a ModSequence entry by Mass
+</summary>
+</member>
+<member name="M:QConQuantifier.PeptideLookUp.dbLookUpCn(QConQuantifier.Parameters.Domain.QConQuantifierParams)">
+<summary>
+ Creates connection to local peptide data base. If no data base is present this command will create a new data base.
+</summary>
+</member>
+<member name="M:QConQuantifier.PeptideLookUp.peptideDBParamsOf(QConQuantifier.Parameters.Domain.QConQuantifierParams)">
+<summary>
+ Extracts Params for data base creation from QConcatParams.
+</summary>
+</member>
+<member name="M:QConQuantifier.PeptideLookUp.createQConcatPeptide(System.String,System.String,System.Double,System.Int32,System.Int32)">
+
+</member>
+<member name="M:QConQuantifier.Identification.thresholdPSMs(QConQuantifier.Parameters.Domain.QConQuantifierParams,Microsoft.FSharp.Collections.FSharpList{BioFSharp.Mz.SearchEngineResult.SearchEngineResult{System.Double}})">
+<summary>
+ Filters PSMs according to the PSMThresholding case definded in qConQuantParams.
+</summary>
+</member>
+<member name="M:QConQuantifier.Identification.filterPSMsByScore(System.Double,Microsoft.FSharp.Collections.FSharpList{BioFSharp.Mz.SearchEngineResult.SearchEngineResult{System.Double}})">
+<summary>
+ Uses an arbitrary SequestScore threshold to filter PSMs.
+</summary>
+</member>
+<member name="M:QConQuantifier.Identification.filterPSMsByPepValue(System.Double,Microsoft.FSharp.Collections.FSharpList{BioFSharp.Mz.SearchEngineResult.SearchEngineResult{System.Double}})">
+<summary>
+ Uses the target decoy approach to threshold psms at a given pep value cut off.
+</summary>
+</member>
+<member name="M:QConQuantifier.Identification.calcPeptideSpectrumMatches(MzIO.IO.IMzIODataReader,Microsoft.FSharp.Core.FSharpFunc{System.Double,Microsoft.FSharp.Core.FSharpFunc{System.Double,Microsoft.FSharp.Collections.FSharpList{BioFSharp.Mz.SearchDB.LookUpResult{BioFSharp.AminoAcids.AminoAcid}}}},Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Collections.FSharpList{BioFSharp.AminoAcids.AminoAcid},BioFSharp.Mz.Fragmentation.FragmentMasses},QConQuantifier.Parameters.Domain.QConQuantifierParams,MzIO.Model.MassSpectrum[])">
+<summary>
+ Maps all fragment spectra (ms2s) and matches their spectra against in silico spectra. The insilico spectra are retrieved based on the precursor mzs of the 
+ ms2s, user supplied minimal and maximum charge states and user supplied search tolerance in ppm.  
+ The algorithm used to compare theoretical and recorded spectra is the SEQUEST algorithm implemented in the BioFSharp.Mz library.
+</summary>
+</member>
+<member name="M:QConQuantifier.Identification.initCalcIonSeries(QConQuantifier.Parameters.Domain.QConQuantifierParams,Microsoft.FSharp.Collections.FSharpList{BioFSharp.AminoAcids.AminoAcid})">
+<summary>
+ Returns a function to perform a in silico fragmentation of any given aminoAcid list. The computed N- and C-terminal ion ladders are defined in qConQuantParams.
+</summary>
+</member>
+<member name="T:QConQuantifier.Quantification.QuantifiedPeptide">
+
+</member>
+<member name="T:QConQuantifier.Quantification.averagePSM">
+
+</member>
+<member name="M:QConQuantifier.Quantification.quantifyPSMs(System.String,MzIO.IO.IMzIODataReader,MzIO.Commons.Arrays.IMzIOArray{MzIO.Processing.MzIOLinq.RtIndexEntry},QConQuantifier.Parameters.Domain.QConQuantifierParams,Microsoft.FSharp.Core.FSharpFunc{System.String,Microsoft.FSharp.Core.FSharpFunc{System.Int32,QConQuantifier.PeptideLookUp.QConcatPeptide}},Microsoft.FSharp.Collections.FSharpList{BioFSharp.Mz.SearchEngineResult.SearchEngineResult{System.Double}})">
+<summary>
+ Quantifies every Ion identified by at least one psm. Given a collection of PSMs this function first performs an aggregation, grouping all psms mapping
+ to the same ion species. Afterwards the average PSM is computed. Based uppon this, XIC extraction and quantification is performed. Additionally, a paired
+ quantification is performed. This means that if a light variant (e.g a N14 labeled peptide) was identified, the XIC corresponding to the
+ heavy variant is extracted and quantified. This does not only enlarge the fraction of quantified peptides it also alows to control for the quality of 
+ the quantification if an ion is quantified from both perspectives (in case of both, Heavy-To-Light and Light-To-Heavy inference).
+ Besides the monoisotopic peak this function also quantifies the N15Minus1 peak this allows to calculate the labeling efficiency. 
+</summary>
+</member>
+<member name="M:QConQuantifier.Quantification.quantifyBy(MzIO.IO.IMzIODataReader,MzIO.Commons.Arrays.IMzIOArray{MzIO.Processing.MzIOLinq.RtIndexEntry},QConQuantifier.Parameters.Domain.QConQuantifierParams,System.Double,System.Double)">
+<summary>
+ Performs XIC extraction at a given targetMz and scan Time. Offsets are defined in qConQuantifierParams.
+ Subsequently, peak detection is performed and a levenberg marquardt routine (FSharp.Stats) is employed to fit a gaussian, or in case tailed
+ peak is observed, an exponentially modified gaussian to the selected peak.  
+</summary>
+</member>
+<member name="M:QConQuantifier.Quantification.average(MzIO.IO.IMzIODataReader,MzIO.Commons.Arrays.IMzIOArray{MzIO.Processing.MzIOLinq.RtIndexEntry},QConQuantifier.Parameters.Domain.QConQuantifierParams,System.Collections.Generic.IEnumerable{BioFSharp.Mz.SearchEngineResult.SearchEngineResult{System.Double}})">
+<summary>
+ Given a list of psms mapping to the same ion species this function estimates an average psm.
+ For this various estimators of central tendency are computed e.g the mean of the precursorMz, 
+ the mean ScanTime as well as an precursor intensity weighted scan time mean. This psm average
+ reduces the risk of picking a wrong XIC peak.
+</summary>
+</member>
+<member name="M:QConQuantifier.Quantification.initGetIsotopicVariant(System.Collections.Generic.IEnumerable{QConQuantifier.PeptideLookUp.QConcatPeptide})">
+<summary>
+ Returns a function that given an isotopic variant of a qConcat peptide returns the respective labled/unlabeled version. 
+</summary>
+</member>
+<member name="M:QConQuantifier.LabelEfficiency.estimateCorrectionFactors(System.Double,QConQuantifier.LabelEfficiency.LabelEfficiencyPredictor[])">
+<summary>
+For all given LabelEfficiency predictors, adds the correction factor needed to correct the N15 value as if the label efficiency would be 100%. 
+This is calculated by predicting the isotopic patterns at median label (the proxy for the label efficiency of the qconcat protein) efficiency and at 100% label efficiency. The correction Factor is the 
+is the probability peak of 15N at median LE / probability peak of N15 at 100%Le
+</summary>
+</member>
+<member name="M:QConQuantifier.LabelEfficiency.getFilteredMedianLabelEfficiency(System.String,System.Double,QConQuantifier.LabelEfficiency.LabelEfficiencyPredictor[])">
+<summary>
+Calculates median label efficiency after filtering the label efficiency distribution using the tukey interquartile range criterion, initialized with C=3
+</summary>
+</member>
+<member name="M:QConQuantifier.LabelEfficiency.predictLabelEfficiency(QConQuantifier.Quantification.QuantifiedPeptide)">
+<summary>
+Predicts the Label efficiency of the given Peptide by finding the best fitting Isotopic distribution amongst distributions generated at various label efficiencies.
+</summary>
+</member>
+<member name="M:QConQuantifier.LabelEfficiency.generateIsotopicDistributionOfFormulaByMax(System.Int32,Microsoft.FSharp.Collections.FSharpMap{BioFSharp.Elements.Element,System.Double})">
+<summary>
+Predicts an isotopic distribution of the given formula at the given charge, normalized by the maximum probability, using the MIDAs algorithm
+</summary>
+</member>
+<member name="M:QConQuantifier.LabelEfficiency.generateIsotopicDistributionOfFormulaBySum(System.Int32,Microsoft.FSharp.Collections.FSharpMap{BioFSharp.Elements.Element,System.Double})">
+<summary>
+Predicts an isotopic distribution of the given formula at the given charge, normalized by the sum of probabilities, using the MIDAs algorithm
+</summary>
+</member>
+<member name="M:QConQuantifier.LabelEfficiency.initlabelN15Partial(System.Double)">
+<summary>
+returns a function that replaces the nitrogen atoms in a formula with a nitrogen with the given probability of being the 15N isotope
+</summary>
+</member>
+<member name="M:QConQuantifier.LabelEfficiency.patternOfString(System.String)">
+<summary>
+C0nverts a float list tuple String representation to the list type. Sadly needed as Deedle does use ToString() for patterns otherwise
+</summary>
+</member>
+<member name="M:QConQuantifier.LabelEfficiency.stringOfPattern(Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.Double,System.Double}})">
+<summary>
+C0nverts a float tuple list to its full String representation. Sadly needed as Deedle does use ToString() for patterns otherwise
+</summary>
+</member>
+<member name="M:QConQuantifier.Pipeline.mergeFrames``1(Microsoft.FSharp.Collections.FSharpList{Deedle.Frame{``0,System.String}})">
+
+</member>
+<member name="M:QConQuantifier.Pipeline.analyzeFile(System.Data.SQLite.SQLiteConnection,QConQuantifier.Parameters.Domain.QConQuantifierParams,System.String,System.String)">
+<summary>
+ Performs identifaction and quantification of mzLite File. Results are written to outputDir  
+</summary>
+</member>
+</members>
+</doc>

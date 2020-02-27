@@ -1,0 +1,691 @@
+{
+  "runtimeTarget": {
+    "name": ".NETStandard,Version=v2.0/",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETStandard,Version=v2.0": {},
+    ".NETStandard,Version=v2.0/": {
+      "QConQuantifier/1.0.0": {
+        "dependencies": {
+          "Argu": "6.0.0",
+          "BioFSharp": "1.0.1",
+          "BioFSharp.IO": "1.0.1",
+          "BioFSharp.Mz": "0.0.116",
+          "Deedle": "2.1.1",
+          "EntityFramework": "6.4.0",
+          "FSharp.Core": "4.7.0",
+          "FSharp.Plotly": "1.2.0",
+          "FSharp.Stats": "0.2.0",
+          "FSharpAux": "1.0.0",
+          "FSharpAux.IO": "1.0.0",
+          "MzIO": "0.0.9.10",
+          "MzIO.Processing": "0.0.9.10",
+          "MzIO.SQL": "0.0.9.10",
+          "NETStandard.Library": "2.0.3",
+          "Newtonsoft.Json": "12.0.3",
+          "System.Buffers": "4.5.0",
+          "System.Configuration.ConfigurationManager": "4.7.0",
+          "System.Data.SQLite": "1.0.112",
+          "System.Data.SQLite.Core": "1.0.112",
+          "System.Data.SQLite.EF6": "1.0.112",
+          "System.Data.SQLite.Linq": "1.0.112",
+          "System.Memory": "4.5.3",
+          "System.Numerics.Vectors": "4.5.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.7.0",
+          "System.Security.AccessControl": "4.7.0",
+          "System.Security.Cryptography.ProtectedData": "4.7.0",
+          "System.Security.Permissions": "4.7.0",
+          "System.Security.Principal.Windows": "4.7.0",
+          "System.Xml.Linq": "3.5.21022.801"
+        },
+        "runtime": {
+          "QConQuantifier.dll": {}
+        }
+      },
+      "Argu/6.0.0": {
+        "dependencies": {
+          "FSharp.Core": "4.7.0",
+          "System.Configuration.ConfigurationManager": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Argu.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "BioFSharp/1.0.1": {
+        "dependencies": {
+          "FSharp.Core": "4.7.0",
+          "FSharpAux": "1.0.0",
+          "FSharpAux.IO": "1.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/BioFSharp.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "BioFSharp.IO/1.0.1": {
+        "dependencies": {
+          "BioFSharp": "1.0.1",
+          "FSharp.Core": "4.7.0",
+          "FSharpAux": "1.0.0",
+          "FSharpAux.IO": "1.0.0",
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/BioFSharp.IO.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          },
+          "lib/netstandard2.0/BioFSharp.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "BioFSharp.Mz/0.0.116": {
+        "dependencies": {
+          "BioFSharp": "1.0.1",
+          "BioFSharp.IO": "1.0.1",
+          "FSharp.Core": "4.7.0",
+          "FSharp.Stats": "0.2.0",
+          "FSharpAux": "1.0.0",
+          "FSharpAux.IO": "1.0.0",
+          "System.Data.SQLite": "1.0.112"
+        },
+        "runtime": {
+          "lib/netstandard2.0/BioFSharp.Mz.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Deedle/2.1.1": {
+        "dependencies": {
+          "FSharp.Core": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Deedle.dll": {
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "EntityFramework/6.4.0": {},
+      "FSharp.Core/4.7.0": {
+        "runtime": {
+          "lib/netstandard2.0/FSharp.Core.dll": {
+            "assemblyVersion": "4.7.0.0",
+            "fileVersion": "4.700.19.40208"
+          }
+        },
+        "resources": {
+          "lib/netstandard2.0/cs/FSharp.Core.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/netstandard2.0/de/FSharp.Core.resources.dll": {
+            "locale": "de"
+          },
+          "lib/netstandard2.0/es/FSharp.Core.resources.dll": {
+            "locale": "es"
+          },
+          "lib/netstandard2.0/fr/FSharp.Core.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/netstandard2.0/it/FSharp.Core.resources.dll": {
+            "locale": "it"
+          },
+          "lib/netstandard2.0/ja/FSharp.Core.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/netstandard2.0/ko/FSharp.Core.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/netstandard2.0/pl/FSharp.Core.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/netstandard2.0/pt-BR/FSharp.Core.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/netstandard2.0/ru/FSharp.Core.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/netstandard2.0/tr/FSharp.Core.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/netstandard2.0/zh-Hans/FSharp.Core.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/netstandard2.0/zh-Hant/FSharp.Core.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "FSharp.Plotly/1.2.0": {
+        "dependencies": {
+          "FSharp.Core": "4.7.0",
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FSharp.Plotly.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "FSharp.Stats/0.2.0": {
+        "dependencies": {
+          "FSharp.Core": "4.7.0",
+          "FSharpAux": "1.0.0",
+          "FSharpAux.IO": "1.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FSharp.Stats.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "FSharpAux/1.0.0": {
+        "dependencies": {
+          "FSharp.Core": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FSharpAux.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "FSharpAux.IO/1.0.0": {
+        "dependencies": {
+          "FSharp.Core": "4.7.0",
+          "FSharpAux": "1.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FSharpAux.IO.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Microsoft.NETCore.Platforms/1.1.0": {},
+      "MzIO/0.0.9.10": {
+        "dependencies": {
+          "EntityFramework": "6.4.0",
+          "FSharp.Core": "4.7.0",
+          "Newtonsoft.Json": "12.0.3",
+          "System.Xml.Linq": "3.5.21022.801"
+        },
+        "runtime": {
+          "lib/net45/EntityFramework.SqlServer.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.2.61023.0"
+          },
+          "lib/net45/EntityFramework.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.2.61023.0"
+          },
+          "lib/net45/FSharp.Core.resources.dll": {
+            "assemblyVersion": "4.5.0.0",
+            "fileVersion": "2018.7.27.2"
+          },
+          "lib/net45/MzIO.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "resources": {
+          "lib/net45/en/FSharp.Core.resources.dll": {
+            "locale": "en"
+          }
+        }
+      },
+      "MzIO.Processing/0.0.9.10": {
+        "dependencies": {
+          "EntityFramework": "6.4.0",
+          "FSharp.Core": "4.7.0",
+          "MzIO": "0.0.9.10",
+          "Newtonsoft.Json": "12.0.3",
+          "System.Xml.Linq": "3.5.21022.801"
+        },
+        "runtime": {
+          "lib/net45/EntityFramework.SqlServer.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.2.61023.0"
+          },
+          "lib/net45/EntityFramework.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.2.61023.0"
+          },
+          "lib/net45/FSharp.Core.resources.dll": {
+            "assemblyVersion": "4.5.0.0",
+            "fileVersion": "2018.7.27.2"
+          },
+          "lib/net45/MzIO.Processing.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          },
+          "lib/net45/MzIO.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "resources": {
+          "lib/net45/en/FSharp.Core.resources.dll": {
+            "locale": "en"
+          }
+        }
+      },
+      "MzIO.SQL/0.0.9.10": {
+        "dependencies": {
+          "EntityFramework": "6.4.0",
+          "FSharp.Core": "4.7.0",
+          "MzIO": "0.0.9.10",
+          "Newtonsoft.Json": "12.0.3",
+          "System.Data.SQLite": "1.0.112",
+          "System.Data.SQLite.Core": "1.0.112",
+          "System.Data.SQLite.EF6": "1.0.112",
+          "System.Data.SQLite.Linq": "1.0.112",
+          "System.Xml.Linq": "3.5.21022.801"
+        },
+        "runtime": {
+          "lib/net45/EntityFramework.SqlServer.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.2.61023.0"
+          },
+          "lib/net45/EntityFramework.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.2.61023.0"
+          },
+          "lib/net45/FSharp.Core.resources.dll": {
+            "assemblyVersion": "4.5.0.0",
+            "fileVersion": "2018.7.27.2"
+          },
+          "lib/net45/MzIO.SQL.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          },
+          "lib/net45/MzIO.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "resources": {
+          "lib/net45/en/FSharp.Core.resources.dll": {
+            "locale": "en"
+          }
+        }
+      },
+      "NETStandard.Library/2.0.3": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0"
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.3.23909"
+          }
+        }
+      },
+      "System.Buffers/4.5.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.Buffers.dll": {
+            "assemblyVersion": "4.0.3.0",
+            "fileVersion": "4.6.26515.6"
+          }
+        }
+      },
+      "System.Configuration.ConfigurationManager/4.7.0": {
+        "dependencies": {
+          "System.Security.Cryptography.ProtectedData": "4.7.0",
+          "System.Security.Permissions": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll": {
+            "assemblyVersion": "4.0.3.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
+      "System.Data.SQLite/1.0.112": {
+        "dependencies": {
+          "System.Data.SQLite.Core": "1.0.112"
+        }
+      },
+      "System.Data.SQLite.Core/1.0.112": {
+        "runtime": {
+          "lib/netstandard2.0/System.Data.SQLite.dll": {
+            "assemblyVersion": "1.0.112.0",
+            "fileVersion": "1.0.112.0"
+          }
+        }
+      },
+      "System.Data.SQLite.EF6/1.0.112": {
+        "runtime": {
+          "lib/net46/System.Data.SQLite.EF6.dll": {
+            "assemblyVersion": "1.0.112.0",
+            "fileVersion": "1.0.112.0"
+          }
+        }
+      },
+      "System.Data.SQLite.Linq/1.0.112": {
+        "runtime": {
+          "lib/net46/System.Data.SQLite.Linq.dll": {
+            "assemblyVersion": "1.0.112.0",
+            "fileVersion": "1.0.112.0"
+          }
+        }
+      },
+      "System.Memory/4.5.3": {
+        "dependencies": {
+          "System.Buffers": "4.5.0",
+          "System.Numerics.Vectors": "4.5.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Memory.dll": {
+            "assemblyVersion": "4.0.1.1",
+            "fileVersion": "4.6.27617.2"
+          }
+        }
+      },
+      "System.Numerics.Vectors/4.5.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.Numerics.Vectors.dll": {
+            "assemblyVersion": "4.1.4.0",
+            "fileVersion": "4.6.26515.6"
+          }
+        }
+      },
+      "System.Runtime.CompilerServices.Unsafe/4.7.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "assemblyVersion": "4.0.6.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
+      "System.Security.AccessControl/4.7.0": {
+        "dependencies": {
+          "System.Security.Principal.Windows": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Security.AccessControl.dll": {
+            "assemblyVersion": "4.1.3.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
+      "System.Security.Cryptography.ProtectedData/4.7.0": {
+        "dependencies": {
+          "System.Memory": "4.5.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll": {
+            "assemblyVersion": "4.0.5.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
+      "System.Security.Permissions/4.7.0": {
+        "dependencies": {
+          "System.Security.AccessControl": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Security.Permissions.dll": {
+            "assemblyVersion": "4.0.3.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
+      "System.Security.Principal.Windows/4.7.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.Security.Principal.Windows.dll": {
+            "assemblyVersion": "4.1.3.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
+      "System.Xml.Linq/3.5.21022.801": {
+        "runtime": {
+          "lib/net20/System.Xml.Linq.dll": {
+            "assemblyVersion": "3.5.0.0",
+            "fileVersion": "3.5.21022.801"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "QConQuantifier/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Argu/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-iqF1uE+37uOsH+G4Q4yIQLJ57BgIBQ6ItOIprWynYBVZYJWCduEfdxKKGOYv2MtgHLCLLoeVGjrxwbk5o9WdNw==",
+      "path": "argu/6.0.0",
+      "hashPath": "argu.6.0.0.nupkg.sha512"
+    },
+    "BioFSharp/1.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eBEAkSuhWizXxxn966X6r6EQwYLaJlrz/RATx9PfBltExa/fBR7rLZSMgG3hxRZ1L5bVsx05kwQ1Qmy++I/f5Q==",
+      "path": "biofsharp/1.0.1",
+      "hashPath": "biofsharp.1.0.1.nupkg.sha512"
+    },
+    "BioFSharp.IO/1.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-a5tnM5nxIkm7pXpLjYCtGoLM4lVhEM3fnHx8C6yM3pmjeDCzUvcNC9m7DF+6qfFZQ95c2bJy/iCrgUo5ovbC7A==",
+      "path": "biofsharp.io/1.0.1",
+      "hashPath": "biofsharp.io.1.0.1.nupkg.sha512"
+    },
+    "BioFSharp.Mz/0.0.116": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BaHcAvemMkN8+7e8YlZPFbNW7dXDNARCfOfvtyTdnOyd1bLqLmDGDS5Lxxjv4L6XmwrYSfWp/Adfn5eXCI7EkA==",
+      "path": "biofsharp.mz/0.0.116",
+      "hashPath": "biofsharp.mz.0.0.116.nupkg.sha512"
+    },
+    "Deedle/2.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fPKNudg/IeFhERXO11VFaWMQlhhF8rT1edoLi6NYnukSZAWnMPPrcXwQg8NvY6vbzKPwblHwxfXknx9sHNouRw==",
+      "path": "deedle/2.1.1",
+      "hashPath": "deedle.2.1.1.nupkg.sha512"
+    },
+    "EntityFramework/6.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7jDmcQ3jaN5G7ZJC7Ecq161zQBs/5LqRzBdZ/I4XfmSvOwteGgNjOi30kthFador4Qjo3qUU6iOB1H04GIXrpg==",
+      "path": "entityframework/6.4.0",
+      "hashPath": "entityframework.6.4.0.nupkg.sha512"
+    },
+    "FSharp.Core/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6Bf2qzSCaJoP6tTfO+a5muUS7QbyJANqSut73zQvwQ9It5P0ITz9VKseeia2ofco30c55EQ0jA2wf2+A2gpGnw==",
+      "path": "fsharp.core/4.7.0",
+      "hashPath": "fsharp.core.4.7.0.nupkg.sha512"
+    },
+    "FSharp.Plotly/1.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CnFxf1MVrOfDqYxT8ZMcRvRXLW/qVYWpoQB78181YcOCpzfvaHcoPEfiaqWjhOGYRGfrfAC5vAn5YuQHitj9PQ==",
+      "path": "fsharp.plotly/1.2.0",
+      "hashPath": "fsharp.plotly.1.2.0.nupkg.sha512"
+    },
+    "FSharp.Stats/0.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YJFZ54YVSacGi/uPrBRHhxp591Q5RnIugVNmTqs7DdMSOrTU8O9lJITvUKqY3EJClAwt5h84oKgmcCYHwuz1UA==",
+      "path": "fsharp.stats/0.2.0",
+      "hashPath": "fsharp.stats.0.2.0.nupkg.sha512"
+    },
+    "FSharpAux/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2D9xVmHuEAtkQkcCHmqkxUbr91BOPYoSjGYgdIit9av9l2FJ0j8d7u9osMaWgJPXuERzZCsdIba9WqwHVKsBiA==",
+      "path": "fsharpaux/1.0.0",
+      "hashPath": "fsharpaux.1.0.0.nupkg.sha512"
+    },
+    "FSharpAux.IO/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0gCLHeYecWpkp3rSUNp9P36E7sL2v9WgHiZ06j2mPEjlFE6vXum15y0r5END6YoTHfQdLmdwDXeRo7H7AbCFYQ==",
+      "path": "fsharpaux.io/1.0.0",
+      "hashPath": "fsharpaux.io.1.0.0.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Platforms/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
+      "path": "microsoft.netcore.platforms/1.1.0",
+      "hashPath": "microsoft.netcore.platforms.1.1.0.nupkg.sha512"
+    },
+    "MzIO/0.0.9.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1vR+lwD+cl/RnY2A/gnHaofN8BxYtyZnwfN7PPQf4h825x8iMGYNyHkE3NUAEOmKaFXHrp2Qd3hSb3M0Limhpw==",
+      "path": "mzio/0.0.9.10",
+      "hashPath": "mzio.0.0.9.10.nupkg.sha512"
+    },
+    "MzIO.Processing/0.0.9.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9t3qT2HBzJabqa2JWKPjo7jnFCSyXhsbjjrdaamFuBFTUdlqRTs+G7joiXepYM67rDOsAo9pgJYh9krnXM0xkA==",
+      "path": "mzio.processing/0.0.9.10",
+      "hashPath": "mzio.processing.0.0.9.10.nupkg.sha512"
+    },
+    "MzIO.SQL/0.0.9.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2fNKiEK/qMbB87yvE3qOY/EwfbQJo4h3iJlSpP1j3E0wOjp7spVMXDXN9u/Q2aogplYIR8qZDdb4EdQbNIWCrg==",
+      "path": "mzio.sql/0.0.9.10",
+      "hashPath": "mzio.sql.0.0.9.10.nupkg.sha512"
+    },
+    "NETStandard.Library/2.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DYp4YcNKxF0ZW5Kxd1P7yiZDBtmHBSvCPPPcGuO75imMCmwJRuhQo6kU+fPbfYQUA3SqT4O40Hst4BNH0N06jw==",
+      "path": "netstandard.library/2.0.3",
+      "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
+    },
+    "Newtonsoft.Json/12.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "path": "newtonsoft.json/12.0.3",
+      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
+    },
+    "System.Buffers/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2uEwOJKKBxSrtbk03C28g1MrGsJh2MB+f2IHoo6R4QwJ7dmYGcoCzqdGJvJcRuGrYTB2q0CHNVkXmqB1ghzt6w==",
+      "path": "system.buffers/4.5.0",
+      "hashPath": "system.buffers.4.5.0.nupkg.sha512"
+    },
+    "System.Configuration.ConfigurationManager/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/anOTeSZCNNI2zDilogWrZ8pNqCmYbzGNexUnNhjW8k0sHqEZ2nHJBp147jBV3hGYswu5lINpNg1vxR7bnqvVA==",
+      "path": "system.configuration.configurationmanager/4.7.0",
+      "hashPath": "system.configuration.configurationmanager.4.7.0.nupkg.sha512"
+    },
+    "System.Data.SQLite/1.0.112": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QsYUir0pcx+1DfhhbpCsIJN8nWmHTT4Z/s85q6Un5AbVEPCP6RA0EA9cgzwQ1l5wZ8SQ0jUq747FxPmwJs7ycQ==",
+      "path": "system.data.sqlite/1.0.112",
+      "hashPath": "system.data.sqlite.1.0.112.nupkg.sha512"
+    },
+    "System.Data.SQLite.Core/1.0.112": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3wA9v/K2ncZWsWfEBTiQppsi2014IJMXsZ1md3pk5bEXAJyuTthSrHF4bIWm5MG+C5g5XLhA2H7XfnSq1PXCeQ==",
+      "path": "system.data.sqlite.core/1.0.112",
+      "hashPath": "system.data.sqlite.core.1.0.112.nupkg.sha512"
+    },
+    "System.Data.SQLite.EF6/1.0.112": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kdWoCeNbm5BEOw0qqUx60KZvv7jmAAlSTYZqImtU70jLpxDDfaZdB9HttjSqLZ2tED5vfEhDwukkHFG0tlXW1A==",
+      "path": "system.data.sqlite.ef6/1.0.112",
+      "hashPath": "system.data.sqlite.ef6.1.0.112.nupkg.sha512"
+    },
+    "System.Data.SQLite.Linq/1.0.112": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mufled5QRZt9rHMqC+OCA3Xzkt6PMn4IkuZtQMgTqZfJMAyV2OaaUS+WOIR3UsEjuZhd3qu0BoYVnxJIhizXKQ==",
+      "path": "system.data.sqlite.linq/1.0.112",
+      "hashPath": "system.data.sqlite.linq.1.0.112.nupkg.sha512"
+    },
+    "System.Memory/4.5.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA==",
+      "path": "system.memory/4.5.3",
+      "hashPath": "system.memory.4.5.3.nupkg.sha512"
+    },
+    "System.Numerics.Vectors/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DFSZKi11CffQu/7VbZLiZoq46EOcrJY3JsqhFOqgGNA5gRNJVQMt3I2nF5648x6GQI1RcB1WdVanHMLwX4vm5g==",
+      "path": "system.numerics.vectors/4.5.0",
+      "hashPath": "system.numerics.vectors.4.5.0.nupkg.sha512"
+    },
+    "System.Runtime.CompilerServices.Unsafe/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IpU1lcHz8/09yDr9N+Juc7SCgNUz+RohkCQI+KsWKR67XxpFr8Z6c8t1iENCXZuRuNCc4HBwme/MDHNVCwyAKg==",
+      "path": "system.runtime.compilerservices.unsafe/4.7.0",
+      "hashPath": "system.runtime.compilerservices.unsafe.4.7.0.nupkg.sha512"
+    },
+    "System.Security.AccessControl/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JECvTt5aFF3WT3gHpfofL2MNNP6v84sxtXxpqhLBCcDRzqsPBmHhQ6shv4DwwN2tRlzsUxtb3G9M3763rbXKDg==",
+      "path": "system.security.accesscontrol/4.7.0",
+      "hashPath": "system.security.accesscontrol.4.7.0.nupkg.sha512"
+    },
+    "System.Security.Cryptography.ProtectedData/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ehYW0m9ptxpGWvE4zgqongBVWpSDU/JCFD4K7krxkQwSz/sFQjEXCUqpvencjy6DYDbn7Ig09R8GFffu8TtneQ==",
+      "path": "system.security.cryptography.protecteddata/4.7.0",
+      "hashPath": "system.security.cryptography.protecteddata.4.7.0.nupkg.sha512"
+    },
+    "System.Security.Permissions/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dkOV6YYVBnYRa15/yv004eCGRBVADXw8qRbbNiCn/XpdJSUXkkUeIvdvFHkvnko4CdKMqG8yRHC4ox83LSlMsQ==",
+      "path": "system.security.permissions/4.7.0",
+      "hashPath": "system.security.permissions.4.7.0.nupkg.sha512"
+    },
+    "System.Security.Principal.Windows/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ojD0PX0XhneCsUbAZVKdb7h/70vyYMDYs85lwEI+LngEONe/17A0cFaRFqZU+sOEidcVswYWikYOQ9PPfjlbtQ==",
+      "path": "system.security.principal.windows/4.7.0",
+      "hashPath": "system.security.principal.windows.4.7.0.nupkg.sha512"
+    },
+    "System.Xml.Linq/3.5.21022.801": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-U6hdQ1sCnMD/s2zqKl23g4Obdovr1ZUnrF1x+NRpaoZBeZX5PSwcp1dgvgvJaRsYZgwUzrC+tj9klb0mMnHUcQ==",
+      "path": "system.xml.linq/3.5.21022.801",
+      "hashPath": "system.xml.linq.3.5.21022.801.nupkg.sha512"
+    }
+  }
+}

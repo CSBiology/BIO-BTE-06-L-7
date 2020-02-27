@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>BioFSharp</id>
+    <version>1.0.01</version>
+    <title>BioFSharp</title>
+    <authors>Timo Mühlhaus</authors>
+    <owners>Timo Mühlhaus</owners>
+    <licenseUrl>https://github.com/CSBiology/BioFSharp/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/CSBiology/BioFSharp</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/CSBiology/BioFSharp/master/docs/files/img/logo.png</iconUrl>
+    <description>BioFSharp aims to be a user-friendly library for Bioinformatics written in F# as the official successor of FSharpBio.</description>
+    <summary>BioFSharp aims to be a user-friendly library for Bioinformatics written in F# as the official successor of FSharpBio.</summary>
+    <releaseNotes>BioFSharp.Stats:**
+Major speed improvements for Sailent</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <language>F#</language>
+    <tags>bioinformatics F# fsharp</tags>
+    <dependencies>
+      <dependency id="FSharp.Core" version="0.0" />
+      <dependency id="FSharpAux" version="0.0" />
+      <dependency id="FSharpAux.IO" version="0.0" />
+    </dependencies>
+  </metadata>
+</package>

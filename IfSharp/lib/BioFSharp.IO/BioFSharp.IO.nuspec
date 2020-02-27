@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>BioFSharp.IO</id>
+    <version>1.0.01</version>
+    <title>BioFSharp.IO</title>
+    <authors>Timo Mühlhaus, Kevin Schneider</authors>
+    <owners>Timo Mühlhaus</owners>
+    <licenseUrl>https://github.com/CSBiology/BioFSharp/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/CSBiology/BioFSharp</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/CSBiology/BioFSharp/master/docs/files/img/logo.png</iconUrl>
+    <description>Readers/Writers for biological file formats</description>
+    <summary>Readers/Writers for biological file formats</summary>
+    <releaseNotes>BioFSharp.Stats:**
+Major speed improvements for Sailent</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <language>F#</language>
+    <tags>bioinformatics F# fsharp IO</tags>
+    <dependencies>
+      <dependency id="BioFSharp" version="1.0.01" />
+      <dependency id="FSharp.Core" version="0.0" />
+      <dependency id="FSharpAux" version="0.0" />
+      <dependency id="FSharpAux.IO" version="0.0" />
+      <dependency id="NewtonSoft.Json" version="11.0.2" />
+    </dependencies>
+  </metadata>
+</package>

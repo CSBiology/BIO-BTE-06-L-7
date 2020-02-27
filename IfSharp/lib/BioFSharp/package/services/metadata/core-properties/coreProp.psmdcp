@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<coreProperties xmlns="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <dc:creator>Timo Mühlhaus</dc:creator>
+  <dc:description>BioFSharp aims to be a user-friendly library for Bioinformatics written in F# as the official successor of FSharpBio.</dc:description>
+  <dc:identifier>BioFSharp</dc:identifier>
+  <version>1.0.01</version>
+  <keywords />
+  <dc:title>BioFSharp</dc:title>
+  <lastModifiedBy>paket</lastModifiedBy>
+</coreProperties>

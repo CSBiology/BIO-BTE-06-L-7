@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>FSharpAux</id>
+    <version>1.0.0</version>
+    <title>FSharpAux</title>
+    <authors>Timo Mühlhaus, Kevin Schneider</authors>
+    <owners>Timo Mühlhaus, Kevin Schneider</owners>
+    <licenseUrl>https://github.com/CSBiology/FSharpAux/blob/master/LICENSE</licenseUrl>
+    <repository type="git" url="https://github.com/CSBiology/FSharpAux" />
+    <projectUrl>https://github.com/CSBiology/FSharpAux</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/CSBiology/FSharpAux/master/docsrc/files/img/logo.png</iconUrl>
+    <description>Auxiliary functions and data structures for the F# programming language</description>
+    <summary>Auxiliary functions and data structures for F#</summary>
+    <releaseNotes>First nuget release package.
+FSharpAux:**
+Add symmetric difference function for Sets
+FSharpAux.IO**: no changes</releaseNotes>
+    <copyright>Copyright 2017-2020</copyright>
+    <language>F#</language>
+    <tags>FSharp Utilities Auxiliaries</tags>
+    <dependencies>
+      <dependency id="FSharp.Core" version="0.0" />
+    </dependencies>
+  </metadata>
+</package>
