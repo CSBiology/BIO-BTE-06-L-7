@@ -46,3 +46,13 @@ Use powershell <code>jupyter notebook password</code>.
 You will then be asked to give a password and after that to verify it. Both times the console will not show any typing but it will still recognize the input.
 
 <b>Attention! I do not know any way yet to remove password again!</b>
+
+## Style Guide
+
+### Basic text container
+
+> <div Style="max-width: 85%"></div>
+
+### Text div
+
+> <div Style="text-align: justify ; font-size: 1.8rem ; margin-top: 2rem ; line-height : 1.5"></div>
