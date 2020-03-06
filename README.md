@@ -106,8 +106,6 @@ You will then be asked to give a password and after that to verify it. Both time
 ```
 &&
 ```html
-<h1 Style="font-size: 3rem" >Growth Curve and Doubling Time</h1>
-
 <ol Style="max-width: 85% ; text-align: justify ; font-size: 1.8rem ; margin-top: 2rem ; line-height: 1.5">
     <li Value ="1" Id="exmp">exmp</li>
 </ol>
@@ -117,13 +115,15 @@ You will then be asked to give a password and after that to verify it. Both time
 
 
 ```html
+<h1 Style="font-size: 3rem" >Growth Curve and Doubling Time</h1>
+
 1. [Plant Systems Biology](#Plant-Systems-Biology)
 2. [Insert Growth Data and Display as Chart](#Insert-Growth-Data-and-Display-as-Chart)
 3. [Calculation of growth rate and doubling time for cell cultures](#Calculation-of-growth-rate-and-doubling-time-for-cell-cultures)
 4. [Exponential Fit](#Exponential-Fit)<br>
- 4.1 [Exp Fit Theorie](#Exp-Fit-Theorie)<br>
- 4.2 [Exp Fit Select Exponential Phase](#Exp-Fit-Select-Exponential-Phase)<br>
- 4.3 [Exp Fit Calculate Doubling Time](#Exp-Fit-Calculate-Doubling-Time)<br>
+    4.1 [Exp Fit Theorie](#Exp-Fit-Theorie)<br>
+    4.2 [Exp Fit Select Exponential Phase](#Exp-Fit-Select-Exponential-Phase)<br>
+    4.3 [Exp Fit Calculate Doubling Time](#Exp-Fit-Calculate-Doubling-Time)<br>
 5. [Logistic Fit](#Logistic-Fit)
 6. [References](#References)
 ```
