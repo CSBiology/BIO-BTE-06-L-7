@@ -84,7 +84,12 @@ You will then be asked to give a password and after that to verify it. Both time
 ### In-Between Text Image Element
 
 ```
-<img src="img/SystemsBiology_Figure1.png" Style="float: right ; display: inline-block">
+<div Style="float: right ; display: inline-block ; font-size: 1.7rem ; color: #44546a ; width: 60% ; padding: 15px">
+    <img src="img/SystemsBiology_Figure5.png" Style="width: 100%">
+    <div Style="padding-left: 1rem ; padding-right: 1rem ; text-align: justify ; ">
+        <b>Figure 5: Process of computational identification of peptides from their fragment spectra</b>
+    </div>
+</div>    
 ```
 
 ### Grey-Dotted Box
@@ -101,17 +106,17 @@ You will then be asked to give a password and after that to verify it. Both time
 ```
 &&
 ```html
+<h1 Style="font-size: 3rem" >Growth Curve and Doubling Time</h1>
+
 <ol Style="max-width: 85% ; text-align: justify ; font-size: 1.8rem ; margin-top: 2rem ; line-height: 1.5">
-<li Value="8" Id="8">Ruffel, S., Krouk, G. & Coruzzi, G. M. A systems view of responses to nutritional cues in Arabidopsis: toward a paradigm shift for predictive network modeling. Plant physiology 152, 445–452; 10.1104/pp.109.148502 (2010).</li>
-<li Id="9"> Minorsky, P. V. Achieving the in Silico Plant. Systems Biology and the Future of Plant Biological Research. Plant physiology 132, 404–409; 10.1104/pp.900076 (2003). </li>
+    <li Value ="1" Id="exmp">exmp</li>
 </ol>
 ```
 
 ### Table of Content 
 
-```
-<h1 Style="font-size: 3rem" >Growth Curve and Doubling Time</h1>
 
+```html
 1. [Plant Systems Biology](#Plant-Systems-Biology)
 2. [Insert Growth Data and Display as Chart](#Insert-Growth-Data-and-Display-as-Chart)
 3. [Calculation of growth rate and doubling time for cell cultures](#Calculation-of-growth-rate-and-doubling-time-for-cell-cultures)
