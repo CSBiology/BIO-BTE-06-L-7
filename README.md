@@ -81,6 +81,12 @@ You will then be asked to give a password and after that to verify it. Both time
 </div>
 ```
 
+### In-Between Text Image Element
+
+```
+<img src="img/SystemsBiology_Figure1.png" Style="float: right ; display: inline-block">
+```
+
 ### References
 
 ```html
@@ -92,4 +98,20 @@ You will then be asked to give a password and after that to verify it. Both time
 <li Id="8">Ruffel, S., Krouk, G. & Coruzzi, G. M. A systems view of responses to nutritional cues in Arabidopsis: toward a paradigm shift for predictive network modeling. Plant physiology 152, 445–452; 10.1104/pp.109.148502 (2010).</li>
 <li Id="9"> Minorsky, P. V. Achieving the in Silico Plant. Systems Biology and the Future of Plant Biological Research. Plant physiology 132, 404–409; 10.1104/pp.900076 (2003). <div>
 </ol>
+```
+
+### Table of Content 
+
+```
+<h1 Style="font-size: 3rem" >Growth Curve and Doubling Time</h1>
+
+1. [Plant Systems Biology](#Plant-Systems-Biology)
+2. [Insert Growth Data and Display as Chart](#Insert-Growth-Data-and-Display-as-Chart)
+3. [Calculation of growth rate and doubling time for cell cultures](#Calculation-of-growth-rate-and-doubling-time-for-cell-cultures)
+4. [Exponential Fit](#Exponential-Fit)<br>
+ 4.1 [Exp Fit Theorie](#Exp-Fit-Theorie)<br>
+ 4.2 [Exp Fit Select Exponential Phase](#Exp-Fit-Select-Exponential-Phase)<br>
+ 4.3 [Exp Fit Calculate Doubling Time](#Exp-Fit-Calculate-Doubling-Time)<br>
+5. [Logistic Fit](#Logistic-Fit)
+6. [References](#References)
 ```
