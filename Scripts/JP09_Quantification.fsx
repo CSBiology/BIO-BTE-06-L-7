@@ -195,3 +195,22 @@ let quantifyPSMs reader rtIndex qConQuantifierParams getIsotopicVariant (psms:Se
                     )
 
 quantifyPSMs inReader rtIndex qConQuantParams getIsotopicVariant thresholdedPsms
+
+let groupedPSMs =
+    thresholdedPsms
+    |> List.groupBy (fun x -> x.StringSequence, x.GlobalMod,x.PrecursorCharge)
+
+let averagePSM =
+    groupedPSMs
+    |> List.map (fun ((sequence,globMod,ch),psms) ->
+        let averagePSM = average inReader rtIndex qConQuantParams psms
+        sequence, averagePSM
+    )
+
+averagePSM
+|> List.map (fun (sequence, apsm) ->
+    Chart.Point (apsm.X_Xic, apsm.Y_Xic)
+    |> Chart.withTraceName sequence
+)
+|> Chart.Combine
+|> Chart.Show
