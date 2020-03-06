@@ -50,9 +50,33 @@ You will then be asked to give a password and after that to verify it. Both time
 ## Style Guide
 
 ### Basic text container
-
-> <div Style="max-width: 85%"></div>
-
+```html 
+<div Style="max-width: 85%">
+</div>
+```
 ### Text div
 
-> <div Style="text-align: justify ; font-size: 1.8rem ; margin-top: 2rem ; line-height : 1.5"></div>
+
+```html 
+<div Style="text-align: justify ; font-size: 1.8rem ; margin-top: 2rem ; line-height : 1.5">
+</div>
+```
+
+### In-Page Links
+```html
+<a href="#Comments">Comments</a>
+```
+&&
+
+```html
+<div Id="Comments">Comments</a>
+```
+
+### Centered Italic Text Fields
+```html
+<div Style="text-align: justify ; width: 90% ; margin-left: auto ; margin-right: auto ; margin-top: 2rem">
+    <i>
+        Equation 1: Calculation of the doubling time. Growth rate is calculates as shwon in Equation 2::::wlsekhfgasdgufh aodshfgo adfhrsg oiuhdfoih gdh fiogoijd ifjigj disjgioj difojgoi jdisfjgoijd fijgi djfigj dosijfig jdfij iogjdfijg idfjijg jdpofkgod kfopgkj fpdojgpodj g
+    </i>
+</div>
+```
