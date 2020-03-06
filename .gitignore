@@ -37,3 +37,4 @@ ClientBin/
 /Notebooks/shell.log
 
 .vs/
+/AuxFiles/ChlamyTruncDB.db
