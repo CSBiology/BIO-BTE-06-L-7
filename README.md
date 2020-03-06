@@ -87,6 +87,13 @@ You will then be asked to give a password and after that to verify it. Both time
 <img src="img/SystemsBiology_Figure1.png" Style="float: right ; display: inline-block">
 ```
 
+### Grey-Dotted Box
+
+```html
+<div Style="text-align: justify ; font-size: 1.5rem ; margin-top: 2rem ; margin-bottom: 2rem ; line-height: 1.3 ; width: 85% ; margin-left: auto ; margin-right: auto ; padding: 10px ; border: 2px dotted #708090 ; color: #708090">
+</div>
+```
+
 ### References
 
 ```html
@@ -94,7 +101,7 @@ You will then be asked to give a password and after that to verify it. Both time
 ```
 &&
 ```html
-<ol Style="max-width: 85% ; text-align: justify ; font-size: 1.8rem ; margin-top: 2rem ; line-height : 1.5">
+<ol Style="max-width: 85% ; text-align: justify ; font-size: 1.8rem ; margin-top: 2rem ; line-height: 1.5">
 <li Id="8">Ruffel, S., Krouk, G. & Coruzzi, G. M. A systems view of responses to nutritional cues in Arabidopsis: toward a paradigm shift for predictive network modeling. Plant physiology 152, 445–452; 10.1104/pp.109.148502 (2010).</li>
 <li Id="9"> Minorsky, P. V. Achieving the in Silico Plant. Systems Biology and the Future of Plant Biological Research. Plant physiology 132, 404–409; 10.1104/pp.900076 (2003). <div>
 </ol>
