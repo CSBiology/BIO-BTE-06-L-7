@@ -102,8 +102,8 @@ You will then be asked to give a password and after that to verify it. Both time
 &&
 ```html
 <ol Style="max-width: 85% ; text-align: justify ; font-size: 1.8rem ; margin-top: 2rem ; line-height: 1.5">
-<li Id="8">Ruffel, S., Krouk, G. & Coruzzi, G. M. A systems view of responses to nutritional cues in Arabidopsis: toward a paradigm shift for predictive network modeling. Plant physiology 152, 445–452; 10.1104/pp.109.148502 (2010).</li>
-<li Id="9"> Minorsky, P. V. Achieving the in Silico Plant. Systems Biology and the Future of Plant Biological Research. Plant physiology 132, 404–409; 10.1104/pp.900076 (2003). <div>
+<li Value="8" Id="8">Ruffel, S., Krouk, G. & Coruzzi, G. M. A systems view of responses to nutritional cues in Arabidopsis: toward a paradigm shift for predictive network modeling. Plant physiology 152, 445–452; 10.1104/pp.109.148502 (2010).</li>
+<li Id="9"> Minorsky, P. V. Achieving the in Silico Plant. Systems Biology and the Future of Plant Biological Research. Plant physiology 132, 404–409; 10.1104/pp.900076 (2003). </li>
 </ol>
 ```
 
