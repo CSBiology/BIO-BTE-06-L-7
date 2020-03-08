@@ -18,6 +18,7 @@ open PeptideLookUp
 open SearchEngineResult
 open QConQuantifier.Quantification
 open FSharp.Plotly
+open FSharp.Stats
 
 let source = __SOURCE_DIRECTORY__
 
@@ -83,8 +84,8 @@ let qConQuantParams :Parameters.Domain.QConQuantifierParams =
 let peptideDB = PeptideLookUp.dbLookUpCn qConQuantParams
 
 ///
-let inReader = IO.Reader.createReader @"C:\Users\jonat\source\repos\2020Practical\20200206MS169msFSSTqp009.mzlite"
-
+//let inReader = IO.Reader.createReader @"C:\Users\jonat\source\repos\2020Practical\20200206MS169msFSSTqp009.mzlite"
+let inReader = IO.Reader.createReader @"C:\Users\jonat\source\repos\JupyterFiles\20200206MS169msFSSTqp009.mzlite"
 ///
 let tr = inReader.BeginTransaction()  
 
@@ -194,7 +195,7 @@ let quantifyPSMs reader rtIndex qConQuantifierParams getIsotopicVariant (psms:Se
                         Option.None
                     )
 
-quantifyPSMs inReader rtIndex qConQuantParams getIsotopicVariant thresholdedPsms
+//quantifyPSMs inReader rtIndex qConQuantParams getIsotopicVariant thresholdedPsms
 
 let groupedPSMs =
     thresholdedPsms
@@ -207,10 +208,40 @@ let averagePSM =
         sequence, averagePSM
     )
 
-averagePSM
-|> List.map (fun (sequence, apsm) ->
+let smoothedYData =
+    averagePSM
+    |> List.map (fun (seq, psm) ->
+        Signal.Filtering.savitzky_golay 13 2 0 1 psm.Y_Xic |> Array.ofSeq
+    )
+
+let negativeSndDerivative =
+    averagePSM
+    |> List.map (fun (seq, psm) ->
+        Signal.Filtering.savitzky_golay 13 2 2 1 psm.Y_Xic
+        |> Array.ofSeq
+        |> Array.map ((*)-1.)
+    )
+
+let minMax =
+    List.map3 (fun apsm negSndDer smoothY->
+        let xData = (snd apsm).X_Xic
+        let yData = (snd apsm).Y_Xic
+        let labelTmp = Signal.PeakDetection.labelPeaks 0. 0. xData negSndDer
+        let noiseLevel = Seq.map2 (fun x y -> abs(x-y)) smoothY yData |> Seq.mean |> (*) 0.1
+        let peaks = Signal.PeakDetection.SecondDerivative.filterpeaks noiseLevel yData labelTmp
+        peaks
+        |> Array.map (fun (i,_) -> Signal.PeakDetection.SecondDerivative.characterizePeak xData yData smoothY labelTmp i)
+    
+    )averagePSM negativeSndDerivative smoothedYData
+
+List.map2 (fun (sequence, apsm) smoothY->
+    [
     Chart.Point (apsm.X_Xic, apsm.Y_Xic)
-    |> Chart.withTraceName sequence
-)
+    |> Chart.withTraceName sequence;
+    Chart.Point (apsm.X_Xic, smoothY)
+    |> Chart.withTraceName (sequence+"_smooth")
+    ]
+    |> Chart.Combine
+) averagePSM smoothedYData
 |> Chart.Combine
 |> Chart.Show
