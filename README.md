@@ -102,12 +102,14 @@ You will then be asked to give a password and after that to verify it. Both time
 ### References
 
 ```html
-<sup><a href="#7">7</a></sup>
+<sup><a href="#1">1</a></sup>
 ```
 &&
 ```html
 <ol Style="max-width: 85% ; text-align: justify ; font-size: 1.8rem ; margin-top: 2rem ; line-height: 1.5">
-    <li Value ="1" Id="exmp">exmp</li>
+    <li Value ="1" Id="1">
+		exmp
+	</li>
 </ol>
 ```
 
