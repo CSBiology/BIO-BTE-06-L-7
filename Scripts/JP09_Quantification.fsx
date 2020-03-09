@@ -26,6 +26,12 @@ open Fragmentation
 open TheoreticalSpectra
 open FSharpAux
 open SearchEngineResult
+open MzIO.Processing
+open MzIO.Processing.MzIOLinq
+open MzIO.IO
+open MzIO
+open MzIO.Model
+open MzIO.MzSQL
 
 // Access the ms database
 let source = __SOURCE_DIRECTORY__
@@ -82,12 +88,10 @@ let ms2WithSpectra =
     ms2Headers
     |> Seq.map (fun ms2Header -> 
         let ms2ID = Processing.MassSpectrum.getID ms2Header
-        let (mzData, intensityData) = 
-            Processing.PeakArray.getPeak1DArray reader ms2ID  
-            |> Processing.PeakArray.mzIntensityArrayOf 
         let peaks = 
-            (mzData, intensityData)
-            |> fun (mzData, intensityData) -> PeakArray.zipMzInt mzData intensityData
+            reader.ReadSpectrumPeaks(ms2ID).Peaks
+            |> Seq.map (fun p-> Peak(p.Mz,p.Intensity))
+            |> Array.ofSeq
         ms2Header, peaks
     ) 
 
@@ -112,21 +116,35 @@ ms2WithSpectra
 |> Chart.Show
 
 ///
-let calcIonSeries massF aal = 
-    let ys = Fragmentation.Series.yOfBioList massF aal
-    let bs = Fragmentation.Series.bOfBioList massF aal
-    ys@bs
+let calcIonSeries aal = 
+    Fragmentation.Series.fragmentMasses Fragmentation.Series.bOfBioList Fragmentation.Series.yOfBioList BioItem.initMonoisoMassWithMemP aal
+
+
 ///
-let peptideSpectrumMatches chargeState ms2PrecursorMZ lookUpResult centroidedMs2 modelID = 
-    SequestLike.calcSequestLikeScoresRevDecoy 
-        calcIonSeries (BioItem.monoisoMass) (100.,1500.) 
-            centroidedMs2 1. chargeState ms2PrecursorMZ lookUpResult modelID
+let peptideSpectrumMatches chargeState ms2PrecursorMZ lookUpResult centroidedMs2 (ms2: Model.MassSpectrum) =
+    let theoSpec =
+        lookUpResult
+        |> List.map (fun lookUpResult -> 
+            let ionSeries = calcIonSeries lookUpResult.BioSequence
+            lookUpResult,ionSeries
+        )
+        |> SequestLike.getTheoSpecs (100.,1500.) chargeState
+    SequestLike.calcSequestScore
+        (100.,1500.)
+        centroidedMs2
+        (MassSpectrum.getScanTime ms2)
+        2
+        ms2PrecursorMZ
+        theoSpec
+        ms2.ID
+        //calcIonSeries (BioItem.monoisoMass) (100.,1500.) 
+        //    centroidedMs2 1. chargeState ms2PrecursorMZ lookUpResult modelID
 
 let score = 
     ms2WithSpectra
     |> Seq.map (fun (ms2Header,centroidedPeaks) -> 
         let score = 
-            let results = peptideSpectrumMatches 2 theoMzCharge2 [peptideOfInterest] centroidedPeaks ms2Header.ID
+            let results = peptideSpectrumMatches 2 theoMzCharge2 [peptideOfInterest] centroidedPeaks ms2Header
             match results with 
             | []  -> None 
             | h::tail -> Some h 
@@ -196,5 +214,11 @@ let psmVis =
 
 
 ///
-//let quantifiedXIC = 
-//     Quantification.HULQ.quantifyPeak FSharp.Stats.Signal.PeakDetection.idxOfClosestLabeledPeak 11 1. 20. ret rtData intensityData 
+let quantifiedXIC =
+    normXic
+    |> Array.unzip
+    |> (fun (ret, intensity) ->
+        FSharp.Stats.Signal.PeakDetection.SecondDerivative.getPeaks 0.1 2 13 ret intensity
+    )
+    |> Array.map Quantification.HULQ.quantifyPeak
+    |> Array.map (fun peak -> peak.Area)
