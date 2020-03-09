@@ -16,7 +16,7 @@
 #r "lib/FSharpAux.IO/lib/netstandard2.0/FSharpAux.IO.dll" 
 #r "lib/Deedle/lib/netstandard2.0/Deedle.dll" 
 #r "lib/BioFSharp.IO/lib/netstandard2.0/BioFSharp.IO.dll" 
-#r "lib/BioFSharp.Mz/lib/netstandard2.0/BioFSharp.Mz.dll" 
+#r "lib/BioFSharp.Mz/netstandard2.0/BioFSharp.Mz.dll" 
 #r "lib/MzIO/lib/net45/MzIO.dll" 
 #r "lib/MzIO.Processing/lib/net45/MzIO.Processing.dll" 
 #r "lib/MzIO.SQL/lib/net45/MzIO.SQL.dll" 

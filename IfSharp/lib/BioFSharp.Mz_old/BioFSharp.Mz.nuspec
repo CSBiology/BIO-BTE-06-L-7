@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>BioFSharp.Mz</id>
+    <version>0.0.116</version>
+    <title>BioFSharp.Mz</title>
+    <authors>David Zimmer, Timo Mühlhaus</authors>
+    <owners>David Zimmer, Timo Mühlhaus</owners>
+    <licenseUrl>https://github.com/CSBiology/BioFSharp.Mz/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/CSBiology/BioFSharp.Mz</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/CSBiology/BioFSharp.Mz/master/docs/files/img/logo.png</iconUrl>
+    <description>BioFSharp.Mz - modular computational proteomics</description>
+    <summary>BioFSharp.Mz - modular computational proteomics</summary>
+    <releaseNotes>refactor according to changes latest BioFSharp Release</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <language>F#</language>
+    <tags>proteomics FSharp massspec computational</tags>
+    <dependencies>
+      <dependency id="BioFSharp" version="0.0" />
+      <dependency id="BioFSharp.IO" version="0.0" />
+      <dependency id="FSharp.Core" version="0.0" />
+      <dependency id="FSharp.Stats" version="0.0" />
+      <dependency id="FSharpAux" version="0.0" />
+      <dependency id="FSharpAux.IO" version="0.0" />
+      <dependency id="System.Data.SQLite" version="0.0" />
+    </dependencies>
+  </metadata>
+</package>
