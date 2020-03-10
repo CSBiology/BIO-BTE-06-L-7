@@ -39,20 +39,15 @@ let digestedProteins =
     |> Array.mapi (fun i fastAItem ->
         fastAItem.Header,
         Digestion.BioArray.digest Digestion.Table.Trypsin i fastAItem.Sequence
-        //|> Digestion.BioArray.concernMissCleavages 0 0
+        |> Digestion.BioArray.concernMissCleavages 0 0
     )
-
-//digestedProteins
-//|> Array.sortByDescending (fun (a,x) -> x |> Array.maxBy (fun x -> x.PepSequence.Length))
 
 let digestedPeptideMasses =
     let massFunction:IBioItem -> float = BioItem.initMonoisoMassWithMemP
     digestedProteins
     |> Array.collect (fun (header, digestedProtein) ->
-        
         digestedProtein
         |> Array.map (fun peptide ->
-            header,
             peptide.PepSequence
             |> List.fold (fun acc aa -> 
                 match aa with
@@ -63,53 +58,6 @@ let digestedPeptideMasses =
              ) (massFunction ModificationInfo.Table.H2O) 
         )
     )
-
-/// Returns current value,array tuple (current, [|prefix; current; suffix|])
-let motivy prefixLength suffixLength (source: 'T []) =    
-    if prefixLength < 0 then invalidArg "prefixLength" "Input must be non negative"
-    if suffixLength < 0 then invalidArg "suffixLength" "Input must be non negative"
-    let windowSize = prefixLength + suffixLength + 1
-
-    Array.init (source.Length) 
-        (fun i ->
-            let motive =
-                Array.init windowSize 
-                    (fun ii -> 
-                        if i+ii < prefixLength || (i+ii-prefixLength) > (source.Length-1) then
-                            None 
-                        else
-                            Some source.[i+ii-prefixLength])
-            source.[i],motive
-        )
-
-
-
-
-let maxPep = 
-    digestedPeptideMasses
-    |> Array.maxBy snd
-    |> fst
-    |> fun h -> sequences |> Seq.find (fun fa -> fa.Header = h)
-    |> fun fa -> fa.Sequence
-
-let digested = 
-    maxPep
-    |> Digestion.BioArray.digest Digestion.Table.Trypsin 0
-
-
-let bigChunk = 
-    digested
-    |> Array.maxBy (fun i -> i.PepSequence.Length)
-
-bigChunk.PepSequence.[960 .. 990]
-|> Array.ofList
-//|> Array.findIndex ((=) AminoAcids.Arg)
-|> Digestion.BioArray.digest Digestion.Table.Trypsin 0
-
-
-maxPep.PepSequence.Length
-
-digestedPeptideMasses |> Array.sortDescending
 
 let massVisualization =
     Chart.Histogram digestedPeptideMasses
