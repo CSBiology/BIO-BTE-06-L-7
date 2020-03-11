@@ -109,3 +109,75 @@ let peptideSpectrumMatches calcIonSeries chargeState ms2PrecursorMZ lookUpResult
         ms2PrecursorMZ
         theoSpec
         "sample=0 experiment=12 scan=1033"
+
+let matchInDB charge (lookUpResult: LookUpResult<AminoAcids.AminoAcid>)  =
+    let calcIonSeries aal = 
+        Fragmentation.Series.fragmentMasses 
+            Fragmentation.Series.bOfBioList 
+            Fragmentation.Series.yOfBioList 
+            BioItem.initMonoisoMassWithMemP 
+            aal
+    let source = __SOURCE_DIRECTORY__
+    let dbPath = source + @"/../AuxFiles/sample.mzlite"
+    let runID = "sample=0"
+    let reader =
+        new MzSQL.MzSQL(dbPath)
+        :> MzIO.IO.IMzIODataReader
+    let tr = reader.BeginTransaction()
+    let theoMzCharge = 
+        Mass.toMZ lookUpResult.Mass charge
+    let ms2Headers = 
+        Processing.MassSpectrum.getMassSpectraBy reader runID
+        |> Seq.filter (fun ms -> Processing.MassSpectrum.getMsLevel ms = 2)
+        |> Seq.filter (fun ms2 -> 
+            let precMz = Processing.MassSpectrum.getPrecursorMZ ms2 
+            precMz > theoMzCharge-0.05 && precMz < theoMzCharge+0.05
+        )
+    let ms2WithSpectra = 
+        ms2Headers
+        |> Seq.map (fun ms2Header -> 
+            let ms2ID = Processing.MassSpectrum.getID ms2Header
+            let peaks = 
+                reader.ReadSpectrumPeaks(ms2ID).Peaks
+                |> Seq.map (fun p-> Peak(p.Mz,p.Intensity))
+                |> Array.ofSeq
+            ms2Header, peaks
+        )
+    tr.Dispose() |> ignore
+    let peptideSpectrumMatches chargeState ms2PrecursorMZ lookUpResult centroidedMs2 (ms2: Model.MassSpectrum) =
+        let theoSpec =
+            lookUpResult
+            |> List.map (fun lookUpResult -> 
+                let ionSeries = calcIonSeries lookUpResult.BioSequence
+                lookUpResult,ionSeries
+            )
+            |> SequestLike.getTheoSpecs (100.,1500.) chargeState
+        SequestLike.calcSequestScore
+            (100.,1500.)
+            centroidedMs2
+            (MassSpectrum.getScanTime ms2)
+            chargeState
+            ms2PrecursorMZ
+            theoSpec
+            ms2.ID
+    let score = 
+        ms2WithSpectra
+        |> Seq.map (fun (ms2Header,centroidedPeaks) -> 
+            let score = 
+                let results = peptideSpectrumMatches (int charge) theoMzCharge [lookUpResult] centroidedPeaks ms2Header
+                match results with 
+                | []  -> None 
+                | h::tail -> Some h 
+            ms2Header, score 
+        )
+        |> List.ofSeq
+    let retTimeAndScore =
+        score 
+        |> List.filter (fun (ms2Header, score) -> score.IsSome)
+        |> List.map (fun (ms2Header, score) -> (ms2Header, score.Value)) 
+        |> List.sortByDescending (fun (ms2Header, score) -> score.Score) 
+        |> List.map (fun (ms2Header, score) -> 
+            let retTime = Processing.MassSpectrum.getScanTime ms2Header
+            retTime,score.Score 
+        )
+    retTimeAndScore
