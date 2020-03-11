@@ -5,13 +5,6 @@
 open BioFSharp.Mz
 open FSharp.Plotly
 
-
-open BioFSharp
-open BioFSharp.IO
-open BioFSharp.Mz.SignalDetection.Padding
-open BioFSharp.Mz.SearchDB
-open SequestLike
-
 ///
 let initPaddingParams paddYValue = 
     SignalDetection.Padding.createPaddingParameters paddYValue (Some 7) 0.05 150 95.
@@ -25,12 +18,12 @@ let ms2PeakPicking (mzData:float []) (intensityData: float []) =
     if mzData.Length < 3 then 
         [||],[||]
     else
-    let yThreshold = Array.min intensityData
-    let paddingParams = initPaddingParams yThreshold
-    let paddedMz,paddedIntensity = 
-        SignalDetection.Padding.paddDataBy paddingParams mzData intensityData
-    let waveletParameters = initWaveletParametersMS2 yThreshold 
-    BioFSharp.Mz.SignalDetection.Wavelet.toCentroidWithRicker2D waveletParameters paddedMz paddedIntensity
+        let yThreshold = Array.min intensityData
+        let paddingParams = initPaddingParams yThreshold
+        let paddedMz,paddedIntensity = 
+            SignalDetection.Padding.paddDataBy paddingParams mzData intensityData
+        let waveletParameters = initWaveletParametersMS2 yThreshold 
+        BioFSharp.Mz.SignalDetection.Wavelet.toCentroidWithRicker2D waveletParameters paddedMz paddedIntensity
         
 ///
 let ms2 = 
@@ -48,4 +41,7 @@ let centroidedMs2 =
     |> Chart.withTraceName "Centroided MS2"
 ]
 |> Chart.Combine
+|> Chart.withY_AxisStyle "Intensity"
+|> Chart.withX_AxisStyle "m/z"
+|> Chart.withSize (900.,900.)
 |> Chart.Show
