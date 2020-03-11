@@ -27,40 +27,29 @@ let aminoAcidDistribution =
 
 let aaDistributionHis =
     aminoAcidDistribution
-    |> Array.map (fun (name,count) -> name.ToString(), count)
-    |> Array.sortByDescending snd
-    |> Chart.Column
-    |> Chart.withY_AxisStyle "Count"
+    |> Array.map (fun (name,count) -> count, name.ToString())
+    |> Array.sortBy fst
+    |> Chart.Bar
+    |> Chart.withX_AxisStyle "Count"
     |> Chart.withTitle "Amino Acid composition of the <i>Chlamydomonas reinhardtii</i> proteome"
     |> Chart.Show
 
 let digestedProteins =
     sequences
     |> Array.mapi (fun i fastAItem ->
-        fastAItem.Header,
         Digestion.BioArray.digest Digestion.Table.Trypsin i fastAItem.Sequence
         |> Digestion.BioArray.concernMissCleavages 0 0
     )
+    |> Array.concat
 
 let digestedPeptideMasses =
-    let massFunction:IBioItem -> float = BioItem.initMonoisoMassWithMemP
     digestedProteins
-    |> Array.collect (fun (header, digestedProtein) ->
-        digestedProtein
-        |> Array.map (fun peptide ->
-            peptide.PepSequence
-            |> List.fold (fun acc aa -> 
-                match aa with
-                | AminoAcids.AminoAcid.Mod(a,_) ->
-                    acc + massFunction a
-                | a -> 
-                    acc + massFunction a
-             ) (massFunction ModificationInfo.Table.H2O) 
+    |> Array.map (fun peptide ->
+            BioSeq.toMonoisotopicMassWith (BioItem.monoisoMass ModificationInfo.Table.H2O) peptide.PepSequence
         )
-    )
 
 let massVisualization =
     Chart.Histogram digestedPeptideMasses
-    |> Chart.withX_AxisStyle "Mass"
+    |> Chart.withX_AxisStyle (title = "Mass [Da]", MinMax = (0., 6000.))
     |> Chart.withY_AxisStyle "Count"
     |> Chart.Show

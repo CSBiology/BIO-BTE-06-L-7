@@ -178,7 +178,7 @@ let retTimeIdx =
     idx
 
 ///   
-let ret = 27.68108333
+let ret = 27.71
 
 ///
 let rtQuery = Processing.Query.createRangeQuery ret 50.
@@ -217,10 +217,25 @@ let psmVis =
 
 ///
 let quantifiedXIC =
-    normXic
-    |> Array.unzip
-    |> (fun (ret, intensity) ->
-        FSharp.Stats.Signal.PeakDetection.SecondDerivative.getPeaks 0.1 2 13 ret intensity
+    let peaks = 
+        xic
+        |> Array.unzip
+        |> (fun (ret, intensity) ->
+            FSharp.Stats.Signal.PeakDetection.SecondDerivative.getPeaks 0.1 2 13 ret intensity
+        )
+    let peakToQuantify = BioFSharp.Mz.Quantification.HULQ.getPeakBy peaks ret
+    BioFSharp.Mz.Quantification.HULQ.quantifyPeak peakToQuantify
+
+let fittedData = 
+    xic 
+    |> Array.map (fun (rt,i) -> 
+                    match quantifiedXIC.Model.Value with 
+                    | Gaussian f -> rt, f.GetFunctionValue (quantifiedXIC.EstimatedParams |>vector) rt
     )
-    |> Array.map Quantification.HULQ.quantifyPeak
-    |> Array.map (fun peak -> peak.Area)
+    
+[
+Chart.Point(xic)
+Chart.SplineArea(fittedData)
+]
+|> Chart.Combine
+|> Chart.Show

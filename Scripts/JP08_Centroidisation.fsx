@@ -14,7 +14,7 @@ let initWaveletParametersMS2 paddYValue =
     SignalDetection.Wavelet.createWaveletParameters 10 paddYValue 0.1 90. 1.
         
 ///
-let ms2PeakPicking (mzData:float []) (intensityData: float []) = 
+let ms1PeakPicking (mzData:float []) (intensityData: float []) = 
     if mzData.Length < 3 then 
         [||],[||]
     else
@@ -26,22 +26,24 @@ let ms2PeakPicking (mzData:float []) (intensityData: float []) =
         BioFSharp.Mz.SignalDetection.Wavelet.toCentroidWithRicker2D waveletParameters paddedMz paddedIntensity
         
 ///
-let ms2 = 
-    BioFSharp.IO.Mgf.readMgf (__SOURCE_DIRECTORY__ + @"/../AuxFiles/DavesTaskData/ms2MGF.mgf")
-    |> List.item 0 
+let ms1 = 
+    BioFSharp.IO.Mgf.readMgf (__SOURCE_DIRECTORY__ + @"/../AuxFiles/DavesTaskData/ms1MGF.mgf")
+    |> List.head
 
 ///
-let centroidedMs2 = 
-    ms2PeakPicking ms2.Mass ms2.Intensity
+let centroidedMs1 = 
+    ms1PeakPicking ms1.Mass ms1.Intensity
+
+
 
 [
-    Chart.Point(ms2.Mass,ms2.Intensity)
-    |> Chart.withTraceName "Uncentroided MS2"
-    Chart.Point(fst centroidedMs2,snd centroidedMs2)
-    |> Chart.withTraceName "Centroided MS2"
+    Chart.Point(ms1.Mass,ms1.Intensity)
+    |> Chart.withTraceName "Uncentroided MS1"
+    Chart.Point(fst centroidedMs1,snd centroidedMs1)
+    |> Chart.withTraceName "Centroided MS1"
 ]
 |> Chart.Combine
 |> Chart.withY_AxisStyle "Intensity"
-|> Chart.withX_AxisStyle "m/z"
+|> Chart.withX_AxisStyle (title = "m/z", MinMax = (400., 800.))
 |> Chart.withSize (900.,900.)
 |> Chart.Show
