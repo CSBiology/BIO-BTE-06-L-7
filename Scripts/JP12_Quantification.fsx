@@ -1,6 +1,7 @@
 
 #load @"../IfSharp/References.fsx"
 #load @"../IfSharp/Paket.Generated.Refs.fsx"
+#load @"../AuxFsx/ProtAux.fsx"
 
 open System.IO
 open BioFSharp.IO
@@ -32,18 +33,24 @@ open MzIO.IO
 open MzIO
 open MzIO.Model
 open MzIO.MzSQL
+open ProtAux
 
 // Access the ms database
 let source = __SOURCE_DIRECTORY__
 
+// mzlite is a file-based local SQLite database. (Similiar to a collection of optimized excel tables.)  
 let dbPath = source + @"/../AuxFiles/sample.mzlite"
 
+// The id of the data we want to access
 let runID = "sample=0"
 
+
+// Creates an object capable of reading an mzlite database.
 let reader =
     new MzSQL.MzSQL(dbPath)
     :> MzIO.IO.IMzIODataReader
-
+    
+// Uses the 'reader' to start the transaction with the database.
 let tr = reader.BeginTransaction()
 
 /////
@@ -70,16 +77,19 @@ let tr = reader.BeginTransaction()
 let peptideOfInterest = 
     BioFSharp.Mz.SearchDB.createLookUpResult 3439282 302200012 1190.654689 1190654689L "VYVVGEDGILK" (BioList.ofAminoAcidString "VYVVGEDGILK") 0
 
-///
+// calculate the M/Z value for the 'peptideOfInterest'
 let theoMzCharge2 = 
     Mass.toMZ peptideOfInterest.Mass 2.
 
-///
 let ms2Headers = 
     Processing.MassSpectrum.getMassSpectraBy reader runID
+        // filter for only MS2 spectrum
     |> Seq.filter (fun ms -> Processing.MassSpectrum.getMsLevel ms = 2)
     |> Seq.filter (fun ms2 -> 
+        // Seq.filter iterates the whole sequenz applying a certain filter function to each element.
+        // The function picks the correlated precursor - M/Z for each found MS2 
         let precMz = Processing.MassSpectrum.getPrecursorMZ ms2 
+        // Then it filters out all MS2, where the precursor - M/Z is not within a certain range to the 'theoMzCharge2'
         precMz > theoMzCharge2-0.05 && precMz < theoMzCharge2+0.05
     )
 
@@ -87,66 +97,81 @@ let ms2Headers =
 let ms2WithSpectra = 
     ms2Headers
     |> Seq.map (fun ms2Header -> 
+        // Get the MS2 IDs of all found MS2 headers 
         let ms2ID = Processing.MassSpectrum.getID ms2Header
+        // Get all peaks related to 'ms2ID'
         let peaks = 
+            // A peak is a sequence of x- and y-data points
             reader.ReadSpectrumPeaks(ms2ID).Peaks
             |> Seq.map (fun p-> Peak(p.Mz,p.Intensity))
             |> Array.ofSeq
+        // return a tuple of the MS2 header (as identifier for later), and the peak array
         ms2Header, peaks
-    ) 
-
-ms2WithSpectra
-|> Seq.map (fun (model, peakArray) ->
-    Chart.Point (
-        peakArray
-        |> Array.map (fun peak ->
-            printfn "%f" peak.Mz
-            peak.Mz
-        ),
-        peakArray
-        |> Array.map (fun peak ->
-            peak.Intensity
-        )
     )
-    |> Chart.withTraceName (model.ID)
+
+// Create peak charts from all found peaks within the M/Z range of the theoretical M/Z value for charge 2.
+ms2WithSpectra
+|> Seq.map (
+    // model is here the MS2 header
+    fun (model, peakArray) ->
+        // create a Chart.Point from peak.Mz and peak.Intensity
+        Chart.Point (
+            // access peak M/Z
+            peakArray
+            |> Array.map (fun peak -> peak.Mz )
+            ,
+            // access peak intensity
+            peakArray
+            |> Array.map (fun peak -> peak.Intensity )
+        )
+        |> Chart.withTraceName (model.ID)
 )
 |> Chart.Combine
 |> Chart.withX_AxisStyle "m/z"
 |> Chart.withY_AxisStyle "Intensity"
+|> Chart.withSize (900.,900.)
 |> Chart.Show
 
-///
+// this is used to create simulated MS2 spectra for a peptide of interest
 let calcIonSeries aal = 
-    Fragmentation.Series.fragmentMasses Fragmentation.Series.bOfBioList Fragmentation.Series.yOfBioList BioItem.initMonoisoMassWithMemP aal
+    Fragmentation.Series.fragmentMasses 
+        Fragmentation.Series.bOfBioList 
+        Fragmentation.Series.yOfBioList 
+        BioItem.initMonoisoMassWithMemP 
+        aal
 
-
-///
 let peptideSpectrumMatches chargeState ms2PrecursorMZ lookUpResult centroidedMs2 (ms2: Model.MassSpectrum) =
     let theoSpec =
         lookUpResult
         |> List.map (fun lookUpResult -> 
+            // lookUpResult will be the 'peptideOfInterest'
             let ionSeries = calcIonSeries lookUpResult.BioSequence
             lookUpResult,ionSeries
         )
+        // (100.,1500.) is the M/Z range in which we are interested
         |> SequestLike.getTheoSpecs (100.,1500.) chargeState
     SequestLike.calcSequestScore
         (100.,1500.)
+        // the MS2 spectra from 'ms2WithSpectra'
         centroidedMs2
+        // ms2 is the header from 'ms2WithSpectra'
         (MassSpectrum.getScanTime ms2)
         2
+        // the theoretical M/Z from 'theoMzCharge2'
         ms2PrecursorMZ
         theoSpec
         ms2.ID
-        //calcIonSeries (BioItem.monoisoMass) (100.,1500.) 
-        //    centroidedMs2 1. chargeState ms2PrecursorMZ lookUpResult modelID
-
+        
 let score = 
     ms2WithSpectra
     |> Seq.map (fun (ms2Header,centroidedPeaks) -> 
         let score = 
+            // get all peptide spectrum matches
             let results = peptideSpectrumMatches 2 theoMzCharge2 [peptideOfInterest] centroidedPeaks ms2Header
             match results with 
+            // Should no match be found, return None
             | []  -> None 
+            // Should there be at least one match, get the first value (the one with the highest score)
             | h::tail -> Some h 
         ms2Header, score 
     )
@@ -154,14 +179,19 @@ let score =
 
 let retTimeAndScore =                                                    
     score 
+    // filte so that any match was found and score.IsSome
     |> List.filter (fun (ms2Header, score) -> score.IsSome)
+    // map to return the value of score.
     |> List.map (fun (ms2Header, score) -> (ms2Header, score.Value)) 
-    |> List.sortByDescending (fun (ms2Header, score) -> score) 
+    // sort by descending (from high to low)
+    |> List.sortByDescending (fun (ms2Header, score) -> score.Score) 
+    // get the related retention time for the found score, via the ms2Header as identifier
     |> List.map (fun (ms2Header, score) -> 
         let retTime = Processing.MassSpectrum.getScanTime ms2Header
         retTime,score.Score 
     )
 
+// normalize score to the maximal found score
 let normRetTimeAndScore = 
     let maxScore = 
         retTimeAndScore
@@ -169,6 +199,7 @@ let normRetTimeAndScore =
         |> snd 
     retTimeAndScore
     |> List.map (fun (ret,score) -> ret, (score / maxScore))
+    
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -226,16 +257,12 @@ let quantifiedXIC =
     let peakToQuantify = BioFSharp.Mz.Quantification.HULQ.getPeakBy peaks ret
     BioFSharp.Mz.Quantification.HULQ.quantifyPeak peakToQuantify
 
-let fittedData = 
-    xic 
-    |> Array.map (fun (rt,i) -> 
-                    match quantifiedXIC.Model.Value with 
-                    | Gaussian f -> rt, f.GetFunctionValue (quantifiedXIC.EstimatedParams |>vector) rt
-    )
     
 [
-Chart.Point(xic)
-Chart.SplineArea(fittedData)
+    Chart.Point(xic)
+    |> Chart.withTraceName "XIC"
+    Chart.SplineArea(showQuantifiedXic xic quantifiedXIC)
+    |> Chart.withTraceName "quantified XIC"
 ]
 |> Chart.Combine
 |> Chart.Show
