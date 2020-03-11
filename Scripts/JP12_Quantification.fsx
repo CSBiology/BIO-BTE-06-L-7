@@ -67,7 +67,14 @@ let score =
         | []  -> None 
         // Should there be at least one match, get the first value (the one with the highest score)
         | h::tail -> Some h 
-    score 
+    score
+
+let inDb = matchInDB 2. peptideOfInterest
+
+Chart.Point inDb
+|> Chart.withX_AxisStyle "Retention Time"
+|> Chart.withY_AxisStyle "Score"
+|> Chart.Show
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -102,17 +109,27 @@ let normXic =
     xic    
     |> Array.map (fun (ret,intensity) -> ret, (intensity / maxIntensity))
 
+// normalize score to the maximal found score
+let normRetTimeAndScore =
+    let retTimeAndScore = matchInDB 2. peptideOfInterest
+    let maxScore = 
+        retTimeAndScore
+        |> List.maxBy snd 
+        |> snd 
+    retTimeAndScore
+    |> List.map (fun (ret,score) -> ret, (score / maxScore))
+
 let xicVis = 
     Chart.Point(normXic)
     |> Chart.withTraceName "Normalized XIC"
 
-//let psmVis = 
-//    Chart.Point(normRetTimeAndScore)
-//    |> Chart.withTraceName "Retention time and normalized Score"
+let psmVis = 
+    Chart.Point(normRetTimeAndScore)
+    |> Chart.withTraceName "Normalized Score"
 
 [
     xicVis
-    //psmVis
+    psmVis
 ]
 |> Chart.Combine
 |> Chart.Show
