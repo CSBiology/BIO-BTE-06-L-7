@@ -185,12 +185,12 @@ let ms2PrecursorMZ =
 
 /// This mass can now be used to obtain a peptide search in a database created by in silico digestion of the known proteom of a organism of choice.
 /// This search was done beforehand and you can retrieve the result stored in the following file:
-let lookUpResult =
-     [
-        BioFSharp.Mz.SearchDB.createLookUpResult 3439282 302200012 1190.654689 1190654689L "VYVVGEDGILK" (BioList.ofAminoAcidString "VYVVGEDGILK") 0
-        BioFSharp.Mz.SearchDB.createLookUpResult 5411223 444660385 1190.670631 1190670631L "AIRGFCQRLK" (BioList.ofAminoAcidString "AIRGFCQRLK") 0
-        BioFSharp.Mz.SearchDB.createLookUpResult 2343340 203080049 1190.670631 1190670631L "IGRGLFRNMK" (BioList.ofAminoAcidString "IGRGLFRNMK") 0
-     ]
+//let lookUpResult =
+//     [
+//        BioFSharp.Mz.SearchDB.createLookUpResult 3439282 302200012 1190.654689 1190654689L "VYVVGEDGILK" (BioList.ofAminoAcidString "VYVVGEDGILK") 0
+//        BioFSharp.Mz.SearchDB.createLookUpResult 5411223 444660385 1190.670631 1190670631L "AIRGFCQRLK" (BioList.ofAminoAcidString "AIRGFCQRLK") 0
+//        BioFSharp.Mz.SearchDB.createLookUpResult 2343340 203080049 1190.670631 1190670631L "IGRGLFRNMK" (BioList.ofAminoAcidString "IGRGLFRNMK") 0
+//     ]
 
 /// additional info about MS2:  https://www.dcbiosciences.com/news/interpreting-peaks-ms2-spectra/
 let calcIonSeries massF aal =
@@ -202,17 +202,23 @@ let calcIonSeries massF aal =
 
 let testAA = BioFSharp.Mz.SearchDB.createLookUpResult 3439282 302200012 1190.654689 1190654689L "VYVVGEDGILK" (BioList.ofAminoAcidString "VYVVGEDGILK") 0
 
-AminoAcids.averageMass testAA.BioSequence.Head
-
 let private chartConfig =
     Config.init(StaticPlot = false, Responsive = true, Editable = true,Autosizable=true,ShowEditInChartStudio=true,ToImageButtonOptions = ToImageButtonOptions.init(Format = StyleParam.ImageFormat.SVG))
 let private xAxis title = Axis.LinearAxis.init(Title=title,Showgrid=false,Showline=true,Zeroline=false,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside,Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=26.),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=20.))       
 let private yAxis title = Axis.LinearAxis.init(Title=title,Showgrid=false,Showline=true,Zeroline=false,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside,Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=26.),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=20.)(*,AxisType = StyleParam.AxisType.Log*))
 
-let createMS2Charts (lookUpResult:SearchDB.LookUpResult<AminoAcids.AminoAcid> list)=
+
+let lookUpResult =
+    [
+       BioList.ofAminoAcidString "VYVVGEDGILK"
+       BioList.ofAminoAcidString "AIRGFCQRLK"
+       BioList.ofAminoAcidString "IGRGLFRNMK"
+    ] 
+
+let createMS2Charts lookUpResult=
     let rnd = System.Random()
     lookUpResult
-    |> List.map (fun x -> calcIonSeries BioItem.initMonoisoMassWithMemP x.BioSequence)
+    |> List.map (fun x -> calcIonSeries BioItem.initMonoisoMassWithMemP x)
     |> List.map (fun x -> ladderElement [1.] x)
     |> List.map (fun laal -> // laddered amino acid list
         laal 
@@ -234,14 +240,14 @@ let createMS2Charts (lookUpResult:SearchDB.LookUpResult<AminoAcids.AminoAcid> li
                     let dyn = Trace("bar")
                     dyn?x <- mzList
                     dyn?y <- rndList
-                    dyn?text <- nameList
                     dyn?name <- name
+                    dyn?text <- nameList
                     dyn?textposition <- "auto"
+                    dyn?textposition <- "outside"
+                    dyn?constraintext <- "inside"
+                    dyn?fontsize <- 20.
                     dyn?width <- 10
                     dyn?opacity <- 0.8
-                    dyn?textposition <- "outside"
-                    dyn?fontsize <- 20.
-                    dyn?constraintext <- "inside"
                     dyn
                 GenericChart.ofTraceObject column
                 |> Chart.withX_AxisStyle("m/z",MinMax=((List.min mzList) - 100.,(List.max mzList) + 100.))
@@ -255,3 +261,13 @@ let createMS2Charts (lookUpResult:SearchDB.LookUpResult<AminoAcids.AminoAcid> li
             |> Chart.withX_Axis (xAxis "m/z")
             |> Chart.withSize (900.,600.)
     )
+
+//lookUpResult
+//|> List.map (fun x -> calcIonSeries BioItem.initMonoisoMassWithMemP x)
+//|> List.map (fun laal ->
+//    laal 
+//    |> List.map (fun lpf ->
+//        lpf.MainPeak.Mass, lpf.MainPeak.Iontype
+//    )
+//)
+//|> List.head 
