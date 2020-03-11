@@ -56,9 +56,17 @@ You will then be asked to give a password and after that to verify it. Both time
 ```
 ### Text div
 
-
 ```html 
 <div Style="text-align: justify ; font-size: 1.8rem ; margin-top: 2rem ; line-height: 1.5">
+</div>
+```
+
+### Combined TextContainer and TextDiv
+
+```html 
+<div Style="max-width: 85%">
+	<div Style="text-align: justify ; font-size: 1.8rem ; margin-top: 2rem ; line-height: 1.5">
+	</div>
 </div>
 ```
 
