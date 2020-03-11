@@ -197,13 +197,15 @@ let normXic =
         |> Array.maxBy snd 
         |> snd 
     xic    
-    |> Array.map (fun (ret,score) -> ret, (score / maxIntensity))
+    |> Array.map (fun (ret,intensity) -> ret, (intensity / maxIntensity))
 
 let xicVis = 
     Chart.Point(normXic)
+    |> Chart.withTraceName "Normalized XIC"
 
 let psmVis = 
     Chart.Point(normRetTimeAndScore)
+    |> Chart.withTraceName "Retention time and normalized Score"
 
 [
     xicVis
