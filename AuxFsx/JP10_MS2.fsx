@@ -131,7 +131,6 @@ let ladderElement (chargeList: float list) (ionList: Mz.PeakFamily<Mz.TaggedMass
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
 let folderPath =
     let source =
         __SOURCE_DIRECTORY__
@@ -155,13 +154,10 @@ let ms2PeakPicking (mzData:float []) (intensityData: float []) =
         [||],[||]
     else
     let yThreshold = Array.min intensityData
-    printfn "yThreshold : %f" yThreshold
     let paddingParams = initPaddingParams yThreshold
-    printfn "paddingParams : %A" paddingParams
     let paddedMz,paddedIntensity =
         SignalDetection.Padding.paddDataBy paddingParams mzData intensityData
     let waveletParameters = initWaveletParametersMS2 yThreshold
-    printfn "waveletParams : %A" waveletParameters
     BioFSharp.Mz.SignalDetection.Wavelet.toCentroidWithRicker2D waveletParameters paddedMz paddedIntensity
 
 ///
@@ -179,7 +175,7 @@ let centroidedMs2 =
     Chart.Point(fst centroidedMs2,snd centroidedMs2)
 ]
 |> Chart.Combine
-|> Chart.Show
+//|> Chart.Show
 
 /// PrecursorMZ that was picked in the MS1 full scan to generate a MS2
 let ms2PrecursorMZ = 
@@ -208,16 +204,15 @@ let testAA = BioFSharp.Mz.SearchDB.createLookUpResult 3439282 302200012 1190.654
 
 AminoAcids.averageMass testAA.BioSequence.Head
 
-let chartConfig =
+let private chartConfig =
     Config.init(StaticPlot = false, Responsive = true, Editable = true,Autosizable=true,ShowEditInChartStudio=true,ToImageButtonOptions = ToImageButtonOptions.init(Format = StyleParam.ImageFormat.SVG))
-let xAxis title = Axis.LinearAxis.init(Title=title,Showgrid=false,Showline=true,Zeroline=false,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside,Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=26.),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=20.))       
-let yAxis title = Axis.LinearAxis.init(Title=title,Showgrid=false,Showline=true,Zeroline=false,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside,Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=26.),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=20.)(*,AxisType = StyleParam.AxisType.Log*))
+let private xAxis title = Axis.LinearAxis.init(Title=title,Showgrid=false,Showline=true,Zeroline=false,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside,Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=26.),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=20.))       
+let private yAxis title = Axis.LinearAxis.init(Title=title,Showgrid=false,Showline=true,Zeroline=false,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside,Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=26.),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=20.)(*,AxisType = StyleParam.AxisType.Log*))
 
-let testing =
+let createMS2Charts (lookUpResult:SearchDB.LookUpResult<AminoAcids.AminoAcid> list)=
     let rnd = System.Random()
     lookUpResult
     |> List.map (fun x -> calcIonSeries BioItem.initMonoisoMassWithMemP x.BioSequence)
-    |> fun x -> x
     |> List.map (fun x -> ladderElement [1.] x)
     |> List.map (fun laal -> // laddered amino acid list
         laal 
@@ -234,8 +229,21 @@ let testing =
                     |> List.sortBy (fun (mz,iontype,number) -> number)
                     |> List.map (fun (mz,iontype,number) -> mz, sprintf "%s%i" (iontype.ToString()) number)
                     |> List.unzip
-                let listOfOnes = List.init mzList.Length (fun _ -> rnd.Next(4575,56867))
-                Chart.Column(mzList,listOfOnes, Labels = nameList, Name=name)
+                let rndList = List.init mzList.Length (fun _ -> rnd.Next(4575,56867))
+                let column =
+                    let dyn = Trace("bar")
+                    dyn?x <- mzList
+                    dyn?y <- rndList
+                    dyn?text <- nameList
+                    dyn?name <- name
+                    dyn?textposition <- "auto"
+                    dyn?width <- 10
+                    dyn?opacity <- 0.8
+                    dyn?textposition <- "outside"
+                    dyn?fontsize <- 20.
+                    dyn?constraintext <- "inside"
+                    dyn
+                GenericChart.ofTraceObject column
                 |> Chart.withX_AxisStyle("m/z",MinMax=((List.min mzList) - 100.,(List.max mzList) + 100.))
             [
                 createChart y "y ions"
@@ -247,7 +255,3 @@ let testing =
             |> Chart.withX_Axis (xAxis "m/z")
             |> Chart.withSize (900.,600.)
     )
-    |> List.head |> Chart.Show
-
-
-
