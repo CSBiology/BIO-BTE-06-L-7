@@ -61,7 +61,7 @@ let calcIonSeries aal =
 let score = 
     let score = 
         // get all peptide spectrum matches
-        let results = peptideSpectrumMatches calcIonSeries 2 theoMzCharge2 [peptideOfInterest] centroidedMs2
+        let results = peptideSpectrumMatches 2 theoMzCharge2 [peptideOfInterest] centroidedMs2
         match results with 
         // Should no match be found, return None
         | []  -> None 

@@ -65,6 +65,13 @@ let dbPath = source + @"/../AuxFiles/sample.mzlite"
 
 let runID = "sample=0"
 
+let calcIonSeries aal = 
+    Fragmentation.Series.fragmentMasses 
+        Fragmentation.Series.bOfBioList 
+        Fragmentation.Series.yOfBioList 
+        BioItem.initMonoisoMassWithMemP 
+        aal
+
 ///
 let initPaddingParams paddYValue = 
     SignalDetection.Padding.createPaddingParameters paddYValue (Some 7) 0.05 150 95.
@@ -85,7 +92,7 @@ let ms2PeakPicking (mzData:float []) (intensityData: float []) =
         let waveletParameters = initWaveletParametersMS2 yThreshold 
         BioFSharp.Mz.SignalDetection.Wavelet.toCentroidWithRicker2D waveletParameters paddedMz paddedIntensity
 
-let peptideSpectrumMatches calcIonSeries chargeState ms2PrecursorMZ lookUpResult (centroidedMs2: (float[]*float[])) =
+let peptideSpectrumMatches chargeState ms2PrecursorMZ lookUpResult (centroidedMs2: (float[]*float[])) =
     let theoSpec =
         lookUpResult
         |> List.map (fun lookUpResult -> 
@@ -111,12 +118,6 @@ let peptideSpectrumMatches calcIonSeries chargeState ms2PrecursorMZ lookUpResult
         "sample=0 experiment=12 scan=1033"
 
 let matchInDB charge (lookUpResult: LookUpResult<AminoAcids.AminoAcid>)  =
-    let calcIonSeries aal = 
-        Fragmentation.Series.fragmentMasses 
-            Fragmentation.Series.bOfBioList 
-            Fragmentation.Series.yOfBioList 
-            BioItem.initMonoisoMassWithMemP 
-            aal
     let source = __SOURCE_DIRECTORY__
     let dbPath = source + @"/../AuxFiles/sample.mzlite"
     let runID = "sample=0"
