@@ -2,16 +2,34 @@
 #load @"../IfSharp/Paket.Generated.Refs.fsx"
 
 open BioFSharp
-open BioFSharp.IO
-open FSharp.Stats
 open FSharp.Plotly
-open AminoProperties
-open BioFSharp
 open BioFSharp.Elements
-open BioFSharp.Formula
 
 
 /// Teil 1
+
+let createBarChart inputData name =
+    let x,y = inputData |> List.unzip
+    let column =
+        let dyn = Trace("bar")
+        dyn?x <- x
+        dyn?y <- y
+        dyn?name <- name
+        dyn?textposition <- "auto"
+        dyn?textposition <- "outside"
+        dyn?constraintext <- "inside"
+        dyn?fontsize <- 20.
+        dyn?width <- 0.5
+        dyn?opacity <- 0.8
+        dyn
+    GenericChart.ofTraceObject column
+    |> Chart.withX_AxisStyle("m/z")
+
+let getMinOfIsotopeX (isoList:(float*_) list) =
+    isoList |> (List.unzip >> fst >> List.min >> float) |> fun x -> x - 10.
+
+let getMaxOfIsotopeX (isoList:(float*_) list) =
+    isoList |> (List.unzip >> fst >> List.max >> float) |> fun x -> x + 10.
 
 ///Predicts an isotopic distribution of the given formula at the given charge, normalized by the sum of probabilities, using the MIDAs algorithm
 let generateIsotopicDistribution (charge:int) (f:Formula.Formula) =
@@ -50,14 +68,22 @@ let isoPattern_peptide_short =
 let isoPattern_peptide_long = 
     generateIsotopicDistribution 1 peptide_long
 
-[
-    Chart.Point isoPattern_peptide_short 
-    |> Chart.withTraceName "shortPep"
-    Chart.Point isoPattern_peptide_long 
-    |> Chart.withTraceName "longPep"
-]
-|> Chart.Combine
-|> Chart.Show
+
+let isotopicClusterChart = 
+    let min_short,max_short =
+        getMinOfIsotopeX isoPattern_peptide_short, getMaxOfIsotopeX isoPattern_peptide_short
+    let min_long,max_long =
+        getMinOfIsotopeX isoPattern_peptide_long, getMaxOfIsotopeX isoPattern_peptide_long
+    [
+        createBarChart isoPattern_peptide_short "peptide_short"
+        |> Chart.withX_AxisStyle ("m/z",MinMax=(min_short,max_short))
+        createBarChart isoPattern_peptide_long "peptide_long"
+        |> Chart.withX_AxisStyle ("m/z",MinMax=(min_long, max_long))
+    ]
+    |> Chart.Stack 2
+    |> Chart.withTitle "Isotopeclusters"
+    |> Chart.withY_AxisStyle "intensity"
+    |> Chart.Show
 
 /// Teil 2
 
@@ -79,16 +105,31 @@ let N15_isoPattern_peptide_short =
 let N15_isoPattern_peptid_long = 
     generateIsotopicDistribution 1 N15_peptide_long
 
-[
-    Chart.Point isoPattern_peptide_short 
-    |> Chart.withTraceName "shortPep"
-    Chart.Point isoPattern_peptide_long 
-    |> Chart.withTraceName "longPep"
-    Chart.Point N15_isoPattern_peptide_short 
-    |> Chart.withTraceName "N15shortPep"
-    Chart.Point N15_isoPattern_peptid_long 
-    |> Chart.withTraceName "N15longPep"
-]
-|> Chart.Combine
-|> Chart.Show
 
+let isotopicClusterChartWith15N =
+    let min_short,max_short =
+        getMinOfIsotopeX isoPattern_peptide_short, getMaxOfIsotopeX N15_isoPattern_peptide_short
+    let min_long,max_long =
+        getMinOfIsotopeX isoPattern_peptide_long, getMaxOfIsotopeX N15_isoPattern_peptid_long
+    [
+        [
+            createBarChart isoPattern_peptide_short "peptide_short"
+            createBarChart N15_isoPattern_peptide_short "N15_peptide_short"
+        ] 
+        |> Chart.Combine 
+        |> Chart.withX_AxisStyle ("m/z",MinMax=(min_short, max_short))
+        [
+            createBarChart isoPattern_peptide_long "peptide_long"
+            createBarChart N15_isoPattern_peptid_long "N15_peptide_long"
+        ] 
+        |> Chart.Combine 
+        |> Chart.withX_AxisStyle ("m/z",MinMax=(min_long, max_long))
+    ]
+    |> Chart.Stack 2
+    |> Chart.withTitle "Isotopeclusters"
+    |> Chart.withY_AxisStyle "intensity"
+    |> Chart.Show
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////      JP Isotopic_distribution        //////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
