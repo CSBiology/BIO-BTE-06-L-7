@@ -58,8 +58,8 @@ let random (pmf:Map<float,(float*seq<Peptide>)>) =
         |> Seq.find (fun (x,y) -> y >= target)
     x
 
-/// Creates probability mass function    
-let create bandwidth (peptideArr:Peptide []) =            
+/// Creates probability mass function for Peptide array and keeps peptide information for each bin   
+let createPeptideHis bandwidth (peptideArr:Peptide []) =            
     let halfBw = bandwidth / 2.0       
     let tmp = 
         peptideArr
@@ -80,9 +80,11 @@ let create bandwidth (peptideArr:Peptide []) =
     |> Seq.map (fun (a,b,peps) -> (a,(b/ area, peps)))
     |> Map.ofSeq
 
-let sampleList hisMap =
+/// Samples "n" from empirical map "hisMap"
+/// "hisMap" should be create via "createPeptideHis"
+let sampleList n hisMap =
     let rnd = System.Random()
-    [0 .. 10000]
+    [0 .. n]
     |> List.map (fun _ -> random hisMap)
     |> List.map (fun x -> Map.find x hisMap)
     |> List.map (
@@ -91,7 +93,7 @@ let sampleList hisMap =
             Seq.item rndInd peps
     )
 
-let digestedPeptideMasses =
+let digestPeptideMasses lowerMassBound upperMassBound =
     digestedProteins
     |> Array.choose (fun peptide ->
         let mass = BioSeq.toMonoisotopicMassWith (BioItem.monoisoMass ModificationInfo.Table.H2O) peptide.PepSequence
@@ -110,67 +112,82 @@ let digestedPeptideMasses =
                 |> (Array.map getHydrophobicityIndex 
                 >> Array.sum)
         let newPep() = Peptide.create pepSeq hydro mass
-        if mass < 3000. then Some (newPep()) else None
+        if mass < upperMassBound && mass > lowerMassBound then Some (newPep()) else None
     )
 
-let peptidesWithHydroIndAround hydroInd =
-    digestedPeptideMasses
+let chargePeptidesBy charge peptides =
+    peptides 
+    |> Array.map (fun x -> {x with Mass = Mass.toMZ x.Mass charge})
+
+let chargedPeptideMasses lowerMassBound upperMassBound charges =
+    let digestedPeptides = digestPeptideMasses lowerMassBound upperMassBound
+    let chargedPeptides = charges |> Array.collect (fun x -> digestedPeptides |> chargePeptidesBy x)
+    chargedPeptides
+
+let peptidesWithHydroIndAround hydroInd inp =
+    inp
     |> Array.filter (fun x -> x.HydrophobicityInd > hydroInd-0.05 && x.HydrophobicityInd < hydroInd+0.05)
 
-let massVisualization07 =
-    Chart.Histogram (peptidesWithHydroIndAround 0.7 |> Array.map (fun x -> x.Mass),Name="Peptides with Hydrophobicity Index around 0.7")
+let massVisualization07 inp =
+    Chart.Histogram (inp |> Array.map (fun x -> x.Mass),Name="Peptides with Hydrophobicity Index around 0.7", Opacity=0.8)
     //|> Chart.withX_AxisStyle (title = "Hydro Ind")
     //|> Chart.withY_AxisStyle "Count"
     //|> Chart.Show
 
-let massVisualization2 =
-    Chart.Histogram (peptidesWithHydroIndAround 2. |> Array.map (fun x -> x.Mass),Name="Peptides with Hydrophobicity Index around 2.")
+let massVisualization2 inp =
+    Chart.Histogram (inp |> Array.map (fun x -> x.Mass),Name="Peptides with Hydrophobicity Index around 2.", Opacity=0.8)
     //|> Chart.withX_AxisStyle (title = "Hydro Ind")
     //|> Chart.withY_AxisStyle "Count"
     //|> Chart.Show
 
-let massVisualization4 =
-    Chart.Histogram (peptidesWithHydroIndAround 4. |> Array.map (fun x -> x.Mass),Name="Peptides with Hydrophobicity Index around 4.")
+let massVisualization4 inp =
+    Chart.Histogram (inp |> Array.map (fun x -> x.Mass),Name="Peptides with Hydrophobicity Index around 4.", Opacity=0.8)
     //|> Chart.withX_AxisStyle (title = "Hydro Ind")
     //|> Chart.withY_AxisStyle "Count"
     //|> Chart.Show
 
-let massVisualization6 =
-    Chart.Histogram (peptidesWithHydroIndAround 6. |> Array.map (fun x -> x.Mass),Name="Peptides with Hydrophobicity Index around 6.")
+let massVisualization6 inp =
+    Chart.Histogram (inp |> Array.map (fun x -> x.Mass),Name="Peptides with Hydrophobicity Index around 6.", Opacity=0.8)
     //|> Chart.withX_AxisStyle (title = "Hydro Ind")
     //|> Chart.withY_AxisStyle "Count"
     //|> Chart.Show
 
-let massVisualization =
-    Chart.Histogram (digestedPeptideMasses |> Array.map (fun x -> x.Mass), Name="All Peptides", Opacity=0.2)
-
-[
-    massVisualization
-    massVisualization07
-    massVisualization2
-    massVisualization4
-    massVisualization6
-]
-|> Chart.Combine
-//|> Chart.Stack(2)
-|> Chart.withSize (900.,600.)
-|> Chart.withX_AxisStyle ("Hydro Ind")
-|> Chart.withY_AxisStyle ("Count")
-|> Chart.Show
+let massVisualization inp =
+    Chart.Histogram (inp |> Array.map (fun x -> x.Mass), Name="All Peptides", Opacity=0.2)
 
 
-let empHis = create 0.5 (peptidesWithHydroIndAround 6.)
+let createHydrophobicityChart lowerMassBound upperMassBound charges =
+    let masses = chargedPeptideMasses lowerMassBound upperMassBound charges
+    [
+        massVisualization masses
+        massVisualization07 (peptidesWithHydroIndAround 0.7 masses)
+        massVisualization2 (peptidesWithHydroIndAround 2. masses)
+        massVisualization4 (peptidesWithHydroIndAround 4. masses)
+        massVisualization6 (peptidesWithHydroIndAround 6. masses)
+    ]
+    |> Chart.Combine
+    //|> Chart.Stack(2)
+    |> Chart.withSize (900.,600.)
+    |> Chart.withTitle (sprintf "Chlamydomonas reinhardtii peptides between %A m/z and %A m/z for charge %A" lowerMassBound upperMassBound charges)
+    |> Chart.withX_AxisStyle ("Hydrophobicity Index")
+    |> Chart.withY_AxisStyle ("Count")
 
-let my60List =
-    sampleList empHis
+createHydrophobicityChart 100. 3000. [|1.|] |> Chart.Show
 
-let testing =
-    my60List
-    |> List.groupBy (fun x -> x.PeptideSequence)
+let masses = chargedPeptideMasses 100. 3000. [|1.|]
 
-testing.Length
+let empHis = createPeptideHis 0.5 (peptidesWithHydroIndAround 6. masses)
 
-my60List
+let my6List =
+    sampleList 10 empHis
+
+//let testing =
+//    my6List
+//    |> List.groupBy (fun x -> x.PeptideSequence)
+
+//testing.Length
+
+my6List
 |> List.map (fun x -> x.Mass)
 |> Chart.Histogram 
 |> Chart.withX_AxisStyle (title = "Mass [Da]")
@@ -195,7 +212,7 @@ let initlabelN15Partial n15Prob =
     ///Diisotopic representation of nitrogen with abundancy of N14 and N15 swapped
     let n14Prob = 1. - n15Prob
     let N15 = Di (createDi "N15" (Isotopes.Table.N15,n15Prob) (Isotopes.Table.N14,n14Prob) )
-    fun f -> Formula.lableElement f Elements.Table.N N15
+    fun f -> Formula.replaceElement f Elements.Table.N N15
 
 let toFormula bioseq =  
     bioseq
@@ -219,10 +236,10 @@ let isoPattern_peptide_long =
     generateIsotopicDistribution 1 peptide_long
 
 [
-Chart.Point isoPattern_peptide_short 
-|> Chart.withTraceName "shortPep"
-Chart.Point isoPattern_peptide_long 
-|> Chart.withTraceName "longPep"
+    Chart.Point isoPattern_peptide_short 
+    |> Chart.withTraceName "shortPep"
+    Chart.Point isoPattern_peptide_long 
+    |> Chart.withTraceName "longPep"
 ]
 |> Chart.Combine
 |> Chart.Show
@@ -248,17 +265,15 @@ let N15_isoPattern_peptid_long =
     generateIsotopicDistribution 1 N15_peptide_long
 
 [
-Chart.Point isoPattern_peptide_short 
-|> Chart.withTraceName "shortPep"
-Chart.Point isoPattern_peptide_long 
-|> Chart.withTraceName "longPep"
-Chart.Point N15_isoPattern_peptide_short 
-|> Chart.withTraceName "N15shortPep"
-Chart.Point N15_isoPattern_peptid_long 
-|> Chart.withTraceName "N15longPep"
-
+    Chart.Point isoPattern_peptide_short 
+    |> Chart.withTraceName "shortPep"
+    Chart.Point isoPattern_peptide_long 
+    |> Chart.withTraceName "longPep"
+    Chart.Point N15_isoPattern_peptide_short 
+    |> Chart.withTraceName "N15shortPep"
+    Chart.Point N15_isoPattern_peptid_long 
+    |> Chart.withTraceName "N15longPep"
 ]
 |> Chart.Combine
 |> Chart.Show
-
 
