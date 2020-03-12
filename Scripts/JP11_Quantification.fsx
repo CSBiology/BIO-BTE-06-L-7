@@ -57,17 +57,21 @@ let calcIonSeries aal =
         Fragmentation.Series.yOfBioList 
         BioItem.initMonoisoMassWithMemP 
         aal
+
+let ionSeries =
+    peptideOfInterest
+    |> fun x -> calcIonSeries x.BioSequence
+
+let theoSpec = BioFSharp.Mz.SequestLike.getTheoSpecs (100.,1500.) 2 [(peptideOfInterest, ionSeries)]
         
 let score = 
-    let score = 
-        // get all peptide spectrum matches
-        let results = peptideSpectrumMatches 2 theoMzCharge2 [peptideOfInterest] centroidedMs2
-        match results with 
-        // Should no match be found, return None
-        | []  -> None 
-        // Should there be at least one match, get the first value (the one with the highest score)
-        | h::tail -> Some h 
-    score
+    // get all peptide spectrum matches
+    let results = peptideSpectrumMatches 2 theoMzCharge2 [peptideOfInterest] centroidedMs2 theoSpec
+    match results with 
+    // Should no match be found, return None
+    | []  -> None 
+    // Should there be at least one match, get the first value (the one with the highest score)
+    | h::tail -> Some h 
 
 let inDb = matchInDB 2. peptideOfInterest
 

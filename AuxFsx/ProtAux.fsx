@@ -4,6 +4,7 @@
 open System.IO
 open BioFSharp.IO
 open BioFSharp.Mz
+open BioFSharp.Mz.Ions
 open SearchDB
 open QConQuantifier
 open Parameters.Domain
@@ -92,16 +93,16 @@ let ms2PeakPicking (mzData:float []) (intensityData: float []) =
         let waveletParameters = initWaveletParametersMS2 yThreshold 
         BioFSharp.Mz.SignalDetection.Wavelet.toCentroidWithRicker2D waveletParameters paddedMz paddedIntensity
 
-let peptideSpectrumMatches chargeState ms2PrecursorMZ lookUpResult (centroidedMs2: (float[]*float[])) =
-    let theoSpec =
-        lookUpResult
-        |> List.map (fun lookUpResult -> 
-            // lookUpResult will be the 'peptideOfInterest'
-            let ionSeries = calcIonSeries lookUpResult.BioSequence
-            lookUpResult,ionSeries
-        )
-        // (100.,1500.) is the M/Z range in which we are interested
-        |> SequestLike.getTheoSpecs (100.,1500.) chargeState
+let peptideSpectrumMatches chargeState ms2PrecursorMZ lookUpResult (centroidedMs2: (float[]*float[])) theoSpec =
+    //let theoSpec =
+    //    lookUpResult
+    //    |> List.map (fun lookUpResult -> 
+    //        // lookUpResult will be the 'peptideOfInterest'
+    //        let ionSeries = calcIonSeries lookUpResult.BioSequence
+    //        lookUpResult,ionSeries
+    //    )
+    //    // (100.,1500.) is the M/Z range in which we are interested
+    //    |> SequestLike.getTheoSpecs (100.,1500.) chargeState
     let peakArray =
         centroidedMs2
         |> fun (mass, intensity) ->
