@@ -9,13 +9,13 @@
 
    This should also install Jupyter: you may check this by entering 'jupyter notebook' into the Anaconda console window. If Jupyter does not launch (it should launch in the browser), install using 'pip install jupyter', or by following [Jupyter](http://jupyter.readthedocs.io/en/latest/install.html) instructions.
 
-   ![Installation screenshot](/docs/files/img/anaconda-installation.png)
-
 3. Run the "IfSharp\ifsharp.exe" once when first downloading. 
 
 Jupyter will start and a notebook with F# can be selected. This can be run via "jupyter notebook" in future
 
 To start Jupyter with the correct notebooks use the command shown in [Powershell Startup Command](#Powershell-Startup-Command).
+
+For more information see [the original ifsharp documentation](https://github.com/fsprojects/IfSharp#windows-local-installation-and-use).
 
 ## Useful Link
 
