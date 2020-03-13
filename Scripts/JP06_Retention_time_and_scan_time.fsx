@@ -150,6 +150,7 @@ let rndPeptidesAtHydro6 = sampleRndPeptidesAtHydro 100 6.
 ]
 |> Chart.Stack 1
 |> Chart.withSize (1200.,900.)
+|> Chart.withTitle "Ionspectra for different hydrophobicity indice"
 |> Chart.Show
 
 1
