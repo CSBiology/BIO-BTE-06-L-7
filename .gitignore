@@ -38,3 +38,9 @@ ClientBin/
 
 .vs/
 /AuxFiles/ChlamyTruncDB.db
+/Scripts/RERUN_Results/BN_IGD/plots
+/Scripts/RERUN_Results/LabelEfficiency/plots
+/Scripts/RERUN_Results/SDS_IGD/plots
+/Scripts/RERUN_Results/WholeCell/plots
+/Scripts/RERUN_Results
+/Scripts/isdAlResults.txt

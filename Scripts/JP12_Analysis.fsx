@@ -1,12 +1,8 @@
-// Include CsbScaffold
-#load "../../.env/CsbScaffold.fsx"
-// If you want to use the wrappers for unmanaged LAPACK functions from of FSharp.Stats 
-// include the path to the .lib folder manually to your PATH environment variable and make sure you set FSI to 64 bit
 
-// use the following lines of code to ensure that LAPACK functionalities are enabled if you want to use them
-// fails with "MKL service either not available, or not started" if lib folder is not included in PATH.
-//open FSharp.Stats
-//FSharp.Stats.Algebra.LinearAlgebra.Service()
+#load @"../IfSharp/References.fsx"
+#load @"../IfSharp/Paket.Generated.Refs.fsx"
+#load @"../AuxFsx/ProtAux.fsx"
+
 
 open BioFSharp
 open Deedle
@@ -98,7 +94,8 @@ let qConCatSeq =
     |> Array.ofSeq
     |> Array.map (fun x -> BioList.toString x)
 
-qConCatSeq.Length
+//qConCatSeq.Length
+
 let peptideProtMapping =
     [
     "LCI5"  =>  "SALPSNWK"
@@ -174,7 +171,6 @@ let sdsSampleNameMapping =
     "Data02018VP_G3_4_SDS_IGD14" => ("SDS_IGD",("37kDa",("20","4")))
     
     ]
-
     |> Map.ofList
 
 
@@ -215,7 +211,7 @@ let labelEfficiencyNameMapping =
     "Data00VP2018_Gr4_LabelEfficiency6"                 => ("LabelEfficiency",("15N Q + 14N Q","4"))
     ]
     |> Map.ofList
-
+    
 let readQConcatResultFrame p : Frame<string*(bool*int),string>=
     let schemaFrame =
         Frame.ReadCsv(path = p,separators="\t")
@@ -237,10 +233,10 @@ let readQConcatResultFrame p : Frame<string*(bool*int),string>=
 //====================== 1. LABEL EFFICIENCY =====================================
 //================================================================================
 
-
+let source = __SOURCE_DIRECTORY__
 
 let labelEfficiencyResults : Frame<string*(string*(string*string)),(string*(string*int))> = 
-    readQConcatResultFrame @"C:\Users\kevin\Downloads\CsbScaffold-master\BioTechVP\RERUN\RERUN_Results\LabelEfficiency\QuantifiedPeptides.txt"
+    readQConcatResultFrame (source + @"\RERUN_Results\LabelEfficiency\QuantifiedPeptides.txt")
     |> Frame.mapColKeys 
         (fun (ck:string) -> 
             printfn "%s" ck
@@ -808,7 +804,7 @@ let labelEfficiencyCorrectionFactorsOnly : Series<(string * string),float>  =
 
 
 let wholeCellResults : Frame<string*(string*(string*string)),string*string> = 
-    readQConcatResultFrame @"C:\Users\kevin\Downloads\CsbScaffold-master\BioTechVP\RERUN\RERUN_Results\WholeCell\QuantifiedPeptides.txt"
+    readQConcatResultFrame (source + @"\RERUN_Results\WholeCell\QuantifiedPeptides.txt")
     |> Frame.mapColKeys 
         (fun (ck:string) -> 
             //printfn "%s" ck
@@ -1081,7 +1077,7 @@ let rbc_L_vs_S_rbcl_RatiosS_wholeCell =
 //================================================================================
 
 let sdsIgdResults : Frame<(string*(string*(string*(string*string)))),string*string> = 
-    readQConcatResultFrame @"C:\Users\kevin\Downloads\CsbScaffold-master\BioTechVP\RERUN\RERUN_Results\SDS_IGD\QuantifiedPeptides.txt"
+    readQConcatResultFrame (source + @"\RERUN_Results\SDS_IGD\QuantifiedPeptides.txt")
     |> Frame.mapColKeys 
         (fun (ck:string) -> 
             let newCK = Map.find (ck.Split('_').[1 ..] |> String.concat "_") sdsSampleNameMapping
@@ -1271,7 +1267,7 @@ let rbc_L_vs_S_SDS_Igd =
 
 
 let blueNativeIgdResults : Frame<(string*(string*(string*(string*string)))),string*string> = 
-    readQConcatResultFrame @"C:\Users\kevin\Downloads\CsbScaffold-master\BioTechVP\RERUN\RERUN_Results\BN_IGD\QuantifiedPeptides.txt"
+    readQConcatResultFrame (source + @"\RERUN_Results\BN_IGD\QuantifiedPeptides.txt")
     |> Frame.mapColKeys 
         (fun (ck:string) -> 
             printfn "%s" ck
@@ -1734,7 +1730,7 @@ let isd =
 
 
 isd.SaveCsv(
-    path = @"C:\Users\kevin\Downloads\CsbScaffold-master\BioTechVP\results\isdAlResults.txt",
+    path = (source + @"\isdAlResults.txt"),
     includeRowKeys = true,
     keyNames = ["Ratio(14N Sample / 15N QProtein)"],
     separator = '\t'
