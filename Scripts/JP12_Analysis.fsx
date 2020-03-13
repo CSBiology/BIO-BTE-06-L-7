@@ -87,13 +87,13 @@ let isBad a =
     nan.Equals(a) || infinity.Equals(a) || (-infinity).Equals(a)
 
 
-let qConCatSeq =
-    "MASMTGGQQMGRDPAGAKLGGNEQVTRADLNVPLDKTFNDALADAKLSELLGKPVTKAVSLVLPSLKVLITAPAKALQNTVLKVMFEGILLKSVVSIPHGPSIIAARVPLFIGSKTLLYGGIYGYPGDAKIYSFNEGNYGLWDDSVKLTNITGRLLFEALKFLAIDAINKVSTLIGYGSPNKNPDFFNRFIESQVAKGVNPWIEVDGGVTPENAYKSDIIVSPSILSADFSRIYLDISDDIKVAELLDFKGHSLESIKSLFGESNEVVAKLVDELNAGTIPRLANLPEVKLQNIVGVPTSIRTQLSQDELKSGQPAVDLNKASGQPAVDLNKAEAALLVRSNSTPLGSRGILASDESNATTGKALQSSTLKVSAADVARALQASVLKVTEAAALASGRNLALELVRSAEGLDASASLRAAWSHHHHHHHKAWASWASKLAAALEHHHHHH"
-    //"MASMTGGQQMGRDPSRSALPSNWKSVLPANWRDTDILAAFREVTLGFVDLMRFLFVAEAIYKLTYYTPDYVVRAYVSNESAIRLVAFDNQKYWTMWKAFPDAYVRVPLILGIWGGKIGQQLVNARSLVDEQENVKLGADSGALEFVPKDDYLNAPGETYSVKTPLANLVYWKALYGFDFLLSSKTNFGIGHRLSIFETGIKTAPAFVDLDTRIPAGPDLIVKNILVVGPVPGKIVAITALSEKYPIYFGGNRVLNTWADIINREWELSFRNTWADIINRLIFQYASFNNSRTALPADWRLVFPEEVLPRNILLNEGIRTWFDDADDWLRAAHHHHHHHKLAAALEHHHHHH"
-    |> BioArray.ofAminoAcidString
-    |> Digestion.BioSeq.digest Digestion.Table.Trypsin
-    |> Array.ofSeq
-    |> Array.map (fun x -> BioList.toString x)
+//let qConCatSeq =
+//    "MASMTGGQQMGRDPAGAKLGGNEQVTRADLNVPLDKTFNDALADAKLSELLGKPVTKAVSLVLPSLKVLITAPAKALQNTVLKVMFEGILLKSVVSIPHGPSIIAARVPLFIGSKTLLYGGIYGYPGDAKIYSFNEGNYGLWDDSVKLTNITGRLLFEALKFLAIDAINKVSTLIGYGSPNKNPDFFNRFIESQVAKGVNPWIEVDGGVTPENAYKSDIIVSPSILSADFSRIYLDISDDIKVAELLDFKGHSLESIKSLFGESNEVVAKLVDELNAGTIPRLANLPEVKLQNIVGVPTSIRTQLSQDELKSGQPAVDLNKASGQPAVDLNKAEAALLVRSNSTPLGSRGILASDESNATTGKALQSSTLKVSAADVARALQASVLKVTEAAALASGRNLALELVRSAEGLDASASLRAAWSHHHHHHHKAWASWASKLAAALEHHHHHH"
+//    //"MASMTGGQQMGRDPSRSALPSNWKSVLPANWRDTDILAAFREVTLGFVDLMRFLFVAEAIYKLTYYTPDYVVRAYVSNESAIRLVAFDNQKYWTMWKAFPDAYVRVPLILGIWGGKIGQQLVNARSLVDEQENVKLGADSGALEFVPKDDYLNAPGETYSVKTPLANLVYWKALYGFDFLLSSKTNFGIGHRLSIFETGIKTAPAFVDLDTRIPAGPDLIVKNILVVGPVPGKIVAITALSEKYPIYFGGNRVLNTWADIINREWELSFRNTWADIINRLIFQYASFNNSRTALPADWRLVFPEEVLPRNILLNEGIRTWFDDADDWLRAAHHHHHHHKLAAALEHHHHHH"
+//    |> BioArray.ofAminoAcidString
+//    |> Digestion.BioSeq.digest Digestion.Table.Trypsin
+//    |> Array.ofSeq
+//    |> Array.map (fun x -> BioList.toString x)
 
 //qConCatSeq.Length
 
@@ -178,20 +178,20 @@ let peptideProtMapping =
 
 peptideProtMapping.Count
 
-let peptideMapping =
-    [
-        "DTDILAAFR"      => "rbcL"
-        "EVTLGFVDLMR"    => "rbcL"
-        "FLFVAEAIYK"     => "rbcL"
-        "LTYYTPDYVVR"    => "rbcL"
-        "AYVSNESAIR"     => "RBCS2"
-        "LVAFDNQK"       => "RBCS2"
-        "YWTMWK"         => "RBCS2"
-        "AFPDAYVR"       => "RBCS2"
-        "VPLILGIWGGK"    => "RCA1"
-        "IGQQLVNAR"      => "RCA1"
-        "SLVDEQENVK"     => "RCA1"
-    ] |> Map.ofList
+//let peptideMapping =
+//    [
+//        "DTDILAAFR"      => "rbcL"
+//        "EVTLGFVDLMR"    => "rbcL"
+//        "FLFVAEAIYK"     => "rbcL"
+//        "LTYYTPDYVVR"    => "rbcL"
+//        "AYVSNESAIR"     => "RBCS2"
+//        "LVAFDNQK"       => "RBCS2"
+//        "YWTMWK"         => "RBCS2"
+//        "AFPDAYVR"       => "RBCS2"
+//        "VPLILGIWGGK"    => "RCA1"
+//        "IGQQLVNAR"      => "RCA1"
+//        "SLVDEQENVK"     => "RCA1"
+//    ] |> Map.ofList
 
 //FileName	Experiment	Content	ProteinAmount[ug]	Replicate
 let sdsSampleNameMapping = 
@@ -305,9 +305,9 @@ let initlabelN15Partial n15Prob =
     let N15 = Di (createDi "N15" (Isotopes.Table.N15,n15Prob) (Isotopes.Table.N14,n14Prob) )
     fun f -> Formula.replaceElement f Elements.Table.N N15
 
-let labelFullN15 =
-    let N15 = Elements.Table.Heavy.N15
-    fun f -> Formula.replaceElement f Elements.Table.N N15
+//let labelFullN15 =
+//    let N15 = Elements.Table.Heavy.N15
+//    fun f -> Formula.replaceElement f Elements.Table.N N15
 
 let generateIsotopicDistributionOfFormulaBySum (charge:int) (f:Formula.Formula) =
     IsotopicDistribution.MIDA.ofFormula 
@@ -456,10 +456,10 @@ allPredictedLE
 |> Chart.ShowWithDescription
     {Heading = "Borders From tukey outlier detection with k = 3:"; Text = sprintf "Upper: %.3f <br></br>Lower: %.3f" outlierBorders.Upper outlierBorders.Lower}
 
-///Outlier Peptides in Label efficiency
-let outliersInLE =
-    allPredictedLE
-    |> Array.filter (fun (keys,eff) -> eff > outlierBorders.Upper || eff < outlierBorders.Lower)
+/////Outlier Peptides in Label efficiency
+//let outliersInLE =
+//    allPredictedLE
+//    |> Array.filter (fun (keys,eff) -> eff > outlierBorders.Upper || eff < outlierBorders.Lower)
 
 ///Label efficiency mean value without outliers
 let filteredOverallPredictedLabelEfficiency =
@@ -790,10 +790,10 @@ let labelEfficiencyFrame =
         |> Frame.sortRowsByKey
         |> Frame.sortColsByKey
 
-let labelEfficiencyCorrectionFactorsOnly : Series<(string * string),float>  =
-    labelEfficiencyFrame
-    |> Frame.applyLevel (fun (a,(b,_)) -> a,b) Stats.mean
-    |> Frame.getCol "CorrectionFactor"
+//let labelEfficiencyCorrectionFactorsOnly : Series<(string * string),float>  =
+//    labelEfficiencyFrame
+//    |> Frame.applyLevel (fun (a,(b,_)) -> a,b) Stats.mean
+//    |> Frame.getCol "CorrectionFactor"
 
 
 //let allLE =
