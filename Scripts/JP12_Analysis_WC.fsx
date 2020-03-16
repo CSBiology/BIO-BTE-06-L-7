@@ -1,8 +1,9 @@
 
+
 #load @"../IfSharp/References.fsx"
 #load @"../IfSharp/Paket.Generated.Refs.fsx"
 #load @"../AuxFsx/ProtAux.fsx"
-
+#load @"../AuxFsx/DeedleAux.fsx"
 
 open BioFSharp
 open Deedle
@@ -230,18 +231,18 @@ let bnNameMapping =
     ]
     |> Map.ofList
 
-let wholeCellNameMapping = 
-    [
-    "Data20180126_InSolutionDigestWholeCell_Gr3+41" =>  ("WholeCell_ISD",("2:1","3") )
-    "Data20180126_InSolutionDigestWholeCell_Gr3+42" =>  ("WholeCell_ISD",("1:1","3") )
-    "Data20180126_InSolutionDigestWholeCell_Gr3+43" =>  ("WholeCell_ISD",("1:5","3") )
-    "Data20180126_InSolutionDigestWholeCell_Gr3+44" =>  ("WholeCell_ISD",("1:10","3"))
-    "Data20180126_InSolutionDigestWholeCell_Gr3+45" =>  ("WholeCell_ISD",("2:1","4") )
-    "Data20180126_InSolutionDigestWholeCell_Gr3+46" =>  ("WholeCell_ISD",("1:1","4") )
-    "Data20180126_InSolutionDigestWholeCell_Gr3+47" =>  ("WholeCell_ISD",("1:5","4") )
-    "Data20180126_InSolutionDigestWholeCell_Gr3+48" =>  ("WholeCell_ISD",("1:10","4"))
-    ]
-    |> Map.ofList
+//let wholeCellNameMapping = 
+//    [
+//    "Data20180126_InSolutionDigestWholeCell_Gr3+41" =>  ("WholeCell_ISD",("2:1","3") )
+//    "Data20180126_InSolutionDigestWholeCell_Gr3+42" =>  ("WholeCell_ISD",("1:1","3") )
+//    "Data20180126_InSolutionDigestWholeCell_Gr3+43" =>  ("WholeCell_ISD",("1:5","3") )
+//    "Data20180126_InSolutionDigestWholeCell_Gr3+44" =>  ("WholeCell_ISD",("1:10","3"))
+//    "Data20180126_InSolutionDigestWholeCell_Gr3+45" =>  ("WholeCell_ISD",("2:1","4") )
+//    "Data20180126_InSolutionDigestWholeCell_Gr3+46" =>  ("WholeCell_ISD",("1:1","4") )
+//    "Data20180126_InSolutionDigestWholeCell_Gr3+47" =>  ("WholeCell_ISD",("1:5","4") )
+//    "Data20180126_InSolutionDigestWholeCell_Gr3+48" =>  ("WholeCell_ISD",("1:10","4"))
+//    ]
+//    |> Map.ofList
 
 let labelEfficiencyNameMapping = 
     [
@@ -272,13 +273,43 @@ let readQConcatResultFrame p : Frame<string*(bool*int),string>=
 
 let source = __SOURCE_DIRECTORY__
 
+//JP12_WC_02
+let wholeCellNameMapping = 
+    [
+    // filename(found in metadata file) => ("WholeCell_ISD", (spiked in peptide concentration, C. reinhardtii strain) ) 
+    "20200206MS169msFSSTqp001"      =>  ("WholeCell_ISD",("1:1","CW15") )
+    "20200206MS169msFSSTqp002"      =>  ("WholeCell_ISD",("1:5","CW15") )
+    "20200206MS169msFSSTqp003"      =>  ("WholeCell_ISD",("1:25","CW15") )
+    "20200206MS169msFSSTqp004"      =>  ("WholeCell_ISD",("1:125","CW15"))
+    //"20200206MS169msFSSTqp005"      =>  ("WholeCell_ISD",("1:625","CW15") )
+    //"20200206MS169msFSSTqp006"      =>  ("WholeCell_ISD",("1:3125","CW15") )
+    "20200206MS169msFSSTqp007"      =>  ("WholeCell_ISD",("1:1","UVM4") )
+    "20200206MS169msFSSTqp008"      =>  ("WholeCell_ISD",("1:5","UVM4") )
+    "20200206MS169msFSSTqp009"      =>  ("WholeCell_ISD",("1:25","UVM4") )
+    "20200206MS169msFSSTqp010"      =>  ("WholeCell_ISD",("1:125","UVM4"))
+    //"20200206MS169msFSSTqp011"      =>  ("WholeCell_ISD",("1:625","UVM4") )
+    //"20200206MS169msFSSTqp012"      =>  ("WholeCell_ISD",("1:3125","UVM4") )
+    "20200206MS169msFSSTqp013"      =>  ("WholeCell_ISD",("1:1","4A") )
+    "20200206MS169msFSSTqp014"      =>  ("WholeCell_ISD",("1:5","4A") )
+    "20200206MS169msFSSTqp015"      =>  ("WholeCell_ISD",("1:25","4A") )
+    "20200206MS169msFSSTqp016"      =>  ("WholeCell_ISD",("1:125","4A"))
+    //"20200206MS169msFSSTqp017"      =>  ("WholeCell_ISD",("1:625","4A") )
+    //"20200206MS169msFSSTqp018"      =>  ("WholeCell_ISD",("1:3125","4A") )
+    ]
+    |> Map.ofList
+
 //================================================================================
 //====================== 2. WholeCell ISD ========================================
 //================================================================================
-
-
+    
+    //JP12_WC_01
 let wholeCellResults : Frame<string*(string*(string*string)),string*string> = 
-    readQConcatResultFrame (source + @"\RERUN_Results\WholeCell\QuantifiedPeptides.txt")
+    readQConcatResultFrame @"C:\Users\Kevin\Desktop\QuantifiedPeptides.txt"
+    |> Frame.filterCols 
+        (fun ck cs ->
+            let newCK = Map.tryFindKey (fun key t -> key = (ck.Split('_').[1 ..] |> String.concat "_")) wholeCellNameMapping
+            newCK.IsSome
+        )
     |> Frame.mapColKeys 
         (fun (ck:string) -> 
             //printfn "%s" ck
@@ -289,6 +320,7 @@ let wholeCellResults : Frame<string*(string*(string*string)),string*string> =
     |> Frame.filterCols (fun ck _ -> (fst ck).Contains("Quant"))
     |> Frame.applyLevel (fun (sequence,(gmod,charge)) -> sequence) Stats.mean
     |> Frame.transpose
+    // JP12_WC_04
     |> Frame.mapColKeys
         (fun ck ->
             match Map.tryFind ck peptideProtMapping with
@@ -312,26 +344,30 @@ let wholeCellResults : Frame<string*(string*(string*string)),string*string> =
     //    f |> Frame.merge correctedN15
     //|> Frame.transpose
 
-
-
-
 let forLinearity = 
     wholeCellResults
-    |> Frame.mapCols(fun _ os -> os.As<float>() |> Series.mapValues (fun (x:float) -> if x > 2000000. || x < 1. then nan else x))
+    |> Frame.mapCols (
+        fun _ os -> 
+            os.As<float>() 
+            |> Series.mapValues (fun (x:float) -> if x > 2000000. || x < 1. then nan else x)
+    )
     //|> Frame.filterCols (fun ck _ -> (fst ck).ToLower().Contains("rbc"))
+    // JP12_WC_05
     |> Frame.mapRowKeys 
-        (fun (q,(n,(ratio,rep))) ->  
+        (fun (q,(n,(ratio,strain))) ->  
             let ratioSplit = ratio.Split(':')
             printfn "%A" ratioSplit
             let ratio' = (float ratioSplit.[0]) / (float ratioSplit.[1])
-            (q,(n,(ratio',rep)))
+            (q,(n,(ratio',strain)))
     
         )
+    // JP12_WC_06
     // Bad Peptides according to Hammel et al
     |> Frame.filterCols (fun ck _ -> not ((snd ck) = "EVTLGFVDLMR") && not ((snd ck) = "AFPDAYVR"))
     |> Frame.filterRows (fun (q,(n,ratio)) _ -> not (q.Contains("Minus")))
     |> Frame.sortRowsByKey
     |> Frame.sortColsByKey
+    |> Frame.filterCols (fun ck cs -> fst ck = "rbcL" (*|| fst ck = "RBCS2"*))
 
 
 let n14Lin =
@@ -341,7 +377,8 @@ let n14Lin =
     |> Frame.toArray2D
     |> Array2D.toJaggedArray
     // Group 3 had 4x less than in protocol
-    |> JaggedArray.mapi (fun i x -> if List.contains i [ 0 .. 2 ..7 ] then x/4. else x)
+    //|> JaggedArray.mapi (fun i x -> if List.contains i [ 0 .. 2 ..7 ] then x/4. else x)
+
 
 let n15Lin =
     forLinearity
@@ -350,34 +387,55 @@ let n15Lin =
     |> Frame.toArray2D
     |> Array2D.toJaggedArray
 
+// Rows = 37, outer array
+// Cols = 12, inner array
+
 
 /// Return full protein and mapping peptide plot for all concentrations for whole cell ISD
-let plotPeptideISD (proteinNames : string []) =
+let plotPeptideISD (*(proteinNames : string [])*) =
 
     Array.map2 (Array.zip) n14Lin n15Lin
+    |> fun x -> x
+    // JP12_WC_07
     |> JaggedArray.map (fun (n14,n15) -> if (isBad n14 || isBad n15) then 0. else n14/n15)
-    |> Array.map (fun x -> Array.zip[|10.;10.;5.;5.;1.;1.;0.5;0.5|] x)
+    // dilutions times the number of strains 3 x 125, 3 x 25, 3 x 5 ...
+    // zip the following values to the columns
+    |> Array.map (fun x -> Array.zip [|(*3125.;3125.;3125.;625.;625.;625.;*)125.;125.;125.;25.;25.;25.;5.;5.;5.;1.;1.;1.|] x)
     |> Array.map 
         (fun (values) -> 
+            //// this is meant to average found values through all strains. 
+            //// Leftover code from previous practical course iteration, where 
+            //// we did not have multiple strains, but combined groups as technical replicates
             values 
-            |> Array.chunkBySize 2 
-            |> Array.map (fun reps -> fst reps.[0] , reps |> Array.map snd |> Seq.mean),
-            [|for i in 0 .. 2 ..7 do yield values.[i]|],
-            [|for i in 1 .. 2 ..7 do yield values.[i]|]
-            )
+            // chunk by the number of strains
+            |> Array.chunkBySize 3//2 
+            |> Array.map (fun reps -> 
+                fst reps.[0], 
+                reps |> Array.map snd |> Seq.mean
+            ),
+            // 4A
+            [|for i in 0 .. 3 ..values.Length-1 do yield values.[i]|],
+            // CW15
+            [|for i in 1 .. 3 ..values.Length-1 do yield values.[i]|],
+            // UVM4
+            [|for i in 2 .. 3 ..values.Length-1 do yield values.[i]|]
+        )
     |> Seq.zip (forLinearity.ColumnKeys)
+    // group by protein, NOT BY PEPTIDE
     |> Seq.groupBy (fst >> fst)
     |> Seq.map 
         (fun ((protein,peptideMeans)) -> 
             let peptidePlots =
                 peptideMeans
                 |> Seq.map 
-                    (fun ((prot,pep),(means,r1,r2)) ->
+                    (fun ((prot,pep),(means,r1,r2,r3)) ->
                     [
                         Chart.Scatter(r1,mode=StyleParam.Mode.Markers, MarkerSymbol = StyleParam.Symbol.Cross, Color="#92a8d1")
-                        |> Chart.withTraceName "G3"
+                        |> Chart.withTraceName "4A"
                         Chart.Scatter(r2,mode=StyleParam.Mode.Markers, MarkerSymbol = StyleParam.Symbol.Cross, Color="#FF6F61")
-                        |> Chart.withTraceName "G4"
+                        |> Chart.withTraceName "CW15"
+                        Chart.Scatter(r3,mode=StyleParam.Mode.Markers, MarkerSymbol = StyleParam.Symbol.Cross, Color="#00e257")
+                        |> Chart.withTraceName "UVM4"
                         //|> GenericChart.mapTrace
                         //    (fun t ->
                         //        t?fill <- "tonexty"
@@ -385,20 +443,18 @@ let plotPeptideISD (proteinNames : string []) =
                         //        t
                         //    )
                         Chart.Scatter(means,mode=StyleParam.Mode.Lines_Markers, MarkerSymbol = StyleParam.Symbol.Circle, Color = "#C78D9B") (*|> Chart.withYError (Error.init(Symmetric=true,Array=se))*)
-                        |> Chart.withTraceName (sprintf "[%s] %s" prot pep)
+                        |> Chart.withTraceName (sprintf "mean [%s] %s" prot pep)
                     ]
                     |> Chart.Combine
                     |> Chart.withX_Axis (xAxis false "N14 Sample / N15 QProtein ratio" 20 16)
                     |> Chart.withY_Axis (yAxis false "N14/N15 Quantification ratio" 20 16 (0.,7.5))
-                    
                 )
 
             let meanPoints =
                 peptideMeans
-                |> fun x -> Seq.zip x (mainColors.[0 .. ((Seq.length x )-1)])
                 |> Seq.map 
-                    (fun (((_,pep),(means,r1,r2)),color) ->
-                        Chart.Scatter(means,mode=StyleParam.Mode.Markers, MarkerSymbol = StyleParam.Symbol.Cross, Color=color)
+                    (fun ((_,pep),(means,r1,r2,r3)) ->
+                        Chart.Scatter(means,mode=StyleParam.Mode.Markers, MarkerSymbol = StyleParam.Symbol.Cross)
                         |> Chart.withTraceName pep
                     )
                 |> Chart.Combine
@@ -406,7 +462,8 @@ let plotPeptideISD (proteinNames : string []) =
             let proteinLine =
                 peptideMeans
                 |> Seq.map 
-                    (fun ((_,_),(means,r1,r2)) -> means)
+                    (fun ((_,_),(means,r1,r2,r3)) -> means)
+                |> fun x -> x
                 |> JaggedArray.ofJaggedSeq
                 |> JaggedArray.transpose
                 |> Array.map 
@@ -428,17 +485,16 @@ let plotPeptideISD (proteinNames : string []) =
             )
            
     |> Seq.filter (fun (x,_) -> 
-        proteinNames
+        [|"rbcl";"rbcs"|]//proteinNames
         |> Array.exists (fun p -> x.ToLower().Contains(p) )
         )
     |> Seq.map (fun (prot,x) -> x |> Chart.Stack 2 |> Chart.withTitle prot)
     |> Seq.map (Chart.withConfig config)
-    |> Seq.map (Chart.withSize (750.,750.))
+    |> Seq.map (Chart.withSize (1600.,750.))
     |> Array.ofSeq
     |> Array.iter Chart.Show
 
-
-plotPeptideISD [|"rbcl";"rbcs"|]
+//plotPeptideISD [|"rbcl";"rbcs"|]
 
 
 let wholeCell_PeptideRatios =

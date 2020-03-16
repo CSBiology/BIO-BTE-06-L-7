@@ -4,6 +4,7 @@ source https://api.nuget.org/v3/index.json
 #When changing the default FSharp.Core version make sure to change everywhere e.g. Clear()
 nuget BioFSharp 1.0.2
 nuget BioFSharp.IO 1.0.2
+nuget Deedle 2.1.2
 nuget FSharp.Charting 0.91.1
 nuget FSharp.Core
 nuget FSharp.Plotly 1.2.0

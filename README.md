@@ -84,8 +84,15 @@ You will then be asked to give a password and after that to verify it. Both time
 ```html
 <div Style="text-align: justify ; width: 90% ; margin-left: auto ; margin-right: auto ; margin-top: 2rem">
     <i>
-        Equation 1: Calculation of the doubling time. Growth rate is calculates as shwon in Equation 2::::wlsekhfgasdgufh aodshfgo adfhrsg oiuhdfoih gdh fiogoijd ifjigj disjgioj difojgoi jdisfjgoijd fijgi djfigj dosijfig jdfij iogjdfijg idfjijg jdpofkgod kfopgkj fpdojgpodj g
+        Equation 1: Calculation of the doubling time. Growth rate is calculates as shwon in.
     </i>
+</div>
+```
+
+### Code Blocks
+```html
+<div Style="width: 90% ; margin-left: auto ; margin-right: auto ; margin-top: 2rem">
+    <code>Add1(x) = x+1</code>
 </div>
 ```
 
