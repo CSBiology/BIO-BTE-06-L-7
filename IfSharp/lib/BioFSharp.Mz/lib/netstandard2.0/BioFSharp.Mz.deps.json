@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "e89d7b0ab7a728f2c7e81a6c421829d56664e77f"
+    "signature": ""
   },
   "compilationOptions": {},
   "targets": {
@@ -9,26 +9,26 @@
     ".NETStandard,Version=v2.0/": {
       "BioFSharp.Mz/1.0.0": {
         "dependencies": {
-          "BioFSharp": "0.1.2",
-          "BioFSharp.IO": "0.1.2",
+          "BioFSharp": "1.0.1",
+          "BioFSharp.IO": "1.0.1",
           "FSharp.Core": "4.7.0",
-          "FSharp.Stats": "0.1.0",
-          "FSharpAux": "0.0.14",
-          "FSharpAux.IO": "0.0.14",
+          "FSharp.Stats": "0.1.1",
+          "FSharpAux": "0.0.15",
+          "FSharpAux.IO": "0.0.15",
           "NETStandard.Library": "2.0.3",
           "Newtonsoft.Json": "11.0.2",
-          "System.Data.SQLite": "1.0.111",
-          "System.Data.SQLite.Core": "1.0.111"
+          "System.Data.SQLite": "1.0.112",
+          "System.Data.SQLite.Core": "1.0.112"
         },
         "runtime": {
           "BioFSharp.Mz.dll": {}
         }
       },
-      "BioFSharp/0.1.2": {
+      "BioFSharp/1.0.1": {
         "dependencies": {
           "FSharp.Core": "4.7.0",
-          "FSharpAux": "0.0.14",
-          "FSharpAux.IO": "0.0.14"
+          "FSharpAux": "0.0.15",
+          "FSharpAux.IO": "0.0.15"
         },
         "runtime": {
           "lib/netstandard2.0/BioFSharp.dll": {
@@ -37,12 +37,12 @@
           }
         }
       },
-      "BioFSharp.IO/0.1.2": {
+      "BioFSharp.IO/1.0.1": {
         "dependencies": {
-          "BioFSharp": "0.1.2",
+          "BioFSharp": "1.0.1",
           "FSharp.Core": "4.7.0",
-          "FSharpAux": "0.0.14",
-          "FSharpAux.IO": "0.0.14",
+          "FSharpAux": "0.0.15",
+          "FSharpAux.IO": "0.0.15",
           "Newtonsoft.Json": "11.0.2"
         },
         "runtime": {
@@ -105,7 +105,7 @@
           }
         }
       },
-      "FSharp.Stats/0.1.0": {
+      "FSharp.Stats/0.1.1": {
         "runtime": {
           "lib/netstandard2.0/FSharp.Stats.dll": {
             "assemblyVersion": "1.0.0.0",
@@ -113,7 +113,7 @@
           }
         }
       },
-      "FSharpAux/0.0.14": {
+      "FSharpAux/0.0.15": {
         "runtime": {
           "lib/netstandard2.0/FSharpAux.dll": {
             "assemblyVersion": "1.0.0.0",
@@ -121,7 +121,7 @@
           }
         }
       },
-      "FSharpAux.IO/0.0.14": {
+      "FSharpAux.IO/0.0.15": {
         "runtime": {
           "lib/netstandard2.0/FSharpAux.IO.dll": {
             "assemblyVersion": "1.0.0.0",
@@ -147,16 +147,16 @@
           }
         }
       },
-      "System.Data.SQLite/1.0.111": {
+      "System.Data.SQLite/1.0.112": {
         "dependencies": {
-          "System.Data.SQLite.Core": "1.0.111"
+          "System.Data.SQLite.Core": "1.0.112"
         }
       },
-      "System.Data.SQLite.Core/1.0.111": {
+      "System.Data.SQLite.Core/1.0.112": {
         "runtime": {
           "lib/netstandard2.0/System.Data.SQLite.dll": {
-            "assemblyVersion": "1.0.111.0",
-            "fileVersion": "1.0.111.0"
+            "assemblyVersion": "1.0.112.0",
+            "fileVersion": "1.0.112.0"
           }
         }
       }
@@ -168,19 +168,19 @@
       "serviceable": false,
       "sha512": ""
     },
-    "BioFSharp/0.1.2": {
+    "BioFSharp/1.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-4vbj2OZ7B+xTG1KIE8a9/SVeGiBwpaLMVdiy7D87dmLHjt9MgZSIOMhrDD0KMkVIuBX2bAJRYnDnM+2ZJfFH+w==",
-      "path": "biofsharp/0.1.2",
-      "hashPath": "biofsharp.0.1.2.nupkg.sha512"
+      "sha512": "sha512-eBEAkSuhWizXxxn966X6r6EQwYLaJlrz/RATx9PfBltExa/fBR7rLZSMgG3hxRZ1L5bVsx05kwQ1Qmy++I/f5Q==",
+      "path": "biofsharp/1.0.1",
+      "hashPath": "biofsharp.1.0.1.nupkg.sha512"
     },
-    "BioFSharp.IO/0.1.2": {
+    "BioFSharp.IO/1.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wrxk+Db1ZQTjV4+PRg19LjpuiUC6LXX7uboiT1omZ2aheRsVIPRXkWMcIRoOGbJj2v8mpXkiVbX9gHAPQ36LYA==",
-      "path": "biofsharp.io/0.1.2",
-      "hashPath": "biofsharp.io.0.1.2.nupkg.sha512"
+      "sha512": "sha512-a5tnM5nxIkm7pXpLjYCtGoLM4lVhEM3fnHx8C6yM3pmjeDCzUvcNC9m7DF+6qfFZQ95c2bJy/iCrgUo5ovbC7A==",
+      "path": "biofsharp.io/1.0.1",
+      "hashPath": "biofsharp.io.1.0.1.nupkg.sha512"
     },
     "FSharp.Core/4.7.0": {
       "type": "package",
@@ -189,26 +189,26 @@
       "path": "fsharp.core/4.7.0",
       "hashPath": "fsharp.core.4.7.0.nupkg.sha512"
     },
-    "FSharp.Stats/0.1.0": {
+    "FSharp.Stats/0.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-crsUT42E8V5MJFy2AcvLpQ6VaxDF4WeL2bOflEzlAkBZEShxqZQA4WxLGSuBRzYMG/Hd0Begjnj1iXMqD1gMwQ==",
-      "path": "fsharp.stats/0.1.0",
-      "hashPath": "fsharp.stats.0.1.0.nupkg.sha512"
+      "sha512": "sha512-cQm3erGmbo+zt3pKvTsvmH9UX1LPczJbEiVKM1G60tnu5SyZoQQU4v3QawaV8D7/wef7/C5zS0E2teL4TOuZPg==",
+      "path": "fsharp.stats/0.1.1",
+      "hashPath": "fsharp.stats.0.1.1.nupkg.sha512"
     },
-    "FSharpAux/0.0.14": {
+    "FSharpAux/0.0.15": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-C5Hgnl18rU+s7wSXqd64o3rGm9EJ522xz4DO9G4jpNIupPuZPKslF8z2UAfw3S9ClaCjnogaEeC6+LtxH2wh7Q==",
-      "path": "fsharpaux/0.0.14",
-      "hashPath": "fsharpaux.0.0.14.nupkg.sha512"
+      "sha512": "sha512-quXAYYKUvc1c0yGOcyXC4xLK+J2bfAMEF/PN2O5Z8bIpv+jKBffkeYgTePwQfPkcsmCSZeW5rg0Qf8fZPoGM3w==",
+      "path": "fsharpaux/0.0.15",
+      "hashPath": "fsharpaux.0.0.15.nupkg.sha512"
     },
-    "FSharpAux.IO/0.0.14": {
+    "FSharpAux.IO/0.0.15": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wpPaycod5czhot26w2seWs8pV0Ib/81E6Iop6s4gPTlnyJOFCKbSRb4rPsNPC7kHgAarfhNWp1fSciwTvt/SGA==",
-      "path": "fsharpaux.io/0.0.14",
-      "hashPath": "fsharpaux.io.0.0.14.nupkg.sha512"
+      "sha512": "sha512-N0MU/557heX21DSWiYqmUM+e+AB95Nh3LWoNWIb0SZtl65ta25E1rkACjUE9TPg2gYRHq9QWUHkfa4OQ9/NJ2g==",
+      "path": "fsharpaux.io/0.0.15",
+      "hashPath": "fsharpaux.io.0.0.15.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",
@@ -220,30 +220,30 @@
     "NETStandard.Library/2.0.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-nCcbgQlIY82KY9gtv5P2raf5qnm5hctLViWLfUN5EpSLNzmW270T6J0RXym+nxpIzJg3FftzzV4hAwNs7r6Z4w==",
+      "sha512": "sha512-BYAZj3D9/Vql/WUg3n4YTQ8V+RACLSyUJPX7Uw1hf9asEP1/z5Kvmrvs/v10r5sayKWAnUykvhtz6c97am+m6A==",
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
     "Newtonsoft.Json/11.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-tn4tP+uTg25EedGjb7RL4YupEjTFzog+j1tbGDOI3H8EW/rz1bjDCfAY3AsmhIx5KHT5PpDk9TfRGr3wN9ciEw==",
+      "sha512": "sha512-sr7n2U/g/r0Wbr/6a971HvKBDFjHTFLC8vacYvqBNNxAp0Se7jmPwjQ8BvZ//CDygcynJK8C3tEIMqeiSgHYeg==",
       "path": "newtonsoft.json/11.0.2",
       "hashPath": "newtonsoft.json.11.0.2.nupkg.sha512"
     },
-    "System.Data.SQLite/1.0.111": {
+    "System.Data.SQLite/1.0.112": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-G6oK5KkT3gHfelwJ9MvBZc9mrO1x1gkpjNfPs1YBWGIQB5reJSmu5lraYC24VRRQpNBH7RIZqPQjqeBGr7CrNw==",
-      "path": "system.data.sqlite/1.0.111",
-      "hashPath": "system.data.sqlite.1.0.111.nupkg.sha512"
+      "sha512": "sha512-QsYUir0pcx+1DfhhbpCsIJN8nWmHTT4Z/s85q6Un5AbVEPCP6RA0EA9cgzwQ1l5wZ8SQ0jUq747FxPmwJs7ycQ==",
+      "path": "system.data.sqlite/1.0.112",
+      "hashPath": "system.data.sqlite.1.0.112.nupkg.sha512"
     },
-    "System.Data.SQLite.Core/1.0.111": {
+    "System.Data.SQLite.Core/1.0.112": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-D7Qo3JWUB6epymTVRNaAXt+Y+eh0juGjXb5q8SEp/LBdKJr6a224Mk0HCOemRsXfPIF8ULblPyCbVixUvfbpiw==",
-      "path": "system.data.sqlite.core/1.0.111",
-      "hashPath": "system.data.sqlite.core.1.0.111.nupkg.sha512"
+      "sha512": "sha512-3wA9v/K2ncZWsWfEBTiQppsi2014IJMXsZ1md3pk5bEXAJyuTthSrHF4bIWm5MG+C5g5XLhA2H7XfnSq1PXCeQ==",
+      "path": "system.data.sqlite.core/1.0.112",
+      "hashPath": "system.data.sqlite.core.1.0.112.nupkg.sha512"
     }
   }
 }

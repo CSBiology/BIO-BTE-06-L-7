@@ -2,6 +2,30 @@
 <doc>
 <assembly><name>BioFSharp.Mz</name></assembly>
 <members>
+<member name="M:BioFSharp.Mz.PeakDetection.Wavelet.identifyPeaks(BioFSharp.Mz.PeakDetection.Wavelet.Parameters,System.Tuple{System.Double,System.Double}[])">
+
+</member>
+<member name="M:BioFSharp.Mz.PeakDetection.Wavelet.identifyPeaksBy(System.Int32,FSharp.Stats.Signal.Padding.BorderPaddingMethod,FSharp.Stats.Signal.Padding.InternalPaddingMethod,FSharp.Stats.Signal.Padding.HugeGapPaddingMethod,System.Double,System.Double,System.Double,System.Double,System.Tuple{System.Double,System.Double}[])">
+
+</member>
+<member name="M:BioFSharp.Mz.PeakDetection.Wavelet.optimizeWaveletFits(System.Tuple{System.Double,System.Double}[],Microsoft.FSharp.Collections.FSharpList{System.Tuple{BioFSharp.Mz.PeakDetection.Wavelet.WaveletPeak,BioFSharp.Mz.PeakDetection.Wavelet.Gaussian}})">
+
+</member>
+<member name="M:BioFSharp.Mz.PeakDetection.Wavelet.aic(System.Int32,System.Int32,System.Double)">
+
+</member>
+<member name="M:BioFSharp.Mz.PeakDetection.Wavelet.getMinPeakDistance(System.Double)">
+
+</member>
+<member name="M:BioFSharp.Mz.PeakDetection.Wavelet.getScales(System.Double,System.Double)">
+
+</member>
+<member name="M:BioFSharp.Mz.PeakDetection.Wavelet.getColHighBound(System.Double[],System.Int32,System.Double)">
+
+</member>
+<member name="M:BioFSharp.Mz.PeakDetection.Wavelet.getColLowBound(System.Double[],System.Int32,System.Double)">
+
+</member>
 <member name="M:BioFSharp.Mz.TaggedPeak.createTaggedPeakOf(BioFSharp.Mz.TaggedMass.TaggedMass,Microsoft.FSharp.Core.FSharpFunc{BioFSharp.Mz.Ions.IonTypeFlag,System.Double})">
 
 </member>
@@ -38,13 +62,19 @@
  Bins peaks to their next upperIntegerMass bin
 </summary>
 </member>
-<member name="M:BioFSharp.Mz.PeakArray.unzipMzInt``1(``0[])">
+<member name="M:BioFSharp.Mz.PeakArray.zipMzInt(System.Tuple{System.Double,System.Double}[])">
+<summary>
+ Creates a Peak(mz,intensity) for each value pair in mzIntensity. 
+ Returns a new PeakArray. 
+</summary>
+</member>
+<member name="M:BioFSharp.Mz.PeakArray.unzip``1(``0[])">
 <summary>
  Iterates the PeakArray and unzips the value fields of each peak into two seperate arrays, the first containing 
  the mz values, the second the intensities. 
 </summary>
 </member>
-<member name="M:BioFSharp.Mz.PeakArray.zipMzInt(System.Double[],System.Double[])">
+<member name="M:BioFSharp.Mz.PeakArray.zip(System.Double[],System.Double[])">
 <summary>
  Iterates the mz and intensity array and creates a Peak(mz,intensity) for each value pair. 
  Returns a new Peak array. 
@@ -56,13 +86,19 @@
  of the elements of the PeakArray.
 </summary>
 </member>
-<member name="M:BioFSharp.Mz.PeakList.unzipMzInt``1(Microsoft.FSharp.Collections.FSharpList{``0})">
+<member name="M:BioFSharp.Mz.PeakList.zipMzInt(Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.Double,System.Double}})">
+<summary>
+ Creates a Peak(mz,intensity) for each value pair in mzIntensity. 
+ Returns a new PeakList.
+</summary>
+</member>
+<member name="M:BioFSharp.Mz.PeakList.unzip``1(Microsoft.FSharp.Collections.FSharpList{``0})">
 <summary>
  Iterates the PeakList and unzips the fields of each peak into two seperate lists, the first containing 
  the mz values, the second the intensities. 
 </summary>
 </member>
-<member name="M:BioFSharp.Mz.PeakList.zipMzInt(Microsoft.FSharp.Collections.FSharpList{System.Double},Microsoft.FSharp.Collections.FSharpList{System.Double})">
+<member name="M:BioFSharp.Mz.PeakList.zip(Microsoft.FSharp.Collections.FSharpList{System.Double},Microsoft.FSharp.Collections.FSharpList{System.Double})">
 <summary>
  Iterates the mz and intensity lists and creates a Peak(mz,intensity) for each value pair. 
  Returns a new PeakList. 
@@ -1347,6 +1383,12 @@ The boolean value &quot;false&quot; is used to state that the Modification is fi
  that are not within the scanLimits.
 </summary>
 </member>
+<member name="M:BioFSharp.Mz.SequestLike.scoreSingle(FSharp.Stats.Vector{System.Double},FSharp.Stats.Vector{System.Double})">
+<summary>
+ Substracts Auto Correlation of measured normalized intensity spectrum (ms_nis). Subsequently, 
+ the Cross-Correlation of the predicted normalized intensity spectrum (p_nis) and ms_nis is calculated. 
+</summary>
+</member>
 <member name="M:BioFSharp.Mz.SequestLike.calcXCorr(FSharp.Stats.Vector{System.Double},FSharp.Stats.Vector{System.Double})">
 <summary>
  Calculates the Cross-Correlation of p_nis and ms_nis
@@ -1371,7 +1413,7 @@ The boolean value &quot;false&quot; is used to state that the Modification is fi
  Computes the autocorrelation of the vector +/- plusMinusMaxDelay.
 </summary>
 </member>
-<member name="M:BioFSharp.Mz.SequestLike.theoSpecOf(System.Double,Microsoft.FSharp.Collections.FSharpList{BioFSharp.Mz.PeakFamily{BioFSharp.Mz.TaggedMass.TaggedMass}})">
+<member name="M:BioFSharp.Mz.SequestLike.theoSpecOf(System.Double,System.Double,System.Double,Microsoft.FSharp.Collections.FSharpList{BioFSharp.Mz.PeakFamily{BioFSharp.Mz.TaggedMass.TaggedMass}})">
 <summary>
  Converts the fragment ion ladder to a theoretical Sequestlike spectrum at a given charge state. 
 </summary>
@@ -1588,7 +1630,7 @@ The boolean value &quot;false&quot; is used to state that the Modification is fi
 <member name="M:BioFSharp.Mz.Quantification.HULQ.tryFitGaussian(System.Double,System.Double,System.Double,System.Double[],System.Double[])">
 
 </member>
-<member name="M:BioFSharp.Mz.Quantification.HULQ.tryFit(BioFSharp.Mz.Quantification.HULQ.PeakModel,FSharp.Stats.Fitting.NonLinearRegression.SolverOptions,System.Double[],System.Double[])">
+<member name="M:BioFSharp.Mz.Quantification.HULQ.tryFit(BioFSharp.Mz.Quantification.HULQ.PeakModel,FSharp.Stats.Fitting.NonLinearRegression.SolverOptions,FSharp.Stats.Vector{System.Double},FSharp.Stats.Vector{System.Double},System.Double[],System.Double[])">
 
 </member>
 <member name="M:BioFSharp.Mz.Quantification.HULQ.getPeakBy(FSharp.Stats.Signal.PeakDetection.IdentifiedPeak[],System.Double)">
