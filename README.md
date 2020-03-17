@@ -147,10 +147,15 @@ You will then be asked to give a password and after that to verify it. Both time
 
 ### Left-Right Buttons 
 
-```fsharp
-#load "../AuxFsx/ProtAux.fsx"
-ProtAux.showbuttons (Some "JP01_FSharpExcercises.ipynb") (Some "JP02_Plant_Systems_Biology.ipynb")
-|> Util.Html 
+```html
+<div style="width: 100% ; height: 60px ; display: flex ; align-content: center">
+    <a href="JP01_Systems_Biology_FSharp_Introduction.ipynb" style="padding: 8px ; border: 2px solid blue ; border-radius: 5px ; font-size: 1.5rem ; cursor: pointer ; color: inherit; text-decoration: none ; margin-right: auto ; display: block ; height: 40px ; width: 80px ; text-align: center ; color: white ; background-color: blue">
+        &#171; JP01
+    </a>
+    <a href="JP01_Systems_Biology_FSharp_Introduction.ipynb" style="padding: 8px ; border: 2px solid blue ; border-radius: 5px ; font-size: 1.5rem ; cursor: pointer ; color: inherit; text-decoration: none ; margin-left: auto ; display: block ; height: 40px ; width: 80px ; text-align: center ; color: white ; background-color: blue">
+        JP01 &#187;
+    </a>
+</div>
 ```
 
 ### Back-Up from header
