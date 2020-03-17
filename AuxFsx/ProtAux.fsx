@@ -94,7 +94,7 @@ let ms2PeakPicking (mzData:float []) (intensityData: float []) =
         let waveletParameters = initWaveletParametersMS2 yThreshold 
         BioFSharp.Mz.SignalDetection.Wavelet.toCentroidWithRicker2D waveletParameters paddedMz paddedIntensity
 
-let peptideSpectrumMatches chargeState ms2PrecursorMZ lookUpResult (centroidedMs2: (float[]*float[])) theoSpec =
+let peptideSpectrumMatches ms2PrecursorMZ (centroidedMs2: (float[]*float[])) theoSpec =
     //let theoSpec =
     //    lookUpResult
     //    |> List.map (fun lookUpResult -> 
@@ -106,8 +106,9 @@ let peptideSpectrumMatches chargeState ms2PrecursorMZ lookUpResult (centroidedMs
     //    |> SequestLike.getTheoSpecs (100.,1500.) chargeState
     let peakArray =
         centroidedMs2
-        |> fun (mass, intensity) ->
-            PeakArray.zipMzInt mass intensity
+        |> fun (x,y) -> Array.zip x y
+        |> PeakArray.zipMzInt
+
     SequestLike.calcSequestScore
         (100.,1500.)
         // the MS2 spectra from 'ms2WithSpectra'
@@ -184,3 +185,168 @@ let matchInDB charge (lookUpResult: LookUpResult<AminoAcids.AminoAcid>)  =
             retTime,score.Score 
         )
     retTimeAndScore
+
+
+let inp1 = "JP01_Systems_Biology_FSharp_Introduction.ipynb"
+let inp2 = "JP03_Mass_spectrometry_based_proteomics.ipynb"
+
+open System
+
+let showbuttons (str1:string option) (str2:string option) =
+    let button1 =
+        if str1.IsNone then ""
+        else 
+            let name = str1.Value.Split([|"_"|],StringSplitOptions.RemoveEmptyEntries).[0]
+            sprintf 
+                "<a target=\"_blank\" href=\"%s\" title=\"%s\" class=\"mySelectButton-left cancela\">
+                    <span>
+                        %s
+                    </span>
+                </a>"
+                str1.Value
+                str1.Value
+                name
+
+    let button2 =
+        if str2.IsNone then ""
+        else 
+            let name = str2.Value.Split([|"_"|],StringSplitOptions.RemoveEmptyEntries).[0]
+            sprintf
+                "<a target=\"_blank\" href=\"%s\" title=\"%s\" class=\"mySelectButton-right cancela\">
+                    <span>
+                        %s
+                    </span>
+                </a>"
+                str2.Value
+                str2.Value
+                name
+
+    sprintf 
+        "
+        <head>
+        <style>
+        .mySelectButton-right {
+                display: inline-block;
+                border-radius: 4px;
+                background-color: blue;
+                border: none;
+                color: white;
+                text-align: center;
+                font-size: 18px;
+                width: 120px;
+                padding: 20px;
+                transition: all 0.5s;
+                cursor: pointer;
+                margin: 5px;
+                margin-left: auto;
+            }
+            
+            /*style when clicked*/
+            .mySelectButton-right:active {
+              box-shadow: 0 5px #666;
+              transform: translateY(4px);
+            }
+            
+            .mySelectButton-right::-moz-focus-inner {
+                border: 0;
+            }
+            
+            .mySelectButton-right span {
+                cursor: pointer;
+                display: inline-block;
+                color: white;
+                position: relative;
+                transition: 0.5s;
+            }
+            
+            .mySelectButton-right span:after {
+                content: '\00bb';
+                position: absolute;
+                color: white;
+                opacity: 0;
+                top: 0;
+                right: -20px;
+                transition: 0.5s;
+            }
+            
+            .mySelectButton-right:hover span {
+                padding-right: 25px;
+            }
+            
+            .mySelectButton-right:hover span:after {
+                opacity: 1;
+                right: 0;
+            }
+            
+        
+        .mySelectButton-left {
+            display: inline-block;
+            border-radius: 4px;
+            background-color: blue;
+            border: none;
+            color: white;
+            text-align: center;
+            font-size: 18px;
+            width: 120px;
+            padding: 20px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            margin-right: auto;
+        }
+        
+        /*style when clicked*/
+        .mySelectButton-left:active {
+          box-shadow: 0 5px #666;
+          transform: translateY(4px);
+        }
+        
+        .mySelectButton-left::-moz-focus-inner {
+            border: 0;
+        }
+        
+        .mySelectButton-left span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+            color: white;
+        }
+        
+        .mySelectButton-left span::before {
+            content: '\00AB';
+            color: white;
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            left: -20px;
+            transition: 0.5s;
+        }
+        
+        .mySelectButton-left:hover span {
+            padding-left: 25px;
+        }
+        
+        .mySelectButton-left:hover span::before {
+            opacity: 1;
+            left: 0;
+        }
+        
+        .cancela,.cancela:link,.cancela:visited,.cancela:hover,.cancela:focus,.cancela:active{
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        </style>
+        </head>
+        <body>
+        
+        <div Style=\"display: flex ; justify-content: space-between ; width: 100%% \">
+            %s
+            %s
+        </div>
+        
+        </body>
+        "
+        button1
+        button2

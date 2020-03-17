@@ -144,3 +144,11 @@ You will then be asked to give a password and after that to verify it. Both time
 5. [Logistic Fit](#Logistic-Fit)
 6. [References](#References)
 ```
+
+### Left-Right Buttons 
+
+```fsharp
+#load "../AuxFsx/ProtAux.fsx"
+ProtAux.showbuttons (Some "JP01_FSharpExcercises.ipynb") (Some "JP02_Plant_Systems_Biology.ipynb")
+|> Util.Html 
+```
