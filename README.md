@@ -152,3 +152,18 @@ You will then be asked to give a password and after that to verify it. Both time
 ProtAux.showbuttons (Some "JP01_FSharpExcercises.ipynb") (Some "JP02_Plant_Systems_Biology.ipynb")
 |> Util.Html 
 ```
+
+### Back-Up from header
+
+For the page title use the following:
+
+```html
+<h1 Id="PageTitle" Style="font-size: 3rem" >Systems Biology</h1>
+```
+
+For the Back-Up use the following:
+
+```html
+<h1 Style="font-size: 2rem ; display: inline-block" >References</h1><br>
+<a href="#PageTitle" style="display: inline-block"><sup>&#8593;back</sup></a>
+```
