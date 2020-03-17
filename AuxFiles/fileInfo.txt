@@ -1,0 +1,3 @@
+sample.mzlite : truncated version of 20180322MS_SHshift1514002.mzlite (full measurment with 15N Chlamy)
+ms2sample.mgf : renamed from ms2cent_Light.mgf (original source.: 0180322MS_SHshift1514002.mzlite sample=0 experiment=7 scan=3703)
+                peptide: DTDILAAFR charge: 2
