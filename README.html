@@ -1,0 +1,20 @@
+<h1 id="jupyter_praktikumbiotech">Jupyter_PraktikumBiotech</h1>
+<h2 id="installation-windows-local-installation-and-use-">Installation (Windows Local Installation and Use)</h2>
+<ol>
+<li><p>Download <a href="https://www.anaconda.com/download/">Anaconda</a> for Python 3.6</p>
+</li>
+<li><p>Launch Anaconda3-4.4.0-Windows-x86_64.exe (or later exe should work, file an issue if you have issues)
+Click through the installation wizard, choosing the given install location. At the &#39;advanced installation options&#39; screen shown below, select &quot;Add Anaconda to my PATH environment variable&quot;. The installer warns against this step, as it can clash with previously installed software, however it&#39;s currently essential for running IfSharp. Now install.</p>
+<p>This should also install Jupyter: you may check this by entering &#39;jupyter notebook&#39; into the Anaconda console window. If Jupyter does not launch (it should launch in the browser), install using &#39;pip install jupyter&#39;, or by following <a href="http://jupyter.readthedocs.io/en/latest/install.html">Jupyter</a> instructions.</p>
+</li>
+<li><p>Run the &quot;IfSharp\ifsharp.exe&quot; once when first downloading. </p>
+</li>
+</ol>
+<p>Jupyter will start and a notebook with F# can be selected. This can be run via &quot;jupyter notebook&quot; in future</p>
+<p>To start Jupyter with the correct notebooks use the command shown in <a href="#Powershell-Startup-Command">Powershell Startup Command</a>.</p>
+<p>For more information see <a href="https://github.com/fsprojects/IfSharp#windows-local-installation-and-use">the original ifsharp documentation</a>.</p>
+<h2 id="change-jupyter-notebook-startup-folder-windows-">Change Jupyter Notebook startup folder (Windows)</h2>
+<h3 id="powershell-startup-command">Powershell Startup Command</h3>
+<p>Use powershell <code>jupyter notebook --notebook-dir=&quot;D:\this\will\be\your\path\Jupyter_PraktikumBiotech\Notebooks&quot;</code>.
+This method has to be used at every start.</p>
+<p><a href="https://stackoverflow.com/questions/15680463/change-ipython-jupyter-notebook-working-directory">https://stackoverflow.com/questions/15680463/change-ipython-jupyter-notebook-working-directory</a></p>
