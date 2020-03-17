@@ -98,7 +98,7 @@ You will then be asked to give a password and after that to verify it. Both time
 
 ### In-Between Text Image Element
 
-```
+```html
 <div Style="float: right ; display: inline-block ; font-size: 1.7rem ; color: #44546a ; width: 60% ; padding: 15px">
     <img src="img/SystemsBiology_Figure5.png" Style="width: 100%">
     <div Style="padding-left: 1rem ; padding-right: 1rem ; text-align: justify ; ">
