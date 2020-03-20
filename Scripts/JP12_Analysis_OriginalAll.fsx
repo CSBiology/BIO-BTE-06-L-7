@@ -1022,6 +1022,7 @@ let wholeCell_PeptideRatios =
             [|for i in 0 .. 2 ..7 do yield values.[i]|],
             [|for i in 1 .. 2 ..7 do yield values.[i]|]
             )
+    |> fun x -> x
     |> Seq.zip (forLinearity.ColumnKeys)
     |> Seq.groupBy (fst >> fst)
     |> Seq.map (snd)

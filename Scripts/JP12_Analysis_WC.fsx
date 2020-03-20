@@ -11,75 +11,12 @@ open FSharpAux
 open FSharp.Stats
 open FSharp.Plotly
 
-type Color = {
-    H : int
-    S : int
-    L : int
-    }
+let colorArray = [|"#E2001A"; "#FB6D26"; "#00519E"; "#00e257";|]
 
-let createHSL (color:Color) =
-    (sprintf "hsl(%i," color.H) + string color.S + @"%," + string color.L + @"%)"
-
-let mainColorPeachFF6F61 = {
-    H = 5
-    S = 100
-    L = 69
-}
-
-let mainColorBlue92a8d1 = {
-    H = 219
-    S = 41
-    L = 70
-}
-
-let mainColorGreen88b04b = {
-    H = 84
-    S = 40
-    L = 49
-}
-
-let mainColorYellowEFC050 = {
-    H = 42
-    S = 83
-    L = 63
-}
-
-let soos =  {
-    H = 166
-    S = 100
-    L = 30
-}
-
-let mainColors = [mainColorPeachFF6F61;mainColorBlue92a8d1;mainColorGreen88b04b;mainColorYellowEFC050;soos] |> List.map createHSL |> List.rev
-
-let createRelatedColors (color:Color) nOfColors =
-    let wheelchange = -20
-    let changeTempColor wheelChange tempColor =
-        if tempColor.H + wheelChange < 0 
-        then 
-            360 + (color.H + wheelChange)
-        elif tempColor.H + wheelChange > 360
-        then 
-            (tempColor.H + wheelChange) - 360
-        else tempColor.H + wheelChange
-    let rec loopVariant results iteration =
-        if iteration = 1 
-        then 
-            loopVariant ({color with H = changeTempColor wheelchange color}::results) (iteration + 1)
-        elif iteration < nOfColors 
-        then 
-            let mostRecentVariant =
-                results.Head
-            loopVariant ({mostRecentVariant with H = changeTempColor wheelchange mostRecentVariant}::results) (iteration + 1)
-        else results
-    loopVariant [color] 1
-    |> (List.rev >> Array.ofList)
-
-createRelatedColors mainColorGreen88b04b 3
-|> Array.map createHSL
+let colorForMean = "#366F8E"
 
 let xAxis showGrid title titleSize tickSize = Axis.LinearAxis.init(Title=title,Showgrid=showGrid,Showline=true,Mirror=StyleParam.Mirror.All,Zeroline=false,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside, Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=tickSize),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=titleSize))
-let yAxis showGrid title titleSize tickSize (range:float*float)= Axis.LinearAxis.init(Title=title,Showgrid=showGrid,Showline=true,Mirror=StyleParam.Mirror.All,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside,Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=tickSize),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=titleSize),Range=StyleParam.Range.MinMax range)
+let yAxis showGrid title titleSize tickSize = Axis.LinearAxis.init(Title=title,Showgrid=showGrid,Showline=true,Mirror=StyleParam.Mirror.All,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside,Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=tickSize),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=titleSize))
 
 let config = Config.init(ToImageButtonOptions = ToImageButtonOptions.init(Format = StyleParam.ImageFormat.SVG, Filename = "praktikumsplot.svg"), EditableAnnotations = [AnnotationEditOptions.LegendPosition])
 
@@ -100,6 +37,7 @@ let isBad a =
 
 let peptideProtMapping =
     [
+    "iRT"   =>  "LGGNEQVTR"
     "LCI5"  =>  "SALPSNWK"
     "LCI5"  =>  "SVLPANWR"
     "rbcL"  =>  "DTDILAAFR"
@@ -302,9 +240,11 @@ let wholeCellNameMapping =
 //====================== 2. WholeCell ISD ========================================
 //================================================================================
     
+let root = __SOURCE_DIRECTORY__
+
     //JP12_WC_01
-let wholeCellResults : Frame<string*(string*(string*string)),string*string> = 
-    readQConcatResultFrame @"C:\Users\Kevin\Desktop\QuantifiedPeptides.txt"
+let getWholeCellResults path : Frame<string*(string*(string*string)),string*string> = 
+    readQConcatResultFrame (root + path)//@"\..\AuxFiles\FredQuantifiedPeptides.txt"
     |> Frame.filterCols 
         (fun ck cs ->
             let newCK = Map.tryFindKey (fun key t -> key = (ck.Split('_').[1 ..] |> String.concat "_")) wholeCellNameMapping
@@ -325,7 +265,7 @@ let wholeCellResults : Frame<string*(string*(string*string)),string*string> =
         (fun ck ->
             match Map.tryFind ck peptideProtMapping with
             |Some prot  -> prot,ck
-            |None       -> "NotFound",ck
+            |None       -> (sprintf "%s not found in 'peptideProtMapping'(QConCat)" ck),ck
         )  
     //|> Frame.transpose
     //|> fun f ->
@@ -344,8 +284,23 @@ let wholeCellResults : Frame<string*(string*(string*string)),string*string> =
     //    f |> Frame.merge correctedN15
     //|> Frame.transpose
 
-let forLinearity = 
-    wholeCellResults
+let getForLinearity (proteinsToShow:string [] option) (peptidesToIgnore:string [] option) (wcResults:Frame<(string*(string*(string*string))),(string*string)>)= 
+    
+    let prepToShowProteins =
+        if proteinsToShow.IsSome then
+            proteinsToShow.Value 
+            |> Array.map (fun x -> x.ToLower())
+        else 
+            [||]
+
+    let prepToIgnorePeptides =
+        if peptidesToIgnore.IsSome then
+            peptidesToIgnore.Value
+            |> Array.map (fun x -> x.ToLower())
+        else 
+            [||]
+
+    wcResults
     |> Frame.mapCols (
         fun _ os -> 
             os.As<float>() 
@@ -367,11 +322,22 @@ let forLinearity =
     |> Frame.filterRows (fun (q,(n,ratio)) _ -> not (q.Contains("Minus")))
     |> Frame.sortRowsByKey
     |> Frame.sortColsByKey
-    |> Frame.filterCols (fun ck cs -> fst ck = "rbcL" (*|| fst ck = "RBCS2"*))
+    |> Frame.filterCols (fun ck cs -> 
+        let prepProtInFrame = (fst ck).ToLower()
+        let prepPeptInFrame = (snd ck).ToLower()
+        match proteinsToShow, peptidesToIgnore with
+        | Some _, Some _ -> 
+            Array.exists (fun x -> x = prepProtInFrame) prepToShowProteins
+            && Array.exists (fun x -> x = prepPeptInFrame) prepToIgnorePeptides |> not
+        | Some _, None ->
+            Array.exists (fun x -> x = prepProtInFrame) prepToShowProteins
+        | None, Some _ ->
+            Array.exists (fun x -> x = prepPeptInFrame) prepToIgnorePeptides |> not
+        | None, None -> true
+    )
 
-
-let n14Lin =
-    forLinearity
+let n14Lin (linearityData:Frame<(string*(string*(float*string))),(string*string)>) =
+    linearityData
     |> Frame.filterRows (fun rk _ -> not ((fst rk).Contains("N15Quant")))
     |> Frame.transpose
     |> Frame.toArray2D
@@ -379,9 +345,8 @@ let n14Lin =
     // Group 3 had 4x less than in protocol
     //|> JaggedArray.mapi (fun i x -> if List.contains i [ 0 .. 2 ..7 ] then x/4. else x)
 
-
-let n15Lin =
-    forLinearity
+let n15Lin (linearityData:Frame<(string*(string*(float*string))),(string*string)>)=
+    linearityData
     |> Frame.filterRows (fun rk _ -> not ((fst rk).Contains("N14")) && not ((fst rk).Contains("Corrected")))
     |> Frame.transpose
     |> Frame.toArray2D
@@ -390,214 +355,304 @@ let n15Lin =
 // Rows = 37, outer array
 // Cols = 12, inner array
 
+type PepResult1 = 
+    {
+        Protein     :   string
+        Peptide     :   string
+        StrainValues:   (float*float) []
+        StrainName  :   string
+    }
 
-/// Return full protein and mapping peptide plot for all concentrations for whole cell ISD
-let plotPeptideISD (*(proteinNames : string [])*) =
+    static member create prot pep vals strainName = {
+        Protein      =  prot
+        Peptide      =  pep
+        StrainValues =  vals
+        StrainName   =  strainName
+    }
 
-    Array.map2 (Array.zip) n14Lin n15Lin
-    |> fun x -> x
-    // JP12_WC_07
-    |> JaggedArray.map (fun (n14,n15) -> if (isBad n14 || isBad n15) then 0. else n14/n15)
-    // dilutions times the number of strains 3 x 125, 3 x 25, 3 x 5 ...
-    // zip the following values to the columns
-    |> Array.map (fun x -> Array.zip [|(*3125.;3125.;3125.;625.;625.;625.;*)125.;125.;125.;25.;25.;25.;5.;5.;5.;1.;1.;1.|] x)
-    |> Array.map 
-        (fun (values) -> 
-            //// this is meant to average found values through all strains. 
-            //// Leftover code from previous practical course iteration, where 
-            //// we did not have multiple strains, but combined groups as technical replicates
-            values 
-            // chunk by the number of strains
-            |> Array.chunkBySize 3//2 
-            |> Array.map (fun reps -> 
-                fst reps.[0], 
-                reps |> Array.map snd |> Seq.mean
-            ),
-            // 4A
-            [|for i in 0 .. 3 ..values.Length-1 do yield values.[i]|],
-            // CW15
-            [|for i in 1 .. 3 ..values.Length-1 do yield values.[i]|],
-            // UVM4
-            [|for i in 2 .. 3 ..values.Length-1 do yield values.[i]|]
-        )
-    |> Seq.zip (forLinearity.ColumnKeys)
-    // group by protein, NOT BY PEPTIDE
-    |> Seq.groupBy (fst >> fst)
-    |> Seq.map 
-        (fun ((protein,peptideMeans)) -> 
-            let peptidePlots =
-                peptideMeans
-                |> Seq.map 
-                    (fun ((prot,pep),(means,r1,r2,r3)) ->
-                    [
-                        Chart.Scatter(r1,mode=StyleParam.Mode.Markers, MarkerSymbol = StyleParam.Symbol.Cross, Color="#92a8d1")
-                        |> Chart.withTraceName "4A"
-                        Chart.Scatter(r2,mode=StyleParam.Mode.Markers, MarkerSymbol = StyleParam.Symbol.Cross, Color="#FF6F61")
-                        |> Chart.withTraceName "CW15"
-                        Chart.Scatter(r3,mode=StyleParam.Mode.Markers, MarkerSymbol = StyleParam.Symbol.Cross, Color="#00e257")
-                        |> Chart.withTraceName "UVM4"
-                        //|> GenericChart.mapTrace
-                        //    (fun t ->
-                        //        t?fill <- "tonexty"
-                        //        t?fillcolor <- "lightgrey"
-                        //        t
-                        //    )
-                        Chart.Scatter(means,mode=StyleParam.Mode.Lines_Markers, MarkerSymbol = StyleParam.Symbol.Circle, Color = "#C78D9B") (*|> Chart.withYError (Error.init(Symmetric=true,Array=se))*)
-                        |> Chart.withTraceName (sprintf "mean [%s] %s" prot pep)
-                    ]
-                    |> Chart.Combine
-                    |> Chart.withX_Axis (xAxis false "N14 Sample / N15 QProtein ratio" 20 16)
-                    |> Chart.withY_Axis (yAxis false "N14/N15 Quantification ratio" 20 16 (0.,7.5))
-                )
+let plotPeptideISD wcResults (proteinsToShow:string[] option) (peptidesToIgnore:string[] option) strainNameArr dilutionArr =
 
-            let meanPoints =
-                peptideMeans
-                |> Seq.map 
-                    (fun ((_,pep),(means,r1,r2,r3)) ->
-                        Chart.Scatter(means,mode=StyleParam.Mode.Markers, MarkerSymbol = StyleParam.Symbol.Cross)
-                        |> Chart.withTraceName pep
+    let forLinearity = getForLinearity proteinsToShow peptidesToIgnore wcResults
+
+    let strainNamesSorted = strainNameArr |> Array.sort //[|"4A"; "UVM";"CW15"|] 
+
+    let dilutionsSorted = dilutionArr |> Array.sortDescending //[|1.;5.;25.;125.|] 
+
+    let dilutionArrTimesStrains =
+        [|for dil in dilutionsSorted do 
+            yield! Array.init strainNamesSorted.Length (fun _ -> dil) |]
+
+    let sortedStrainValues =
+        Array.map2 (Array.zip) (n14Lin forLinearity) (n15Lin forLinearity)
+        // JP12_WC_07
+        |> JaggedArray.map (fun (n14,n15) -> if (isBad n14 || isBad n15) then 0. else n14/n15)
+        // dilutions times the number of strains 3 x 125, 3 x 25, 3 x 5 ...
+        // zip the following values to the columns
+        |> Array.map (fun x -> Array.zip dilutionArrTimesStrains x)
+        |> Array.map 
+            (fun (values) -> 
+                Array.init 
+                    strainNamesSorted.Length 
+                    (fun ind -> 
+                        [|for x in ind .. strainNamesSorted.Length .. values.Length-1 do yield values.[x]|]
                     )
-                |> Chart.Combine
-                
-            let proteinLine =
-                peptideMeans
-                |> Seq.map 
-                    (fun ((_,_),(means,r1,r2,r3)) -> means)
-                |> fun x -> x
-                |> JaggedArray.ofJaggedSeq
-                |> JaggedArray.transpose
-                |> Array.map 
-                    (fun x -> 
-                        x
-                        |> Array.unzip
-                        |> fun (x,y) -> Seq.mean x, Seq.mean y)
-                |> fun x -> Chart.Scatter(x,mode=StyleParam.Mode.Lines_Markers, MarkerSymbol = StyleParam.Symbol.Circle) (*|> Chart.withYError (Error.init(Symmetric=true,Array=se))*)
-                |> Chart.withTraceName protein
-
-            protein, 
-            [ 
-                [meanPoints;proteinLine] 
-                |> Chart.Combine
-                |> Chart.withX_Axis (xAxis false "N14 Sample / N15 QProtein ratio" 20 16)
-                |> Chart.withY_Axis (yAxis false "N14/N15 Quantification ratio" 20 16 (0.,7.5))
-                yield! peptidePlots
-            ]
+                |> Array.zip strainNamesSorted
             )
-           
-    |> Seq.filter (fun (x,_) -> 
-        [|"rbcl";"rbcs"|]//proteinNames
-        |> Array.exists (fun p -> x.ToLower().Contains(p) )
+        |> Array.zip (Seq.toArray forLinearity.ColumnKeys)
+        |> Array.collect (fun ((prot,pept),strainResults) -> 
+            strainResults 
+            |> Array.map (fun (strainName,values) ->
+                PepResult1.create prot pept values strainName
+            )  
         )
-    |> Seq.map (fun (prot,x) -> x |> Chart.Stack 2 |> Chart.withTitle prot)
-    |> Seq.map (Chart.withConfig config)
-    |> Seq.map (Chart.withSize (1600.,750.))
-    |> Array.ofSeq
-    |> Array.iter Chart.Show
 
-//plotPeptideISD [|"rbcl";"rbcs"|]
-
-
-let wholeCell_PeptideRatios =
-
-    Array.map2 (Array.zip) n14Lin n15Lin
-    |> JaggedArray.map (fun (n14,n15) -> if (isBad n14 || isBad n15) then 0. else n14/n15)
-    |> Array.map (fun x -> Array.zip[|10.;10.;5.;5.;1.;1.;0.5;0.5|] x)
-    |> Array.map 
-        (fun (values) -> 
-            values 
-            |> Array.chunkBySize 2 
-            |> Array.map (fun reps -> fst reps.[0] , reps |> Array.map snd |> Seq.mean),
-            [|for i in 0 .. 2 ..7 do yield values.[i]|],
-            [|for i in 1 .. 2 ..7 do yield values.[i]|]
+    let comparePeptidesInStrainCharts =
+        sortedStrainValues
+        |> Array.groupBy (fun x -> x.StrainName, x.Protein)
+        |> Array.map (fun (header,peptInfoArr) -> 
+            header,
+            peptInfoArr
+            |> Array.mapi (fun i peptInfo ->
+                Chart.Scatter(peptInfo.StrainValues,mode=StyleParam.Mode.Markers, MarkerSymbol = StyleParam.Symbol.Cross, Color=colorArray.[i])
+                |> Chart.withTraceName (sprintf "%s -  %s - %s" peptInfo.StrainName peptInfo.Protein peptInfo.Peptide)
             )
-    |> Seq.zip (forLinearity.ColumnKeys)
-    |> Seq.groupBy (fst >> fst)
-    |> Seq.map (snd)
-    |> Seq.map 
-        (
-            fun x ->
-                let (rk1,rk2),(mean,r1,r2) = Seq.item 0 x
-                [
-                    (rk1,(rk2,"mean")) => series mean
-                    (rk1,(rk2,"r1")) => series r1
-                    (rk1,(rk2,"r2")) => series r2
-                ]
-                |> frame
-    
+            |> Chart.Combine
+            |> Chart.withX_Axis (xAxis false (fst header + "-N14 Sample/N15 QProtein ratio") 20 16)
+            |> Chart.withY_Axis (yAxis false "N14/N15 Quantification ratio" 20 16)
+        )
+
+    let comparePeptidesInStrainMEANS =
+        sortedStrainValues
+        |> Array.groupBy (fun x -> x.StrainName, x.Protein)
+        |> Array.map (fun (header,peptInfoArr) -> 
+            header,
+            [|for pept in peptInfoArr do
+                yield! pept.StrainValues|]
+        )
+        |> Array.map (fun (header,values) -> header,values|> (Array.groupBy fst))
+        |> Array.map (fun ((strain,prot),values) -> 
+            let means =
+                values 
+                |> Seq.map (fun (xAxis,values) -> 
+                    xAxis,values 
+                    |> Seq.meanBy snd
+                )
+            (strain,prot),means
+        )
+
+    let compareBetweenStrainsChart =
+        comparePeptidesInStrainMEANS
+        |> Array.groupBy (fun (header,x) -> snd header)
+        |> Array.map (fun (prot,strains) -> 
+            ("CompareStrains", prot),
+            strains
+            |> Array.mapi (fun i ((strain,prot),values) -> 
+                Chart.Scatter(values,mode=StyleParam.Mode.Lines_Markers, MarkerSymbol = StyleParam.Symbol.Cross, Color=colorArray.[i])
+                |> Chart.withTraceName (sprintf "mean %s -  %s" strain prot)
+            )
+            |> Chart.Combine
+            |> Chart.withX_Axis (xAxis false ("Strain Means-" + "N14 Sample/N15 QProtein ratio") 20 16)
+            |> Chart.withY_Axis (yAxis false "N14/N15 Quantification ratio" 20 16)
+        )
+
+    let comparePeptidesInStrainMEANSCharts =
+        comparePeptidesInStrainMEANS
+        |> Array.map (fun ((strain,prot),means) ->
+            (strain,prot),
+            Chart.Scatter(means,mode=StyleParam.Mode.Lines_Markers, MarkerSymbol = StyleParam.Symbol.Circle, Color=colorForMean, Opacity=0.8)
+            |> Chart.withTraceName (sprintf "mean %s - %s" strain prot)
+        )
+
+    let alignPeptideAndPeptideMeans =
+        Array.zip comparePeptidesInStrainCharts comparePeptidesInStrainMEANSCharts
+        |> Array.map (fun ((header,chart),(header,chartMean)) -> header, Chart.Combine [|chart; chartMean|])
+
+    [|yield! compareBetweenStrainsChart; yield! alignPeptideAndPeptideMeans|]
+    |> Array.groupBy (fun (header,chart) -> snd header) 
+    |> fun x -> x
+    |> Array.map (fun (prot,chartsWithMeta) -> 
+        chartsWithMeta
+        |> Array.map (fun x -> 
+            snd x 
+        )
+        |> Chart.Stack(2,Space=0.15)
+        |> Chart.withTitle prot
+        |> Chart.withSize (1200.,900.)
+        |> Chart.withConfig config
+        |> Chart.Show
+    )
+
+let wcResults = getWholeCellResults "\..\AuxFiles\FredQuantifiedPeptides.txt"
+
+let sth = plotPeptideISD wcResults (Some [|"RBCL"; "Rbcs2"|]) None [|"4A"; "UVM";"CW15"|] [|1.;5.;25.;125.|] 
+
+let wholeCell_PeptideRatios wcResults proteinsToShow peptidesToIgnore (strainNameArr:string []) (dilutionArr: float[]) =
+
+    let forLinearity = getForLinearity proteinsToShow peptidesToIgnore wcResults
+
+    let strainNamesSorted = strainNameArr |> Array.sort //[|"4A"; "UVM";"CW15"|] 
+
+    let dilutionsSorted = dilutionArr |> Array.sortDescending //[|1.;5.;25.;125.|] 
+
+    let dilutionArrTimesStrains =
+        [|for dil in dilutionsSorted do 
+            yield! Array.init strainNamesSorted.Length (fun _ -> dil) |]
+
+    let sortedStrainValues =
+        Array.map2 (Array.zip) (n14Lin forLinearity) (n15Lin forLinearity)
+        // JP12_WC_07
+        |> JaggedArray.map (fun (n14,n15) -> if (isBad n14 || isBad n15) then 0. else n14/n15)
+        // dilutions times the number of strains 3 x 125, 3 x 25, 3 x 5 ...
+        // zip the following values to the columns
+        |> Array.map (fun x -> Array.zip dilutionArrTimesStrains x)
+        |> Array.map 
+            (fun (values) -> 
+                Array.init 
+                    strainNamesSorted.Length 
+                    (fun ind -> 
+                        [|for x in ind .. strainNamesSorted.Length .. values.Length-1 do yield values.[x]|]
+                    )
+                |> Array.zip strainNamesSorted
+            )
+        |> Array.zip (Seq.toArray forLinearity.ColumnKeys)
+        |> Array.collect (fun ((prot,pept),strainResults) -> 
+            strainResults 
+            |> Array.map (fun (strainName,values) ->
+                PepResult1.create prot pept values strainName
+            )  
+        )
+
+    let comparePeptidesInStrainMEANS =
+        sortedStrainValues
+        |> Array.groupBy (fun x -> x.StrainName, x.Protein)
+        |> Array.map (fun (header,peptInfoArr) -> 
+            header,
+            [|for pept in peptInfoArr do
+                yield! pept.StrainValues|]
+        )
+        |> Array.map (fun (header,values) -> header,values|> (Array.groupBy fst))
+        |> Array.map (fun ((strain,prot),values) -> 
+            let means =
+                values 
+                |> Seq.map (fun (xAxis,values) -> 
+                    xAxis,values 
+                    |> Seq.meanBy snd
+                )
+            PepResult1.create prot "mean" (Seq.toArray means) strain
+        )
+
+    [|yield! comparePeptidesInStrainMEANS; yield! sortedStrainValues|]
+    |> Array.groupBy (fun x -> x.StrainName, x.Protein)
+    |> Array.map (fun x -> snd x)
+    |> Array.map (
+        fun x ->
+            [for pepRes in x do
+                yield
+                    ((pepRes.Protein,pepRes.StrainName),pepRes.Peptide) => series pepRes.StrainValues
+            ]
+            |> frame
         )
     |> Seq.reduce (Frame.join JoinKind.Outer)
     |> Frame.transpose
+    |> Frame.sortRowsByKey
+    |> Frame.sortColsByKey
 
-let rbcl_RatiosS_wholeCell =
-    wholeCell_PeptideRatios
-    |> Frame.filterRows (fun (_,(_,rk)) _ -> rk = "mean")
-    |> Frame.transpose
-    |> Frame.filterCols (fun (prot,(pep,_)) _ -> prot = "rbcL" && (not (pep = "AFPDAYVR" || pep = "EVTLGFVDLMR")))
-    |> Frame.transpose
-    |> Frame.applyLevel fst Stats.mean
+let sth2 = wholeCell_PeptideRatios wcResults (Some [|"RBCL"; "Rbcs2"|]) (Some [|"DTDILAAFR"|]) [|"4A"; "UVM";"CW15"|] [|1.;5.;25.;125.|] 
 
-let rbcs_RatiosSdsIgd_wholeCell =
-    wholeCell_PeptideRatios
-    |> Frame.filterRows (fun (_,(_,rk)) _ -> rk = "mean")
-    |> Frame.transpose
-    |> Frame.filterCols (fun (prot,(pep,_)) _ -> prot = "RBCS2" && (not (pep = "AFPDAYVR" || pep = "EVTLGFVDLMR")))
-    |> Frame.transpose
-    |> Frame.applyLevel fst Stats.mean
+
 
 open FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares.Linear
 
+let rbc_L_vs_S_rbcl_RatiosS_wholeCell prot1Name prot2Name (wcPeptideRatios:Frame<((string*string)*string),float>) =
+    
+    let prot1_RatiosS_wholeCell =
+        wcPeptideRatios
+        |> Frame.filterRows (fun ((prot,strain),pep) _ -> pep = "mean")
+        |> Frame.transpose
+        |> Frame.filterCols (fun ((prot,strain),pep) _ -> prot = prot1Name)
+        |> Frame.transpose
+        |> Frame.applyLevel fst Stats.mean
+    
+    let prot2_RatiosSdsIgd_wholeCell =
+        wcPeptideRatios
+        |> Frame.filterRows (fun ((prot,strain),pep) _ -> pep = "mean")
+        |> Frame.transpose
+        |> Frame.filterCols (fun ((prot,strain),pep) _ -> prot = prot2Name) //(fun (prot,(pep,_)) _ -> prot = "RBCS2" && (not (pep = "AFPDAYVR" || pep = "EVTLGFVDLMR")))
+        |> Frame.transpose
+        |> Frame.applyLevel fst Stats.mean
 
+    let dilutionsSorted = 
+        wcPeptideRatios.ColumnKeys
+        |> Array.ofSeq
 
-let rbc_L_vs_S_rbcl_RatiosS_wholeCell =
+    let strainNames = 
+        wcPeptideRatios.RowKeys
+        |> Seq.map (fun ((x,y),z) -> y)
+        |> (Seq.distinct >> Array.ofSeq)
 
-    let rbcs =
-        rbcs_RatiosSdsIgd_wholeCell
+    let prot1 =
+        prot1_RatiosS_wholeCell
         |> Frame.toArray2D
         |> JaggedArray.ofArray2D
-        |> Array.concat
 
-    //let ratios =
-    //    Array.zip3 [|10.;5.;1.;0.5|] rbcl rbcs
-    //    |> Array.map (fun (x,l,s) -> x, (l/s))
-
-    let RBCScoeff = Univariable.coefficient (vector [|10.;5.;1.;0.5|]) (vector rbcs) 
-    let RBCSfitFunc = Univariable.fit RBCScoeff
-    let RBCSfitVals = [|10.;5.;1.;0.5|] |> Array.map RBCSfitFunc
-    let RBCSdetermination = FSharp.Stats.Fitting.GoodnessOfFit.calculateDeterminationFromValue rbcs RBCSfitVals
-    let RBCSpearson = FSharp.Stats.Correlation.Seq.pearson (rbcs) [|10.;5.;1.;0.5|]
-    printfn "Pearson WholeCell RBCS: %f" RBCSpearson
-
-    let rbcl =
-        rbcl_RatiosS_wholeCell
+    let prot1Coeff,prot1FitVals,prot1Determination =
+        prot1
+        |> Array.mapi (
+            fun i strainVals ->
+                // RBCL Regression of relative quantification values
+                let RBCLcoeff = Univariable.coefficient (vector dilutionsSorted) (vector strainVals)
+                let RBCLfitFunc = Univariable.fit RBCLcoeff
+                let RBCLfitVals = dilutionsSorted |> Array.map RBCLfitFunc
+                let RBCLdetermination = FSharp.Stats.Fitting.GoodnessOfFit.calculateDeterminationFromValue strainVals RBCLfitVals
+                let RBCLpearson = FSharp.Stats.Correlation.Seq.pearson (strainVals) dilutionsSorted
+                printfn "%s - Pearson WholeCell RBCL: %f" strainNames.[i] RBCLpearson
+                RBCLcoeff, RBCLfitVals, RBCLdetermination
+        )
+        |> Array.unzip3
+                
+    let prot2 =
+        prot2_RatiosSdsIgd_wholeCell
         |> Frame.toArray2D
         |> JaggedArray.ofArray2D
-        |> Array.concat
 
-    // RBCL Regression of relative quantification values
-    let RBCLcoeff = Univariable.coefficient (vector [|10.;5.;1.;0.5|]) (vector rbcl)
-    let RBCLfitFunc = Univariable.fit RBCLcoeff
-    let RBCLfitVals = [|10.;5.;1.;0.5|] |> Array.map RBCLfitFunc
-    let RBCLdetermination = FSharp.Stats.Fitting.GoodnessOfFit.calculateDeterminationFromValue rbcl RBCLfitVals
-    let RBCLpearson = FSharp.Stats.Correlation.Seq.pearson (rbcl) [|10.;5.;1.;0.5|]
-    printfn "Pearson WholeCell RBCL: %f" RBCLpearson
+    let prot2Coeff,prot2FitVals,prot2Determination =
+        prot2
+        |> Array.mapi (
+            fun i strainVals ->
+                let RBCScoeff = Univariable.coefficient (vector dilutionsSorted ) (vector strainVals) 
+                let RBCSfitFunc = Univariable.fit RBCScoeff
+                let RBCSfitVals = dilutionsSorted  |> Array.map RBCSfitFunc
+                let RBCSdetermination = FSharp.Stats.Fitting.GoodnessOfFit.calculateDeterminationFromValue strainVals RBCSfitVals
+                let RBCSpearson = FSharp.Stats.Correlation.Seq.pearson (strainVals) dilutionsSorted
+                printfn "%s - Pearson WholeCell RBCS: %f" strainNames.[i] RBCSpearson
+                RBCScoeff, RBCSfitVals, RBCSdetermination
+        )
+        |> Array.unzip3
 
+    let chartPearsons prot1 (prot1Coeff:Vector<float>) prot1FitVals prot1Determination prot2 (prot2Coeff:Vector<float>) prot2FitVals prot2Ddetermination strain =
+        [
+            Chart.Point ((Array.zip dilutionsSorted prot1),Name = sprintf "%s Quantified Ratios" prot1Name)
+            |> Chart.withMarkerStyle(Size=10,Symbol = StyleParam.Symbol.Cross)
+            Chart.Line(Array.zip dilutionsSorted prot1FitVals,Name = (sprintf "%s linear regression: %.2f x + (%2f) ; R� = %.4f" prot1Name prot1Coeff.[1] prot1Coeff.[0] prot1Determination))
+            |> Chart.withLineStyle(Color="lightblue",Dash=StyleParam.DrawingStyle.DashDot)
 
+            Chart.Point ((Array.zip dilutionsSorted prot2),Name = sprintf "%s Quantified Ratios" prot2Name,MarkerSymbol = StyleParam.Symbol.Cross)
+            |> Chart.withMarkerStyle(Size=10,Symbol = StyleParam.Symbol.Cross)
+            Chart.Line(Array.zip dilutionsSorted prot2FitVals,Name = (sprintf "%s linear regression: %.2f x + (%2f) ; R� = %.4f" prot2Name prot2Coeff.[1] prot2Coeff.[0] prot2Ddetermination))
+            |> Chart.withLineStyle(Color="LightGreen",Dash=StyleParam.DrawingStyle.DashDot)
+        ]
+        |> Chart.Combine
+        |> Chart.withTitle (sprintf "%s - Whole cell extracts: Stability of %s/%s ratios between samples" strain prot1Name prot2Name)
+        |> Chart.withX_Axis (yAxis false "N14 Sample / N15 QProtein ratio" 20 16)
+        |> Chart.withY_Axis (xAxis false "relative quantification" 20 16 )
+        |> Chart.withConfig config
+        |> Chart.withSize (900.,500.)
+        |> Chart.Show
 
-    [
-        Chart.Point ((Array.zip [|10.;5.;1.;0.5|] rbcl),Name = "RbcL Quantified Ratios")
-        |> Chart.withMarkerStyle(Size=10,Symbol = StyleParam.Symbol.Cross)
-        Chart.Line(Array.zip [|10.;5.;1.;0.5|] RBCLfitVals,Name = (sprintf "RbcL linear regression: %.2f x + (%2f) ; R� = %.4f" RBCLcoeff.[1] RBCLcoeff.[0] RBCLdetermination))
-        |> Chart.withLineStyle(Color="lightblue",Dash=StyleParam.DrawingStyle.DashDot)
+    for i in 0 .. 2 do 
+        chartPearsons 
+            prot1.[i] prot1Coeff.[i] prot1FitVals.[i] prot1Determination.[i]
+            prot2.[i] prot2Coeff.[i] prot2FitVals.[i] prot2Determination.[i]
+            strainNames.[i]
 
-        Chart.Point ((Array.zip [|10.;5.;1.;0.5|] rbcs),Name = "RbcS Quantified Ratios",MarkerSymbol = StyleParam.Symbol.Cross)
-        |> Chart.withMarkerStyle(Size=10,Symbol = StyleParam.Symbol.Cross)
-        Chart.Line(Array.zip [|10.;5.;1.;0.5|] RBCSfitVals,Name = (sprintf "RbcS linear regression: %.2f x + (%2f) ; R� = %.4f" RBCScoeff.[1] RBCScoeff.[0] RBCSdetermination))
-        |> Chart.withLineStyle(Color="LightGreen",Dash=StyleParam.DrawingStyle.DashDot)
-    ]
-    |> Chart.Combine
-    |> Chart.withTitle "Whole cell extracts: Stability of rbcl/rbcs ratios between samples"
-    |> Chart.withX_Axis (yAxis false "N14 Sample / N15 QProtein ratio" 20 16 (0. ,10.5))
-    |> Chart.withY_Axis (xAxis false "relative quantification" 20 16 (*(1.3,1.6)*))
-    |> Chart.withConfig config
-    |> Chart.withSize (700.,700.)
-    |> Chart.Show
+rbc_L_vs_S_rbcl_RatiosS_wholeCell "rbcL" "RBCS2" sth2
