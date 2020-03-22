@@ -2,7 +2,6 @@
 
 #load @"../IfSharp/References.fsx"
 #load @"../IfSharp/Paket.Generated.Refs.fsx"
-#load @"../AuxFsx/ProtAux.fsx"
 #load @"../AuxFsx/DeedleAux.fsx"
 
 open BioFSharp
