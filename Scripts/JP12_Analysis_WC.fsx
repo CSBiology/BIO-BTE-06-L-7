@@ -1,5 +1,4 @@
 
-
 #load @"../IfSharp/References.fsx"
 #load @"../IfSharp/Paket.Generated.Refs.fsx"
 #load @"../AuxFsx/DeedleAux.fsx"
@@ -131,7 +130,7 @@ peptideProtMapping.Count
 //        "SLVDEQENVK"     => "RCA1"
 //    ] |> Map.ofList
 
-//FileName	Experiment	Content	ProteinAmount[ug]	Replicate
+//FileName Experiment Content ProteinAmount[ug] Replicate
 let sdsSampleNameMapping = 
     [
     //80,40,20 ug geladenes protein
@@ -481,7 +480,7 @@ let plotPeptideISD wcResults (proteinsToShow:string[] option) (peptidesToIgnore:
         |> Chart.Show
     )
 
-let wcResults = getWholeCellResults "\..\AuxFiles\FredQuantifiedPeptides.txt"
+let wcResults = getWholeCellResults @"\..\AuxFiles\FredQuantifiedPeptides.txt"
 
 let sth = plotPeptideISD wcResults (Some [|"RBCL"; "Rbcs2"|]) None [|"4A"; "UVM";"CW15"|] [|1.;5.;25.;125.|] 
 
@@ -632,12 +631,12 @@ let rbc_L_vs_S_rbcl_RatiosS_wholeCell prot1Name prot2Name (wcPeptideRatios:Frame
         [
             Chart.Point ((Array.zip dilutionsSorted prot1),Name = sprintf "%s Quantified Ratios" prot1Name)
             |> Chart.withMarkerStyle(Size=10,Symbol = StyleParam.Symbol.Cross)
-            Chart.Line(Array.zip dilutionsSorted prot1FitVals,Name = (sprintf "%s linear regression: %.2f x + (%2f) ; R² = %.4f" prot1Name prot1Coeff.[1] prot1Coeff.[0] prot1Determination))
+            Chart.Line(Array.zip dilutionsSorted prot1FitVals,Name = (sprintf "%s linear regression: %.2f x + (%2f) ; Rï¿½ = %.4f" prot1Name prot1Coeff.[1] prot1Coeff.[0] prot1Determination))
             |> Chart.withLineStyle(Color="lightblue",Dash=StyleParam.DrawingStyle.DashDot)
 
             Chart.Point ((Array.zip dilutionsSorted prot2),Name = sprintf "%s Quantified Ratios" prot2Name,MarkerSymbol = StyleParam.Symbol.Cross)
             |> Chart.withMarkerStyle(Size=10,Symbol = StyleParam.Symbol.Cross)
-            Chart.Line(Array.zip dilutionsSorted prot2FitVals,Name = (sprintf "%s linear regression: %.2f x + (%2f) ; R² = %.4f" prot2Name prot2Coeff.[1] prot2Coeff.[0] prot2Ddetermination))
+            Chart.Line(Array.zip dilutionsSorted prot2FitVals,Name = (sprintf "%s linear regression: %.2f x + (%2f) ; Rï¿½ = %.4f" prot2Name prot2Coeff.[1] prot2Coeff.[0] prot2Ddetermination))
             |> Chart.withLineStyle(Color="LightGreen",Dash=StyleParam.DrawingStyle.DashDot)
         ]
         |> Chart.Combine
