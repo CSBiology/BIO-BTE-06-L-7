@@ -131,24 +131,21 @@ peptideProtMapping.Count
 //    ] |> Map.ofList
 
 //FileName Experiment Content ProteinAmount[ug] Replicate
-let sdsSampleNameMapping = 
+let wholeCellNameMapping = 
     [
-    //80,40,20 ug geladenes protein
-    "Data02018VP_G3_4_SDS_IGD1"  => ("SDS_IGD",("RBCL", ("80","3")))
-    "Data02018VP_G3_4_SDS_IGD2"  => ("SDS_IGD",("RBCL", ("40","3")))
-    "Data02018VP_G3_4_SDS_IGD3"  => ("SDS_IGD",("RBCL", ("20","3")))
-    "Data02018VP_G3_4_SDS_IGD4"  => ("SDS_IGD",("RBCS", ("80","3")))
-    "Data02018VP_G3_4_SDS_IGD5"  => ("SDS_IGD",("RBCS", ("40","3")))
-    "Data02018VP_G3_4_SDS_IGD6"  => ("SDS_IGD",("RBCS", ("20","3")))
-    "Data02018VP_G3_4_SDS_IGD7"  => ("SDS_IGD",("37kDa",("80","3")))
-    "Data02018VP_G3_4_SDS_IGD8"  => ("SDS_IGD",("RBCL", ("20","4")))
-    "Data02018VP_G3_4_SDS_IGD9"  => ("SDS_IGD",("RBCL", ("10","4")))
-    "Data02018VP_G3_4_SDS_IGD10" => ("SDS_IGD",("RBCL", ("5","4")))
-    "Data02018VP_G3_4_SDS_IGD11" => ("SDS_IGD",("RBCS", ("20","4")))
-    "Data02018VP_G3_4_SDS_IGD12" => ("SDS_IGD",("RBCS", ("10","4")))
-    "Data02018VP_G3_4_SDS_IGD13" => ("SDS_IGD",("RBCS", ("5","4")))
-    "Data02018VP_G3_4_SDS_IGD14" => ("SDS_IGD",("37kDa",("20","4")))
-    
+    // filename(found in metadata file) => ("WholeCell_ISD", (spiked in peptide concentration, C. reinhardtii strain) ) 
+    "G1 1690WC1zu1"     =>  ("WholeCell_ISD",("1:1","1690") )
+    "G1 1690WC1zu02"    =>  ("WholeCell_ISD",("1:5","1690") )
+    "G1 1690WC1zu004"   =>  ("WholeCell_ISD",("1:25","1690") )
+    "G1 1690WC1zu0008"  =>  ("WholeCell_ISD",("1:125","1690"))
+    "G1 1883WC1zu1"     =>  ("WholeCell_ISD",("1:1","1883") )
+    "G1 1883WC1zu02"    =>  ("WholeCell_ISD",("1:5","1883") )
+    "G1 1883WC1zu004"   =>  ("WholeCell_ISD",("1:25","1883") )
+    "G1 1883WC1zu0008"  =>  ("WholeCell_ISD",("1:125","1883"))
+    "G1 4A+WC1zu1"      =>  ("WholeCell_ISD",("1:1","4A") )
+    "G1 4A+WC1zu02"     =>  ("WholeCell_ISD",("1:5","4A") )
+    "G1 4A+WC1zu004"    =>  ("WholeCell_ISD",("1:25","4A") )
+    "G1 4A+WC1zu008"   =>  ("WholeCell_ISD",("1:125","4A") )
     ]
     |> Map.ofList
 
@@ -209,30 +206,30 @@ let readQConcatResultFrame p : Frame<string*(bool*int),string>=
 
 let source = __SOURCE_DIRECTORY__
 
-//JP12_WC_02
-let wholeCellNameMapping = 
-    [
-    // filename(found in metadata file) => ("WholeCell_ISD", (spiked in peptide concentration, C. reinhardtii strain) ) 
-    "20200206MS169msFSSTqp001"      =>  ("WholeCell_ISD",("1:1","CW15") )
-    "20200206MS169msFSSTqp002"      =>  ("WholeCell_ISD",("1:5","CW15") )
-    "20200206MS169msFSSTqp003"      =>  ("WholeCell_ISD",("1:25","CW15") )
-    "20200206MS169msFSSTqp004"      =>  ("WholeCell_ISD",("1:125","CW15"))
-    //"20200206MS169msFSSTqp005"      =>  ("WholeCell_ISD",("1:625","CW15") )
-    //"20200206MS169msFSSTqp006"      =>  ("WholeCell_ISD",("1:3125","CW15") )
-    "20200206MS169msFSSTqp007"      =>  ("WholeCell_ISD",("1:1","UVM4") )
-    "20200206MS169msFSSTqp008"      =>  ("WholeCell_ISD",("1:5","UVM4") )
-    "20200206MS169msFSSTqp009"      =>  ("WholeCell_ISD",("1:25","UVM4") )
-    "20200206MS169msFSSTqp010"      =>  ("WholeCell_ISD",("1:125","UVM4"))
-    //"20200206MS169msFSSTqp011"      =>  ("WholeCell_ISD",("1:625","UVM4") )
-    //"20200206MS169msFSSTqp012"      =>  ("WholeCell_ISD",("1:3125","UVM4") )
-    "20200206MS169msFSSTqp013"      =>  ("WholeCell_ISD",("1:1","4A") )
-    "20200206MS169msFSSTqp014"      =>  ("WholeCell_ISD",("1:5","4A") )
-    "20200206MS169msFSSTqp015"      =>  ("WholeCell_ISD",("1:25","4A") )
-    "20200206MS169msFSSTqp016"      =>  ("WholeCell_ISD",("1:125","4A"))
-    //"20200206MS169msFSSTqp017"      =>  ("WholeCell_ISD",("1:625","4A") )
-    //"20200206MS169msFSSTqp018"      =>  ("WholeCell_ISD",("1:3125","4A") )
-    ]
-    |> Map.ofList
+////JP12_WC_02
+//let wholeCellNameMapping = 
+//    [
+//    // filename(found in metadata file) => ("WholeCell_ISD", (spiked in peptide concentration, C. reinhardtii strain) ) 
+//    "20200206MS169msFSSTqp001"      =>  ("WholeCell_ISD",("1:1","CW15") )
+//    "20200206MS169msFSSTqp002"      =>  ("WholeCell_ISD",("1:5","CW15") )
+//    "20200206MS169msFSSTqp003"      =>  ("WholeCell_ISD",("1:25","CW15") )
+//    "20200206MS169msFSSTqp004"      =>  ("WholeCell_ISD",("1:125","CW15"))
+//    //"20200206MS169msFSSTqp005"      =>  ("WholeCell_ISD",("1:625","CW15") )
+//    //"20200206MS169msFSSTqp006"      =>  ("WholeCell_ISD",("1:3125","CW15") )
+//    "20200206MS169msFSSTqp007"      =>  ("WholeCell_ISD",("1:1","UVM4") )
+//    "20200206MS169msFSSTqp008"      =>  ("WholeCell_ISD",("1:5","UVM4") )
+//    "20200206MS169msFSSTqp009"      =>  ("WholeCell_ISD",("1:25","UVM4") )
+//    "20200206MS169msFSSTqp010"      =>  ("WholeCell_ISD",("1:125","UVM4"))
+//    //"20200206MS169msFSSTqp011"      =>  ("WholeCell_ISD",("1:625","UVM4") )
+//    //"20200206MS169msFSSTqp012"      =>  ("WholeCell_ISD",("1:3125","UVM4") )
+//    "20200206MS169msFSSTqp013"      =>  ("WholeCell_ISD",("1:1","4A") )
+//    "20200206MS169msFSSTqp014"      =>  ("WholeCell_ISD",("1:5","4A") )
+//    "20200206MS169msFSSTqp015"      =>  ("WholeCell_ISD",("1:25","4A") )
+//    "20200206MS169msFSSTqp016"      =>  ("WholeCell_ISD",("1:125","4A"))
+//    //"20200206MS169msFSSTqp017"      =>  ("WholeCell_ISD",("1:625","4A") )
+//    //"20200206MS169msFSSTqp018"      =>  ("WholeCell_ISD",("1:3125","4A") )
+//    ]
+//    |> Map.ofList
 
 //================================================================================
 //====================== 2. WholeCell ISD ========================================
@@ -379,14 +376,16 @@ let plotPeptideISD wcResults (proteinsToShow:string[] option) (peptidesToIgnore:
     let dilutionArrTimesStrains =
         [|for dil in dilutionsSorted do 
             yield! Array.init strainNamesSorted.Length (fun _ -> dil) |]
-
+    printfn "%A"dilutionArrTimesStrains
     let sortedStrainValues =
         Array.map2 (Array.zip) (n14Lin forLinearity) (n15Lin forLinearity)
         // JP12_WC_07
         |> JaggedArray.map (fun (n14,n15) -> if (isBad n14 || isBad n15) then 0. else n14/n15)
         // dilutions times the number of strains 3 x 125, 3 x 25, 3 x 5 ...
         // zip the following values to the columns
-        |> Array.map (fun x -> Array.zip dilutionArrTimesStrains x)
+        |> Array.map (fun x -> 
+            printfn "%A" x
+            Array.zip dilutionArrTimesStrains x)
         |> Array.map 
             (fun (values) -> 
                 Array.init 
@@ -480,7 +479,7 @@ let plotPeptideISD wcResults (proteinsToShow:string[] option) (peptidesToIgnore:
         |> Chart.Show
     )
 
-let wcResults = getWholeCellResults @"\..\AuxFiles\FredQuantifiedPeptides.txt"
+let wcResults = getWholeCellResults @"\..\AuxFiles\GroupsData\G1_1690WC1zu1_QuantifiedPeptides.txt"
 
 let sth = plotPeptideISD wcResults (Some [|"RBCL"; "Rbcs2"|]) None [|"4A"; "UVM";"CW15"|] [|1.;5.;25.;125.|] 
 
