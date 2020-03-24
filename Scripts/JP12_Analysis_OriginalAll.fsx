@@ -2,6 +2,7 @@
 #load @"../IfSharp/References.fsx"
 #load @"../IfSharp/Paket.Generated.Refs.fsx"
 #load @"../AuxFsx/ProtAux.fsx"
+#load @"../AuxFsx/DeedleAux.fsx"
 
 
 open BioFSharp
@@ -278,7 +279,7 @@ let readQConcatResultFrame p : Frame<string*(bool*int),string>=
 let source = __SOURCE_DIRECTORY__
 
 let labelEfficiencyResults : Frame<string*(string*(string*string)),(string*(string*int))> = 
-    readQConcatResultFrame (source + @"\RERUN_Results\LabelEfficiency\QuantifiedPeptides.txt")
+    readQConcatResultFrame (@"C:\Users\Kevin\Desktop\QuantifiedPeptides.txt")
     |> Frame.mapColKeys 
         (fun (ck:string) -> 
             printfn "%s" ck
@@ -345,11 +346,11 @@ let labelEfficiency =
         |> Array.map 
             (fun (key,values) -> 
                 key,
-                //N15-1 / N15
+                //N15-1 / N15 quant
                 (values.[1] ,values.[3]),
-                //N15-1
+                //N15-1 m/z
                 values.[0],
-                //N15
+                //N15 m/z
                 values.[2]
             )
         |> Array.map 
