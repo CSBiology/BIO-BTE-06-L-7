@@ -1,8 +1,7 @@
 
 #load @"../IfSharp/References.fsx"
 #load @"../IfSharp/Paket.Generated.Refs.fsx"
-#load @"../AuxFsx/ProtAux.fsx"
-
+#load @"../AuxFsx/DeedleAux.fsx"
 
 open BioFSharp
 open Deedle
@@ -15,6 +14,23 @@ type Color = {
     S : int
     L : int
     }
+
+type StrainInfo =
+    {
+        Strain     : string
+        ProtYg     : int
+        Prot1Quant : float
+        Prot2Quant : float
+        Ratio      : float option
+    }
+    static member create strain protYg prot1Quant prot2Quant ratio =
+        {
+             Strain      = strain
+             ProtYg      = protYg
+             Prot1Quant  = prot1Quant
+             Prot2Quant  = prot2Quant
+             Ratio       = ratio
+        }
 
 let createHSL (color:Color) =
     (sprintf "hsl(%i," color.H) + string color.S + @"%," + string color.L + @"%)"
@@ -193,64 +209,28 @@ peptideProtMapping.Count
 //        "SLVDEQENVK"     => "RCA1"
 //    ] |> Map.ofList
 
-//FileName	Experiment	Content	ProteinAmount[ug]	Replicate
+//FileName	Experiment	Content	ProteinAmount[ug]	Strain
 let sdsSampleNameMapping = 
     [
     //80,40,20 ug geladenes protein
-    "Data02018VP_G3_4_SDS_IGD1"  => ("SDS_IGD",("RBCL", ("80","3")))
-    "Data02018VP_G3_4_SDS_IGD2"  => ("SDS_IGD",("RBCL", ("40","3")))
-    "Data02018VP_G3_4_SDS_IGD3"  => ("SDS_IGD",("RBCL", ("20","3")))
-    "Data02018VP_G3_4_SDS_IGD4"  => ("SDS_IGD",("RBCS", ("80","3")))
-    "Data02018VP_G3_4_SDS_IGD5"  => ("SDS_IGD",("RBCS", ("40","3")))
-    "Data02018VP_G3_4_SDS_IGD6"  => ("SDS_IGD",("RBCS", ("20","3")))
-    "Data02018VP_G3_4_SDS_IGD7"  => ("SDS_IGD",("37kDa",("80","3")))
-    "Data02018VP_G3_4_SDS_IGD8"  => ("SDS_IGD",("RBCL", ("20","4")))
-    "Data02018VP_G3_4_SDS_IGD9"  => ("SDS_IGD",("RBCL", ("10","4")))
-    "Data02018VP_G3_4_SDS_IGD10" => ("SDS_IGD",("RBCL", ("5","4")))
-    "Data02018VP_G3_4_SDS_IGD11" => ("SDS_IGD",("RBCS", ("20","4")))
-    "Data02018VP_G3_4_SDS_IGD12" => ("SDS_IGD",("RBCS", ("10","4")))
-    "Data02018VP_G3_4_SDS_IGD13" => ("SDS_IGD",("RBCS", ("5","4")))
-    "Data02018VP_G3_4_SDS_IGD14" => ("SDS_IGD",("37kDa",("20","4")))
-    
-    ]
-    |> Map.ofList
-
-
-    
-let bnNameMapping = 
-    [
-    //Random_Band_# nummer entspricht der nummerierung auf dem BN Bild
-    "Data02018VP_G3-G4_BN_IGD1" =>  ("BN_IGD",("NF",("Random_Band_1","1")))
-    "Data02018VP_G3-G4_BN_IGD2" =>  ("BN_IGD",("NF",("Random_Band_2","1")))
-    "Data02018VP_G3-G4_BN_IGD3" =>  ("BN_IGD",("NF",("Random_Band_3","1")))
-    "Data02018VP_G3-G4_BN_IGD4" =>  ("BN_IGD",("NF",("Random_Band_4","1")))
-    "Data02018VP_G3-G4_BN_IGD5" =>  ("BN_IGD",("NF",("RBC_Band","1"))     )
-    "Data02018VP_G3-G4_BN_IGD6" =>  ("BN_IGD",("NF",("RBC_Band","2"))     )
-    
-    ]
-    |> Map.ofList
-
-let wholeCellNameMapping = 
-    [
-    "Data20180126_InSolutionDigestWholeCell_Gr3+41" =>  ("WholeCell_ISD",("2:1","3") )
-    "Data20180126_InSolutionDigestWholeCell_Gr3+42" =>  ("WholeCell_ISD",("1:1","3") )
-    "Data20180126_InSolutionDigestWholeCell_Gr3+43" =>  ("WholeCell_ISD",("1:5","3") )
-    "Data20180126_InSolutionDigestWholeCell_Gr3+44" =>  ("WholeCell_ISD",("1:10","3"))
-    "Data20180126_InSolutionDigestWholeCell_Gr3+45" =>  ("WholeCell_ISD",("2:1","4") )
-    "Data20180126_InSolutionDigestWholeCell_Gr3+46" =>  ("WholeCell_ISD",("1:1","4") )
-    "Data20180126_InSolutionDigestWholeCell_Gr3+47" =>  ("WholeCell_ISD",("1:5","4") )
-    "Data20180126_InSolutionDigestWholeCell_Gr3+48" =>  ("WholeCell_ISD",("1:10","4"))
-    ]
-    |> Map.ofList
-
-let labelEfficiencyNameMapping = 
-    [
-    "DataLabelingEfficiency1"                           => ("LabelEfficiency",("15N IRT + 14N IRT","3"))
-    "DataLabelingEfficiency2"                           => ("LabelEfficiency",("15N Q + 15N IRT"  ,"3"))
-    "DataLabelingEfficiency3"                           => ("LabelEfficiency",("14N Q + 15N IRT"  ,"3"))
-    "Data00VP2018_Gr4_LabelEfficiency4"                 => ("LabelEfficiency",("15N Q + 14N Q + 13C Q","4"))
-    "Data00VP2018_Gr4_LabelEfficiency5"                 => ("LabelEfficiency",("15N Q","4"))
-    "Data00VP2018_Gr4_LabelEfficiency6"                 => ("LabelEfficiency",("15N Q + 14N Q","4"))
+    "G2 L 4A 5myg"     => ("SDS_IGD",("RBCL",(5,"4A")))
+    "G2 L 4A 10myg"    => ("SDS_IGD",("RBCL",(10,"4A")))
+    "G2 L 4A 20myg"    => ("SDS_IGD",("RBCL",(20,"4A")))
+    "G2 L 1690 5myg"   => ("SDS_IGD",("RBCL",(5,"1690")))
+    "G2 L 1690 10myg"  => ("SDS_IGD",("RBCL",(10,"1690")))
+    "G2 L 1690 20myg"  => ("SDS_IGD",("RBCL",(20,"1690")))
+    "G2 L 1883 5myg"   => ("SDS_IGD",("RBCL",(5,"1883")))
+    "G2 L 1883 10myg"  => ("SDS_IGD",("RBCL",(10,"1883")))
+    "G2 L 1883 20myg"  => ("SDS_IGD",("RBCL",(20,"1883")))
+    "G2 S 4A 5myg"     => ("SDS_IGD",("RBCS",(5,"4A")))
+    "G2 S 4A 10myg"    => ("SDS_IGD",("RBCS",(10,"4A")))
+    "G2 S 4A 20myg"    => ("SDS_IGD",("RBCS",(20,"4A")))
+    "G2 S 1690 5myg"   => ("SDS_IGD",("RBCS",(5,"1690")))
+    "G2 S 1690 10myg"  => ("SDS_IGD",("RBCS",(10,"1690")))
+    "G2 S 1690 20myg"  => ("SDS_IGD",("RBCS",(20,"1690")))
+    "G2 S 1883 5myg"   => ("SDS_IGD",("RBCS",(5,"1883")))
+    "G2 S 1883 10myg"  => ("SDS_IGD",("RBCS",(10,"1883")))
+    "G2 S 1883 20myg"  => ("SDS_IGD",("RBCS",(20,"1883")))
     ]
     |> Map.ofList
     
@@ -276,8 +256,8 @@ let source = __SOURCE_DIRECTORY__
 //====================== 3. SDS IGD ==============================================
 //================================================================================
 
-let sdsIgdResults : Frame<(string*(string*(string*(string*string)))),string*string> = 
-    readQConcatResultFrame (source + @"\RERUN_Results\SDS_IGD\QuantifiedPeptides.txt")
+let sdsIgdResults : Frame<(string*(string*(string*(int*string)))),string*string> = 
+    readQConcatResultFrame (source + @"\..\AuxFiles\GroupsData\G2_L_4A_20myg_QuantifiedPeptides.txt")
     |> Frame.mapColKeys 
         (fun (ck:string) -> 
             let newCK = Map.find (ck.Split('_').[1 ..] |> String.concat "_") sdsSampleNameMapping
@@ -330,132 +310,163 @@ let sdsIgdPeptideRatios =
         |> frame
         |> Frame.transpose
         // take means AFTER calculating ratios!
-        |> Frame.applyLevel (fun (experiment,(band,(proteinAmnt,rep))) -> (experiment,(band,proteinAmnt))) Stats.mean
+        //|> Frame.applyLevel (fun (experiment,(band,(proteinAmnt,rep))) -> (experiment,(band,proteinAmnt))) Stats.mean
 
-// Hier ist geladenes Protein bekannt, dadurch kann rückschluss auf anteil rbcl an gesamtprotein gezogen werden
-let kda37_RatiosSdsIgd =
+let proteinMean_RatiosSdsIgd content protein =
     sdsIgdPeptideRatios
-    |> Frame.filterRows (fun (_,(band,_)) _ -> band = "37kDa")
-    |> Frame.filterCols (fun (prot,pep) _ -> (prot = "rbcL" && (not (pep = "AFPDAYVR" || pep = "EVTLGFVDLMR"))) || (prot = "RBCS2" && (not (pep = "AFPDAYVR" || pep = "EVTLGFVDLMR"))))
-    |> Frame.transpose
-    //|> Frame.applyLevel fst Stats.mean
-
-kda37_RatiosSdsIgd
-|> Frame.filterRows (fun (prot,pep) _ -> (prot = "rbcL"))
-|> fun f ->
-    let normVals = 
-        f
-        |> Frame.toArray2D
-        |> JaggedArray.ofArray2D
-        |> JaggedArray.transpose
-        |> Array.map 
-            (fun x ->
-                let max = Array.max x
-                x |> Array.map (fun v -> v / max)
-            )
-    let keys = 
-        f.RowKeys
-        |> Seq.map snd
-        |> Array.ofSeq
-
-    let names = 
-        f.ColumnKeys
-        |> Seq.map (fun (_,(_,r)) -> sprintf "%s [ug] total protein" r)
-        |> Array.ofSeq
-
-    normVals
-    |> Array.map (fun inner -> Array.zip keys inner)
-    |> Array.zip names
-    |> Array.map (
-        fun (k,c) ->
-            Chart.Column(
-                keysvalues=c,
-                Name=k
-                )
-            |> Chart.withX_Axis (xAxis false "" 20. 18.)
-            |> Chart.withY_Axis (yAxis false "" 20. 18. (0.,1.))
-        )
-
-    |> Chart.Stack 2
-    |> Chart.withSize (1200.,800.)
-    |> Chart.withConfig config
-    |> Chart.Show
-
-let rbcl_RatiosSdsIgd =
-    sdsIgdPeptideRatios
-    |> Frame.filterRows (fun (_,(band,_)) _ -> band = "RBCL")
-    |> Frame.filterCols (fun (prot,pep) _ -> prot = "rbcL" && (not (pep = "AFPDAYVR" || pep = "EVTLGFVDLMR" || pep = "FLFVAEAIYK")))
+    |> Frame.filterRows (fun (_,(band,_)) _ -> band = content)
+    |> Frame.filterCols (fun (prot,pep) _ -> prot = protein && (not (pep = "AFPDAYVR" || pep = "EVTLGFVDLMR" || pep = "FLFVAEAIYK")))
     |> Frame.transpose
     |> Frame.applyLevel fst Stats.mean
 
-let rbcs_RatiosSdsIgd =
-    sdsIgdPeptideRatios
-    |> Frame.filterRows (fun (_,(band,_)) _ -> band = "RBCS")
-    |> Frame.filterCols (fun (prot,pep) _ -> prot = "RBCS2" && (not (pep = "AFPDAYVR" || pep = "EVTLGFVDLMR")))
-    |> Frame.transpose
-    |> Frame.applyLevel fst Stats.mean
+let rbcs_RatiosSdsIgd = proteinMean_RatiosSdsIgd "RBCS" "RBCS2"
 
-//let with37kDa =
-//    let corrRbcL = 
-//        rbcl_RatiosSdsIgd
-//        |> Frame.filterCols(fun (_,(_,r)) _ -> (r = "20") || (r = "80"))
-//        |> fun x -> 
-//            let lol = kda37_RatiosSdsIgd |> Frame.mapColKeys (fun (a,(b,c)) -> (a,("RBCL",c)))
-//            x + lol |> Frame.dropSparseRows
-
-    //let corrRbcS = 
-    //    rbcs_RatiosSdsIgd
-    //    |> Frame.filterCols(fun (_,(_,r)) _ -> (r = "20") || (r = "80"))
-    //    |> fun x -> 
-    //        let lol = kda37_RatiosSdsIgd |> Frame.mapColKeys (fun (a,(b,c)) -> (a,("RBCS",c)))
-    //        x + lol |> Frame.dropSparseRows 
-
-    //Frame.merge corrRbcL corrRbcS
+let rbcl_RatiosSdsIgd = proteinMean_RatiosSdsIgd "RBCL" "rbcL"
 
 open FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares.Linear
 
-let rbc_L_vs_S_SDS_Igd =
+let rbc_L_vs_S_SDS_Igd (protAmounts: int []) (strains: string []) content1 protein1 content2 protein2=
+    
+    let strainNamesSorted = strains |> Array.sort
 
-    let rbcl =
-        rbcl_RatiosSdsIgd
+    let protAmountAndStrains =
+        [|for amount in (protAmounts |> Array.sort) do 
+            yield! Array.zip strainNamesSorted (Array.init strains.Length (fun _ -> amount)) |]
+
+    let prot1_RatiosSdsIgd = proteinMean_RatiosSdsIgd content1 protein1
+    
+    let prot2_RatiosSdsIgd = proteinMean_RatiosSdsIgd content2 protein2
+
+    let prot1 =
+        prot1_RatiosSdsIgd
         |> Frame.toArray2D
         |> JaggedArray.ofArray2D
         |> Array.concat
 
-    let rbcs =
-        rbcs_RatiosSdsIgd
+    let prot2 =
+        prot2_RatiosSdsIgd
         |> Frame.toArray2D
         |> JaggedArray.ofArray2D
         |> Array.concat
 
-    let xVals,ratios = 
-        Array.zip3 [|10.;20.;40.;5.;80.|] rbcl rbcs 
-        |> Array.map 
-            (fun (protAmnt,rbcl,rbcs) ->
-                protAmnt, (rbcl/rbcs)
-            )
-        |> Array.sortBy fst
-        //|> Array.skip 1
-        |> Array.unzip
+    let strainInfo = 
+        Array.map3 
+            (fun (strain,protAmnt) prot1 prot2 ->
+                let ratio = prot1/prot2
+                let ratioChecked =
+                    if isBad ratio then
+                        None
+                    else
+                     Some ratio
+                StrainInfo.create
+                    strain
+                    protAmnt
+                    prot1
+                    prot2
+                    ratioChecked
+            ) protAmountAndStrains prot1 prot2
 
+    let groupedStrainInfo =
+        strainInfo
+        |> Array.groupBy (fun x -> x.Strain)
+        |> Array.map snd
+        |> Array.map (fun x ->
+            x
+            |> Array.sortBy (fun x -> x.ProtYg)
+        )
 
-    let coeff = Univariable.coefficient (vector xVals) (vector ratios)
-    let fitFunc = Univariable.fit coeff
-    let fitVals = xVals |> Array.map fitFunc
-    let determination = FSharp.Stats.Fitting.GoodnessOfFit.calculateDeterminationFromValue ratios fitVals
-    let pearson = FSharp.Stats.Correlation.Seq.pearson ratios xVals
-    printfn "Pearson IGD: %f" pearson
+    printfn "%A" groupedStrainInfo
 
+    let cotrolledAmountRatioStrain =
+        groupedStrainInfo
+        |> Array.map (fun strainInfos ->
+            strainInfos
+            |> Array.choose (fun strainInfo ->
+                if strainInfo.Ratio.IsSome then
+                    Some (float strainInfo.ProtYg, strainInfo.Ratio.Value)
+                else
+                    None
+            ),strainInfos.[0].Strain
+        )
+        |> Array.map (fun ((amountRatioArr), strain) ->
+            let amount,ratio = Array.unzip amountRatioArr
+            amount, ratio, strain
+        )
+    let coeffs =
+        cotrolledAmountRatioStrain
+        |> Array.map (fun (amount,ratio,strain) ->
+            Univariable.coefficient (vector amount) (vector ratio)
+        )
+
+    let fitFuncs = 
+        coeffs
+        |> Array.map (fun (coeff) ->
+            Univariable.fit coeff
+        )
+
+    let fitVals = 
+        cotrolledAmountRatioStrain
+        |> Array.map2 (fun fitFunc (amount,ratio,strain) ->
+            amount |> Array.map fitFunc
+        ) fitFuncs
+
+    let determinations = 
+        cotrolledAmountRatioStrain
+        |> Array.map2 (fun fitVal (amount,ratio,strain) ->
+            FSharp.Stats.Fitting.GoodnessOfFit.calculateDeterminationFromValue ratio fitVal
+        ) fitVals
+
+    let pearsons = 
+        cotrolledAmountRatioStrain
+        |> Array.map (fun (amount,ratio,strain) ->
+            FSharp.Stats.Correlation.Seq.pearson ratio amount
+        )
+
+    let resultCollection =
+        [|for i = 0 to strains.Length-1 do
+            yield
+                {|
+                    ProteinAmountsYg = cotrolledAmountRatioStrain.[i] |> fun (amount,_,_) -> amount
+                    ProteinRatios    = cotrolledAmountRatioStrain.[i] |> fun (_,ratios,_) -> ratios
+                    StrainName       = cotrolledAmountRatioStrain.[i] |> fun (_,_,strain) -> strain
+                    Coefficients     = coeffs.[i]
+                    FitValues        = fitVals.[i]
+                    Determination    = determinations.[i]
+                    Pearson          = pearsons.[i]
+                |}
+        |]
+
+    resultCollection
+    |> Array.iter (fun (result) ->
+        printfn "%s Pearson IGD: %f" result.StrainName result.Pearson
+    )
+
+    let dataPointCharts =
+        resultCollection
+        |> Array.map (fun result ->
+            Chart.Point (result.ProteinAmountsYg,result.ProteinRatios,MarkerSymbol = StyleParam.Symbol.Cross)
+            |> Chart.withTraceName (sprintf "Quantified Ratios for strain %s" result.StrainName)
+        )
+        |> Chart.Combine
+
+    let fitCharts =
+        resultCollection
+        |> Array.map (fun result ->
+            Chart.Line(Array.zip result.ProteinAmountsYg result.FitValues)
+            |> Chart.withTraceName (sprintf "linear regression: %.2f x + (%2f) ; R² = %.4f for strain %s" result.Coefficients.[1] result.Coefficients.[0] result.Determination result.StrainName)
+            |> Chart.withLineStyle(Color="#D3D3D3",Dash=StyleParam.DrawingStyle.DashDot)
+        )
+        |> Chart.Combine
     [
-        Chart.Point (xVals,ratios,Name = "Quantified Ratios",MarkerSymbol = StyleParam.Symbol.Cross)
-        Chart.Line(Array.zip xVals fitVals,Name = (sprintf "linear regression: %.2f x + (%2f) ; R² = %.4f" coeff.[1] coeff.[0] determination))
-        |> Chart.withLineStyle(Color="#D3D3D3",Dash=StyleParam.DrawingStyle.DashDot)
+        dataPointCharts
+        fitCharts
     ]
     |> Chart.Combine
-    |> Chart.withTitle "SDS IGD: Stability of rbcl/rbcs ratios between samples"
-    |> Chart.withX_Axis (xAxis false "absolute protein amount in sample [unit]" 20 16 )
-    |> Chart.withY_Axis (xAxis false "relative quantification (rbcL/rbcS)" 20 16 )
+    |> Chart.withTitle (sprintf "SDS IGD: Stability of %s/%s ratios between strains" protein1 protein2)
+    |> Chart.withX_Axis (xAxis false "absolute protein amount in sample [µg]" 20 16 )
+    |> Chart.withY_Axis (xAxis false (sprintf "relative quantification (%s/%s)"protein1 protein2) 20 16 )
     |> Chart.withConfig config
-    |> Chart.withSize (700.,700.)
+    |> Chart.withSize (1200.,700.)
     |> Chart.Show
 
+rbc_L_vs_S_SDS_Igd [|5;10;20|] [|"1690"; "1883"; "4A"|] "RBCL" "rbcL" "RBCS" "RBCS2"
