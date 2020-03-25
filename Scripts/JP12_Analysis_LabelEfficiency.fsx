@@ -22,9 +22,6 @@ let yAxis showGrid title titleSize tickSize = Axis.LinearAxis.init(Title=title,S
 let config = Config.init(ToImageButtonOptions = ToImageButtonOptions.init(Format = StyleParam.ImageFormat.SVG, Filename = "praktikumsplot.svg"), EditableAnnotations = [AnnotationEditOptions.LegendPosition])
 
 
-let isBad a =
-    nan.Equals(a) || infinity.Equals(a) || (-infinity).Equals(a)
-
 
 //let qConCatSeq =
 //    "MASMTGGQQMGRDPAGAKLGGNEQVTRADLNVPLDKTFNDALADAKLSELLGKPVTKAVSLVLPSLKVLITAPAKALQNTVLKVMFEGILLKSVVSIPHGPSIIAARVPLFIGSKTLLYGGIYGYPGDAKIYSFNEGNYGLWDDSVKLTNITGRLLFEALKFLAIDAINKVSTLIGYGSPNKNPDFFNRFIESQVAKGVNPWIEVDGGVTPENAYKSDIIVSPSILSADFSRIYLDISDDIKVAELLDFKGHSLESIKSLFGESNEVVAKLVDELNAGTIPRLANLPEVKLQNIVGVPTSIRTQLSQDELKSGQPAVDLNKASGQPAVDLNKAEAALLVRSNSTPLGSRGILASDESNATTGKALQSSTLKVSAADVARALQASVLKVTEAAALASGRNLALELVRSAEGLDASASLRAAWSHHHHHHHKAWASWASKLAAALEHHHHHH"
@@ -238,7 +235,7 @@ let dilutionArr =
     //[|0.008;0.04;0.2;1.|]
 
 
-type LabelEffCollectorReduced = 
+type LabelEffCollectorLinearity = 
     {
         Dilution        : float []
         N14ToN15Quant   : float []
@@ -314,7 +311,7 @@ let linearityTest =
                         )
                         |> Array.sortBy snd
                         |> Array.unzip
-                    LabelEffCollectorReduced.create dil quant prot pepSeq charge None None None
+                    LabelEffCollectorLinearity.create dil quant prot pepSeq charge None None None
                 )
 
     let lEInfo =
@@ -779,6 +776,7 @@ let labelEfficiencyResultsFinal =
                 ]
             createLabelEfficiencyPredictor prot peptideSequence charge dist le prepExperimentalDist experimentalDist
         )
+    |> fun x -> x
     |> getCorrectionFactors filteredOverallPredictedLabelEfficiency
 
 labelEfficiencyResultsFinal
@@ -817,17 +815,17 @@ let labelEfficiencyFrame =
     |> frame
     |> Frame.transpose
     |> fun x ->
-        let predDistCol =
-            labelEfficiencyResultsFinal
-            |> Array.map 
-                (fun leRes -> (leRes.Protein,(leRes.PeptideSequence,leRes.Charge, leRes.EFCollector.Dilution)) => leRes.PredictedPattern)
-            |> series
+        //let predDistCol =
+        //    labelEfficiencyResultsFinal
+        //    |> Array.map 
+        //        (fun leRes -> (leRes.Protein,(leRes.PeptideSequence,leRes.Charge, leRes.EFCollector.Dilution)) => leRes.PredictedPattern)
+        //    |> series
 
-        let actualDistCol = 
-            labelEfficiencyResultsFinal
-            |> Array.map 
-                (fun leRes -> (leRes.Protein,(leRes.PeptideSequence,leRes.Charge, leRes.EFCollector.Dilution)) => leRes.ActualPattern)
-            |> series
+        //let actualDistCol = 
+        //    labelEfficiencyResultsFinal
+        //    |> Array.map 
+        //        (fun leRes -> (leRes.Protein,(leRes.PeptideSequence,leRes.Charge, leRes.EFCollector.Dilution)) => leRes.ActualPattern)
+        //    |> series
 
         let medianLECol = 
             labelEfficiencyResultsFinal
@@ -835,24 +833,24 @@ let labelEfficiencyFrame =
                 (fun leRes -> (leRes.Protein,(leRes.PeptideSequence,leRes.Charge, leRes.EFCollector.Dilution)) => leRes.MedianLabelEfficiency)
             |> series
 
-        let medianDistCol =
-            labelEfficiencyResultsFinal
-            |> Array.map 
-                (fun leRes -> (leRes.Protein,(leRes.PeptideSequence,leRes.Charge, leRes.EFCollector.Dilution)) => leRes.MedianPattern)
-            |> series
+        //let medianDistCol =
+        //    labelEfficiencyResultsFinal
+        //    |> Array.map 
+        //        (fun leRes -> (leRes.Protein,(leRes.PeptideSequence,leRes.Charge, leRes.EFCollector.Dilution)) => leRes.MedianPattern)
+        //    |> series
 
-        let fullLabeDist = 
-            labelEfficiencyResultsFinal
-            |> Array.map 
-                (fun leRes -> (leRes.Protein,(leRes.PeptideSequence,leRes.Charge, leRes.EFCollector.Dilution)) => leRes.FullLabeledPattern)
-            |> series
+        //let fullLabeDist = 
+        //    labelEfficiencyResultsFinal
+        //    |> Array.map 
+        //        (fun leRes -> (leRes.Protein,(leRes.PeptideSequence,leRes.Charge, leRes.EFCollector.Dilution)) => leRes.FullLabeledPattern)
+        //    |> series
 
         x
-        |> Frame.addCol "predictedIsotopicDistribution" predDistCol
-        |> Frame.addCol "ExperimentallyObservedIsotopicPattern" actualDistCol
+        //|> Frame.addCol "predictedIsotopicDistribution" predDistCol
+        //|> Frame.addCol "ExperimentallyObservedIsotopicPattern" actualDistCol
         |> Frame.addCol "MedianLabelEfficiency" medianLECol
-        |> Frame.addCol "IsotopicDistributionAtMedianLabelEfficiency" medianDistCol
-        |> Frame.addCol "IsotopicDistributionAt100%LabelEfficiency" fullLabeDist
+        //|> Frame.addCol "IsotopicDistributionAtMedianLabelEfficiency" medianDistCol
+        //|> Frame.addCol "IsotopicDistributionAt100%LabelEfficiency" fullLabeDist
         |> Frame.sortRowsByKey
         |> Frame.sortColsByKey
 
