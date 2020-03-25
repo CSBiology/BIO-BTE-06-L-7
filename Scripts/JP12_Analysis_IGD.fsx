@@ -3,97 +3,79 @@
 #load @"../IfSharp/Paket.Generated.Refs.fsx"
 #load @"../AuxFsx/DeedleAux.fsx"
 
-open BioFSharp
 open Deedle
 open FSharpAux
 open FSharp.Stats
 open FSharp.Plotly
 
-type Color = {
-    H : int
-    S : int
-    L : int
-    }
+//type Color = {
+//    H : int
+//    S : int
+//    L : int
+//    }
 
-type StrainInfo =
-    {
-        Strain     : string
-        ProtYg     : int
-        Prot1Quant : float
-        Prot2Quant : float
-        Ratio      : float option
-    }
-    static member create strain protYg prot1Quant prot2Quant ratio =
-        {
-             Strain      = strain
-             ProtYg      = protYg
-             Prot1Quant  = prot1Quant
-             Prot2Quant  = prot2Quant
-             Ratio       = ratio
-        }
+//let createHSL (color:Color) =
+//    (sprintf "hsl(%i," color.H) + string color.S + @"%," + string color.L + @"%)"
 
-let createHSL (color:Color) =
-    (sprintf "hsl(%i," color.H) + string color.S + @"%," + string color.L + @"%)"
+//let mainColorPeachFF6F61 = {
+//    H = 5
+//    S = 100
+//    L = 69
+//}
 
-let mainColorPeachFF6F61 = {
-    H = 5
-    S = 100
-    L = 69
-}
+//let mainColorBlue92a8d1 = {
+//    H = 219
+//    S = 41
+//    L = 70
+//}
 
-let mainColorBlue92a8d1 = {
-    H = 219
-    S = 41
-    L = 70
-}
+//let mainColorGreen88b04b = {
+//    H = 84
+//    S = 40
+//    L = 49
+//}
 
-let mainColorGreen88b04b = {
-    H = 84
-    S = 40
-    L = 49
-}
+//let mainColorYellowEFC050 = {
+//    H = 42
+//    S = 83
+//    L = 63
+//}
 
-let mainColorYellowEFC050 = {
-    H = 42
-    S = 83
-    L = 63
-}
+//let soos =  {
+//    H = 166
+//    S = 100
+//    L = 30
+//}
 
-let soos =  {
-    H = 166
-    S = 100
-    L = 30
-}
+//let mainColors = [mainColorPeachFF6F61;mainColorBlue92a8d1;mainColorGreen88b04b;mainColorYellowEFC050;soos] |> List.map createHSL |> List.rev
 
-let mainColors = [mainColorPeachFF6F61;mainColorBlue92a8d1;mainColorGreen88b04b;mainColorYellowEFC050;soos] |> List.map createHSL |> List.rev
+//let createRelatedColors (color:Color) nOfColors =
+//    let wheelchange = -20
+//    let changeTempColor wheelChange tempColor =
+//        if tempColor.H + wheelChange < 0 
+//        then 
+//            360 + (color.H + wheelChange)
+//        elif tempColor.H + wheelChange > 360
+//        then 
+//            (tempColor.H + wheelChange) - 360
+//        else tempColor.H + wheelChange
+//    let rec loopVariant results iteration =
+//        if iteration = 1 
+//        then 
+//            loopVariant ({color with H = changeTempColor wheelchange color}::results) (iteration + 1)
+//        elif iteration < nOfColors 
+//        then 
+//            let mostRecentVariant =
+//                results.Head
+//            loopVariant ({mostRecentVariant with H = changeTempColor wheelchange mostRecentVariant}::results) (iteration + 1)
+//        else results
+//    loopVariant [color] 1
+//    |> (List.rev >> Array.ofList)
 
-let createRelatedColors (color:Color) nOfColors =
-    let wheelchange = -20
-    let changeTempColor wheelChange tempColor =
-        if tempColor.H + wheelChange < 0 
-        then 
-            360 + (color.H + wheelChange)
-        elif tempColor.H + wheelChange > 360
-        then 
-            (tempColor.H + wheelChange) - 360
-        else tempColor.H + wheelChange
-    let rec loopVariant results iteration =
-        if iteration = 1 
-        then 
-            loopVariant ({color with H = changeTempColor wheelchange color}::results) (iteration + 1)
-        elif iteration < nOfColors 
-        then 
-            let mostRecentVariant =
-                results.Head
-            loopVariant ({mostRecentVariant with H = changeTempColor wheelchange mostRecentVariant}::results) (iteration + 1)
-        else results
-    loopVariant [color] 1
-    |> (List.rev >> Array.ofList)
+//createRelatedColors mainColorGreen88b04b 3
+//|> Array.map createHSL
 
-createRelatedColors mainColorGreen88b04b 3
-|> Array.map createHSL
-
-let xAxis showGrid title titleSize tickSize = Axis.LinearAxis.init(Title=title,Showgrid=showGrid,Showline=true,Mirror=StyleParam.Mirror.All,Zeroline=false,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside, Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=tickSize),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=titleSize))
+let axisStyle showGrid title titleSize tickSize = Axis.LinearAxis.init(Title=title,Showgrid=showGrid,Showline=true,Mirror=StyleParam.Mirror.All,Zeroline=false,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside, Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=tickSize),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=titleSize))
 let yAxis showGrid title titleSize tickSize (range:float*float)= Axis.LinearAxis.init(Title=title,Showgrid=showGrid,Showline=true,Mirror=StyleParam.Mirror.All,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside,Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=tickSize),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=titleSize),Range=StyleParam.Range.MinMax range)
 
 let config = Config.init(ToImageButtonOptions = ToImageButtonOptions.init(Format = StyleParam.ImageFormat.SVG, Filename = "praktikumsplot.svg"), EditableAnnotations = [AnnotationEditOptions.LegendPosition])
@@ -274,7 +256,6 @@ let sdsIgdResults : Frame<(string*(string*(string*(int*string)))),string*string>
             |None       -> "NotFound",ck
         )
     |> Frame.sortColsByKey
-
     |> Frame.sortRowsByKey
 
 
@@ -473,8 +454,8 @@ let fitChartsVS =
 ]
 |> Chart.Combine
 |> Chart.withTitle (sprintf "SDS IGD: Stability of %s/%s ratios between strains" protein1 protein2)
-|> Chart.withX_Axis (xAxis false "absolute protein amount in sample [µg]" 20 16 )
-|> Chart.withY_Axis (xAxis false (sprintf "relative quantification %s/%s" protein1 protein2) 20 16 )
+|> Chart.withX_Axis (axisStyle false "absolute protein amount in sample [µg]" 20 16 )
+|> Chart.withY_Axis (axisStyle false (sprintf "relative quantification %s/%s" protein1 protein2) 20 16 )
 |> Chart.withConfig config
 |> Chart.withSize (1200.,700.)
 |> Chart.Show
@@ -626,8 +607,8 @@ let fitChartsQ =
 ]
 |> Chart.Combine
 |> Chart.withTitle (sprintf "SDS IGD: relative Quantifivation of %s and %s" protein1 protein2)
-|> Chart.withX_Axis (xAxis false "absolute protein amount in sample [µg]" 20 16 )
-|> Chart.withY_Axis (xAxis false (sprintf "14N/15N of %s and %s" protein1 protein2) 20 16 )
+|> Chart.withX_Axis (axisStyle false "absolute protein amount in sample [µg]" 20 16 )
+|> Chart.withY_Axis (axisStyle false (sprintf "14N/15N of %s and %s" protein1 protein2) 20 16 )
 |> Chart.withConfig config
 |> Chart.withSize (1200.,700.)
 |> Chart.Show
