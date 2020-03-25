@@ -1,3 +1,4 @@
+﻿open FSharp.Stats.Fitting.LogisticRegression
 
 #load @"../IfSharp/References.fsx"
 #load @"../IfSharp/Paket.Generated.Refs.fsx"
@@ -140,12 +141,6 @@ let labelEfficiencyNameMapping =
     "G1 q1 zu 0.04"     =>  ("LabelEfficiency", ("15N Q + 14N Q",           0.04    ))
     "G1 q1 zu 0.2"      =>  ("LabelEfficiency", ("15N Q + 14N Q",           0.2     ))
     "G1 Q1 zu 1zu 1"    =>  ("LabelEfficiency", ("15N Q + 14N Q + 13C Q",   1.      ))
-    //"DataLabelingEfficiency1"                           => ("LabelEfficiency",("15N IRT + 14N IRT","3"))
-    //"DataLabelingEfficiency2"                           => ("LabelEfficiency",("15N Q + 15N IRT"  ,"3"))
-    //"DataLabelingEfficiency3"                           => ("LabelEfficiency",("14N Q + 15N IRT"  ,"3"))
-    //"Data00VP2018_Gr4_LabelEfficiency4"                 => ("LabelEfficiency",("15N Q + 14N Q + 13C Q","4"))
-    //"Data00VP2018_Gr4_LabelEfficiency5"                 => ("LabelEfficiency",("15N Q","4"))
-    //"Data00VP2018_Gr4_LabelEfficiency6"                 => ("LabelEfficiency",("15N Q + 14N Q","4"))
     ]
     |> Map.ofList
     
@@ -190,6 +185,7 @@ let labelEfficiencyResults : Frame<string*(string*(string*float)),(string*(strin
             |Some prot  -> prot,ck
             |None       -> "NotFound",ck
         )
+    |> Frame.filterCols (fun ck cs -> fst ck = "rbcL")
 
 open Isotopes
 open Elements
@@ -239,47 +235,128 @@ type LabelEffCollector =
 
 let dilutionArr = 
     [|0.00032;0.0016;0.008;0.04;0.2;1.|]
+    //[|0.008;0.04;0.2;1.|]
+
+
+type LabelEffCollectorReduced = 
+    {
+        Dilution        : float []
+        N14ToN15Quant   : float []
+        Protein         : string
+        Peptide         : string
+        Charge          : int
+        PCoEff          : Vector<float> option
+        PFitVals        : float [] option
+        PDetermination  : float option
+    }
+    
+    static member create dil n14n15 prot pept charge coeff fitvals deter =
+        {
+            Dilution        = dil
+            N14ToN15Quant   = n14n15
+            Protein         = prot
+            Peptide         = pept 
+            Charge          = charge
+            PCoEff          = coeff
+            PFitVals        = fitvals
+            PDetermination  = deter
+        }
+
+//let prot1 =
+//    prot1_RatiosS_wholeCell
+//    |> Frame.toArray2D
+//    |> JaggedArray.ofArray2D
+
+//let prot1Coeff,prot1FitVals,prot1Determination =
+//    prot1
+//    |> Array.mapi (
+//        fun i strainVals ->
+//            // RBCL Regression of relative quantification values
+//            let RBCLcoeff = Univariable.coefficient (vector dilutionsSorted) (vector strainVals)
+//            let RBCLfitFunc = Univariable.fit RBCLcoeff
+//            let RBCLfitVals = dilutionsSorted |> Array.map RBCLfitFunc
+//            let RBCLdetermination = FSharp.Stats.Fitting.GoodnessOfFit.calculateDeterminationFromValue strainVals RBCLfitVals
+//            let RBCLpearson = FSharp.Stats.Correlation.Seq.pearson strainVals dilutionsSorted
+//            printfn "%s - Pearson WholeCell RBCL: %f" strainNames.[i] RBCLpearson
+//            RBCLcoeff, RBCLfitVals, RBCLdetermination
+//    )
+//    |> Array.unzip3
+
+open FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares.Linear
 
 let linearityTest =
-    labelEfficiencyResults
-    |> Frame.dropSparseCols
-    |> fun x -> 
-        x
-        |> Frame.toArray2D
-        |> Array2D.toJaggedArray
-        |> JaggedArray.transpose
-        |> Array.zip (x.ColumnKeys |> Array.ofSeq)
-        //Calculate fully/uncompletely labeled peak ratio
-        |> Array.map 
-            (fun ((prot,(pepSeq,charge)),values) -> 
-                prot,
-                // we use multiple dilutions of N15 and we can calculate a label efficiency for each of them and
-                // take the mean in the end, as all originate from the same QProtein sample. This could also
-                // show differences in measured label efficiency for high or low sample quantities.
-                Array.init
-                    dilutionArr.Length
-                    (fun ind ->
-                        [|for num in ind .. dilutionArr.Length .. values.Length-1 do
-                            yield values.[num]|]
-                    )
-                |> Array.mapi (fun i values -> 
-                    // N14/N15, dilution
-                    values.[0]/values.[4], 1./dilutionArr.[i]
+    let getLabelData = 
+        labelEfficiencyResults
+        |> Frame.dropSparseCols
+        |> Frame.filterRows (fun (prot,(_,(fileName,dilution))) rs -> Array.exists (fun x -> x = dilution) dilutionArr)
+        |> fun x -> 
+            x
+            |> Frame.toArray2D
+            |> Array2D.toJaggedArray
+            |> JaggedArray.transpose
+            |> Array.zip (x.ColumnKeys |> Array.ofSeq)
+            //Calculate fully/uncompletely labeled peak ratio
+            |> Array.map 
+                (fun ((prot,(pepSeq,charge)),values) -> 
+                    // we use multiple dilutions of N15 and we can calculate a label efficiency for each of them and
+                    // take the mean in the end, as all originate from the same QProtein sample. This could also
+                    // show differences in measured label efficiency for high or low sample quantities.
+                    let quant, dil =
+                        Array.init
+                            dilutionArr.Length
+                            (fun ind ->
+                                [|for num in ind .. dilutionArr.Length .. values.Length-1 do
+                                    yield values.[num]|]
+                            )
+                        |> Array.mapi (fun i values -> 
+                            // N14/N15, dilution
+                            values.[0]/values.[4], 1./dilutionArr.[i]
+                        )
+                        |> Array.sortBy snd
+                        |> Array.unzip
+                    LabelEffCollectorReduced.create dil quant prot pepSeq charge None None None
                 )
-                |> fun x ->
-                    let (n15n14,dilution) = Array.unzip x
-                    let name = sprintf "[%s] : %s @ z = %i" prot pepSeq charge
-                    Chart.Line(dilution,n15n14,Name=name)
-            )
-        |> Array.groupBy (fun x -> fst x)
-        |> Array.map (fun (header,chartArr) ->
-            let charts = chartArr |> Array.map snd
-            charts
-            |> Chart.Combine
-            |> Chart.withY_Axis (yAxis false "N14 / N15 Peak instensity ratio" 20 16)
-            |> Chart.withX_Axis (xAxis false "1:x Dilution of N15 Q Protein" 20 16)
+
+    let lEInfo =
+        getLabelData
+        |> Array.map (fun peptVal ->
+            peptVal.N14ToN15Quant
+            |> fun strainVals ->
+                // RBCL Regression of relative quantification values
+                let RBCLcoeff = Univariable.coefficient (vector peptVal.Dilution) (vector strainVals)
+                let RBCLfitFunc = Univariable.fit RBCLcoeff
+                let RBCLfitVals = peptVal.Dilution |> Array.map RBCLfitFunc
+                let RBCLdetermination = FSharp.Stats.Fitting.GoodnessOfFit.calculateDeterminationFromValue strainVals RBCLfitVals
+                let RBCLpearson = FSharp.Stats.Correlation.Seq.pearson strainVals peptVal.Dilution
+                printfn "Pearson WholeCell [%s]-%s @ z=%i: %f" peptVal.Protein peptVal.Peptide peptVal.Charge RBCLpearson
+                {peptVal with 
+                    PCoEff = Some RBCLcoeff; 
+                    PFitVals = Some RBCLfitVals; 
+                    PDetermination = Some RBCLdetermination}
         )
-    |> Array.map Chart.Show
+
+    lEInfo
+    |> Array.groupBy (fun x -> x.Protein)
+    |> Array.map (fun (_,valArr) ->
+        valArr
+        |> Array.map (fun peptVal ->
+            [
+                Chart.Point (Array.zip peptVal.Dilution peptVal.N14ToN15Quant,Name = sprintf "[%s]-%s @z=%i Quantified Ratios" peptVal.Protein peptVal.Peptide peptVal.Charge)
+                |> Chart.withMarkerStyle(Size=10,Symbol = StyleParam.Symbol.Cross)
+                Chart.Line(Array.zip peptVal.Dilution peptVal.PFitVals.Value,Name = (sprintf "%s linear regression: %.2f x + (%2f);<br> R<sup>2</sup> = %.4f" peptVal.Peptide peptVal.PCoEff.Value.[1] peptVal.PCoEff.Value.[0] peptVal.PDetermination.Value))
+                |> Chart.withLineStyle(Color="lightblue",Dash=StyleParam.DrawingStyle.DashDot)
+            ] 
+            |> Chart.Combine
+        )
+        |> Chart.Combine
+        |> Chart.withTitle ((Array.head valArr).Protein + " N15 QProtein Dilution")
+        |> Chart.withY_Axis (yAxis false "N14 / N15 Peak instensity ratio" 20 16)
+        |> Chart.withX_Axis (xAxis false "Dilution of N15 Q Protein" 20 16)
+        |> Chart.withConfig config
+        |> Chart.withMargin (Margin.init(Right=400))
+        |> Chart.withSize (900.,600.)
+        |> Chart.Show
+    )
 
 
 let labelEfficiency =
@@ -376,7 +453,6 @@ let labelEfficiency =
                     //(prot,(peptideSequence,charge)),
                     //[(n15Minus1MZ,n15Minus1Quant);(n15Mz,n15Quant)],
                     bestLE
-
                 labelEffCollectorArr
                 |> Array.map calculateLabelEffs
             )
@@ -580,8 +656,6 @@ let createLabelEfficiencyResult p ps c predLE predP aP mLE mP flP cf efCollector
     }
 
 
-
-
 let getCorrectionFactors (medianPredictedLabelEfficiency:float) (predictors: LabelEfficiencyPredictor []) =
     predictors
     |> Array.map 
@@ -666,32 +740,30 @@ let plotLabelEfficiencyResult (leRes: LabelEfficiencyResult) =
         |> List.map (fun (x,y) -> [(x,0.);(x,y);(x,0.)])
         |> List.concat
         |> Chart.Line
-        |> Chart.withTraceName ("Fully Labeled Pattern")
+        |> Chart.withTraceName (sprintf "Dil=%s; Fully Labeled Pattern" (string leRes.EFCollector.Dilution))
         |> Chart.withLineStyle(Color="lightgray",Width = 20)
 
         leRes.MedianPattern
         |> List.map (fun (x,y) -> [(x,0.);(x,y);(x,0.)])
         |> List.concat
         |> Chart.Line
-        |> Chart.withTraceName (sprintf "CorrectedPattern @ Median LE of %.3f" leRes.MedianLabelEfficiency)
+        |> Chart.withTraceName (sprintf "Dil=%s; CorrectedPattern @ Median LE of %.3f" (string leRes.EFCollector.Dilution) leRes.MedianLabelEfficiency)
         |> Chart.withLineStyle(Width = 10,Color="lightgreen")
 
         leRes.PredictedPattern
         |> List.map (fun (x,y) -> [(x,0.);(x,y);(x,0.)])
         |> List.concat
         |> Chart.Line
-        |> Chart.withTraceName (sprintf "PredictedPattern @ %.3f LE" leRes.PredictedLabelEfficiency)
+        |> Chart.withTraceName (sprintf "Dil=%s; PredictedPattern @ %.3f LE" (string leRes.EFCollector.Dilution) leRes.PredictedLabelEfficiency)
         |> Chart.withLineStyle(Color="orange",Width = 5)
 
-        Chart.Point(leRes.ActualPattern,Name="Experimental Values")
+        Chart.Point(leRes.ActualPattern,Name=sprintf "Dil=%s; Experimental Values" (string leRes.EFCollector.Dilution))
         |> Chart.withMarkerStyle(Size = 15,Symbol = StyleParam.Symbol.X, Color = "lightred")
-
-
 
     ]
     |> Chart.Combine
-    |> Chart.withTitle (sprintf "[%s] : %s @ z = %i & Dil = %s" leRes.Protein leRes.PeptideSequence leRes.Charge (string leRes.EFCollector.Dilution))
-    |> Chart.withX_Axis (xAxis false "m/z" 20 16)
+    |> Chart.withX_Axis 
+        (xAxis false (sprintf "m/z for Dilution = %s" (string leRes.EFCollector.Dilution)) 20 16 )
     |> Chart.withY_Axis (yAxis false "normalized probability" 20 16)
     |> Chart.withConfig config
 
@@ -710,16 +782,24 @@ let labelEfficiencyResultsFinal =
     |> getCorrectionFactors filteredOverallPredictedLabelEfficiency
 
 labelEfficiencyResultsFinal
-|> Array.map plotLabelEfficiencyResult
-|> Array.item 7
-|> Chart.withSize (1000.,1000.)
+|> Array.groupBy (fun x -> x.Protein, x.PeptideSequence, x.Charge)
+|> Array.map (fun (header,pepSortedVals) ->
+    let header = Array.head pepSortedVals
+    pepSortedVals
+    |> Array.sortByDescending (fun x -> x.EFCollector.Dilution)
+    |> Array.map plotLabelEfficiencyResult
+    |> Chart.Stack ((pepSortedVals.Length/2),Space=0.1)
+    |> Chart.withTitle (sprintf "[%s] : %s @ z = %i" header.Protein header.PeptideSequence header.Charge)
+)
+|> Array.item 0
+|> Chart.withSize (1400.,1000.)
 |> Chart.Show
 
 
 labelEfficiencyResultsFinal
 |> fun x -> x.[0 .. 7]
 |> Array.map plotLabelEfficiencyResult
-|> Array.map (Chart.withSize (1000.,1000.))
+|> Array.map (Chart.withSize (1400.,800.))
 |> Array.map Chart.Show
 
 

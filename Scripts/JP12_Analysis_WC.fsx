@@ -517,8 +517,6 @@ let wholeCell_PeptideRatios wcResults proteinsToShow peptidesToIgnore (strainNam
 
 let sth2 = wholeCell_PeptideRatios wcResults (Some [|"RBCL"; "Rbcs2"|]) (Some [|"DTDILAAFR"|]) [|"4A"; "UVM";"CW15"|] [|1.;5.;25.;125.|] 
 
-
-
 open FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares.Linear
 
 let rbc_L_vs_S_rbcl_RatiosS_wholeCell prot1Name prot2Name (wcPeptideRatios:Frame<((string*string)*string),float>) =
@@ -562,7 +560,7 @@ let rbc_L_vs_S_rbcl_RatiosS_wholeCell prot1Name prot2Name (wcPeptideRatios:Frame
                 let RBCLfitFunc = Univariable.fit RBCLcoeff
                 let RBCLfitVals = dilutionsSorted |> Array.map RBCLfitFunc
                 let RBCLdetermination = FSharp.Stats.Fitting.GoodnessOfFit.calculateDeterminationFromValue strainVals RBCLfitVals
-                let RBCLpearson = FSharp.Stats.Correlation.Seq.pearson (strainVals) dilutionsSorted
+                let RBCLpearson = FSharp.Stats.Correlation.Seq.pearson strainVals dilutionsSorted
                 printfn "%s - Pearson WholeCell RBCL: %f" strainNames.[i] RBCLpearson
                 RBCLcoeff, RBCLfitVals, RBCLdetermination
         )
