@@ -365,9 +365,12 @@ let sortStrainVals wcResults (proteinsToShow:string[] option) (peptidesToIgnore:
         )
     sortedStrainValues
 
+let protein1 = "rbcL"
+let protein2 = "RBCS2"
+
 let wcResults = getWholeCellResults @"\..\AuxFiles\GroupsData\G1_1690WC1zu1_QuantifiedPeptides.txt"
 
-let sortedStrainValues = sortStrainVals wcResults (Some [|"RBCL"; "Rbcs2"|]) None [|"4A"; "UVM";"CW15"|] [|1.;5.;25.;125.|] 
+let sortedStrainValues = sortStrainVals wcResults (Some [|protein1; protein2|]) None [|"4A"; "UVM";"CW15"|] [|1.;5.;25.;125.|] 
 
 let comparePeptidesInStrainCharts =
     sortedStrainValues
@@ -447,7 +450,7 @@ let alignPeptideAndPeptideMeans =
 )
 
 
-let comparePeptidesInStrainMEANS =
+let comparePepsInStrainMEANS =
     sortedStrainValues
     |> Array.groupBy (fun x -> x.StrainName, x.Protein)
     |> Array.map (fun (header,peptInfoArr) -> 
@@ -466,114 +469,112 @@ let comparePeptidesInStrainMEANS =
         PepResult1.create prot "mean" (Seq.toArray means) strain
     )
 
-[|yield! comparePeptidesInStrainMEANS; yield! sortedStrainValues|]
-|> Array.groupBy (fun x -> x.StrainName, x.Protein)
-|> Array.map (fun x -> snd x)
-|> Array.map (
-    fun x ->
-        [for pepRes in x do
-            yield
-                ((pepRes.Protein,pepRes.StrainName),pepRes.Peptide) => series pepRes.StrainValues
-        ]
-        |> frame
-    )
-|> Seq.reduce (Frame.join JoinKind.Outer)
-|> Frame.transpose
-|> Frame.sortRowsByKey
-|> Frame.sortColsByKey
+let comparedRatioMeans =
+    [|yield! comparePepsInStrainMEANS; yield! sortedStrainValues|]
+    |> Array.groupBy (fun x -> x.StrainName, x.Protein)
+    |> Array.map (fun x -> snd x)
+    |> Array.map (
+        fun x ->
+            [for pepRes in x do
+                yield
+                    ((pepRes.Protein,pepRes.StrainName),pepRes.Peptide) => series pepRes.StrainValues
+            ]
+            |> frame
+        )
+    |> Seq.reduce (Frame.join JoinKind.Outer)
+    |> Frame.transpose
+    |> Frame.sortRowsByKey
+    |> Frame.sortColsByKey
 
 open FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares.Linear
 
-let rbc_L_vs_S_rbcl_RatiosS_wholeCell prot1Name prot2Name (wcPeptideRatios:Frame<((string*string)*string),float>) =
+
+let prot1_RatiosS_wholeCell =
+    comparedRatioMeans
+    |> Frame.filterRows (fun ((prot,strain),pep) _ -> pep = "mean")
+    |> Frame.transpose
+    |> Frame.filterCols (fun ((prot,strain),pep) _ -> prot = protein1)
+    |> Frame.transpose
+    |> Frame.applyLevel fst Stats.mean
     
-    let prot1_RatiosS_wholeCell =
-        wcPeptideRatios
-        |> Frame.filterRows (fun ((prot,strain),pep) _ -> pep = "mean")
-        |> Frame.transpose
-        |> Frame.filterCols (fun ((prot,strain),pep) _ -> prot = prot1Name)
-        |> Frame.transpose
-        |> Frame.applyLevel fst Stats.mean
-    
-    let prot2_RatiosSdsIgd_wholeCell =
-        wcPeptideRatios
-        |> Frame.filterRows (fun ((prot,strain),pep) _ -> pep = "mean")
-        |> Frame.transpose
-        |> Frame.filterCols (fun ((prot,strain),pep) _ -> prot = prot2Name) //(fun (prot,(pep,_)) _ -> prot = "RBCS2" && (not (pep = "AFPDAYVR" || pep = "EVTLGFVDLMR")))
-        |> Frame.transpose
-        |> Frame.applyLevel fst Stats.mean
+let prot2_RatiosSdsIgd_wholeCell =
+    comparedRatioMeans
+    |> Frame.filterRows (fun ((prot,strain),pep) _ -> pep = "mean")
+    |> Frame.transpose
+    |> Frame.filterCols (fun ((prot,strain),pep) _ -> prot = protein2) //(fun (prot,(pep,_)) _ -> prot = "RBCS2" && (not (pep = "AFPDAYVR" || pep = "EVTLGFVDLMR")))
+    |> Frame.transpose
+    |> Frame.applyLevel fst Stats.mean
 
-    let dilutionsSorted = 
-        wcPeptideRatios.ColumnKeys
-        |> Array.ofSeq
+let dilutionsSorted = 
+    comparedRatioMeans.ColumnKeys
+    |> Array.ofSeq
 
-    let strainNames = 
-        wcPeptideRatios.RowKeys
-        |> Seq.map (fun ((x,y),z) -> y)
-        |> (Seq.distinct >> Array.ofSeq)
+let strainNames = 
+    comparedRatioMeans.RowKeys
+    |> Seq.map (fun ((x,y),z) -> y)
+    |> (Seq.distinct >> Array.ofSeq)
 
-    let prot1 =
-        prot1_RatiosS_wholeCell
-        |> Frame.toArray2D
-        |> JaggedArray.ofArray2D
+let prot1 =
+    prot1_RatiosS_wholeCell
+    |> Frame.toArray2D
+    |> JaggedArray.ofArray2D
 
-    let prot1Coeff,prot1FitVals,prot1Determination =
-        prot1
-        |> Array.mapi (
-            fun i strainVals ->
-                // RBCL Regression of relative quantification values
-                let RBCLcoeff = Univariable.coefficient (vector dilutionsSorted) (vector strainVals)
-                let RBCLfitFunc = Univariable.fit RBCLcoeff
-                let RBCLfitVals = dilutionsSorted |> Array.map RBCLfitFunc
-                let RBCLdetermination = FSharp.Stats.Fitting.GoodnessOfFit.calculateDeterminationFromValue strainVals RBCLfitVals
-                let RBCLpearson = FSharp.Stats.Correlation.Seq.pearson strainVals dilutionsSorted
-                printfn "%s - Pearson WholeCell RBCL: %f" strainNames.[i] RBCLpearson
-                RBCLcoeff, RBCLfitVals, RBCLdetermination
-        )
-        |> Array.unzip3
+let prot1Coeff,prot1FitVals,prot1Determination =
+    prot1
+    |> Array.mapi (
+        fun i strainVals ->
+            // RBCL Regression of relative quantification values
+            let RBCLcoeff = Univariable.coefficient (vector dilutionsSorted) (vector strainVals)
+            let RBCLfitFunc = Univariable.fit RBCLcoeff
+            let RBCLfitVals = dilutionsSorted |> Array.map RBCLfitFunc
+            let RBCLdetermination = FSharp.Stats.Fitting.GoodnessOfFit.calculateDeterminationFromValue strainVals RBCLfitVals
+            let RBCLpearson = FSharp.Stats.Correlation.Seq.pearson strainVals dilutionsSorted
+            printfn "%s - Pearson WholeCell RBCL: %f" strainNames.[i] RBCLpearson
+            RBCLcoeff, RBCLfitVals, RBCLdetermination
+    )
+    |> Array.unzip3
                 
-    let prot2 =
-        prot2_RatiosSdsIgd_wholeCell
-        |> Frame.toArray2D
-        |> JaggedArray.ofArray2D
+let prot2 =
+    prot2_RatiosSdsIgd_wholeCell
+    |> Frame.toArray2D
+    |> JaggedArray.ofArray2D
 
-    let prot2Coeff,prot2FitVals,prot2Determination =
-        prot2
-        |> Array.mapi (
-            fun i strainVals ->
-                let RBCScoeff = Univariable.coefficient (vector dilutionsSorted ) (vector strainVals) 
-                let RBCSfitFunc = Univariable.fit RBCScoeff
-                let RBCSfitVals = dilutionsSorted  |> Array.map RBCSfitFunc
-                let RBCSdetermination = FSharp.Stats.Fitting.GoodnessOfFit.calculateDeterminationFromValue strainVals RBCSfitVals
-                let RBCSpearson = FSharp.Stats.Correlation.Seq.pearson (strainVals) dilutionsSorted
-                printfn "%s - Pearson WholeCell RBCS: %f" strainNames.[i] RBCSpearson
-                RBCScoeff, RBCSfitVals, RBCSdetermination
-        )
-        |> Array.unzip3
+let prot2Coeff,prot2FitVals,prot2Determination =
+    prot2
+    |> Array.mapi (
+        fun i strainVals ->
+            let RBCScoeff = Univariable.coefficient (vector dilutionsSorted ) (vector strainVals) 
+            let RBCSfitFunc = Univariable.fit RBCScoeff
+            let RBCSfitVals = dilutionsSorted  |> Array.map RBCSfitFunc
+            let RBCSdetermination = FSharp.Stats.Fitting.GoodnessOfFit.calculateDeterminationFromValue strainVals RBCSfitVals
+            let RBCSpearson = FSharp.Stats.Correlation.Seq.pearson (strainVals) dilutionsSorted
+            printfn "%s - Pearson WholeCell RBCS: %f" strainNames.[i] RBCSpearson
+            RBCScoeff, RBCSfitVals, RBCSdetermination
+    )
+    |> Array.unzip3
 
-    let chartPearsons prot1 (prot1Coeff:Vector<float>) prot1FitVals prot1Determination prot2 (prot2Coeff:Vector<float>) prot2FitVals prot2Ddetermination strain =
-        [
-            Chart.Point ((Array.zip dilutionsSorted prot1),Name = sprintf "%s Quantified Ratios" prot1Name)
-            |> Chart.withMarkerStyle(Size=10,Symbol = StyleParam.Symbol.Cross)
-            Chart.Line(Array.zip dilutionsSorted prot1FitVals,Name = (sprintf "%s linear regression: %.2f x + (%2f) ; R� = %.4f" prot1Name prot1Coeff.[1] prot1Coeff.[0] prot1Determination))
-            |> Chart.withLineStyle(Color="lightblue",Dash=StyleParam.DrawingStyle.DashDot)
+let chartRatios prot1 (prot1Coeff:Vector<float>) prot1FitVals prot1Determination prot2 (prot2Coeff:Vector<float>) prot2FitVals prot2Ddetermination strain =
+    [
+        Chart.Point ((Array.zip dilutionsSorted prot1),Name = sprintf "%s Quantified Ratios" protein1)
+        |> Chart.withMarkerStyle(Size=10,Symbol = StyleParam.Symbol.Cross)
+        Chart.Line(Array.zip dilutionsSorted prot1FitVals,Name = (sprintf "%s linear regression: %.2f x + (%2f) ; R = %.4f" protein1 prot1Coeff.[1] prot1Coeff.[0] prot1Determination))
+        |> Chart.withLineStyle(Color="lightblue",Dash=StyleParam.DrawingStyle.DashDot)
 
-            Chart.Point ((Array.zip dilutionsSorted prot2),Name = sprintf "%s Quantified Ratios" prot2Name,MarkerSymbol = StyleParam.Symbol.Cross)
-            |> Chart.withMarkerStyle(Size=10,Symbol = StyleParam.Symbol.Cross)
-            Chart.Line(Array.zip dilutionsSorted prot2FitVals,Name = (sprintf "%s linear regression: %.2f x + (%2f) ; R� = %.4f" prot2Name prot2Coeff.[1] prot2Coeff.[0] prot2Ddetermination))
-            |> Chart.withLineStyle(Color="LightGreen",Dash=StyleParam.DrawingStyle.DashDot)
-        ]
-        |> Chart.Combine
-        |> Chart.withTitle (sprintf "%s - Whole cell extracts: Stability of %s/%s ratios between samples" strain prot1Name prot2Name)
-        |> Chart.withX_Axis (yAxis false "N14 Sample / N15 QProtein ratio" 20 16)
-        |> Chart.withY_Axis (xAxis false "relative quantification" 20 16 )
-        |> Chart.withConfig config
-        |> Chart.withSize (900.,500.)
-        |> Chart.Show
+        Chart.Point ((Array.zip dilutionsSorted prot2),Name = sprintf "%s Quantified Ratios" protein2,MarkerSymbol = StyleParam.Symbol.Cross)
+        |> Chart.withMarkerStyle(Size=10,Symbol = StyleParam.Symbol.Cross)
+        Chart.Line(Array.zip dilutionsSorted prot2FitVals,Name = (sprintf "%s linear regression: %.2f x + (%2f) ; R = %.4f" protein2 prot2Coeff.[1] prot2Coeff.[0] prot2Ddetermination))
+        |> Chart.withLineStyle(Color="LightGreen",Dash=StyleParam.DrawingStyle.DashDot)
+    ]
+    |> Chart.Combine
+    |> Chart.withTitle (sprintf "%s - Whole cell extracts: Stability of %s/%s ratios between samples" strain protein1 protein2)
+    |> Chart.withX_Axis (yAxis false "N14 Sample / N15 QProtein ratio" 20 16)
+    |> Chart.withY_Axis (xAxis false "relative quantification" 20 16 )
+    |> Chart.withConfig config
+    |> Chart.withSize (900.,500.)
+    |> Chart.Show
 
-    for i in 0 .. 2 do 
-        chartPearsons 
-            prot1.[i] prot1Coeff.[i] prot1FitVals.[i] prot1Determination.[i]
-            prot2.[i] prot2Coeff.[i] prot2FitVals.[i] prot2Determination.[i]
-            strainNames.[i]
-
-rbc_L_vs_S_rbcl_RatiosS_wholeCell "rbcL" "RBCS2" sth2
+for i in 0 .. 2 do 
+    chartRatios 
+        prot1.[i] prot1Coeff.[i] prot1FitVals.[i] prot1Determination.[i]
+        prot2.[i] prot2Coeff.[i] prot2FitVals.[i] prot2Determination.[i]
+        strainNames.[i]
