@@ -326,7 +326,7 @@ type PepResult1 =
         StrainName   =  strainName
     }
 
-let plotPeptideISD wcResults (proteinsToShow:string[] option) (peptidesToIgnore:string[] option) strainNameArr dilutionArr =
+let sortStrainsVals wcResults (proteinsToShow:string[] option) (peptidesToIgnore:string[] option) strainNameArr dilutionArr =
 
     let forLinearity = getForLinearity proteinsToShow peptidesToIgnore wcResults
 
@@ -363,86 +363,88 @@ let plotPeptideISD wcResults (proteinsToShow:string[] option) (peptidesToIgnore:
                 PepResult1.create prot pept values strainName
             )  
         )
-
-    let comparePeptidesInStrainCharts =
-        sortedStrainValues
-        |> Array.groupBy (fun x -> x.StrainName, x.Protein)
-        |> Array.map (fun (header,peptInfoArr) -> 
-            header,
-            peptInfoArr
-            |> Array.mapi (fun i peptInfo ->
-                Chart.Scatter(peptInfo.StrainValues,mode=StyleParam.Mode.Markers, MarkerSymbol = StyleParam.Symbol.Cross, Color=colorArray.[i])
-                |> Chart.withTraceName (sprintf "%s -  %s - %s" peptInfo.StrainName peptInfo.Protein peptInfo.Peptide)
-            )
-            |> Chart.Combine
-            |> Chart.withX_Axis (xAxis false (fst header + "-N14 Sample/N15 QProtein ratio") 20 16)
-            |> Chart.withY_Axis (yAxis false "N14/N15 Quantification ratio" 20 16)
-        )
-
-    let comparePeptidesInStrainMEANS =
-        sortedStrainValues
-        |> Array.groupBy (fun x -> x.StrainName, x.Protein)
-        |> Array.map (fun (header,peptInfoArr) -> 
-            header,
-            [|for pept in peptInfoArr do
-                yield! pept.StrainValues|]
-        )
-        |> Array.map (fun (header,values) -> header,values|> (Array.groupBy fst))
-        |> Array.map (fun ((strain,prot),values) -> 
-            let means =
-                values 
-                |> Seq.map (fun (xAxis,values) -> 
-                    xAxis,values 
-                    |> Seq.meanBy snd
-                )
-            (strain,prot),means
-        )
-
-    let compareBetweenStrainsChart =
-        comparePeptidesInStrainMEANS
-        |> Array.groupBy (fun (header,x) -> snd header)
-        |> Array.map (fun (prot,strains) -> 
-            ("CompareStrains", prot),
-            strains
-            |> Array.mapi (fun i ((strain,prot),values) -> 
-                Chart.Scatter(values,mode=StyleParam.Mode.Lines_Markers, MarkerSymbol = StyleParam.Symbol.Cross, Color=colorArray.[i])
-                |> Chart.withTraceName (sprintf "mean %s -  %s" strain prot)
-            )
-            |> Chart.Combine
-            |> Chart.withX_Axis (xAxis false ("Strain Means-" + "N14 Sample/N15 QProtein ratio") 20 16)
-            |> Chart.withY_Axis (yAxis false "N14/N15 Quantification ratio" 20 16)
-        )
-
-    let comparePeptidesInStrainMEANSCharts =
-        comparePeptidesInStrainMEANS
-        |> Array.map (fun ((strain,prot),means) ->
-            (strain,prot),
-            Chart.Scatter(means,mode=StyleParam.Mode.Lines_Markers, MarkerSymbol = StyleParam.Symbol.Circle, Color=colorForMean, Opacity=0.8)
-            |> Chart.withTraceName (sprintf "mean %s - %s" strain prot)
-        )
-
-    let alignPeptideAndPeptideMeans =
-        Array.zip comparePeptidesInStrainCharts comparePeptidesInStrainMEANSCharts
-        |> Array.map (fun ((header,chart),(header,chartMean)) -> header, Chart.Combine [|chart; chartMean|])
-
-    [|yield! compareBetweenStrainsChart; yield! alignPeptideAndPeptideMeans|]
-    |> Array.groupBy (fun (header,chart) -> snd header) 
-    |> fun x -> x
-    |> Array.map (fun (prot,chartsWithMeta) -> 
-        chartsWithMeta
-        |> Array.map (fun x -> 
-            snd x 
-        )
-        |> Chart.Stack(2,Space=0.15)
-        |> Chart.withTitle prot
-        |> Chart.withSize (1200.,900.)
-        |> Chart.withConfig config
-        |> Chart.Show
-    )
+    sortedStrainValues
 
 let wcResults = getWholeCellResults @"\..\AuxFiles\GroupsData\G1_1690WC1zu1_QuantifiedPeptides.txt"
 
-let sth = plotPeptideISD wcResults (Some [|"RBCL"; "Rbcs2"|]) None [|"4A"; "UVM";"CW15"|] [|1.;5.;25.;125.|] 
+let sortedStrainValues = sortStrainsVals wcResults (Some [|"RBCL"; "Rbcs2"|]) None [|"4A"; "UVM";"CW15"|] [|1.;5.;25.;125.|] 
+
+let comparePeptidesInStrainCharts =
+    sortedStrainValues
+    |> Array.groupBy (fun x -> x.StrainName, x.Protein)
+    |> Array.map (fun (header,peptInfoArr) -> 
+        header,
+        peptInfoArr
+        |> Array.mapi (fun i peptInfo ->
+            Chart.Scatter(peptInfo.StrainValues,mode=StyleParam.Mode.Markers, MarkerSymbol = StyleParam.Symbol.Cross, Color=colorArray.[i])
+            |> Chart.withTraceName (sprintf "%s -  %s - %s" peptInfo.StrainName peptInfo.Protein peptInfo.Peptide)
+        )
+        |> Chart.Combine
+        |> Chart.withX_Axis (xAxis false (fst header + "-N14 Sample/N15 QProtein ratio") 20 16)
+        |> Chart.withY_Axis (yAxis false "N14/N15 Quantification ratio" 20 16)
+    )
+
+let comparePeptidesInStrainMEANS =
+    sortedStrainValues
+    |> Array.groupBy (fun x -> x.StrainName, x.Protein)
+    |> Array.map (fun (header,peptInfoArr) -> 
+        header,
+        [|for pept in peptInfoArr do
+            yield! pept.StrainValues|]
+    )
+    |> Array.map (fun (header,values) -> header,values|> (Array.groupBy fst))
+    |> Array.map (fun ((strain,prot),values) -> 
+        let means =
+            values 
+            |> Seq.map (fun (xAxis,values) -> 
+                xAxis,values 
+                |> Seq.meanBy snd
+            )
+        (strain,prot),means
+    )
+
+
+let compareBetweenStrainsChart =
+    comparePeptidesInStrainMEANS
+    |> Array.groupBy (fun (header,x) -> snd header)
+    |> Array.map (fun (prot,strains) -> 
+        ("CompareStrains", prot),
+        strains
+        |> Array.mapi (fun i ((strain,prot),values) -> 
+            Chart.Scatter(values,mode=StyleParam.Mode.Lines_Markers, MarkerSymbol = StyleParam.Symbol.Cross, Color=colorArray.[i])
+            |> Chart.withTraceName (sprintf "mean %s -  %s" strain prot)
+        )
+        |> Chart.Combine
+        |> Chart.withX_Axis (xAxis false ("Strain Means-" + "N14 Sample/N15 QProtein ratio") 20 16)
+        |> Chart.withY_Axis (yAxis false "N14/N15 Quantification ratio" 20 16)
+    )
+
+let comparePeptidesInStrainMEANSCharts =
+    comparePeptidesInStrainMEANS
+    |> Array.map (fun ((strain,prot),means) ->
+        (strain,prot),
+        Chart.Scatter(means,mode=StyleParam.Mode.Lines_Markers, MarkerSymbol = StyleParam.Symbol.Circle, Color=colorForMean, Opacity=0.8)
+        |> Chart.withTraceName (sprintf "mean %s - %s" strain prot)
+    )
+
+let alignPeptideAndPeptideMeans =
+    Array.zip comparePeptidesInStrainCharts comparePeptidesInStrainMEANSCharts
+    |> Array.map (fun ((header,chart),(header,chartMean)) -> header, Chart.Combine [|chart; chartMean|])
+
+[|yield! compareBetweenStrainsChart; yield! alignPeptideAndPeptideMeans|]
+|> Array.groupBy (fun (header,chart) -> snd header) 
+|> fun x -> x
+|> Array.map (fun (prot,chartsWithMeta) -> 
+    chartsWithMeta
+    |> Array.map (fun x -> 
+        snd x 
+    )
+    |> Chart.Stack(2,Space=0.15)
+    |> Chart.withTitle prot
+    |> Chart.withSize (1200.,900.)
+    |> Chart.withConfig config
+    |> Chart.Show
+)
 
 let wholeCell_PeptideRatios wcResults proteinsToShow peptidesToIgnore (strainNameArr:string []) (dilutionArr: float[]) =
 
