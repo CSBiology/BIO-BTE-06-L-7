@@ -94,10 +94,13 @@ You will then be asked to give a password and after that to verify it. Both time
 ALWAYS write the code here and style it afterwards, then just copy paste right behind <code>. This is NOT a good solution.
 
 ```html
-<div Style="width: 90% ; margin-left: auto ; margin-right: auto ; margin-top: 2rem">
+<div Style="width: 90% ; margin-left: auto ; margin-right: auto ; margin-top: 1rem">
     <pre>
-        <code Style="background-color: whitesmoke ; border: 1px solid #999 ; display: block ; padding: 5px ; margin-left: 20px ; margin-right: 20px ; font-size: 1.4rem ; line-height: 1.3">
-            Add1(x) = x+1
+        <code Style="background-color: whitesmoke ; border: 1px solid #999 ; display: block ; padding: 5px ; font-size: 1.4rem ; line-height: 1.3">
+            "FileNameWithoutExtension" => ("ExperimentName"("ContentOfBand",(Amount of loaded protein [int], "StrainName")))
+            ..
+            ..
+            ..
         </code>
     </pre>
 </div>
