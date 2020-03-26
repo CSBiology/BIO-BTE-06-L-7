@@ -326,7 +326,7 @@ type PepResult1 =
         StrainName   =  strainName
     }
 
-let sortStrainsVals wcResults (proteinsToShow:string[] option) (peptidesToIgnore:string[] option) strainNameArr dilutionArr =
+let sortStrainVals wcResults (proteinsToShow:string[] option) (peptidesToIgnore:string[] option) strainNameArr dilutionArr =
 
     let forLinearity = getForLinearity proteinsToShow peptidesToIgnore wcResults
 
@@ -367,7 +367,7 @@ let sortStrainsVals wcResults (proteinsToShow:string[] option) (peptidesToIgnore
 
 let wcResults = getWholeCellResults @"\..\AuxFiles\GroupsData\G1_1690WC1zu1_QuantifiedPeptides.txt"
 
-let sortedStrainValues = sortStrainsVals wcResults (Some [|"RBCL"; "Rbcs2"|]) None [|"4A"; "UVM";"CW15"|] [|1.;5.;25.;125.|] 
+let sortedStrainValues = sortStrainVals wcResults (Some [|"RBCL"; "Rbcs2"|]) None [|"4A"; "UVM";"CW15"|] [|1.;5.;25.;125.|] 
 
 let comparePeptidesInStrainCharts =
     sortedStrainValues
@@ -446,78 +446,41 @@ let alignPeptideAndPeptideMeans =
     |> Chart.Show
 )
 
-let wholeCell_PeptideRatios wcResults proteinsToShow peptidesToIgnore (strainNameArr:string []) (dilutionArr: float[]) =
 
-    let forLinearity = getForLinearity proteinsToShow peptidesToIgnore wcResults
-
-    let strainNamesSorted = strainNameArr |> Array.sort //[|"4A"; "UVM";"CW15"|] 
-
-    let dilutionsSorted = dilutionArr |> Array.sortDescending //[|1.;5.;25.;125.|] 
-
-    let dilutionArrTimesStrains =
-        [|for dil in dilutionsSorted do 
-            yield! Array.init strainNamesSorted.Length (fun _ -> dil) |]
-
-    let sortedStrainValues =
-        Array.map2 (Array.zip) (n14Lin forLinearity) (n15Lin forLinearity)
-        // JP12_WC_07
-        |> JaggedArray.map (fun (n14,n15) -> if (isBad n14 || isBad n15) then 0. else n14/n15)
-        // dilutions times the number of strains 3 x 125, 3 x 25, 3 x 5 ...
-        // zip the following values to the columns
-        |> Array.map (fun x -> Array.zip dilutionArrTimesStrains x)
-        |> Array.map 
-            (fun (values) -> 
-                Array.init 
-                    strainNamesSorted.Length 
-                    (fun ind -> 
-                        [|for x in ind .. strainNamesSorted.Length .. values.Length-1 do yield values.[x]|]
-                    )
-                |> Array.zip strainNamesSorted
-            )
-        |> Array.zip (Seq.toArray forLinearity.ColumnKeys)
-        |> Array.collect (fun ((prot,pept),strainResults) -> 
-            strainResults 
-            |> Array.map (fun (strainName,values) ->
-                PepResult1.create prot pept values strainName
-            )  
-        )
-
-    let comparePeptidesInStrainMEANS =
-        sortedStrainValues
-        |> Array.groupBy (fun x -> x.StrainName, x.Protein)
-        |> Array.map (fun (header,peptInfoArr) -> 
-            header,
-            [|for pept in peptInfoArr do
-                yield! pept.StrainValues|]
-        )
-        |> Array.map (fun (header,values) -> header,values|> (Array.groupBy fst))
-        |> Array.map (fun ((strain,prot),values) -> 
-            let means =
-                values 
-                |> Seq.map (fun (xAxis,values) -> 
-                    xAxis,values 
-                    |> Seq.meanBy snd
-                )
-            PepResult1.create prot "mean" (Seq.toArray means) strain
-        )
-
-    [|yield! comparePeptidesInStrainMEANS; yield! sortedStrainValues|]
+let comparePeptidesInStrainMEANS =
+    sortedStrainValues
     |> Array.groupBy (fun x -> x.StrainName, x.Protein)
-    |> Array.map (fun x -> snd x)
-    |> Array.map (
-        fun x ->
-            [for pepRes in x do
-                yield
-                    ((pepRes.Protein,pepRes.StrainName),pepRes.Peptide) => series pepRes.StrainValues
-            ]
-            |> frame
-        )
-    |> Seq.reduce (Frame.join JoinKind.Outer)
-    |> Frame.transpose
-    |> Frame.sortRowsByKey
-    |> Frame.sortColsByKey
+    |> Array.map (fun (header,peptInfoArr) -> 
+        header,
+        [|for pept in peptInfoArr do
+            yield! pept.StrainValues|]
+    )
+    |> Array.map (fun (header,values) -> header,values|> (Array.groupBy fst))
+    |> Array.map (fun ((strain,prot),values) -> 
+        let means =
+            values 
+            |> Seq.map (fun (xAxis,values) -> 
+                xAxis,values 
+                |> Seq.meanBy snd
+            )
+        PepResult1.create prot "mean" (Seq.toArray means) strain
+    )
 
-let sth2 = wholeCell_PeptideRatios wcResults (Some [|"RBCL"; "Rbcs2"|]) (Some [|"DTDILAAFR"|]) [|"4A"; "UVM";"CW15"|] [|1.;5.;25.;125.|] 
+[|yield! comparePeptidesInStrainMEANS; yield! sortedStrainValues|]
+|> Array.groupBy (fun x -> x.StrainName, x.Protein)
+|> Array.map (fun x -> snd x)
+|> Array.map (
+    fun x ->
+        [for pepRes in x do
+            yield
+                ((pepRes.Protein,pepRes.StrainName),pepRes.Peptide) => series pepRes.StrainValues
+        ]
+        |> frame
+    )
+|> Seq.reduce (Frame.join JoinKind.Outer)
+|> Frame.transpose
+|> Frame.sortRowsByKey
+|> Frame.sortColsByKey
 
 open FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares.Linear
 
