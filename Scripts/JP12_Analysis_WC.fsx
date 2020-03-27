@@ -31,89 +31,16 @@ let isBad a =
 //    |> Array.ofSeq
 //    |> Array.map (fun x -> BioList.toString x)
 
+let source = __SOURCE_DIRECTORY__
 //qConCatSeq.Length
 
-let peptideProtMapping =
-    [
-    "iRT"   =>  "LGGNEQVTR"
-    "LCI5"  =>  "SALPSNWK"
-    "LCI5"  =>  "SVLPANWR"
-    "rbcL"  =>  "DTDILAAFR"
-    "rbcL"  =>  "EVTLGFVDLMR"
-    "rbcL"  =>  "FLFVAEAIYK"
-    "rbcL"  =>  "LTYYTPDYVVR"
-    "RBCS2" =>  "AYVSNESAIR"
-    "RBCS2" =>  "LVAFDNQK"
-    "RBCS2" =>  "YWTMWK"
-    "RBCS2" =>  "AFPDAYVR"
-    "RCA1"  =>  "VPLILGIWGGK"
-    "RCA1"  =>  "IGQQLVNAR"
-    "RCA1"  =>  "SLVDEQENVK"
-    "PCY1"  =>  "LGADSGALEFVPK"
-    "PCY1"  =>  "DDYLNAPGETYSVK"
-    "psaB"  =>  "TPLANLVYWK"
-    "psaB"  =>  "ALYGFDFLLSSK"
-    "psaB"  =>  "TNFGIGHR"
-    "atpB"  =>  "LSIFETGIK"
-    "atpB"  =>  "TAPAFVDLDTR"
-    "petA"  =>  "IPAGPDLIVK"
-    "petA"  =>  "NILVVGPVPGK"
-    "petA"  =>  "IVAITALSEK"
-    "petA"  =>  "YPIYFGGNR"
-    "FNR1"  =>  "LYSIASSR"
-    "FNR1"  =>  "LDYALSR"
-    "D1"    =>  "VLNTWADIINR"
-    "D1"    =>  "EWELSFR"
-    "D1"    =>  "NTWADIINR"
-    "D1"    =>  "LIFQYASFNNSR"
-    "LCI5"  =>  "TALPADWR"
-    "psbD"  =>  "LVFPEEVLPR"
-    "psbD"  =>  "NILLNEGIR"
-    "psbD"  =>  "TWFDDADDWLR"
-    //CBC
-    "PGK"   =>  "ADLNVPLDK"
-    "PGK"   =>  "TFNDALADAK"
-    "PGK"   =>  "LSELLGKPVTK"
-    "Gap3"  =>  "AVSLVLPSLK"
-    "Gap3"  =>  "VLITAPAK"
-    "FBA3"  =>  "ALQNTVLK"
-    "FBA3"  =>  "VMFEGILLK"
-    "FBA3"  =>  "SVVSIPHGPSIIAAR"
-    "FBP1"  =>  "VPLFIGSK"
-    "FBP1"  =>  "TLLYGGIYGYPGDAK"
-    "FBP1"  =>  "IYSFNEGNYGLWDDSVK"
-    "SBP"   =>  "LTNITGR"
-    "SBP"   =>  "LLFEALK"
-    "TRK1"  =>  "FLAIDAINK"
-    "TRK1"  =>  "VSTLIGYGSPNK"
-    "TRK1"  =>  "NPDFFNR"
-    "RPE1"  =>  "FIESQVAK"
-    "RPE1"  =>  "GVNPWIEVDGGVTPENAYK"
-    "RPE1"  =>  "SDIIVSPSILSADFSR"
-    "PRK1"  =>  "IYLDISDDIK"
-    "PRK1"  =>  "VAELLDFK"
-    "PRK1"  =>  "GHSLESIK"
-    "TPI1"  =>  "SLFGESNEVVAK"
-    "TPI1"  =>  "LVDELNAGTIPR"
-    "RPI1"  =>  "LANLPEVK"
-    "RPI1"  =>  "LQNIVGVPTSIR"
-    "RPI1"  =>  "TQLSQDELK"
-    "DP12"  =>  "SGQPAVDLNK"
-    "DP12"  =>  "ASGQPAVDLNK"
-    "RMT1"  =>  "AEAALLVR"
-    "RMT1"  =>  "SNSTPLGSR"
-    "FBA1"  =>  "GILASDESNATTGK"
-    "FBA1"  =>  "ALQSSTLK"
-    "FBA2"  =>  "VSAADVAR"
-    "FBA2"  =>  "ALQASVLK"
-    "Cre07.g338451" =>  "VTEAAALASGR"
-    "FBP1"  =>  "NLALELVR"
-    "CalSciex"  =>  "SAEGLDASASLR"
-    ]
-    |> List.map (fun (x,y) -> y,x)
+let peptideProtMapping: Map<string,string>=
+    Frame.ReadCsv(source + @"\..\AuxFiles\PeptideProtMap.tsv",hasHeaders=false,separators="\t")
+    |> Frame.indexRows "Column1"
+    |> Frame.getCol "Column2"
+    |> Series.observations
+    |> Seq.toList
     |> Map.ofList
-
-peptideProtMapping.Count
 
 //let peptideMapping =
 //    [
@@ -165,7 +92,6 @@ let readQConcatResultFrame p : Frame<string*(bool*int),string>=
     |> Frame.dropCol "Charge"
     |> Frame.sortRowsByKey
 
-let source = __SOURCE_DIRECTORY__
 
 ////JP12_WC_02
 //let wholeCellNameMapping = 
