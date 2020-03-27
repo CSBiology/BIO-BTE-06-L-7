@@ -91,27 +91,16 @@ You will then be asked to give a password and after that to verify it. Both time
 
 ### Code Blocks
 
-ALWAYS write the code here and style it afterwards, then just copy paste right behind <code>. This is NOT a good solution.
-
 ```html
 <div Style="width: 90% ; margin-left: auto ; margin-right: auto ; margin-top: 1rem">
-    <pre>
-        <code Style="background-color: whitesmoke ; border: 1px solid #999 ; display: block ; padding: 5px ; font-size: 1.4rem ; line-height: 1.3">
-            "FileNameWithoutExtension" => ("ExperimentName"("ContentOfBand",(Amount of loaded protein [int], "StrainName")))
-            ..
-            ..
-            ..
-        </code>
-    </pre>
+
+```fsharp
+let x = 5
+```
+
 </div>
 ```
 
-Exmp code
-```html
-<div Style="color: #008000">//...will result in:</div>
-<span Style="color: #B21543">ADLNVPLDK</span>         -> <span Style="color: #3a3">1858.4059859618</span>
-<span Style="color: #B21543">ADLNVPLDK</span>       <span Style="color: #077">True</span>  <span Style="color: #3a3">2</span> -> <span Style="color: #3a3">1858.4059859618</span>
-```
 
 CommentColor: #008000
 StringColor: #B21543
