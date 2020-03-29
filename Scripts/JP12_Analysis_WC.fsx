@@ -109,6 +109,7 @@ let mapColKeysToInfo =
                 matchFileNameToMap
             columnQuantType , newCK
     )
+    |> Frame.sortRowsByKey
 
 let getMeanOfQuantities = 
     mapColKeysToInfo
@@ -253,8 +254,10 @@ let calculateMEANSPerStrain =
     |> Array.groupBy (fun x -> x.StrainName, x.Protein)
     |> Array.map (fun (header,peptInfoArr) -> 
         header,
-        [|for pept in peptInfoArr do
-            yield! pept.StrainValues|]
+        peptInfoArr
+        |> Array.collect (fun peptide ->
+            peptide.StrainValues
+        )
     )
     |> Array.map (fun (header,values) -> header,values|> (Array.groupBy fst))
     |> Array.map (fun ((strain,prot),values) -> 
@@ -290,6 +293,7 @@ let createChartsForMEANSComparison =
         |> Chart.withX_Axis (xAxis false ("Strain Means-" + "N14 Sample/N15 QProtein ratio") 20 16)
         |> Chart.withY_Axis (yAxis false "N14/N15 Quantification ratio" 20 16)
     )
+snd createChartsForMEANSComparison.[0] |> Chart.Show
 
 let alignPeptideAndPeptideMeans =
     Array.zip createChartForPeptideComparison createChartsForMEANSPerStrain
