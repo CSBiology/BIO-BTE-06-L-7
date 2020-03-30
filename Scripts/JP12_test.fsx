@@ -26,15 +26,22 @@ let source = __SOURCE_DIRECTORY__
 //qConCatSeq.Length
 
 
-let qConcatResult =
+let qConcatRawData =
     Frame.ReadCsv(path = (source + @"\..\AuxFiles\GroupsData\G1_1690WC1zu1_QuantifiedPeptides.txt"),separators="\t")
-    |> Frame.groupRowsBy "StringSequence"
-    |> Frame.filterRows (fun (sequence,idx) _ -> sequence <> "EVTLGFVDLMR" && sequence <> "AFPDAYVR"  )
+    //|> Frame.groupRowsBy "StringSequence"
+    //|> Frame.filterRows (fun (sequence,idx) _ -> sequence <> "EVTLGFVDLMR" && sequence <> "AFPDAYVR"  )
     |> Frame.indexRowsUsing (fun os -> 
             os.GetAs<string>("StringSequence"),
-            (os.GetAs<bool>("GlobalMod"), os.GetAs<int>("Charge"))
+            os.GetAs<bool>("GlobalMod"), 
+            os.GetAs<int>("Charge")
     )
 
+qConcatRawData.RowKeys
+
+
+let qConcatData =
+    qConcatRawData
+    |> Frame.filterRows (fun (sequence, gmod, charge) _ -> sequence <> "EVTLGFVDLMR" && sequence <> "AFPDAYVR"  )
 
 //FileName Experiment Content ProteinAmount[ug] Replicate
 let sampleDesc :Frame<string,string>= 
@@ -44,27 +51,60 @@ let sampleDesc :Frame<string,string>=
 let ionRatios = 
     sampleDesc
     |> Frame.mapRows (fun rawFileName _ -> 
-        let n14 = qConcatResult.GetColumn<float>("N14Quant_" + rawFileName) |> Series.filterValues (fun x ->  x < 2000000. && x > 1. )
-        let n15 = qConcatResult.GetColumn<float>("N15Quant_" + rawFileName) |> Series.filterValues (fun x ->  x < 2000000. && x > 1. )
+        let n14 = qConcatData.GetColumn<float>("N14Quant_" + rawFileName) |> Series.filterValues (fun x ->  x < 2000000. && x > 1. )
+        let n15 = qConcatData.GetColumn<float>("N15Quant_" + rawFileName) |> Series.filterValues (fun x ->  x < 2000000. && x > 1. )
         n14 / n15 
         )
     |> Frame.ofColumns
 
-let peptideProtMapping : Frame<string,string>=
+let peptideProtMapping =
     Frame.ReadCsv(source + @"\..\AuxFiles\PeptideProtMap.tsv",hasHeaders=true,separators="\t")
-    |> Frame.indexRows "Peptide"
+    |> Frame.indexRowsString "Peptide"
+
+peptideProtMapping.Print()
+
 
 let peptideRatios = 
     ionRatios
-    |> Frame.applyLevel (fun (sequence,(globalMod,charge)) -> sequence) Stats.mean
+    |> Frame.applyLevel (fun (sequence,globalMod,charge) -> sequence) Stats.mean
     |> Frame.join JoinKind.Inner peptideProtMapping 
     |> Frame.groupRowsByString "Protein"
     |> Frame.getNumericCols
     |> Frame.ofColumns
 
+
+
+let peptideRatiosWithDesc = 
+    peptideRatios
+    |> Frame.nest
+    |> Series.map (fun k v -> 
+        v
+        |> Frame.transpose
+        |> Frame.join JoinKind.Right sampleDesc
+        |> Frame.indexRowsUsing (fun os -> 
+                os.GetAs<string>("Strain"),
+                os.GetAs<string>("Dilution")
+            )
+        |> Frame.getNumericCols
+        |> Frame.ofColumns
+        |> Frame.transpose
+        )
+    |> Frame.unnest
+
+peptideRatiosWithDesc.Print()
+
+
+let proteinRatiosWithDesc =
+    peptideRatiosWithDesc
+    |> Frame.applyLevel fst Stats.mean
+
+proteinRatiosWithDesc.Print()
+
+
 let proteinRatios =
     peptideRatios
     |> Frame.applyLevel fst Stats.mean
+
 
 peptideRatios.Print() 
 proteinRatios.Print() 
@@ -80,12 +120,27 @@ let tmp :Series<string,string> = sampleDesc.GetColumn "Strain"
 let tmp :Series<string,string> = sampleDesc.GetRow "G1 1690WC1zu1"
 
 
-let x:Frame<string*string,string> = 
+let x  = //: Frame<(obj*string),string> = 
     proteinRatios
     |> Frame.transpose
     |> Frame.groupRowsUsing (fun k s -> 
-        sampleDesc.GetColumn("Strain").[k]
+        string (sampleDesc.GetColumn("Strain").[k])
         )
+    |> Frame.groupRowsUsing (fun k s -> 
+        string (sampleDesc.GetColumn("Dilution").[snd k])
+        )
+    |> Frame.nest
+    
+    
+
+let tmp = 
+
+
+
+
+tmp.["rbcL"].Print()
+
+tmp.Print()
 
 x.Print()
 
