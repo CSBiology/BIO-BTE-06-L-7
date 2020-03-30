@@ -12,9 +12,6 @@ open FSharpAux
 open FSharp.Compiler.Interactive.Shell.Settings
 //open FSharpAux.Collections
 
-
-
-
 [<AutoOpen>]
 module Frame =
     

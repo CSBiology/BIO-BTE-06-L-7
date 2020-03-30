@@ -213,6 +213,15 @@ let accessRelQuantData =
     )
     |> Array.ofSeq
 
+
+
+relQuantFrame
+|> Frame.mapRowKeys (fun x -> (snd >> snd >> fun (x,y) -> y,x) x)
+|> fun x -> x.Columns.Values
+|> Seq.head
+
+
+
 // create grouped Record Types
 let pepResults =
     accessRelQuantData
