@@ -156,6 +156,18 @@ chartRatios "rbcL" "RBCS2" "1883"
 
 /////////////////////////////////// Chart Step 1 - Compare CUTOUT1 rbcL with CUTOUT2 RBCS2 //////////////////////////////////////////
 
+let calculateLinearFit ((amount,quant): float[]*float[]) =
+    let coeffs =
+        Univariable.coefficient (vector amount) (vector quant)
+    let linearFitFunc =
+        Univariable.fit coeffs
+    let linearFitVals =
+        amount
+        |> Array.map linearFitFunc
+    let determination =
+        FSharp.Stats.Fitting.GoodnessOfFit.calculateDeterminationFromValue quant linearFitVals
+    {|Coefficients = coeffs; LinearFitValues = linearFitVals; Determination = determination; LoadedProtein = amount|}
+
 
 let createChartForRbcsRbclComparison strain =
     
@@ -175,178 +187,48 @@ let createChartForRbcsRbclComparison strain =
         |> Array.ofSeq
         |> Array.map (fun x -> snd x.Key, x.Value)
 
-    let rbsLRBCLValues =
+    let rbcLRBCLValues =
         nestedFrame.["RBCL"].GetColumn<float>prot1
         |> getProtValuesFromSeries
 
-    let RBCS2RBCSValues =
+    let rbcs2RBCSValues =
         nestedFrame.["RBCS"].GetColumn<float>prot2
         |> getProtValuesFromSeries
 
-    [
-        Chart.Scatter(rbsLRBCLValues,mode=StyleParam.Mode.Lines_Markers, MarkerSymbol = StyleParam.Symbol.Circle, Opacity=0.8)
-        |> Chart.withTraceName (sprintf "Mean %s - %s" prot1 strain)
-        Chart.Scatter(RBCS2RBCSValues,mode=StyleParam.Mode.Lines_Markers, MarkerSymbol = StyleParam.Symbol.Circle, Opacity=0.8)
-        |> Chart.withTraceName (sprintf "Mean %s - %s" prot2 strain)
-    ]
+    let rbclFit =
+        calculateLinearFit (Array.unzip rbcLRBCLValues)
+
+    let rbcsFit =
+        calculateLinearFit (Array.unzip rbcs2RBCSValues)
+
+    let fitChart =
+        [
+            Chart.Line(Array.zip rbclFit.LoadedProtein rbclFit.LinearFitValues)
+            |> Chart.withTraceName (sprintf "linear regression: %.2f x + (%2f) ; R² = %.4f for strain %s and %s"
+                rbclFit.Coefficients.[1] rbclFit.Coefficients.[0] rbclFit.Determination strain prot1)
+            |> Chart.withLineStyle(Color="#D3D3D3",Dash=StyleParam.DrawingStyle.DashDot)
+            Chart.Line(Array.zip rbcsFit.LoadedProtein rbcsFit.LinearFitValues)
+            |> Chart.withTraceName (sprintf "linear regression: %.2f x + (%2f) ; R² = %.4f for strain %s and %s"
+                rbcsFit.Coefficients.[1] rbcsFit.Coefficients.[0] rbcsFit.Determination strain prot2)
+            |> Chart.withLineStyle(Color="#D3D3D3",Dash=StyleParam.DrawingStyle.DashDot)
+        ]
+        |> Chart.Combine
+
+    let dataChart =
+        [
+            Chart.Scatter(rbcLRBCLValues,mode=StyleParam.Mode.Lines_Markers, MarkerSymbol = StyleParam.Symbol.Circle, Opacity=0.8)
+            |> Chart.withTraceName (sprintf "Mean %s - %s" prot1 strain)
+            Chart.Scatter(rbcs2RBCSValues,mode=StyleParam.Mode.Lines_Markers, MarkerSymbol = StyleParam.Symbol.Circle, Opacity=0.8)
+            |> Chart.withTraceName (sprintf "Mean %s - %s" prot2 strain)
+        ]
+        |> Chart.Combine
+        |> Chart.withX_Axis (xAxis false "Loaded protein [µg]" 20 16)
+        |> Chart.withY_Axis (xAxis false "<sup>14</sup>N/<sup>15</sup>N Quantification ratio" 20 16)
+
+    [fitChart;dataChart]
     |> Chart.Combine
-    |> Chart.withX_Axis (xAxis false (sprintf "%s-Cut Out 1 %s/<br>Cut Out 2 %s" strain prot1 prot2) 20 16)
-    |> Chart.withY_Axis (xAxis false "N14/N15 Quantification ratio" 20 16)
+    |> Chart.withTitle (sprintf "%s/%s relative protein quantification" prot1 prot2)
+    |> Chart.withSize (1200.,600.)
 
 [|"4A"; "1883";"1690"|]
-|> Array.map createChartForRbcsRbclComparison
-|> Chart.Stack(3,Space=0.15)
-|> Chart.withSize (1200.,400.)
-|> Chart.Show
-
-
-
-//let groupStrainInfoForQuant (protAmounts: int []) (strains: string []) content1 protein1 content2 protein2=
-    
-//    let strainNamesSorted = strains |> Array.sort
-
-//    let protAmountAndStrains =
-//        [|for amount in (protAmounts |> Array.sort) do 
-//            yield! Array.zip strainNamesSorted (Array.init strains.Length (fun _ -> amount))|]
-
-//    let prot1_RatiosSdsIgd = proteinMean_RatiosSdsIgd content1 protein1
-    
-//    let prot2_RatiosSdsIgd = proteinMean_RatiosSdsIgd content2 protein2
-
-//    let prot1 =
-//        prot1_RatiosSdsIgd
-//        |> Frame.toArray2D
-//        |> JaggedArray.ofArray2D
-//        |> Array.concat
-
-//    let prot2 =
-//        prot2_RatiosSdsIgd
-//        |> Frame.toArray2D
-//        |> JaggedArray.ofArray2D
-//        |> Array.concat
-
-//    let strainInfo = 
-//        Array.map3 
-//            (fun (strain,protAmnt) prot1 prot2 ->
-//                {|
-//                    Strain     = strain
-//                    ProtYg     = protAmnt
-//                    Prot1Quant = prot1
-//                    Prot2Quant = prot2
-//                |}
-//            ) protAmountAndStrains prot1 prot2
-
-//    let groupedStrainInfo =
-//        strainInfo
-//        |> Array.groupBy (fun x -> x.Strain)
-//        |> Array.map snd
-//        |> Array.map (fun x ->
-//            x
-//            |> Array.sortBy (fun x -> x.ProtYg)
-//        )
-//    groupedStrainInfo
-
-//let groupedStrainInfoForProt1and2Quant =
-//    groupStrainInfoForQuant [|5;10;20|] [|"1690"; "1883"; "4A"|] "RBCL" protein1 "RBCS" protein2
-
-//let relQuantProt1Prot2 =
-//    groupedStrainInfoForProt1and2Quant
-//    |> Array.map (fun strainInfo ->
-//        strainInfo
-//        |> Array.map (fun strain ->
-//            strain.Prot1Quant
-//        ),
-//        strainInfo
-//        |> Array.map (fun strain ->
-//            strain.Prot2Quant
-//        ),
-//        strainInfo
-//        |> Array.map (fun strain ->
-//            float strain.ProtYg
-//        ),
-//        strainInfo.[0].Strain
-//    )
-
-//let coeffsQ = 
-//    relQuantProt1Prot2
-//    |> Array.map (fun (prot1Q,prot2Q,amount,strain) ->
-//        Univariable.coefficient (vector amount) (vector prot1Q),
-//        Univariable.coefficient (vector amount) (vector prot2Q)
-//    )
-
-//let fitFuncsQ =
-//    coeffsQ
-//    |> Array.map (fun (prot1C,prot2C) ->
-//        Univariable.fit prot1C,
-//        Univariable.fit prot2C
-//    )
-
-//let fitValsQ =
-//    relQuantProt1Prot2
-//    |> Array.map2 (fun (fitFuncP1,fitFuncP2) (prot1Q,prot2Q,amount,strain) ->
-//        amount |> Array.map fitFuncP1,
-//        amount |> Array.map fitFuncP2
-//    )fitFuncsQ
-
-//let determinationsQ = 
-//    relQuantProt1Prot2
-//    |> Array.map2 (fun (fitValP1,fitValP2) (prot1Q,prot2Q,amount,strain) ->
-//        FSharp.Stats.Fitting.GoodnessOfFit.calculateDeterminationFromValue prot1Q fitValP1,
-//        FSharp.Stats.Fitting.GoodnessOfFit.calculateDeterminationFromValue prot2Q fitValP2
-//    ) fitValsQ
-
-//let resultCollectionQ =
-//    [|for i = 0 to groupedStrainInfoForProt1and2Quant.Length-1 do
-//        yield
-//            {|
-//                ProteinAmountsYg = relQuantProt1Prot2.[i] |> (fun (_,_,amount,_) -> amount)
-//                Protein1Quant    = relQuantProt1Prot2.[i] |> (fun (prot1Q,_,_,_) -> prot1Q)
-//                Protein2Quant    = relQuantProt1Prot2.[i] |> (fun (_,prot2Q,_,_) -> prot2Q)
-//                StrainName       = relQuantProt1Prot2.[i] |> (fun (_,_,_,strain) -> strain)
-//                Coefficients     = coeffsQ.[i]
-//                FitValues        = fitValsQ.[i]
-//                Determination    = determinationsQ.[i]
-//            |}
-//    |]
-
-//let n14n15RatioCharts =
-//    resultCollectionQ
-//    |> Array.map (fun result ->
-//        [
-//            Chart.Point (result.ProteinAmountsYg,result.Protein1Quant,MarkerSymbol = StyleParam.Symbol.Cross)
-//            |> Chart.withTraceName (sprintf "relative quantification of %s for %s" protein1 result.StrainName)
-//            Chart.Point (result.ProteinAmountsYg,result.Protein2Quant,MarkerSymbol = StyleParam.Symbol.Cross)
-//            |> Chart.withTraceName (sprintf "relative quantification of %s for %s" protein2 result.StrainName)
-//        ]
-//        |> Chart.Combine
-//    )
-//    |> Chart.Combine
-
-//let fitChartsQ =
-//    resultCollectionQ
-//    |> Array.map (fun result ->
-//        [
-//            Chart.Line(Array.zip result.ProteinAmountsYg (fst result.FitValues))
-//            |> Chart.withTraceName (sprintf "linear regression: %.2f x + (%2f) ; R² = %.4f for strain %s and %s"
-//                (fst result.Coefficients).[1] (fst result.Coefficients).[0] (fst result.Determination) result.StrainName protein1)
-//            |> Chart.withLineStyle(Color="#D3D3D3",Dash=StyleParam.DrawingStyle.DashDot)
-//            Chart.Line(Array.zip result.ProteinAmountsYg (snd result.FitValues))
-//            |> Chart.withTraceName (sprintf "linear regression: %.2f x + (%2f) ; R² = %.4f for strain %s and %s"
-//                (snd result.Coefficients).[1] (snd result.Coefficients).[0] (snd result.Determination) result.StrainName protein2)
-//            |> Chart.withLineStyle(Color="#D3D3D3",Dash=StyleParam.DrawingStyle.DashDot)
-//        ]
-//        |> Chart.Combine
-//    )
-//    |> Chart.Combine
-
-//[
-//    n14n15RatioCharts
-//    fitChartsQ
-//]
-//|> Chart.Combine
-//|> Chart.withTitle (sprintf "SDS IGD: relative Quantifivation of %s and %s" protein1 protein2)
-//|> Chart.withX_Axis (axisStyle false "absolute protein amount in sample [µg]" 20 16 )
-//|> Chart.withY_Axis (axisStyle false (sprintf "14N/15N of %s and %s" protein1 protein2) 20 16 )
-//|> Chart.withConfig config
-//|> Chart.withSize (1200.,700.)
-//|> Chart.Show
+|> Array.map (createChartForRbcsRbclComparison >> Chart.Show)
