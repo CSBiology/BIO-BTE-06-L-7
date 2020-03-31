@@ -277,3 +277,18 @@ module Frame =
         Frame(newRowIndex, frame.ColumnIndex, newData, indexBuilder, vectorbuilder)
 
 //do fsi.AddPrinter(fun (printer:Deedle.Internal.IFsiFormattable) -> "\n" + (printer.Format()))
+
+    /// Prints a frame
+    let show (frame : Frame<'R,'C>) =
+        frame.Print()
+
+    /// Prints the first n columns of a frame
+    let showTop n (frame : Frame<'R,'C>) =
+        frame
+        |> Frame.sliceCols (frame.ColumnKeys |> Seq.take n)
+        |> fun x -> x.Print()
+
+    /// Filters column keys for keys contained in columns
+    let filterColsBySeq (columns : seq<'C>) (frame : Frame<'R,'C>) =
+        frame
+        |> Frame.filterCols (fun ck cs -> columns |> Seq.contains ck)
