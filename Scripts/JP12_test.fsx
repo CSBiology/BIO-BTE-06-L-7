@@ -1,12 +1,15 @@
 
 #load @"../IfSharp/References.fsx"
 #load @"../IfSharp/Paket.Generated.Refs.fsx"
-#load @"../AuxFsx/DeedleAux.fsx"
+//#load @"../AuxFsx/DeedleAux.fsx"
+#load @"../AuxFsx/DeedleScriptPrint.fsx"
 
 open Deedle
 open FSharpAux
 open FSharp.Stats
 open FSharp.Plotly
+open FSharp.Compiler.Interactive.Shell.Settings
+
 
 let xAxis showGrid title titleSize tickSize = Axis.LinearAxis.init(Title=title,Showgrid=showGrid,Showline=true,Mirror=StyleParam.Mirror.All,Zeroline=false,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside, Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=tickSize),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=titleSize))
 let yAxis showGrid title titleSize tickSize = Axis.LinearAxis.init(Title=title,Showgrid=showGrid,Showline=true,Mirror=StyleParam.Mirror.All,Tickmode=StyleParam.TickMode.Auto,Ticks= StyleParam.TickOptions.Inside,Tickfont=Font.init(StyleParam.FontFamily.Arial,Size=tickSize),Titlefont=Font.init(StyleParam.FontFamily.Arial,Size=titleSize))
@@ -78,18 +81,18 @@ let peptideRatiosWithDesc =
         )
     |> Frame.unnest 
 
-let peptideRatiosWithDesc' : Frame<(string * string),(string * float)>=
+let peptideRatiosWithDesc2 : Frame<(string * string),(string * float)>=
     peptideRatios
     |> Frame.mapColKeys (fun rk ->
         sampleDesc.GetColumn("Strain").[rk],
         sampleDesc.GetColumn("Dilution").[rk]
     )
 
-peptideRatiosWithDesc = peptideRatiosWithDesc' // val it : bool = true 
+peptideRatiosWithDesc = peptideRatiosWithDesc2 // val it : bool = true 
 
 let proteinRatiosWithDesc =
     //peptideRatiosWithDesc
-    peptideRatiosWithDesc'
+    peptideRatiosWithDesc2
     |> Frame.applyLevel fst Stats.mean
 
 
@@ -104,7 +107,7 @@ let proteinRatiosWithDesc =
 let createChartForPeptideComparison (protString:string) (strainStrings:string []) =
     
     let protFrame =
-        peptideRatiosWithDesc'.Nest()
+        peptideRatiosWithDesc2.Nest()
         |> fun x -> x.Get(protString)
 
     let peptideStrings =
