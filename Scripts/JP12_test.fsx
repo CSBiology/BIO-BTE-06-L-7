@@ -18,6 +18,10 @@ let config = Config.init(ToImageButtonOptions = ToImageButtonOptions.init(Format
 
 let source = __SOURCE_DIRECTORY__
 
+//================================================================================
+//====================== 2. WholeCell ISD ========================================
+//================================================================================
+
 let qConcatRawData =
     Frame.ReadCsv(path = (source + @"\..\AuxFiles\GroupsData\G1_1690WC1zu1_QuantifiedPeptides.txt"),separators="\t")
     |> Frame.indexRowsUsing (fun os -> 
@@ -88,18 +92,10 @@ let peptideRatiosWithDesc2 : Frame<(string * string),(string * float)>=
         sampleDesc.GetColumn("Dilution").[rk]
     )
 
-peptideRatiosWithDesc = peptideRatiosWithDesc2 // val it : bool = true 
-
 let proteinRatiosWithDesc =
     //peptideRatiosWithDesc
     peptideRatiosWithDesc2
     |> Frame.applyLevel fst Stats.mean
-
-
-//================================================================================
-//====================== 2. WholeCell ISD ========================================
-//================================================================================
-    
 
 /////////////////////////////////// Chart Step 1 - RELATIVE QUANTIFICATION //////////////////////////////////////////
 
