@@ -2,6 +2,7 @@
 
 #load @".paket/load/main.group.fsx"
 
+namespace Deedle
 open FSharp.Plotly
 open IfSharp.Kernel
 open IfSharp.Kernel.Globals
