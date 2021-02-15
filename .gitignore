@@ -44,3 +44,8 @@ ClientBin/
 /Scripts/RERUN_Results/WholeCell/plots
 /Scripts/RERUN_Results
 /Scripts/isdAlResults.txt
+
+.fake
+.ionide
+.fsdocs
+tmp
