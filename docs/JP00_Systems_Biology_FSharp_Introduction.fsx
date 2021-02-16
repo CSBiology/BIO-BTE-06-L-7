@@ -317,11 +317,16 @@ sumOfSquaresTo100withFun
 (**
 <div class="columns">
 <div class="column is-8">
+
 You already used the `List.sum` function. It is important to notice that this function doesn’t follow the `map` concept. There is a second related concept called `fold`.  The higher-order and polytypic function `fold` applies a function working on the normal space to an elevated space and reduces the elevated space into the normal space. This results in an aggregation. A simple but concreate example would be to sum a list of numeric values.
+
 </div>
 <div class="column is-4">
+
 ![](img/fold.png)
+
 <b>Figure 4: A conceptual view of the `fold` concept.</b>
+
 </div>
 </div>
 
@@ -365,11 +370,11 @@ let simplePatternMatch x =
 
 simplePatternMatch "a" 
 
-(***include-it***)
+(***include-output***)
 
 simplePatternMatch "I will not match"
 
-(***include-it***)
+(***include-output***)
 
 (**
 In the following we will use a `printfn` function. Normally in FSharp only the last output is returned, but side effects, can always be returned. As a rule of thumb: All Unit outputs are side effects. <br>

@@ -1,4 +1,8 @@
-# Jupyter_PraktikumBiotech
+# VM 1/ VM 2: Practical class - Molecular Biotechnology II (BIO-BTE-06-L-7)
+
+_This repository is currently undergoing drastic changes, moving from IFSharp notebooks to a static site/.NET interactive hybrid solution using FSharp.Formatting_
+
+This repository contains the source of the documentation pages and notebooks hosted at https://csbiology.github.io/BIO-BTE-06-L-7/
 
 ## Installation (Windows Local Installation and Use)
 
