@@ -300,10 +300,10 @@ Here is the same <code>sumOfSquares</code> function written using pipes.</p>
 <table class="pre"><tr><td><pre><code>338350</code></pre></td></tr></table>
 <div class="columns">
 <div class="column is-8">
-You already used the `List.sum` function. It is important to notice that this function doesn’t follow the `map` concept. There is a second related concept called `fold`.  The higher-order and polytypic function `fold` applies a function working on the normal space to an elevated space and reduces the elevated space into the normal space. This results in an aggregation. A simple but concreate example would be to sum a list of numeric values.
+<p>You already used the <code>List.sum</code> function. It is important to notice that this function doesn’t follow the <code>map</code> concept. There is a second related concept called <code>fold</code>.  The higher-order and polytypic function <code>fold</code> applies a function working on the normal space to an elevated space and reduces the elevated space into the normal space. This results in an aggregation. A simple but concreate example would be to sum a list of numeric values.</p>
 </div>
 <div class="column is-4">
-![](img/fold.png)
+<p><img src="img/fold.png" alt="" /></p>
 <b>Figure 4: A conceptual view of the `fold` concept.</b>
 </div>
 </div>
@@ -330,10 +330,10 @@ It evaluates to a different value depending on the <code>boolean</code> expressi
 </div>
 <pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs23', 76)" onmouseover="showTip(event, 'fs23', 76)" class="fn">simplePatternMatch</span> <span class="s">&quot;a&quot;</span> 
 </code></pre>
-<table class="pre"><tr><td><pre><code>&lt;null&gt;</code></pre></td></tr></table>
+<table class="pre"><tr><td><pre><code>input is a</code></pre></td></tr></table>
 <pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs23', 77)" onmouseover="showTip(event, 'fs23', 77)" class="fn">simplePatternMatch</span> <span class="s">&quot;I will not match&quot;</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>&lt;null&gt;</code></pre></td></tr></table>
+<table class="pre"><tr><td><pre><code>input is something else</code></pre></td></tr></table>
 <p>In the following we will use a <code>printfn</code> function. Normally in FSharp only the last output is returned, but side effects, can always be returned. As a rule of thumb: All Unit outputs are side effects. <br>
 In this case, this means, we will print the result and still can keep working with the output.
 Also you will notice, that the last output is only <code>f (1=3)</code> -&gt; "b", but we still will get all other results, as we print them below.</p>
