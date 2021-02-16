@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <FsDocsLicenseLink>https://github.com/csbiology/BIO-BTE-06-L-7/blob/main/LICENSE</FsDocsLicenseLink>
+        <Version></Version>
+        <RepositoryUrl></RepositoryUrl>
+    </PropertyGroup>
+</Project>
