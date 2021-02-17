@@ -212,7 +212,7 @@ _Note_: commas are **never** used as delimiters in collection types, only semico
 <div class="columns">
 <div class="column is-8">
 A higher-order function is a function that takes another function as a parameter. 
-This is simple, but leads to one of the most important concepts of functional programming: The conceptual operation: **map**
+This is simple, but leads to one of the most important concepts of functional programming: The conceptual operation: <strong>map</strong>
 
 The higher-order and polytypic function `map` applies a function working on the normal space to an elevated space.
 This concept is so important that all collection types (lists, arrays, ...) have a build in `map` function. 
@@ -241,9 +241,6 @@ List.map square [3;2;6;7]
 
 (**
 Be aware, that this concept of mapping is restricted to the actual function called `map`. A `filter` function, for example, is also the same kind of operation.
-
-**BITTE WAS???**
-
 *)
 
 let evens list =
@@ -264,7 +261,7 @@ evens [1..5]
 (***include-it***)
 
 (**
-You can use () to clarify precedence (think brackets in math). In this example, do List.map first, with two parameters. Then do List.sum on the result. List.map applies a function to all elements in the list.
+You can use `()` to clarify precedence (think brackets in math). In this example, do `List.map` first, with two parameters. Then do `List.sum` on the result. `List.map` applies a function to all elements in the list.
 *)
 
 let sumOfSquaresTo100 =
@@ -464,7 +461,8 @@ You can think of namespaces and modules as containers and sub containers, respec
 module WidgetsModule =
     let widgetName = "FSharp"
     let widgetFunction x y =
-        printfn "%s %s" x y
+        sprintf "%s %s" x y
+        // printfn "%s %s" x y
 
 // Calls the function from the module
 WidgetsModule.widgetFunction "Hello" WidgetsModule.widgetName
