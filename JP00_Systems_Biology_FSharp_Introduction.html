@@ -273,7 +273,7 @@ In other words, we’ve just defined a constant, or in F# terms, a simple value.
 <div class="columns">
 <div class="column is-8">
 A higher-order function is a function that takes another function as a parameter. 
-This is simple, but leads to one of the most important concepts of functional programming: The conceptual operation: **map**
+This is simple, but leads to one of the most important concepts of functional programming: The conceptual operation: <strong>map</strong>
 <p>The higher-order and polytypic function <code>map</code> applies a function working on the normal space to an elevated space.
 This concept is so important that all collection types (lists, arrays, ...) have a build in <code>map</code> function.
 Let's look at an example of what that means. Therefore, we first define a function working on the normal space:
@@ -293,7 +293,6 @@ Let's look at an example of what that means. Therefore, we first define a functi
 </code></pre>
 <table class="pre"><tr><td><pre><code>[9; 4; 36; 49]</code></pre></td></tr></table>
 <p>Be aware, that this concept of mapping is restricted to the actual function called <code>map</code>. A <code>filter</code> function, for example, is also the same kind of operation.</p>
-<p><strong>BITTE WAS???</strong></p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 31)" onmouseover="showTip(event, 'fs12', 31)" class="fn">evens</span> <span onmouseout="hideTip(event, 'fs13', 32)" onmouseover="showTip(event, 'fs13', 32)" class="fn">list</span> <span class="o">=</span>
    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 33)" onmouseover="showTip(event, 'fs14', 33)" class="fn">isEven</span> <span onmouseout="hideTip(event, 'fs2', 34)" onmouseover="showTip(event, 'fs2', 34)" class="fn">x</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs2', 35)" onmouseover="showTip(event, 'fs2', 35)" class="fn">x</span><span class="o">%</span><span class="n">2</span> <span class="o">=</span> <span class="n">0</span>
    <span onmouseout="hideTip(event, 'fs10', 36)" onmouseover="showTip(event, 'fs10', 36)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs15', 37)" onmouseover="showTip(event, 'fs15', 37)" class="id">filter</span> <span onmouseout="hideTip(event, 'fs14', 38)" onmouseover="showTip(event, 'fs14', 38)" class="fn">isEven</span> <span onmouseout="hideTip(event, 'fs13', 39)" onmouseover="showTip(event, 'fs13', 39)" class="fn">list</span> 
@@ -307,7 +306,7 @@ Define <code>isEven</code> as an inner ("nested") function. In this case the fun
 <pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs12', 40)" onmouseover="showTip(event, 'fs12', 40)" class="fn">evens</span> <span class="pn">[</span><span class="n">1..</span><span class="n">5</span><span class="pn">]</span>
 </code></pre>
 <table class="pre"><tr><td><pre><code>[2; 4]</code></pre></td></tr></table>
-<p>You can use () to clarify precedence (think brackets in math). In this example, do List.map first, with two parameters. Then do List.sum on the result. List.map applies a function to all elements in the list.</p>
+<p>You can use <code>()</code> to clarify precedence (think brackets in math). In this example, do <code>List.map</code> first, with two parameters. Then do <code>List.sum</code> on the result. <code>List.map</code> applies a function to all elements in the list.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 41)" onmouseover="showTip(event, 'fs16', 41)" class="id">sumOfSquaresTo100</span> <span class="o">=</span>
    <span onmouseout="hideTip(event, 'fs10', 42)" onmouseover="showTip(event, 'fs10', 42)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs17', 43)" onmouseover="showTip(event, 'fs17', 43)" class="id">sum</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs10', 44)" onmouseover="showTip(event, 'fs10', 44)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs11', 45)" onmouseover="showTip(event, 'fs11', 45)" class="id">map</span> <span onmouseout="hideTip(event, 'fs9', 46)" onmouseover="showTip(event, 'fs9', 46)" class="fn">square</span> <span class="pn">[</span><span class="n">1..</span><span class="n">100</span><span class="pn">]</span><span class="pn">)</span>
 
@@ -430,27 +429,28 @@ Also you will notice, that the last output is only <code>f (1=3)</code> -&gt; "b
 <span class="k">module</span> <span class="m">WidgetsModule</span> <span class="o">=</span>
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs35', 100)" onmouseover="showTip(event, 'fs35', 100)" class="id">widgetName</span> <span class="o">=</span> <span class="s">&quot;FSharp&quot;</span>
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs36', 101)" onmouseover="showTip(event, 'fs36', 101)" class="fn">widgetFunction</span> <span onmouseout="hideTip(event, 'fs24', 102)" onmouseover="showTip(event, 'fs24', 102)" class="fn">x</span> <span onmouseout="hideTip(event, 'fs37', 103)" onmouseover="showTip(event, 'fs37', 103)" class="fn">y</span> <span class="o">=</span>
-        <span onmouseout="hideTip(event, 'fs25', 104)" onmouseover="showTip(event, 'fs25', 104)" class="fn">printfn</span> <span class="s">&quot;</span><span class="pf">%s</span><span class="s"> </span><span class="pf">%s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs24', 105)" onmouseover="showTip(event, 'fs24', 105)" class="fn">x</span> <span onmouseout="hideTip(event, 'fs37', 106)" onmouseover="showTip(event, 'fs37', 106)" class="fn">y</span>
+        <span onmouseout="hideTip(event, 'fs38', 104)" onmouseover="showTip(event, 'fs38', 104)" class="fn">sprintf</span> <span class="s">&quot;</span><span class="pf">%s</span><span class="s"> </span><span class="pf">%s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs24', 105)" onmouseover="showTip(event, 'fs24', 105)" class="fn">x</span> <span onmouseout="hideTip(event, 'fs37', 106)" onmouseover="showTip(event, 'fs37', 106)" class="fn">y</span>
+        <span class="c">// printfn &quot;%s %s&quot; x y</span>
 
 <span class="c">// Calls the function from the module</span>
-<span onmouseout="hideTip(event, 'fs38', 107)" onmouseover="showTip(event, 'fs38', 107)" class="m">WidgetsModule</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs36', 108)" onmouseover="showTip(event, 'fs36', 108)" class="id">widgetFunction</span> <span class="s">&quot;Hello&quot;</span> <span onmouseout="hideTip(event, 'fs38', 109)" onmouseover="showTip(event, 'fs38', 109)" class="m">WidgetsModule</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs35', 110)" onmouseover="showTip(event, 'fs35', 110)" class="id">widgetName</span>
+<span onmouseout="hideTip(event, 'fs39', 107)" onmouseover="showTip(event, 'fs39', 107)" class="m">WidgetsModule</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs36', 108)" onmouseover="showTip(event, 'fs36', 108)" class="id">widgetFunction</span> <span class="s">&quot;Hello&quot;</span> <span onmouseout="hideTip(event, 'fs39', 109)" onmouseover="showTip(event, 'fs39', 109)" class="m">WidgetsModule</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs35', 110)" onmouseover="showTip(event, 'fs35', 110)" class="id">widgetName</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>&lt;null&gt;</code></pre></td></tr></table>
+<table class="pre"><tr><td><pre><code>"Hello FSharp"</code></pre></td></tr></table>
 <h3><a name="Comments" class="anchor" href="#Comments">Comments</a></h3>
 <p>Comments also help to write organized code.</p>
 <p><strong>Comments are text written in code area (often marked green) which will be ignored by the compiler and not be executed.</strong></p>
 <p><code>//</code> single line comments use a double slash</p>
 <p>(<em> multi-line or in-line comments use `(</em> . . . <em>)` pair -end of multi line comment- </em>)</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs39', 111)" onmouseover="showTip(event, 'fs39', 111)" class="rt">PersonalInformation</span> <span class="o">=</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs40', 111)" onmouseover="showTip(event, 'fs40', 111)" class="rt">PersonalInformation</span> <span class="o">=</span>
     <span class="pn">{</span>
         <span class="c">//First name of a person</span>
-        <span onmouseout="hideTip(event, 'fs40', 112)" onmouseover="showTip(event, 'fs40', 112)" class="prop">FirstName</span>  <span class="pn">:</span><span onmouseout="hideTip(event, 'fs32', 113)" onmouseover="showTip(event, 'fs32', 113)" class="rt">string</span>
+        <span onmouseout="hideTip(event, 'fs41', 112)" onmouseover="showTip(event, 'fs41', 112)" class="prop">FirstName</span>  <span class="pn">:</span><span onmouseout="hideTip(event, 'fs32', 113)" onmouseover="showTip(event, 'fs32', 113)" class="rt">string</span>
         <span class="c">//Last name of a person</span>
-        <span onmouseout="hideTip(event, 'fs41', 114)" onmouseover="showTip(event, 'fs41', 114)" class="prop">LastName</span>   <span class="pn">:</span><span onmouseout="hideTip(event, 'fs32', 115)" onmouseover="showTip(event, 'fs32', 115)" class="rt">string</span>
+        <span onmouseout="hideTip(event, 'fs42', 114)" onmouseover="showTip(event, 'fs42', 114)" class="prop">LastName</span>   <span class="pn">:</span><span onmouseout="hideTip(event, 'fs32', 115)" onmouseover="showTip(event, 'fs32', 115)" class="rt">string</span>
         <span class="c">(*Address and</span>
 <span class="c">        phone number of a person*)</span>
-        <span onmouseout="hideTip(event, 'fs42', 116)" onmouseover="showTip(event, 'fs42', 116)" class="prop">Address</span>    <span class="pn">:</span> <span class="c">(*int*)</span> <span onmouseout="hideTip(event, 'fs32', 117)" onmouseover="showTip(event, 'fs32', 117)" class="rt">string</span>
-        <span onmouseout="hideTip(event, 'fs43', 118)" onmouseover="showTip(event, 'fs43', 118)" class="prop">PhoneNumber</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs3', 119)" onmouseover="showTip(event, 'fs3', 119)" class="vt">int</span>
+        <span onmouseout="hideTip(event, 'fs43', 116)" onmouseover="showTip(event, 'fs43', 116)" class="prop">Address</span>    <span class="pn">:</span> <span class="c">(*int*)</span> <span onmouseout="hideTip(event, 'fs32', 117)" onmouseover="showTip(event, 'fs32', 117)" class="rt">string</span>
+        <span onmouseout="hideTip(event, 'fs44', 118)" onmouseover="showTip(event, 'fs44', 118)" class="prop">PhoneNumber</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs3', 119)" onmouseover="showTip(event, 'fs3', 119)" class="vt">int</span>
     <span class="pn">}</span>
 </code></pre>
 <h2><a name="References" class="anchor" href="#References">References</a></h2>
@@ -502,14 +502,15 @@ Also you will notice, that the last output is only <code>f (1=3)</code> -&gt; "b
 <div class="fsdocs-tip" id="fs33">Person.LastName: string</div>
 <div class="fsdocs-tip" id="fs34">val person1 : Person</div>
 <div class="fsdocs-tip" id="fs35">val widgetName : string</div>
-<div class="fsdocs-tip" id="fs36">val widgetFunction : x:string -&gt; y:string -&gt; unit</div>
+<div class="fsdocs-tip" id="fs36">val widgetFunction : x:string -&gt; y:string -&gt; string</div>
 <div class="fsdocs-tip" id="fs37">val y : string</div>
-<div class="fsdocs-tip" id="fs38">module WidgetsModule<br /><br />from JP00_Systems_Biology_FSharp_Introduction</div>
-<div class="fsdocs-tip" id="fs39">type PersonalInformation =<br />&#160;&#160;{ FirstName: string<br />&#160;&#160;&#160;&#160;LastName: string<br />&#160;&#160;&#160;&#160;Address: string<br />&#160;&#160;&#160;&#160;PhoneNumber: int }</div>
-<div class="fsdocs-tip" id="fs40">PersonalInformation.FirstName: string</div>
-<div class="fsdocs-tip" id="fs41">PersonalInformation.LastName: string</div>
-<div class="fsdocs-tip" id="fs42">PersonalInformation.Address: string</div>
-<div class="fsdocs-tip" id="fs43">PersonalInformation.PhoneNumber: int</div>
+<div class="fsdocs-tip" id="fs38">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T</div>
+<div class="fsdocs-tip" id="fs39">module WidgetsModule<br /><br />from JP00_Systems_Biology_FSharp_Introduction</div>
+<div class="fsdocs-tip" id="fs40">type PersonalInformation =<br />&#160;&#160;{ FirstName: string<br />&#160;&#160;&#160;&#160;LastName: string<br />&#160;&#160;&#160;&#160;Address: string<br />&#160;&#160;&#160;&#160;PhoneNumber: int }</div>
+<div class="fsdocs-tip" id="fs41">PersonalInformation.FirstName: string</div>
+<div class="fsdocs-tip" id="fs42">PersonalInformation.LastName: string</div>
+<div class="fsdocs-tip" id="fs43">PersonalInformation.Address: string</div>
+<div class="fsdocs-tip" id="fs44">PersonalInformation.PhoneNumber: int</div>
 
     </div>
 
