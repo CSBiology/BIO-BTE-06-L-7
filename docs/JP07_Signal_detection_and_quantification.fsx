@@ -1,6 +1,8 @@
 (**
 # JP07 Signal detection and quantification
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP07_Signal_detection_and_quantification.ipynb)
+
 1. [Signal detection and quantification](#Signal-detection-and-quantification)
 *)
 
