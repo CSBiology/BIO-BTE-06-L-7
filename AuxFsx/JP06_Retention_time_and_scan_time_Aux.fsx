@@ -1,10 +1,12 @@
-
-#load @"../IfSharp/Paket.Generated.Refs.fsx"
+#r "nuget: FSharp.Stats, 0.4.0"
+#r "nuget: BioFSharp, 2.0.0-beta5"
+#r "nuget: BioFSharp.IO, 2.0.0-beta5"
+#r "nuget: Plotly.NET, 2.0.0-beta6"
 
 open BioFSharp
 open BioFSharp.IO
 open FSharp.Stats
-open FSharp.Plotly
+open Plotly.NET
 open AminoProperties
 open BioFSharp
 open BioFSharp.Elements

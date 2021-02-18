@@ -1,6 +1,9 @@
 (**
 # JP05 Isotopic Distribution
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP05_Isotopic_distribution.ipynb)
+
+
 1. [Isotopic Distribution](#Isotopic-Distribution)
     1. [Simulating Isotopic Clusters for peptides](#Simulating-Isotopic-Clusters-for-peptides)
     2. [Simulating Isotopic Clusters for peptides with stable isotope labeled variant](#Simulating-Isotopic-Clusters-for-peptides-with-stable-isotope-labeled-variant)
@@ -256,7 +259,7 @@ isoPatternChart2 |> GenericChart.toChartHTML
     </div>
     <div class="level-right">
         <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP06_Retention_time_and_scan_time';">JP06 &#187;</button>
+            <button class="button is-primary is-outlined" onclick="location.href='/JP06_Retention_time_and_scan_time.html';">JP06 &#187;</button>
         </div>
     </div>
 </nav>
