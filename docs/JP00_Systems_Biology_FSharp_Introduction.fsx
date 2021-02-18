@@ -1,5 +1,5 @@
 (**
-# Systems Biology
+# JP00 Systems Biology
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP00_Systems_Biology_FSharp_Introduction.ipynb)
 

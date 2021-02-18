@@ -2,7 +2,7 @@
 This notebook contains introductional excercises for the FSharp programming language and also some small code examples for correct formatting.
 If you have questions at any point please ask us. We will discuss the first batch (task 1-6) before you can start the rest.
 
-# FSharp Introduction Excercises
+# JP01 FSharp Introduction Excercises
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP01_FSharpExcercises.ipynb)
 
