@@ -310,11 +310,15 @@ replaceSmallNumbers numList
 (*** include-it ***)
 (**
 <nav class="level is-mobile">
-    <div class="level-item">
-        <button class="button is-primary is-outlined" onclick="location.href='/JP00_Systems_Biology_FSharp_Introduction.html';">&#171; JP00</button>
+    <div class="level-left">
+        <div class="level-item">
+            <button class="button is-primary is-outlined" onclick="location.href='/JP00_Systems_Biology_FSharp_Introduction.html';">&#171; JP00</button>
+        </div>
     </div>
-    <div class="level-item">
-        <button class="button is-primary is-outlined" onclick="location.href='/JP02_Plant_Systems_Biology.html';">JP02 &#187;</button>
+    <div class="level-right">
+        <div class="level-item">
+            <button class="button is-primary is-outlined" onclick="location.href='/JP02_Plant_Systems_Biology.html';">JP02 &#187;</button>
+        </div>
     </div>
 </nav>
 *)

@@ -498,6 +498,19 @@ type PersonalInformation =
     }
 
 (**
+<nav class="level is-mobile">
+    <div class="level-left">
+    </div>
+    <div class="level-right">
+        <div class="level-item">
+            <button class="button is-primary is-outlined" onclick="location.href='/JP01_FSharpExcercises.html';">JP01 &#187;</button>
+        </div>
+    </div>
+</nav>
+*)
+
+(**
+
 ## References
 
 <ol>
