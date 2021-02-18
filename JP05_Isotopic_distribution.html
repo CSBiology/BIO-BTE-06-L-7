@@ -60,7 +60,8 @@
 </li>             
 <li class="nav-item">
   <a class="nav-link" href="/BIO-BTE-06-L-7/JP06_Retention_time_and_scan_time.html">
-    JP06_Retention_time_and_scan_time
+    JP06 Retention time and scan time
+
   </a>
 </li>             
 <li class="nav-item">
@@ -84,6 +85,12 @@
 <li class="nav-item">
   <a class="nav-link" href="/BIO-BTE-06-L-7/JP01_FSharpExcercises.html">
     JP01 FSharp Introduction Excercises
+
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/BIO-BTE-06-L-7/JP07_Signal_detection_and_quantification.html">
+    JP07 Signal detection and quantification
 
   </a>
 </li>             
@@ -148,6 +155,7 @@
             <div class="section pt-4">
                 <div class="container" id="fsdocs-content">
                     <h1><a name="JP05-Isotopic-Distribution" class="anchor" href="#JP05-Isotopic-Distribution">JP05 Isotopic Distribution</a></h1>
+<p><a href="https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP05_Isotopic_distribution.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a></p>
 <ol>
 <li>
 <a href="#Isotopic-Distribution">Isotopic Distribution</a>
@@ -277,29 +285,29 @@ can use <code>IsotopicDistribution.MIDA.ofFormula</code> from the BioFSharp libr
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 65)" onmouseover="showTip(event, 'fs30', 65)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs34', 66)" onmouseover="showTip(event, 'fs34', 66)" class="id">withTitle</span> <span class="s">&quot;Isotopeclusters&quot;</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 67)" onmouseover="showTip(event, 'fs30', 67)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs35', 68)" onmouseover="showTip(event, 'fs35', 68)" class="id">withY_AxisStyle</span> <span class="s">&quot;intensity&quot;</span>
 </code></pre>
-<div id="62d0e24e-6d4e-4c8a-97c3-ba8e63d461da" style="width: 900px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="05a2da1d-e0fd-4f2f-abe2-de9673c86b96" style="width: 900px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_62d0e24e6d4e4c8a97c3ba8e63d461da = function() {
+            var renderPlotly_05a2da1de0fd4f2fabe2de9673c86b96 = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"bar","x":[887.399558199034,888.4024872665019,889.4049942776403,890.4081884772683],"y":[1.0,0.43236774529511174,0.12578247843311785,0.024134205673036688],"marker":{},"name":"peptide_short","xaxis":"x","yaxis":"y"},{"type":"bar","x":[3231.4470647196554,3232.4500572584698,3233.452986075872,3234.4559191540584,3235.4583946426615,3236.4625915315855],"y":[0.6079646485424579,1.0,0.9085467193387605,0.5658743566632869,0.26182515682174157,0.08134469002336972],"marker":{},"name":"peptide_long","xaxis":"x2","yaxis":"y2"}];
             var layout = {"xaxis":{"title":"m/z","range":[885.0,895.0],"anchor":"y","domain":[0.0,0.45]},"yaxis":{"anchor":"x","domain":[0.050000000000000044,1.0],"title":"intensity"},"xaxis2":{"title":"m/z","range":[3230.0,3240.0],"anchor":"y2","domain":[0.5,0.95]},"yaxis2":{"anchor":"x2","domain":[0.050000000000000044,1.0]},"width":900.0,"height":600.0,"title":"Isotopeclusters"};
             var config = {};
-            Plotly.newPlot('62d0e24e-6d4e-4c8a-97c3-ba8e63d461da', data, layout, config);
+            Plotly.newPlot('05a2da1d-e0fd-4f2f-abe2-de9673c86b96', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_62d0e24e6d4e4c8a97c3ba8e63d461da();
+                    renderPlotly_05a2da1de0fd4f2fabe2de9673c86b96();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_62d0e24e6d4e4c8a97c3ba8e63d461da();
+                renderPlotly_05a2da1de0fd4f2fabe2de9673c86b96();
             }
 </script>
 
@@ -530,29 +538,29 @@ of the peptide sequence ‘PEPTIDES’ and ‘PEPTIDEPEPTIDEPEPTIDEPEPTIDES’ w
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 122)" onmouseover="showTip(event, 'fs30', 122)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs34', 123)" onmouseover="showTip(event, 'fs34', 123)" class="id">withTitle</span> <span class="s">&quot;Isotopeclusters&quot;</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 124)" onmouseover="showTip(event, 'fs30', 124)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs35', 125)" onmouseover="showTip(event, 'fs35', 125)" class="id">withY_AxisStyle</span> <span class="s">&quot;intensity&quot;</span>
 </code></pre>
-<div id="a16a1b26-5212-4191-8858-444871eda3cf" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="824ec497-4836-424d-9e94-aaa2085c3b51" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_a16a1b26521241918858444871eda3cf = function() {
+            var renderPlotly_824ec4974836424d9e94aaa2085c3b51 = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"bar","x":[887.399558199034,888.4024872665019,889.4049942776403,890.4081884772683],"y":[1.0,0.43236774529511174,0.12578247843311785,0.024134205673036688],"marker":{},"name":"peptide_short","xaxis":"x","yaxis":"y"},{"type":"bar","x":[894.3788365975154,895.3759499224518,896.3792323902378,897.3818499569743,898.3845066469612],"y":[0.0288860382140478,1.0,0.3984467169061343,0.11307938727778763,0.023853159064528624],"marker":{},"name":"N15_peptide_short","xaxis":"x","yaxis":"y"},{"type":"bar","x":[3231.4470647196554,3232.4500572584698,3233.452986075872,3234.4559191540584,3235.4583946426615,3236.4625915315855],"y":[0.6079646485424579,1.0,0.9085467193387605,0.5658743566632869,0.26182515682174157,0.08134469002336972],"marker":{},"name":"peptide_long","xaxis":"x2","yaxis":"y2"},{"type":"bar","x":[3259.3641783135813,3260.362110012513,3261.365076207296,3262.3681072195172,3263.370812501318,3264.3737877709027,3265.3767448967224],"y":[0.06384122646754022,0.7008291559420009,1.0,0.8402034738792131,0.4705485682431846,0.21695377275354297,0.08062486597973496],"marker":{},"name":"N15_peptide_long","xaxis":"x2","yaxis":"y2"}];
             var layout = {"xaxis":{"title":"m/z","range":[885.0,905.0],"anchor":"y","domain":[0.0,0.45]},"yaxis":{"anchor":"x","domain":[0.050000000000000044,1.0],"title":"intensity"},"xaxis2":{"title":"m/z","range":[3230.0,3270.0],"anchor":"y2","domain":[0.5,0.95]},"yaxis2":{"anchor":"x2","domain":[0.050000000000000044,1.0]},"title":"Isotopeclusters"};
             var config = {};
-            Plotly.newPlot('a16a1b26-5212-4191-8858-444871eda3cf', data, layout, config);
+            Plotly.newPlot('824ec497-4836-424d-9e94-aaa2085c3b51', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_a16a1b26521241918858444871eda3cf();
+                    renderPlotly_824ec4974836424d9e94aaa2085c3b51();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_a16a1b26521241918858444871eda3cf();
+                renderPlotly_824ec4974836424d9e94aaa2085c3b51();
             }
 </script>
 
@@ -565,7 +573,7 @@ of the peptide sequence ‘PEPTIDES’ and ‘PEPTIDEPEPTIDEPEPTIDEPEPTIDES’ w
     </div>
     <div class="level-right">
         <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP06_Retention_time_and_scan_time';">JP06 &#187;</button>
+            <button class="button is-primary is-outlined" onclick="location.href='/JP06_Retention_time_and_scan_time.html';">JP06 &#187;</button>
         </div>
     </div>
 </nav>
