@@ -8911,13 +8911,23 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   list-style: none;
   color: #A00975; }
 
+#fsdocs-content h1,
+#fsdocs-content h2,
+#fsdocs-content h3,
+#fsdocs-content h4,
+#fsdocs-content h5,
+#fsdocs-content h6 {
+    display: inline-block
+}
+
 #fsdocs-content h1 a, #fsdocs-content h1 a:hover, #fsdocs-content h1 a:focus,
 #fsdocs-content h2 a, #fsdocs-content h2 a:hover, #fsdocs-content h2 a:focus,
 #fsdocs-content h3 a, #fsdocs-content h3 a:hover, #fsdocs-content h3 a:focus,
 #fsdocs-content h4 a, #fsdocs-content h4 a:hover, #fsdocs-content h4 a:focus,
 #fsdocs-content h5 a, #fsdocs-content h5 a:hover, #fsdocs-content h5 a:focus,
 #fsdocs-content h6 a, #fsdocs-content h6 a:hover, #fsdocs-content h6 a:focus {
-  color: #A00975; }
+    color: #A00975;
+}
 
 #fsdocs-content h1 a {
   border-bottom: 8px solid #200117; }
