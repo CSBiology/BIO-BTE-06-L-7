@@ -1,6 +1,9 @@
 ﻿(** 
 # JP02 Plant Systems Biology
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP02_Plant_Systems_Biology.ipynb)
+
+
 1. [Plant Systems Biology](#Plant-Systems-Biology)
 2. [Modeling growth for a defined cell number](#Modeling-growth-for-a-defined-cell-number)
 1. [Insert Growth Data and Display as Chart](#Insert-Growth-Data-and-Display-as-Chart)

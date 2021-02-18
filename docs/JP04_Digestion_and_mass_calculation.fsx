@@ -1,6 +1,8 @@
 (** 
 # JP04 Digestion and mass calculation
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP04_Digestion_and_mass_calculation.ipynb)
+
 1. [Digestion and mass calculation](#Digestion-and-mass-calculation)
     2. [Accessing the protein sequences of <i>Chlamydomonas reinhardtii</i>](#Accessing-the-protein-sequences-of-Chlamydomonas-reinhardtii)
     3. [Amino acid distribution for <i>C. reinhardtii</i>](#Amino-acid-distribution-for-C.-reinhardtii)
