@@ -78,8 +78,12 @@ Now, let's get started by loading our libraries first.
 
 #r "nuget: FSharp.Stats, 0.4.0"
 #r "nuget: Plotly.NET, 2.0.0-beta6"
-//#load "..\IfSharp\Paket.Generated.Refs.fsx"
-//#load "..\IfSharp\FSharp.Plotly.fsx"
+
+#if IPYNB
+#r "nuget: Plotly.NET, 2.0.0-beta6"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-beta6"
+#endif // IPYNB
+
 open Plotly.NET
 open FSharp.Stats
 open FSharp.Stats.Fitting.NonLinearRegression
