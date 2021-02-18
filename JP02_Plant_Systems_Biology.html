@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Plant Systems Biology
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/x-icon" href="/BIO-BTE-06-L-7//img/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+    <link type="text/css" rel="stylesheet" href="/BIO-BTE-06-L-7/content/fsdocs-default.css" />
+    <link type="text/css" rel="stylesheet" href="/BIO-BTE-06-L-7/content/fsdocs-custom.css" />
+    <script type="text/javascript" src="/BIO-BTE-06-L-7/content/fsdocs-tips.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script defer type="text/javascript" src="https://kit.fontawesome.com/0d3e0ea7a6.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head> 
+
+<body>
+    <div class="columns is-fullheight m-0">
+        <div id="fsdocs-menu" class="column is-2 is-paddingless">
+            <aside class="menu">
+                <div class="container is-paddingless is-marginless has-background-dark">
+                    <a href="/BIO-BTE-06-L-7/">
+                        <figure class="image is-128x128 container">
+                            <img src="/BIO-BTE-06-L-7/img/logo.png">
+                        </figure>
+                    </a>
+                    <h2 class="title has-text-centered has-text-white pb-4">BIO-BTE-06-L-7</h2>
+                </div>
+                <div class="content">
+                    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+                    <div id="header">
+                        <div class="field">
+                            <div class="control has-icons-left has-icons-right searchbox" id="fsdocs-searchbox">
+                                <input data-search-input="" id="search-by" type="search" placeholder="Search..." class="input"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- END SEARCH BOX: this adds support for the search box -->
+                    <ul class="navbar-nav">
+                        <li class="nav-header">
+  Documentation
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/BIO-BTE-06-L-7/JP00_Systems_Biology_FSharp_Introduction.html">
+    Systems Biology
+
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/BIO-BTE-06-L-7/JP01_FSharpExcercises.html">
+    FSharp Introduction Excercises
+
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/BIO-BTE-06-L-7/JP02_Plant_Systems_Biology.html">
+    Plant Systems Biology
+
+  </a>
+</li>
+                        <li class="nav-header">Links</li>
+                        <li class="nav-item" >
+                            <a class="nav-link" href="https://csb.bio.uni-kl.de/teaching/">
+                                <span class="icon-text">
+                                    <span class="icon">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </span>
+                                    <span>Other CSB courses</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item" >
+                            <a class="nav-link" href="https://twitter.com/cs_biology">
+                                <span class="icon-text">
+                                    <span class="icon">
+                                        <i class="fab fa-twitter"></i>
+                                    </span>
+                                    <span>Get in touch on twitter</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item" >
+                            <a class="nav-link" href="https://github.com/CSBiology?type=source">
+                                <span class="icon-text">
+                                    <span class="icon">
+                                        <i class="fab fa-github"></i>
+                                    </span>
+                                    <span>Check out our open source projects</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/CSBiology/BIO-BTE-06-L-7">
+                                <span class="icon-text">
+                                    <span class="icon">
+                                        <i class="fas fa-code-branch"></i>
+                                    </span>
+                                    <span>Source repository</span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        <div class="column is-10 is-paddingless has-text-justified	">
+            <div class="section pt-4">
+                <div class="container" id="fsdocs-content">
+                    <h1><a name="Plant-Systems-Biology" class="anchor" href="#Plant-Systems-Biology">Plant Systems Biology</a></h1>
+<ol>
+<li><a href="#Plant-Systems-Biology">Plant Systems Biology</a></li>
+<li><a href="#Modeling-growth-for-a-defined-cell-number">Modeling growth for a defined cell number</a></li>
+<li><a href="#Insert-Growth-Data-and-Display-as-Chart">Insert Growth Data and Display as Chart</a></li>
+<li><a href="#Calculation-of-growth-rate-and-doubling-time-for-cell-cultures">Calculation of growth rate and doubling time for cell cultures</a></li>
+<li>
+<a href="#Fitting-biological-growth-curves">Fitting biological growth curves</a><br>
+<ol>
+<li><a href="#Theory">Theory</a><br></li>
+<li><a href="#Model-selection">Model selection</a><br></li>
+<li><a href="#Exponential-Fit">Exponential Fit</a><br></li>
+</ol>
+</li>
+<li><a href="#Calculate-Doubling-Time">Calculate Doubling Time</a></li>
+<li><a href="#References">References</a></li>
+</ol>
+<h2><a name="Plant-Systems-Biology-1" class="anchor" href="#Plant-Systems-Biology-1">Plant Systems Biology</a></h2>
+<a href="#Plant-Systems-Biology" style="display: inline-block"><sup>&#8593;back</sup></a><br>
+<div class="container">
+The general paradigm of Systems Biology clearly applies to plants, as they represent complex biological systems. 
+The functioning of a plant as a biological system is the result of a combination of multiple intertwined and dynamic interactions between its components. 
+In addition, most plants are sessile systems that have to face fluctuating environmental conditions, including biotic and abiotic stresses<sup><a href="#8">8</a></sup>.
+The process of a biological system responding to changes in environmental conditions is termed acclimation. These molecular physiological responses represent a complex 
+dynamic adjustment of the interplay between genes, proteins and metabolites that allows the organism to acclimate to the changing environment. 
+The ability to acclimate ensures the survival of all living organisms and is therefore fundamental for the understanding of biological systems. 
+Detailed knowledge about how plants acclimate to a changing environment is crucial especially in times of global climate changes, 
+as plants are of great importance for our quality of life as a key source of food, shelter, fiber, medicine, and fuel<sup><a href="#9">9</a></sup>.
+<p>The prominent model plant <i>Arabidopsis thaliana</i> is well suited for plant Systems Biology studies because sophisticated experimental tools and extensive data
+collections are readily available<sup><a href="#10">10</a></sup>. However, the importance of a model organism is not only coined by the availability of molecular
+tools to manipulate the organism, but also by its agricultural and economic impact like in the cases of tobacco, rice, maize or
+barley<sup><a href="#11">11</a></sup>. Also microalgae are of special economic interest due to their potential as biofuel producers<sup><a href="#12">12</a></sup>.
+Additionally, the use of organisms with lower biological complexity facilitates the feasibility of System Biology studies and is an important factor to consider
+for the choice of a suitable model organism in Systems Biology.</p>
+<p>The eukaryotic green alga <i>Chlamydomonas reinhardtii</i> is particularly well suited for plant Systems Biology approaches.
+This unicellular freshwater and soil-dwelling alga has a single, cup-shaped chloroplast with a photosynthetic apparatus that is similar to
+that of higher plants<sup><a href="#13">13</a>,<a href="#14">14</a></sup>. Hence, results gained on photosynthesis processes in <i>Chlamydomonas</i>
+are likely to be transferable to higher plants. The nuclear, mitochondrial, and chloroplast genomes have been sequenced and tools for manipulating them
+are available<sup><a href="#14">14</a></sup>. <i>Chlamydomonas</i> cells have a size of ~10 µm and grow under photo-, mixo-, and heterotrophic conditions
+with a generation time of ~5-8 h<sup><a href="#15">15</a></sup>. <i>Chlamydomonas</i> can be maintained under controlled conditions and environmental
+changes can be applied homogeneously and rapidly to all cells in a liquid culture. In contrast to multicellular organisms there are no influences by
+tissue heterogeneity. Even the influence of different cell cycle stages may be ruled out by performing experiments with asynchronous cell cultures
+<sup><a href="#16">16</a>,<a href="#17">17</a></sup>. Finally, gene families in Chlamydomonas have fewer members than those in higher plants thus facilitating the
+interpretation of results involving many genes/proteins<sup><a href="#14">14</a></sup>.
+</div></p>
+<h2><a name="Modeling-growth-for-a-defined-cell-number" class="anchor" href="#Modeling-growth-for-a-defined-cell-number">Modeling growth for a defined cell number</a></h2>
+<a href="#Plant-Systems-Biology" style="display: inline-block"><sup>&#8593;back</sup></a><br>
+<div class="container">
+In order to solves real world task more convenient, F# provides a huge collection of additional programming libraries. 
+Anything that extends beyond the basics must be written by a user. If the chunk of code is useful to multiple different users, 
+it's often put into a library to make it easily reusable. A library is a collection of related pieces of code that have been compiled 
+and stored together in a single file and can than be used an included. The most important libraries in F# for bioinformatics are:
+<ul>
+    <li><a href="https://csbiology.github.io/BioFSharp/">BioFSharp</a>: Open source bioinformatics and computational biology toolbox written in F#</li>
+    <li><a href="https://csbiology.github.io/FSharp.Stats/">FSharp.Stats</a>: F# project for statistical computing </li>
+    <li><a href="https://github.com/plotly/Plotly.NET">Plotly.NET</a>: .NET interface for plotly.js written in F# 📈 </li>
+</ul>
+<p>The first real world use case of F# in Systems Biology is to model growth for a defined cell number to see possible overexpression effects.
+Biologists often utilize growth experiments to analyze basic properties of a given organism or cellular model. For a solid comparison of data
+obtain from different experiment and to investigate the speciﬁc eﬀect of a given experimental set up, modeling the growth is needed after recording the data.</p>
+<p>This notebook introduces two basic ways to model growth of <i>Chlamydomonas reinhardtii</i> using F#.</p>
+<p>Now, let's get started by loading our libraries first.
+</div></p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="pp">#r</span> <span class="s">&quot;nuget: FSharp.Stats, 0.4.0&quot;</span>
+<span class="pp">#r</span> <span class="s">&quot;nuget: Plotly.NET, 2.0.0-beta6&quot;</span>
+<span class="c">//#load &quot;..\IfSharp\Paket.Generated.Refs.fsx&quot;</span>
+<span class="c">//#load &quot;..\IfSharp\FSharp.Plotly.fsx&quot;</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">Plotly</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="id">NET</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="id">FSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="id">Stats</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="id">FSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="id">Stats</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="id">Fitting</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs6', 8)" onmouseover="showTip(event, 'fs6', 8)" class="m">NonLinearRegression</span>
+</code></pre>
+<h2><a name="Insert-Growth-Data-and-Display-as-Chart" class="anchor" href="#Insert-Growth-Data-and-Display-as-Chart">Insert Growth Data and Display as Chart</a></h2>
+<a href="#Plant-Systems-Biology" style="display: inline-block"><sup>&#8593;back</sup></a><br>
+<p>A normal cell culture experiment with measurements for the growth curve will return data like the following.
+Multiple cell counts (y<em>Count) each related to a specific timepoint (x</em>Hours).</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 1</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 9)" onmouseover="showTip(event, 'fs7', 9)" class="id">exmp_x_Hours</span> <span class="o">=</span> <span class="pn">[|</span><span class="n">0.</span><span class="pn">;</span> <span class="n">19.5</span><span class="pn">;</span> <span class="n">25.5</span><span class="pn">;</span> <span class="n">43.</span><span class="pn">;</span> <span class="n">48.5</span><span class="pn">;</span> <span class="n">51.25</span><span class="pn">;</span> <span class="n">67.75</span><span class="pn">|]</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="id">exmp_y_Count</span> <span class="o">=</span> <span class="pn">[|</span><span class="n">1659000.</span><span class="pn">;</span> <span class="n">4169000.</span><span class="pn">;</span> <span class="n">6585400.</span><span class="pn">;</span> <span class="n">16608400.</span><span class="pn">;</span> <span class="n">17257800.</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="id">nan</span><span class="pn">;</span> <span class="n">18041000.</span><span class="pn">|]</span>
+
+<span class="c">/// filter out any nans. These could be introduced through missing measurements.</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="id">exmp_x_Hours_Filtered</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="id">exmp_y_Count_Filtered</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs13', 15)" onmouseover="showTip(event, 'fs13', 15)" class="id">zip</span> <span onmouseout="hideTip(event, 'fs7', 16)" onmouseover="showTip(event, 'fs7', 16)" class="id">exmp_x_Hours</span> <span onmouseout="hideTip(event, 'fs8', 17)" onmouseover="showTip(event, 'fs8', 17)" class="id">exmp_y_Count</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 18)" onmouseover="showTip(event, 'fs12', 18)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="id">filter</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs15', 20)" onmouseover="showTip(event, 'fs15', 20)" class="fn">x</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs16', 21)" onmouseover="showTip(event, 'fs16', 21)" class="fn">y</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs17', 22)" onmouseover="showTip(event, 'fs17', 22)" class="fn">isNan</span> <span onmouseout="hideTip(event, 'fs16', 23)" onmouseover="showTip(event, 'fs16', 23)" class="fn">y</span> <span class="o">=</span> <span class="k">false</span> <span class="o">&amp;&amp;</span> <span onmouseout="hideTip(event, 'fs17', 24)" onmouseover="showTip(event, 'fs17', 24)" class="fn">isNan</span> <span onmouseout="hideTip(event, 'fs15', 25)" onmouseover="showTip(event, 'fs15', 25)" class="fn">x</span> <span class="o">=</span> <span class="k">false</span> <span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 26)" onmouseover="showTip(event, 'fs12', 26)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 27)" onmouseover="showTip(event, 'fs18', 27)" class="id">unzip</span>
+
+<span class="c">// Such data can easily be display with the following code block.</span>
+<span class="c">// Chart.Point takes a sequence of x-axis-points and a series of y-axis-points as input</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 28)" onmouseover="showTip(event, 'fs19', 28)" class="id">example_Chart_1</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs20', 29)" onmouseover="showTip(event, 'fs20', 29)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs21', 30)" onmouseover="showTip(event, 'fs21', 30)" class="id">Point</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs10', 31)" onmouseover="showTip(event, 'fs10', 31)" class="id">exmp_x_Hours_Filtered</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs11', 32)" onmouseover="showTip(event, 'fs11', 32)" class="id">exmp_y_Count_Filtered</span><span class="pn">)</span>
+    <span class="c">// some minor styling with title and axis-titles.</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 33)" onmouseover="showTip(event, 'fs20', 33)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs22', 34)" onmouseover="showTip(event, 'fs22', 34)" class="id">withTitle</span> <span class="s">&quot;Growth curve of &lt;i&gt;Clamydomonas reinhardtii&lt;/i&gt; cell cultures&quot;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 35)" onmouseover="showTip(event, 'fs20', 35)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs23', 36)" onmouseover="showTip(event, 'fs23', 36)" class="id">withX_AxisStyle</span> <span class="pn">(</span><span class="s">&quot;Number of cells&quot;</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 37)" onmouseover="showTip(event, 'fs20', 37)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 38)" onmouseover="showTip(event, 'fs24', 38)" class="id">withY_AxisStyle</span> <span class="pn">(</span><span class="s">&quot;Time [hours]&quot;</span><span class="pn">)</span>
+</code></pre>
+<div id="cb172ba0-0f12-403e-996e-e41215542841" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<script type="text/javascript">
+
+            var renderPlotly_cb172ba00f12403e996ee41215542841 = function() {
+            var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
+            fsharpPlotlyRequire(['plotly'], function(Plotly) {
+
+            var data = [{"type":"scatter","x":[0.0,19.5,25.5,43.0,48.5,67.75],"y":[1659000.0,4169000.0,6585400.0,16608400.0,17257800.0,18041000.0],"mode":"markers","marker":{}}];
+            var layout = {"title":"Growth curve of <i>Clamydomonas reinhardtii</i> cell cultures","xaxis":{"title":"Number of cells"},"yaxis":{"title":"Time [hours]"}};
+            var config = {};
+            Plotly.newPlot('cb172ba0-0f12-403e-996e-e41215542841', data, layout, config);
+});
+            };
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+                var script = document.createElement("script");
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+                script.onload = function(){
+                    renderPlotly_cb172ba00f12403e996ee41215542841();
+                };
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }
+            else {
+                renderPlotly_cb172ba00f12403e996ee41215542841();
+            }
+</script>
+
+<h2><a name="Calculation-of-growth-rate-and-doubling-time-for-cell-cultures" class="anchor" href="#Calculation-of-growth-rate-and-doubling-time-for-cell-cultures">Calculation of growth rate and doubling time for cell cultures</a></h2>
+<a href="#Plant-Systems-Biology" style="display: inline-block"><sup>&#8593;back</sup></a><br>
+<div class="container">
+The normal growth of an in vitro cell culture is defined through three phases. The lag phase in which the cells still acclimate to the growth conditions, the exponential growth, also called log phase, during which cell growth is exponential due to the proliferation of cells into two daughter cells, and the stationary phase in which the growth rate and the death rate are equal. The stationary phase is typically initiated due to limitations in growth conditions, e.g. depletion of essential nutrients or accumulation of toxic/inhibitory excretions/products. The doubling time defines a time interval in which the quantity of cells doubles and is calculated as seen in Equation 1.
+<i>Equation 1: Calculation of the doubling time. Growth rate is calculates as shown in Equation 2.</i>
+<div class="container">
+<img src="https://latex.codecogs.com/gif.latex?doubling&space;Time&space;=&space;\frac{ln(2)}{growthRate}" title="doubling Time = \frac{ln(2)}{growthRate}" style="margin: 1rem auto 0; display: block"/>
+</div>
+<p>Growth rate can then be calculated as shown in Equation 2.</p>
+<i>Equation 2: Calculation of the growth rate. With N(t) = the number of cells at time t, N(0) = number of cells at time 0, gr = growth rate, and t = time.</i>
+<div class="container">
+<img src="https://latex.codecogs.com/gif.latex?gr=\frac{ln(\frac{N(t)}{N(0)})}{t}" title="gr=\frac{ln(\frac{N(t)}{N(0)})}{t}" style="margin: 1rem auto 0; display: block"/>
+</div>
+</div>
+<hr>
+<h2><a name="Fitting-biological-growth-curves" class="anchor" href="#Fitting-biological-growth-curves">Fitting biological growth curves</a></h2>
+<a href="#Plant-Systems-Biology" style="display: inline-block"><sup>&#8593;back</sup></a><br>
+<h3><a name="Theory" class="anchor" href="#Theory">Theory</a></h3>
+<a href="#Plant-Systems-Biology" style="display: inline-block"><sup>&#8593;back</sup></a><br>
+<div class="container">
+To derive parameters required for e.g. the doubling time calculation, the measured growth data points have to be modelled. 
+In order to obtain a continuous function with known coefficients, a suitable model function is fitted onto the existing data. 
+Many models exist, each one of them optimized for a specific task<sup><a href="#18">18</a></sup>.
+<p>Linear model function example: <img src="https://latex.codecogs.com/gif.latex?f(x)&space;=&space;mx&space;&plus;&space;b" title="f(x) = mx + b" /></p>
+<p>When a model is fitted onto the data, there are endless possibilities to choose coefficients of the model function.
+In the case above there are two coefficients to be identified: The slope m and the y-intercept b. But how can the best fitting coefficients be determined?</p>
+<p>Therefore a quality measure called <b>Residual Sum of Squares (RSS)</b> is used. It describes the discrepancy of the measured points
+and the corresponding estimation model. If the discrepancy is small, the RSS is small too.</p>
+<p>In regression analysis the optimal set of coefficients (m and b) that <a href= "https://mathworld.wolfram.com/LeastSquaresFitting.html"> minimizes the RSS is searched</a>.</p>
+<p>If there is no straightforward way to identify the RSS-minimizing coefficient set, then the problem is part of nonlinear regression.
+Here, initial coefficients are guessed and the RSS is calculated. Thereafter, the coefficients are modified in tiny steps.
+If the RSS decreases, the direction of the coefficient change seems to be correct.
+By <a href= "https://books.google.de/books?id=rs51DwAAQBAJ&pg=PA422&lpg=PA422&dq=rss+minimizing+solver&source=bl&ots=qZ0Y4cYtM-&sig=ACfU3U0rHGWCmTo_kv5wqYMmSo8ZKyj5Pg&hl=de&sa=X&ved=2ahUKEwjKtdf-oaHoAhUUwsQBHX07DTwQ6AEwBHoECAkQAQ#v=onepage&q=rss%20minimizing%20solver&f=false">
+iteratively changing coefficients</a>, the optimal coefficient set is determined when no further change leads to an decrease in RSS.
+Algorithms, that perform such a 'gradient descent' methods to solve nonlinear regression tasks are called <b>solver</b>
+(e.g. Gauss-Newton algorithm or Levenberg–Marquardt algorithm). <a href= "https://www.youtube.com/watch?v=sDv4f4s2SB8"> Introduction to RSS and optimization problems. </a>
+</div></p>
+<h3><a name="Model-selection" class="anchor" href="#Model-selection">Model selection</a></h3>
+<a href="#Plant-Systems-Biology" style="display: inline-block"><sup>&#8593;back</sup></a><br>
+<div class="container">
+Under certain circumstances, more than one solution may arise out of a optimization process. 
+If the solutions are based on the same data and the same fitting model, the function minimizing the RSS can be selected as best estimator. 
+</div>
+<h3><a name="Exponential-Fit" class="anchor" href="#Exponential-Fit">Exponential Fit</a></h3>
+<a href="#Plant-Systems-Biology" style="display: inline-block"><sup>&#8593;back</sup></a><br>
+<div class="container">
+Since cellular growth behaves in an exponential manner, it seems to make sense to use an exponential fitting function. 
+<img src="https://latex.codecogs.com/gif.latex?f(x)&space;=&space;ae^{bx}" title="f(x) = ae^{bx}" />
+<p>As seen below, the resulting <a href="https://da.khanacademy.org/science/biology/ecology/population-growth-and-regulation/a/exponential-logistic-growth"> exponential fit</a> does not represent the data sufficiently, even though it is the best fit, that a exponential model can provide. This is caused by the lag- and stationary phase, both not following an exponential increase.
+In order to use an exponential function as model, it would be necessary to discard data points from lag- and stationary phases and model the remaining data points.</p>
+<p>There are two main problems regarding this workflow:
+<ol>
+<li value="(1)"> The assignment of points to lag-, log-, and stationary phases is a nontrivial task.</li>
+<li value="(2)"> The exponential phase only lasts a short period of time and therefore the number of points that can be assigned to the log phase is (very) low.</li>
+</ol>
+Consequential the fitted function is not robust against variance introduced during cell count measurements.</p>
+</div>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 2</span>
+
+<span class="c">// An template exponential function has the form f(x) = a * exp(b * x) with the two unknowns a and b. </span>
+
+<span class="c">// The model we need already exists in FSharp.Stats and can be taken from the &quot;Table&quot; module.</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs27', 42)" onmouseover="showTip(event, 'fs27', 42)" class="id">expModel</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs28', 43)" onmouseover="showTip(event, 'fs28', 43)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 44)" onmouseover="showTip(event, 'fs27', 44)" class="id">expModel</span>
+
+<span class="c">// the solver needs additional information like the initial coefficient guesses or the coefficient accuracy</span>
+<span class="c">// FSharp.Stats assists by estimating the required parameters based on the original input data</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 45)" onmouseover="showTip(event, 'fs29', 45)" class="id">solverOptions</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs28', 46)" onmouseover="showTip(event, 'fs28', 46)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs30', 47)" onmouseover="showTip(event, 'fs30', 47)" class="id">expSolverOptions</span> <span onmouseout="hideTip(event, 'fs10', 48)" onmouseover="showTip(event, 'fs10', 48)" class="id">exmp_x_Hours_Filtered</span> <span onmouseout="hideTip(event, 'fs11', 49)" onmouseover="showTip(event, 'fs11', 49)" class="id">exmp_y_Count_Filtered</span>
+
+<span class="c">// The Gauss-Newton solver is used to find the optimal coefficients for an exponential function (expModel)</span>
+<span class="c">// The result is a vector, containing parameter a and b as floats.</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 50)" onmouseover="showTip(event, 'fs31', 50)" class="id">coefficientsExp</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs32', 51)" onmouseover="showTip(event, 'fs32', 51)" class="m">GaussNewton</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs33', 52)" onmouseover="showTip(event, 'fs33', 52)" class="id">estimatedParams</span> <span onmouseout="hideTip(event, 'fs27', 53)" onmouseover="showTip(event, 'fs27', 53)" class="id">expModel</span> <span onmouseout="hideTip(event, 'fs29', 54)" onmouseover="showTip(event, 'fs29', 54)" class="id">solverOptions</span> <span onmouseout="hideTip(event, 'fs10', 55)" onmouseover="showTip(event, 'fs10', 55)" class="id">exmp_x_Hours_Filtered</span> <span onmouseout="hideTip(event, 'fs11', 56)" onmouseover="showTip(event, 'fs11', 56)" class="id">exmp_y_Count_Filtered</span>
+
+<span class="c">// The determined coefficients can be inserted into the exponential template function</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 57)" onmouseover="showTip(event, 'fs34', 57)" class="fn">fittingExpFunction</span> <span onmouseout="hideTip(event, 'fs15', 58)" onmouseover="showTip(event, 'fs15', 58)" class="fn">x</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs31', 59)" onmouseover="showTip(event, 'fs31', 59)" class="id">coefficientsExp</span><span class="pn">.</span><span class="pn">[</span><span class="n">0</span><span class="pn">]</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs35', 60)" onmouseover="showTip(event, 'fs35', 60)" class="id">System</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs36', 61)" onmouseover="showTip(event, 'fs36', 61)" class="rt">Math</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs37', 62)" onmouseover="showTip(event, 'fs37', 62)" class="id">Exp</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs31', 63)" onmouseover="showTip(event, 'fs31', 63)" class="id">coefficientsExp</span><span class="pn">.</span><span class="pn">[</span><span class="n">1</span><span class="pn">]</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs15', 64)" onmouseover="showTip(event, 'fs15', 64)" class="fn">x</span><span class="pn">)</span>
+
+<span class="c">// create a chart with </span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 65)" onmouseover="showTip(event, 'fs38', 65)" class="id">exp_Chart_1</span> <span class="o">=</span> 
+    <span class="pn">[|</span><span class="n">0.</span> <span class="o">..</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs12', 66)" onmouseover="showTip(event, 'fs12', 66)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs39', 67)" onmouseover="showTip(event, 'fs39', 67)" class="id">last</span> <span onmouseout="hideTip(event, 'fs10', 68)" onmouseover="showTip(event, 'fs10', 68)" class="id">exmp_x_Hours_Filtered</span><span class="pn">)</span><span class="pn">|]</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 69)" onmouseover="showTip(event, 'fs12', 69)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs40', 70)" onmouseover="showTip(event, 'fs40', 70)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs41', 71)" onmouseover="showTip(event, 'fs41', 71)" class="fn">xValue</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs41', 72)" onmouseover="showTip(event, 'fs41', 72)" class="fn">xValue</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs34', 73)" onmouseover="showTip(event, 'fs34', 73)" class="fn">fittingExpFunction</span> <span onmouseout="hideTip(event, 'fs41', 74)" onmouseover="showTip(event, 'fs41', 74)" class="fn">xValue</span><span class="pn">)</span> <span class="c">// gives tuples of (xValue,yValue)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 75)" onmouseover="showTip(event, 'fs20', 75)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs42', 76)" onmouseover="showTip(event, 'fs42', 76)" class="id">Line</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 77)" onmouseover="showTip(event, 'fs20', 77)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs43', 78)" onmouseover="showTip(event, 'fs43', 78)" class="id">withTraceName</span> <span class="s">&quot;exponential fit&quot;</span>
+
+<span class="c">// styling of the chart axis</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs44', 79)" onmouseover="showTip(event, 'fs44', 79)" class="fn">templateAxis</span> <span onmouseout="hideTip(event, 'fs45', 80)" onmouseover="showTip(event, 'fs45', 80)" class="fn">title</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs46', 81)" onmouseover="showTip(event, 'fs46', 81)" class="m">Axis</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs47', 82)" onmouseover="showTip(event, 'fs47', 82)" class="rt">LinearAxis</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs48', 83)" onmouseover="showTip(event, 'fs48', 83)" class="id">init</span><span class="pn">(</span><span class="fn">Title</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs45', 84)" onmouseover="showTip(event, 'fs45', 84)" class="fn">title</span><span class="pn">,</span><span class="fn">Showgrid</span><span class="o">=</span><span class="k">false</span><span class="pn">,</span><span class="fn">Showline</span><span class="o">=</span><span class="k">true</span><span class="pn">,</span><span class="fn">Mirror</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs49', 85)" onmouseover="showTip(event, 'fs49', 85)" class="m">StyleParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs50', 86)" onmouseover="showTip(event, 'fs50', 86)" class="rt">Mirror</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs51', 87)" onmouseover="showTip(event, 'fs51', 87)" class="id">All</span><span class="pn">)</span>       
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs52', 88)" onmouseover="showTip(event, 'fs52', 88)" class="id">exponentialFitChart</span> <span class="o">=</span>
+    <span class="pn">[</span>
+        <span onmouseout="hideTip(event, 'fs19', 89)" onmouseover="showTip(event, 'fs19', 89)" class="id">example_Chart_1</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 90)" onmouseover="showTip(event, 'fs20', 90)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs43', 91)" onmouseover="showTip(event, 'fs43', 91)" class="id">withTraceName</span> <span class="s">&quot;data points&quot;</span>
+        <span onmouseout="hideTip(event, 'fs38', 92)" onmouseover="showTip(event, 'fs38', 92)" class="id">exp_Chart_1</span>
+    <span class="pn">]</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 93)" onmouseover="showTip(event, 'fs20', 93)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs53', 94)" onmouseover="showTip(event, 'fs53', 94)" class="id">Combine</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 95)" onmouseover="showTip(event, 'fs20', 95)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs54', 96)" onmouseover="showTip(event, 'fs54', 96)" class="id">withX_Axis</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs44', 97)" onmouseover="showTip(event, 'fs44', 97)" class="fn">templateAxis</span> <span class="s">&quot;time [hours]&quot;</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 98)" onmouseover="showTip(event, 'fs20', 98)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs55', 99)" onmouseover="showTip(event, 'fs55', 99)" class="id">withY_Axis</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs44', 100)" onmouseover="showTip(event, 'fs44', 100)" class="fn">templateAxis</span> <span class="s">&quot;number of cells&quot;</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 101)" onmouseover="showTip(event, 'fs20', 101)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs56', 102)" onmouseover="showTip(event, 'fs56', 102)" class="id">withSize</span> <span class="pn">(</span><span class="n">900.</span><span class="pn">,</span><span class="n">600.</span><span class="pn">)</span>
+</code></pre>
+<div id="35c4ccf7-8f87-4dfd-ad32-219d63c2472e" style="width: 900px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<script type="text/javascript">
+
+            var renderPlotly_35c4ccf78f874dfdad32219d63c2472e = function() {
+            var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
+            fsharpPlotlyRequire(['plotly'], function(Plotly) {
+
+            var data = [{"type":"scatter","x":[0.0,19.5,25.5,43.0,48.5,67.75],"y":[1659000.0,4169000.0,6585400.0,16608400.0,17257800.0,18041000.0],"mode":"markers","marker":{},"name":"data points"},{"type":"scatter","x":[0.0,1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,11.0,12.0,13.0,14.0,15.0,16.0,17.0,18.0,19.0,20.0,21.0,22.0,23.0,24.0,25.0,26.0,27.0,28.0,29.0,30.0,31.0,32.0,33.0,34.0,35.0,36.0,37.0,38.0,39.0,40.0,41.0,42.0,43.0,44.0,45.0,46.0,47.0,48.0,49.0,50.0,51.0,52.0,53.0,54.0,55.0,56.0,57.0,58.0,59.0,60.0,61.0,62.0,63.0,64.0,65.0,66.0,67.0],"y":[4518669.361090467,4622152.9711177405,4728006.495092799,4836284.207234704,4947041.624715182,5060335.53612391,5176224.030585701,5294766.5275445115,5416023.807229531,5540058.041819007,5666932.827317743,5796713.216164645,5929465.750587027,6065258.496718765,6204161.079499813,6346244.7183749555,6491582.263810117,6640248.234644941,6792318.856300795,6947872.099863786,7106987.722062834,7269747.306163292,7436234.3037971,7606534.077750878,7780733.945733956,7958923.225148724,8141193.278886302,8327637.562170978,8518351.670477455,8713433.38854548,8912982.740516933,9117102.041221175,9325895.948634863,9539471.517543178,9757938.25442996,9981408.173624923,10209995.854736688,10443818.50140112,10682996.001375096,10927650.988006478,11177908.903111847,11433898.061294217,11695749.715733707,11963598.125484915,12237580.624315485,12517837.691121181,12804513.021953547,13097753.603697112,13397709.789433882,13704535.375533808,14018387.680510705,14339427.625684083,14667819.817688258,15003732.632871015,15347338.303625118,15698813.006696932,16058336.953517433,16426094.482601909,16802274.154065747,17187068.846304763,17580675.85488963,17983296.99372512,18395138.69852607,18816412.132662997,19247333.295431815,19688123.132803045,20139007.65070729,20600218.030915134],"mode":"lines","marker":{},"name":"exponential fit"}];
+            var layout = {"title":"Growth curve of <i>Clamydomonas reinhardtii</i> cell cultures","xaxis":{"title":"time [hours]","mirror":"all","showline":true,"showgrid":false},"yaxis":{"title":"number of cells","mirror":"all","showline":true,"showgrid":false},"width":900.0,"height":600.0};
+            var config = {};
+            Plotly.newPlot('35c4ccf7-8f87-4dfd-ad32-219d63c2472e', data, layout, config);
+});
+            };
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+                var script = document.createElement("script");
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+                script.onload = function(){
+                    renderPlotly_35c4ccf78f874dfdad32219d63c2472e();
+                };
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }
+            else {
+                renderPlotly_35c4ccf78f874dfdad32219d63c2472e();
+            }
+</script>
+
+<pre class="fssnip highlighted"><code lang="fsharp">    
+</code></pre>
+<h2><a name="Logistic-regression-fit" class="anchor" href="#Logistic-regression-fit">Logistic regression fit</a></h2>
+<a href="#Plant-Systems-Biology" style="display: inline-block"><sup>&#8593;back</sup></a><br>
+<div class="container">
+As seen above, the model selection is a crucial step for obtaining reasonable functions and to derive function properties with 
+which further studies are examined. The selected model should match the theoretical (time) course of the studied signal, but under 
+consideration of Occams razor principle. It states, that a approriate model with a low number of coefficients should be preferred over a 
+model with many coefficients, since the excessive use of coefficients leads to overfitting.
+<p>A better model that can be used in growth curve fitting, is a <a href= "https://en.wikipedia.org/wiki/Logistic_function">logistic function</a>.
+It is defined by a minimum, a maximum, and a sigmoidal transition between those two. Thereby, the lag, log, and stationary phase are covered.</p>
+<p>The function has the form: <img src="https://latex.codecogs.com/gif.latex?f(x)=\frac{L}{1&plus;e^{-k(x-x_{0})}}&plus;N" title="f(x)=\frac{L}{1+e^{-k(x-x_{0})}}+N" /></p>
+<p>where:</p>
+<p><strong>L</strong> = curve maximum</p>
+<p><strong>k</strong> = steepness</p>
+<p><strong>x0</strong> = xValue of sigmoid's midpoint</p>
+<p><strong>N</strong> = curve minimum</p>
+<p>In the following, we will go through the necessary steps to calculate the doubling time with the help of a logistic fit.
+This is more complex than the exponential fit, but the given problem requires a more sophisticated method.
+</div></p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 3</span>
+
+<span class="c">// The model we need already exists in FSharp.Stats and can be taken from the &quot;Table&quot; module.</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs57', 106)" onmouseover="showTip(event, 'fs57', 106)" class="id">modelLogistic</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs28', 107)" onmouseover="showTip(event, 'fs28', 107)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs58', 108)" onmouseover="showTip(event, 'fs58', 108)" class="id">LogisticFunctionVarYAscending</span>
+
+<span class="c">// To fit the logistic function, the solver requires more parameters. Some of them are stored in the solverOption type</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs59', 109)" onmouseover="showTip(event, 'fs59', 109)" class="fn">lineSolverOptions</span> <span onmouseout="hideTip(event, 'fs60', 110)" onmouseover="showTip(event, 'fs60', 110)" class="fn">initialParamGuess</span> <span class="o">=</span> <span class="pn">{</span>
+    <span class="c">// defines the stepwidth of the x_value change</span>
+    <span class="prop">MinimumDeltaValue</span>       <span class="o">=</span> <span class="n">0.00001</span>
+    <span class="c">// defines the stepwidth of the parameter change</span>
+    <span class="prop">MinimumDeltaParameters</span>  <span class="o">=</span> <span class="n">0.00001</span>
+    <span class="c">// defines the number of iterations until the solver converges to a solution</span>
+    <span class="prop">MaximumIterations</span>       <span class="o">=</span> <span class="n">10000</span>
+    <span class="c">// initial parameters to start the solving algorithms</span>
+    <span class="c">// vector containing all coefficients of the function: vector [L;k;x0;N]</span>
+    <span class="prop">InitialParamGuess</span>       <span class="o">=</span> <span onmouseout="hideTip(event, 'fs60', 111)" onmouseover="showTip(event, 'fs60', 111)" class="fn">initialParamGuess</span>
+    <span class="pn">}</span>
+
+<span class="c">// Generation of solverOptions with varying steepnesses</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs61', 112)" onmouseover="showTip(event, 'fs61', 112)" class="id">initialGuess</span> <span class="o">=</span> 
+    <span class="c">// maximum measured intensity/cell count</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs62', 113)" onmouseover="showTip(event, 'fs62', 113)" class="fn">l</span>  <span class="o">=</span> <span onmouseout="hideTip(event, 'fs11', 114)" onmouseover="showTip(event, 'fs11', 114)" class="id">exmp_y_Count_Filtered</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 115)" onmouseover="showTip(event, 'fs12', 115)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs63', 116)" onmouseover="showTip(event, 'fs63', 116)" class="id">max</span>
+    <span class="c">// estimate of the xValue of sigmoid&#39;s midpoint</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs64', 117)" onmouseover="showTip(event, 'fs64', 117)" class="fn">x0</span> <span class="o">=</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs10', 118)" onmouseover="showTip(event, 'fs10', 118)" class="id">exmp_x_Hours_Filtered</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 119)" onmouseover="showTip(event, 'fs12', 119)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs63', 120)" onmouseover="showTip(event, 'fs63', 120)" class="id">max</span><span class="pn">)</span> <span class="o">/</span> <span class="n">2.</span>
+    <span class="c">// minimum measured intensity/cell count.</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs65', 121)" onmouseover="showTip(event, 'fs65', 121)" class="fn">n</span>  <span class="o">=</span> <span onmouseout="hideTip(event, 'fs11', 122)" onmouseover="showTip(event, 'fs11', 122)" class="id">exmp_y_Count_Filtered</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 123)" onmouseover="showTip(event, 'fs12', 123)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs66', 124)" onmouseover="showTip(event, 'fs66', 124)" class="id">min</span> 
+    
+    <span class="c">//since steepness in unknown, a variety of steepnesses is provided </span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs67', 125)" onmouseover="showTip(event, 'fs67', 125)" class="fn">steepnessRange</span> <span class="o">=</span> <span class="pn">[|</span><span class="o">0.01</span> <span class="o">..</span> <span class="n">0.01</span> <span class="o">..</span> <span class="n">1.</span><span class="pn">|]</span>
+    
+    <span onmouseout="hideTip(event, 'fs67', 126)" onmouseover="showTip(event, 'fs67', 126)" class="fn">steepnessRange</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 127)" onmouseover="showTip(event, 'fs12', 127)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs40', 128)" onmouseover="showTip(event, 'fs40', 128)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs68', 129)" onmouseover="showTip(event, 'fs68', 129)" class="fn">steepness</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs59', 130)" onmouseover="showTip(event, 'fs59', 130)" class="fn">lineSolverOptions</span> <span class="pn">[|</span><span onmouseout="hideTip(event, 'fs62', 131)" onmouseover="showTip(event, 'fs62', 131)" class="fn">l</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs68', 132)" onmouseover="showTip(event, 'fs68', 132)" class="fn">steepness</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs64', 133)" onmouseover="showTip(event, 'fs64', 133)" class="fn">x0</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs65', 134)" onmouseover="showTip(event, 'fs65', 134)" class="fn">n</span><span class="pn">|]</span><span class="pn">)</span>
+
+<span class="c">// Estimate coefficients for a possible solution based on residual sum </span>
+<span class="c">// of squares. Besides the solverOptions, an upper and lower bound for </span>
+<span class="c">// the parameters are required. It is recommended to define them depending </span>
+<span class="c">// on the initial param guess.</span>
+<span class="c">// It reports coefficients tupled with a corresponding RSS value.</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs69', 135)" onmouseover="showTip(event, 'fs69', 135)" class="id">estimateCoefficientsRSS</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs61', 136)" onmouseover="showTip(event, 'fs61', 136)" class="id">initialGuess</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 137)" onmouseover="showTip(event, 'fs12', 137)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs40', 138)" onmouseover="showTip(event, 'fs40', 138)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs70', 139)" onmouseover="showTip(event, 'fs70', 139)" class="fn">solvOpt</span> <span class="k">-&gt;</span>
+        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs71', 140)" onmouseover="showTip(event, 'fs71', 140)" class="fn">lowerBound</span> <span class="o">=</span>
+            <span onmouseout="hideTip(event, 'fs70', 141)" onmouseover="showTip(event, 'fs70', 141)" class="fn">solvOpt</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs72', 142)" onmouseover="showTip(event, 'fs72', 142)" class="id">InitialParamGuess</span>
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 143)" onmouseover="showTip(event, 'fs12', 143)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs40', 144)" onmouseover="showTip(event, 'fs40', 144)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs73', 145)" onmouseover="showTip(event, 'fs73', 145)" class="fn">param</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs73', 146)" onmouseover="showTip(event, 'fs73', 146)" class="fn">param</span> <span class="o">-</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs74', 147)" onmouseover="showTip(event, 'fs74', 147)" class="fn">abs</span> <span onmouseout="hideTip(event, 'fs73', 148)" onmouseover="showTip(event, 'fs73', 148)" class="fn">param</span><span class="pn">)</span> <span class="o">*</span> <span class="n">0.2</span><span class="pn">)</span>
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs75', 149)" onmouseover="showTip(event, 'fs75', 149)" class="fn">vector</span>
+        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs76', 150)" onmouseover="showTip(event, 'fs76', 150)" class="fn">upperBound</span> <span class="o">=</span>
+            <span onmouseout="hideTip(event, 'fs70', 151)" onmouseover="showTip(event, 'fs70', 151)" class="fn">solvOpt</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs72', 152)" onmouseover="showTip(event, 'fs72', 152)" class="id">InitialParamGuess</span>
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 153)" onmouseover="showTip(event, 'fs12', 153)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs40', 154)" onmouseover="showTip(event, 'fs40', 154)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs73', 155)" onmouseover="showTip(event, 'fs73', 155)" class="fn">param</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs73', 156)" onmouseover="showTip(event, 'fs73', 156)" class="fn">param</span> <span class="o">+</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs74', 157)" onmouseover="showTip(event, 'fs74', 157)" class="fn">abs</span> <span onmouseout="hideTip(event, 'fs73', 158)" onmouseover="showTip(event, 'fs73', 158)" class="fn">param</span><span class="pn">)</span> <span class="o">*</span> <span class="n">0.2</span><span class="pn">)</span>
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs75', 159)" onmouseover="showTip(event, 'fs75', 159)" class="fn">vector</span>
+        <span class="c">// all parameters are given to the solver and the set of coefficients that minimize the RSS are reported</span>
+        <span onmouseout="hideTip(event, 'fs77', 160)" onmouseover="showTip(event, 'fs77', 160)" class="m">LevenbergMarquardtConstrained</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs78', 161)" onmouseover="showTip(event, 'fs78', 161)" class="id">estimatedParamsWithRSS</span> 
+            <span onmouseout="hideTip(event, 'fs57', 162)" onmouseover="showTip(event, 'fs57', 162)" class="id">modelLogistic</span>         <span class="c">// logistic function model</span>
+            <span onmouseout="hideTip(event, 'fs70', 163)" onmouseover="showTip(event, 'fs70', 163)" class="fn">solvOpt</span>               <span class="c">// solver options with optimization parameters and initial guess</span>
+            <span class="n">0.001</span>                 <span class="c">//</span>
+            <span class="n">10.</span>                   <span class="c">//</span>
+            <span onmouseout="hideTip(event, 'fs71', 164)" onmouseover="showTip(event, 'fs71', 164)" class="fn">lowerBound</span>            <span class="c">// lower bound of coefficient space</span>
+            <span onmouseout="hideTip(event, 'fs76', 165)" onmouseover="showTip(event, 'fs76', 165)" class="fn">upperBound</span>            <span class="c">// upper bound of coefficient space</span>
+            <span onmouseout="hideTip(event, 'fs10', 166)" onmouseover="showTip(event, 'fs10', 166)" class="id">exmp_x_Hours_Filtered</span> <span class="c">// x data</span>
+            <span onmouseout="hideTip(event, 'fs11', 167)" onmouseover="showTip(event, 'fs11', 167)" class="id">exmp_y_Count_Filtered</span> <span class="c">// y data</span>
+    <span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 168)" onmouseover="showTip(event, 'fs12', 168)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 169)" onmouseover="showTip(event, 'fs14', 169)" class="id">filter</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs79', 170)" onmouseover="showTip(event, 'fs79', 170)" class="fn">coeffs</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs80', 171)" onmouseover="showTip(event, 'fs80', 171)" class="fn">rss</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs81', 172)" onmouseover="showTip(event, 'fs81', 172)" class="fn">not</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs79', 173)" onmouseover="showTip(event, 'fs79', 173)" class="fn">coeffs</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs82', 174)" onmouseover="showTip(event, 'fs82', 174)" class="m">Vector</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs83', 175)" onmouseover="showTip(event, 'fs83', 175)" class="id">exists</span> <span onmouseout="hideTip(event, 'fs35', 176)" onmouseover="showTip(event, 'fs35', 176)" class="id">System</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs84', 177)" onmouseover="showTip(event, 'fs84', 177)" class="vt">Double</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs85', 178)" onmouseover="showTip(event, 'fs85', 178)" class="id">IsNaN</span><span class="pn">)</span><span class="pn">)</span> <span class="c">// discard solutions with nan as coefficients</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 179)" onmouseover="showTip(event, 'fs12', 179)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs86', 180)" onmouseover="showTip(event, 'fs86', 180)" class="id">minBy</span> <span onmouseout="hideTip(event, 'fs87', 181)" onmouseover="showTip(event, 'fs87', 181)" class="fn">snd</span> <span class="c">// minimize all possible solutions based on RSS quality measure</span>
+    <span class="o">|&gt;</span> <span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs88', 182)" onmouseover="showTip(event, 'fs88', 182)" class="fn">solCoeffs</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs80', 183)" onmouseover="showTip(event, 'fs80', 183)" class="fn">rss</span><span class="pn">)</span> <span class="k">-&gt;</span>
+        <span onmouseout="hideTip(event, 'fs89', 184)" onmouseover="showTip(event, 'fs89', 184)" class="fn">printfn</span> <span class="s">&quot;Chosen Estimate: </span><span class="pf">%A</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs88', 185)" onmouseover="showTip(event, 'fs88', 185)" class="fn">solCoeffs</span>
+        <span onmouseout="hideTip(event, 'fs89', 186)" onmouseover="showTip(event, 'fs89', 186)" class="fn">printfn</span> <span class="s">&quot;Equation: (</span><span class="pf">%.1f</span><span class="s"> / (1. + exp(-</span><span class="pf">%.3f</span><span class="s"> * (x - </span><span class="pf">%.3f</span><span class="s">)))) + </span><span class="pf">%.1f</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs88', 187)" onmouseover="showTip(event, 'fs88', 187)" class="fn">solCoeffs</span><span class="pn">.</span><span class="pn">[</span><span class="n">0</span><span class="pn">]</span> <span onmouseout="hideTip(event, 'fs88', 188)" onmouseover="showTip(event, 'fs88', 188)" class="fn">solCoeffs</span><span class="pn">.</span><span class="pn">[</span><span class="n">1</span><span class="pn">]</span> <span onmouseout="hideTip(event, 'fs88', 189)" onmouseover="showTip(event, 'fs88', 189)" class="fn">solCoeffs</span><span class="pn">.</span><span class="pn">[</span><span class="n">2</span><span class="pn">]</span> <span onmouseout="hideTip(event, 'fs88', 190)" onmouseover="showTip(event, 'fs88', 190)" class="fn">solCoeffs</span><span class="pn">.</span><span class="pn">[</span><span class="n">3</span><span class="pn">]</span>
+        <span onmouseout="hideTip(event, 'fs88', 191)" onmouseover="showTip(event, 'fs88', 191)" class="fn">solCoeffs</span>
+        
+<span class="c">// Create fitting function from optimal coefficients</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs90', 192)" onmouseover="showTip(event, 'fs90', 192)" class="fn">fittingLogisticFunction</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs57', 193)" onmouseover="showTip(event, 'fs57', 193)" class="id">modelLogistic</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs91', 194)" onmouseover="showTip(event, 'fs91', 194)" class="id">GetFunctionValue</span> <span onmouseout="hideTip(event, 'fs69', 195)" onmouseover="showTip(event, 'fs69', 195)" class="id">estimateCoefficientsRSS</span>
+
+<span class="c">// Code-Block 4</span>
+
+<span class="c">// fit of the optimized logistic function over all x Values</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs92', 196)" onmouseover="showTip(event, 'fs92', 196)" class="id">fittedY</span> <span class="o">=</span> 
+     <span class="pn">[|</span><span class="n">0.</span> <span class="o">..</span> <span onmouseout="hideTip(event, 'fs7', 197)" onmouseover="showTip(event, 'fs7', 197)" class="id">exmp_x_Hours</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 198)" onmouseover="showTip(event, 'fs12', 198)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs63', 199)" onmouseover="showTip(event, 'fs63', 199)" class="id">max</span><span class="pn">|]</span>
+     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 200)" onmouseover="showTip(event, 'fs12', 200)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs40', 201)" onmouseover="showTip(event, 'fs40', 201)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs15', 202)" onmouseover="showTip(event, 'fs15', 202)" class="fn">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs15', 203)" onmouseover="showTip(event, 'fs15', 203)" class="fn">x</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs90', 204)" onmouseover="showTip(event, 'fs90', 204)" class="fn">fittingLogisticFunction</span> <span onmouseout="hideTip(event, 'fs15', 205)" onmouseover="showTip(event, 'fs15', 205)" class="fn">x</span><span class="pn">)</span> <span class="c">//tupled (xValue,yValue)</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs93', 206)" onmouseover="showTip(event, 'fs93', 206)" class="id">fittedLogisticFunc</span> <span class="o">=</span>
+    <span class="pn">[</span>
+        <span class="c">// raw chart</span>
+        <span onmouseout="hideTip(event, 'fs20', 207)" onmouseover="showTip(event, 'fs20', 207)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs21', 208)" onmouseover="showTip(event, 'fs21', 208)" class="id">Point</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs7', 209)" onmouseover="showTip(event, 'fs7', 209)" class="id">exmp_x_Hours</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs8', 210)" onmouseover="showTip(event, 'fs8', 210)" class="id">exmp_y_Count</span><span class="pn">)</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 211)" onmouseover="showTip(event, 'fs20', 211)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs43', 212)" onmouseover="showTip(event, 'fs43', 212)" class="id">withTraceName</span><span class="s">&quot;data points&quot;</span>
+        <span class="c">// logistic fit</span>
+        <span onmouseout="hideTip(event, 'fs20', 213)" onmouseover="showTip(event, 'fs20', 213)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs42', 214)" onmouseover="showTip(event, 'fs42', 214)" class="id">Line</span> <span onmouseout="hideTip(event, 'fs92', 215)" onmouseover="showTip(event, 'fs92', 215)" class="id">fittedY</span>                       <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 216)" onmouseover="showTip(event, 'fs20', 216)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs43', 217)" onmouseover="showTip(event, 'fs43', 217)" class="id">withTraceName</span> <span class="s">&quot;logistic fit&quot;</span>
+    <span class="pn">]</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 218)" onmouseover="showTip(event, 'fs20', 218)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs53', 219)" onmouseover="showTip(event, 'fs53', 219)" class="id">Combine</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 220)" onmouseover="showTip(event, 'fs20', 220)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs55', 221)" onmouseover="showTip(event, 'fs55', 221)" class="id">withY_Axis</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs44', 222)" onmouseover="showTip(event, 'fs44', 222)" class="fn">templateAxis</span> <span class="s">&quot;cell count&quot;</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 223)" onmouseover="showTip(event, 'fs20', 223)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs54', 224)" onmouseover="showTip(event, 'fs54', 224)" class="id">withX_Axis</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs44', 225)" onmouseover="showTip(event, 'fs44', 225)" class="fn">templateAxis</span> <span class="s">&quot;time [Hours]&quot;</span><span class="pn">)</span>
+</code></pre>
+<div id="a33942ea-90a8-4fb0-ad58-a97d9357b80e" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<script type="text/javascript">
+
+            var renderPlotly_a33942ea90a84fb0ad58a97d9357b80e = function() {
+            var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
+            fsharpPlotlyRequire(['plotly'], function(Plotly) {
+
+            var data = [{"type":"scatter","x":[0.0,19.5,25.5,43.0,48.5,51.25,67.75],"y":[1659000.0,4169000.0,6585400.0,16608400.0,17257800.0,"NaN",18041000.0],"mode":"markers","marker":{},"name":"data points"},{"type":"scatter","x":[0.0,1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,11.0,12.0,13.0,14.0,15.0,16.0,17.0,18.0,19.0,20.0,21.0,22.0,23.0,24.0,25.0,26.0,27.0,28.0,29.0,30.0,31.0,32.0,33.0,34.0,35.0,36.0,37.0,38.0,39.0,40.0,41.0,42.0,43.0,44.0,45.0,46.0,47.0,48.0,49.0,50.0,51.0,52.0,53.0,54.0,55.0,56.0,57.0,58.0,59.0,60.0,61.0,62.0,63.0,64.0,65.0,66.0,67.0],"y":[1876999.9944503456,1906848.803758243,1940719.94600666,1979136.6527863236,2022684.7682919612,2072018.657528991,2127867.1953612776,2191039.6666429946,2262431.3467984484,2343028.4584132466,2433912.111973107,2536260.7380834147,2651350.406100207,2780552.304140117,2925326.5351030803,3087211.2739702384,3267806.249678159,3468749.482613939,3691686.2545178668,3938229.4447078994,4209910.670986393,4508122.159045681,4834049.954644421,5188599.992463952,5572319.616866827,5985318.341981698,6427192.819717921,6896961.981899393,7393018.92695839,7913106.11522494,8454319.639774118,9013146.6628907,9585537.60242349,10167011.536717804,10752789.949740313,11337950.843477342,11917592.900596859,12486998.189407893,13041782.077243831,13578020.526271453,14092347.520753514,14582018.580428544,15044939.646447834,15479663.619258612,15885359.140182646,16261757.663983287,16609085.456281662,16927986.9842058,17219445.445331562,17484705.117901877,17725199.01706121,17942484.168003645,18138185.766270846,18313950.64696391,18471409.846787687,18612149.60542433,18737689.88846836,18849469.38820629,18948835.935241107,19037041.301068366,19115239.46237758,19184487.511291552,19245748.516880408,19299895.76189491,19347717.88844201,19389924.583880767,19427152.522214647,19459971.346733198],"mode":"lines","marker":{},"name":"logistic fit"}];
+            var layout = {"yaxis":{"title":"cell count","mirror":"all","showline":true,"showgrid":false},"xaxis":{"title":"time [Hours]","mirror":"all","showline":true,"showgrid":false}};
+            var config = {};
+            Plotly.newPlot('a33942ea-90a8-4fb0-ad58-a97d9357b80e', data, layout, config);
+});
+            };
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+                var script = document.createElement("script");
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+                script.onload = function(){
+                    renderPlotly_a33942ea90a84fb0ad58a97d9357b80e();
+                };
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }
+            else {
+                renderPlotly_a33942ea90a84fb0ad58a97d9357b80e();
+            }
+</script>
+
+<h2><a name="Calculate-Doubling-Time" class="anchor" href="#Calculate-Doubling-Time">Calculate Doubling Time</a></h2>
+<a href="#Plant-Systems-Biology" style="display: inline-block"><sup>&#8593;back</sup></a><br>
+<div class="container">
+To calculate the doubling time it is necessary to determine the growth rate (gr) for <i>equation 1</i>.
+To get gr we make use of the first and second derivative of the logistic function. They can be calculated by hand or with help 
+of <a href="https://www.ableitungsrechner.net/">derivative calculator</a>.
+<p>The first derivative of the logistic function is:</p>
+<div class="container">
+<img src="https://latex.codecogs.com/gif.latex?\dfrac{kl\mathrm{e}^{k\left(x-m\right)}}{\left(\mathrm{e}^{k\left(x-m\right)}&plus;1\right)^2}" title="\dfrac{kl\mathrm{e}^{k\left(x-m\right)}}{\left(\mathrm{e}^{k\left(x-m\right)}+1\right)^2}" style="margin: 1rem auto 0; display: block" />
+</div>
+<p>The second derivative of the logistic function is:</p>
+<div class="container">
+<img src="https://latex.codecogs.com/gif.latex?-\dfrac{k^2l\left(\mathrm{e}^{k\left(x-m\right)}-1\right)\mathrm{e}^{k\left(x-m\right)}}{\left(\mathrm{e}^{k\left(x-m\right)}&plus;1\right)^3}" title="-\dfrac{k^2l\left(\mathrm{e}^{k\left(x-m\right)}-1\right)\mathrm{e}^{k\left(x-m\right)}}{\left(\mathrm{e}^{k\left(x-m\right)}+1\right)^3}" style="margin: 1rem auto 0; display: block" />
+</div>
+</div>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 5</span>
+
+<span class="c">// calculate fst derivative of logistic function</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs94', 229)" onmouseover="showTip(event, 'fs94', 229)" class="fn">fstDerivative</span> <span onmouseout="hideTip(event, 'fs15', 230)" onmouseover="showTip(event, 'fs15', 230)" class="fn">x</span> <span class="o">=</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs62', 231)" onmouseover="showTip(event, 'fs62', 231)" class="fn">l</span>  <span class="o">=</span> <span onmouseout="hideTip(event, 'fs69', 232)" onmouseover="showTip(event, 'fs69', 232)" class="id">estimateCoefficientsRSS</span><span class="pn">.</span><span class="pn">[</span><span class="n">0</span><span class="pn">]</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs95', 233)" onmouseover="showTip(event, 'fs95', 233)" class="fn">k</span>  <span class="o">=</span> <span onmouseout="hideTip(event, 'fs69', 234)" onmouseover="showTip(event, 'fs69', 234)" class="id">estimateCoefficientsRSS</span><span class="pn">.</span><span class="pn">[</span><span class="n">1</span><span class="pn">]</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs64', 235)" onmouseover="showTip(event, 'fs64', 235)" class="fn">x0</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs69', 236)" onmouseover="showTip(event, 'fs69', 236)" class="id">estimateCoefficientsRSS</span><span class="pn">.</span><span class="pn">[</span><span class="n">2</span><span class="pn">]</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs65', 237)" onmouseover="showTip(event, 'fs65', 237)" class="fn">n</span>  <span class="o">=</span> <span onmouseout="hideTip(event, 'fs69', 238)" onmouseover="showTip(event, 'fs69', 238)" class="id">estimateCoefficientsRSS</span><span class="pn">.</span><span class="pn">[</span><span class="n">3</span><span class="pn">]</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs96', 239)" onmouseover="showTip(event, 'fs96', 239)" class="fn">exp</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs35', 240)" onmouseover="showTip(event, 'fs35', 240)" class="id">System</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs36', 241)" onmouseover="showTip(event, 'fs36', 241)" class="rt">Math</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs37', 242)" onmouseover="showTip(event, 'fs37', 242)" class="id">Exp</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs95', 243)" onmouseover="showTip(event, 'fs95', 243)" class="fn">k</span><span class="o">*</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs15', 244)" onmouseover="showTip(event, 'fs15', 244)" class="fn">x</span><span class="o">-</span><span onmouseout="hideTip(event, 'fs64', 245)" onmouseover="showTip(event, 'fs64', 245)" class="fn">x0</span><span class="pn">)</span><span class="pn">)</span>
+    <span class="o">-</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs95', 246)" onmouseover="showTip(event, 'fs95', 246)" class="fn">k</span><span class="o">**</span><span class="n">2.</span><span class="o">*</span><span onmouseout="hideTip(event, 'fs62', 247)" onmouseover="showTip(event, 'fs62', 247)" class="fn">l</span><span class="o">*</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs96', 248)" onmouseover="showTip(event, 'fs96', 248)" class="fn">exp</span> <span class="o">-</span> <span class="n">1.</span><span class="pn">)</span><span class="o">*</span> <span onmouseout="hideTip(event, 'fs96', 249)" onmouseover="showTip(event, 'fs96', 249)" class="fn">exp</span> <span class="pn">)</span> <span class="o">/</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs96', 250)" onmouseover="showTip(event, 'fs96', 250)" class="fn">exp</span> <span class="o">+</span> <span class="n">1.</span><span class="pn">)</span><span class="o">**</span><span class="n">3.</span>
+
+<span class="c">// calculate snd derivative of logistic function </span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs97', 251)" onmouseover="showTip(event, 'fs97', 251)" class="fn">sndDerivative</span> <span onmouseout="hideTip(event, 'fs15', 252)" onmouseover="showTip(event, 'fs15', 252)" class="fn">x</span> <span class="o">=</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs62', 253)" onmouseover="showTip(event, 'fs62', 253)" class="fn">l</span>  <span class="o">=</span> <span onmouseout="hideTip(event, 'fs69', 254)" onmouseover="showTip(event, 'fs69', 254)" class="id">estimateCoefficientsRSS</span><span class="pn">.</span><span class="pn">[</span><span class="n">0</span><span class="pn">]</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs95', 255)" onmouseover="showTip(event, 'fs95', 255)" class="fn">k</span>  <span class="o">=</span> <span onmouseout="hideTip(event, 'fs69', 256)" onmouseover="showTip(event, 'fs69', 256)" class="id">estimateCoefficientsRSS</span><span class="pn">.</span><span class="pn">[</span><span class="n">1</span><span class="pn">]</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs64', 257)" onmouseover="showTip(event, 'fs64', 257)" class="fn">x0</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs69', 258)" onmouseover="showTip(event, 'fs69', 258)" class="id">estimateCoefficientsRSS</span><span class="pn">.</span><span class="pn">[</span><span class="n">2</span><span class="pn">]</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs65', 259)" onmouseover="showTip(event, 'fs65', 259)" class="fn">n</span>  <span class="o">=</span> <span onmouseout="hideTip(event, 'fs69', 260)" onmouseover="showTip(event, 'fs69', 260)" class="id">estimateCoefficientsRSS</span><span class="pn">.</span><span class="pn">[</span><span class="n">3</span><span class="pn">]</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs96', 261)" onmouseover="showTip(event, 'fs96', 261)" class="fn">exp</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs35', 262)" onmouseover="showTip(event, 'fs35', 262)" class="id">System</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs36', 263)" onmouseover="showTip(event, 'fs36', 263)" class="rt">Math</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs37', 264)" onmouseover="showTip(event, 'fs37', 264)" class="id">Exp</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs95', 265)" onmouseover="showTip(event, 'fs95', 265)" class="fn">k</span><span class="o">*</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs15', 266)" onmouseover="showTip(event, 'fs15', 266)" class="fn">x</span><span class="o">-</span><span onmouseout="hideTip(event, 'fs64', 267)" onmouseover="showTip(event, 'fs64', 267)" class="fn">x0</span><span class="pn">)</span><span class="pn">)</span>
+    <span class="pn">(</span><span onmouseout="hideTip(event, 'fs95', 268)" onmouseover="showTip(event, 'fs95', 268)" class="fn">k</span><span class="o">*</span><span onmouseout="hideTip(event, 'fs62', 269)" onmouseover="showTip(event, 'fs62', 269)" class="fn">l</span><span class="o">*</span><span onmouseout="hideTip(event, 'fs96', 270)" onmouseover="showTip(event, 'fs96', 270)" class="fn">exp</span><span class="pn">)</span> <span class="o">/</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs96', 271)" onmouseover="showTip(event, 'fs96', 271)" class="fn">exp</span> <span class="o">+</span> <span class="n">1.</span><span class="pn">)</span><span class="o">**</span><span class="n">2.</span>
+
+<span class="c">// calculate derivatives to corresponding x values</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs98', 272)" onmouseover="showTip(event, 'fs98', 272)" class="fn">yValuesOfDerivative</span> <span onmouseout="hideTip(event, 'fs99', 273)" onmouseover="showTip(event, 'fs99', 273)" class="fn">fkt</span> <span class="o">=</span> 
+    <span class="pn">[|</span><span class="o">0.</span> <span class="o">..</span> <span class="n">0.5</span> <span class="o">..</span> <span onmouseout="hideTip(event, 'fs7', 274)" onmouseover="showTip(event, 'fs7', 274)" class="id">exmp_x_Hours</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 275)" onmouseover="showTip(event, 'fs12', 275)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs63', 276)" onmouseover="showTip(event, 'fs63', 276)" class="id">max</span><span class="pn">|]</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 277)" onmouseover="showTip(event, 'fs12', 277)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs40', 278)" onmouseover="showTip(event, 'fs40', 278)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs15', 279)" onmouseover="showTip(event, 'fs15', 279)" class="fn">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs15', 280)" onmouseover="showTip(event, 'fs15', 280)" class="fn">x</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs99', 281)" onmouseover="showTip(event, 'fs99', 281)" class="fn">fkt</span> <span onmouseout="hideTip(event, 'fs15', 282)" onmouseover="showTip(event, 'fs15', 282)" class="fn">x</span><span class="pn">)</span>
+    
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs100', 283)" onmouseover="showTip(event, 'fs100', 283)" class="id">fitAllLogisticFunc</span> <span class="o">=</span>
+    <span class="pn">[</span>
+        <span onmouseout="hideTip(event, 'fs20', 284)" onmouseover="showTip(event, 'fs20', 284)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs42', 285)" onmouseover="showTip(event, 'fs42', 285)" class="id">Line</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs98', 286)" onmouseover="showTip(event, 'fs98', 286)" class="fn">yValuesOfDerivative</span> <span onmouseout="hideTip(event, 'fs94', 287)" onmouseover="showTip(event, 'fs94', 287)" class="fn">fstDerivative</span><span class="pn">)</span><span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 288)" onmouseover="showTip(event, 'fs20', 288)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs43', 289)" onmouseover="showTip(event, 'fs43', 289)" class="id">withTraceName</span> <span class="s">&quot;fst derivative&quot;</span>
+        <span onmouseout="hideTip(event, 'fs20', 290)" onmouseover="showTip(event, 'fs20', 290)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs42', 291)" onmouseover="showTip(event, 'fs42', 291)" class="id">Line</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs98', 292)" onmouseover="showTip(event, 'fs98', 292)" class="fn">yValuesOfDerivative</span> <span onmouseout="hideTip(event, 'fs97', 293)" onmouseover="showTip(event, 'fs97', 293)" class="fn">sndDerivative</span><span class="pn">)</span><span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 294)" onmouseover="showTip(event, 'fs20', 294)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs43', 295)" onmouseover="showTip(event, 'fs43', 295)" class="id">withTraceName</span> <span class="s">&quot;snd derivative&quot;</span>
+    <span class="pn">]</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 296)" onmouseover="showTip(event, 'fs20', 296)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs53', 297)" onmouseover="showTip(event, 'fs53', 297)" class="id">Combine</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 298)" onmouseover="showTip(event, 'fs20', 298)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs55', 299)" onmouseover="showTip(event, 'fs55', 299)" class="id">withY_Axis</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs44', 300)" onmouseover="showTip(event, 'fs44', 300)" class="fn">templateAxis</span> <span class="s">&quot;slope or curvature&quot;</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 301)" onmouseover="showTip(event, 'fs20', 301)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs54', 302)" onmouseover="showTip(event, 'fs54', 302)" class="id">withX_Axis</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs44', 303)" onmouseover="showTip(event, 'fs44', 303)" class="fn">templateAxis</span> <span class="s">&quot;time [hours]&quot;</span><span class="pn">)</span>
+</code></pre>
+<div id="12f90226-f478-43a8-b29d-b89d6a490f1a" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<script type="text/javascript">
+
+            var renderPlotly_12f90226f47843a8b29db89d6a490f1a = function() {
+            var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
+            fsharpPlotlyRequire(['plotly'], function(Plotly) {
+
+            var data = [{"type":"scatter","x":[0.0,0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0,5.5,6.0,6.5,7.0,7.5,8.0,8.5,9.0,9.5,10.0,10.5,11.0,11.5,12.0,12.5,13.0,13.5,14.0,14.5,15.0,15.5,16.0,16.5,17.0,17.5,18.0,18.5,19.0,19.5,20.0,20.5,21.0,21.5,22.0,22.5,23.0,23.5,24.0,24.5,25.0,25.5,26.0,26.5,27.0,27.5,28.0,28.5,29.0,29.5,30.0,30.5,31.0,31.5,32.0,32.5,33.0,33.5,34.0,34.5,35.0,35.5,36.0,36.5,37.0,37.5,38.0,38.5,39.0,39.5,40.0,40.5,41.0,41.5,42.0,42.5,43.0,43.5,44.0,44.5,45.0,45.5,46.0,46.5,47.0,47.5,48.0,48.5,49.0,49.5,50.0,50.5,51.0,51.5,52.0,52.5,53.0,53.5,54.0,54.5,55.0,55.5,56.0,56.5,57.0,57.5,58.0,58.5,59.0,59.5,60.0,60.5,61.0,61.5,62.0,62.5,63.0,63.5,64.0,64.5,65.0,65.5,66.0,66.5,67.0,67.5],"y":[3551.72073781862,3777.8937928557475,4017.5939884897025,4271.510135682126,4540.349121165499,4824.833681373931,5125.699644023785,5443.692566850858,5779.563696868922,6134.065167350835,6507.944343690394,6901.937223558289,7316.760791543541,7753.104224047656,8211.618836905875,8692.906666448578,9197.507574956866,9725.884774261194,10278.408667213518,10855.338916652016,11456.804666078437,12082.78285646795,12733.074610388201,13407.279688929255,14104.769069879436,14824.655748152707,15565.7639226529,16326.596808394195,17105.303399426222,17899.644607270533,18706.95931107266,19524.130978861704,20347.555652825693,21173.112233120584,21996.136141158582,22811.39759009122,23613.08583150179,24394.800875896042,25149.554291704862,25869.780763029623,26547.362118853394,27173.66552353144,27739.597427205317,28235.67470267929,28652.114130625687,28978.941028214023,29206.117341173976,29323.688934333117,29321.951125250212,29191.63072139305,28924.081963388286,28511.492874150248,27947.097604140232,27225.38949293906,26342.32878988609,25295.53834926789,24084.48019692742,22710.605710490403,21177.47231196401,19490.820073581566,17658.602502082904,15690.966988116355,13600.181956821849,11400.509578465888,9108.024915968317,6740.384500774866,4316.549426835727,1856.470014710723,-619.259193618629,-3089.7640000779484,-5534.263664379553,-7932.441157232413,-10264.799276940164,-12512.992008865795,-14660.121641946898,-16690.993697231726,-18592.323573028352,-20352.890856597245,-21963.63937351772,-23417.72312552703,-24710.500199182283,-25839.47842213916,-26804.217934515178,-27606.19688781282,-28248.647166289007,-28736.36735170647,-29075.520148126878,-29273.421190235298,-29338.325628526418,-29279.218174992675,-29105.611462218963,-28827.356672713122,-28454.469483870198,-27996.973489459204,-27464.76243442453,-26867.481860536518,-26214.4301217513,-25514.47819796514,-24776.007315438856,-24006.863067460177,-23214.324511772546,-22405.08659120378,-21585.254168501306,-20760.345972763498,-19935.30681035712,-19114.526485885548,-18301.86399780475,-17500.675709219206,-16713.846339239484,-15943.821767522164,-15192.642789112146,-14461.97909461132,-13753.162879269985,-13067.221602062373,-12404.909521178128,-11766.737725287096,-11153.002460552805,-10563.811622181935,-9999.109337056869,-9458.698611624133,-8942.262057710292,-8449.380739348731,-7979.551207055741,-7532.200803278857,-7106.701334879522,-6702.381216351653,-6318.53619178153,-5954.4387449982305,-5609.346306540114,-5282.508363481189,-4973.1725742573435,-4680.589985771152,-4404.019444539841,-4142.731287731809,-3896.0103938140696,-3663.15866636487],"mode":"lines","marker":{},"name":"fst derivative"},{"type":"scatter","x":[0.0,0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0,5.5,6.0,6.5,7.0,7.5,8.0,8.5,9.0,9.5,10.0,10.5,11.0,11.5,12.0,12.5,13.0,13.5,14.0,14.5,15.0,15.5,16.0,16.5,17.0,17.5,18.0,18.5,19.0,19.5,20.0,20.5,21.0,21.5,22.0,22.5,23.0,23.5,24.0,24.5,25.0,25.5,26.0,26.5,27.0,27.5,28.0,28.5,29.0,29.5,30.0,30.5,31.0,31.5,32.0,32.5,33.0,33.5,34.0,34.5,35.0,35.5,36.0,36.5,37.0,37.5,38.0,38.5,39.0,39.5,40.0,40.5,41.0,41.5,42.0,42.5,43.0,43.5,44.0,44.5,45.0,45.5,46.0,46.5,47.0,47.5,48.0,48.5,49.0,49.5,50.0,50.5,51.0,51.5,52.0,52.5,53.0,53.5,54.0,54.5,55.0,55.5,56.0,56.5,57.0,57.5,58.0,58.5,59.0,59.5,60.0,60.5,61.0,61.5,62.0,62.5,63.0,63.5,64.0,64.5,65.0,65.5,66.0,66.5,67.0,67.5],"y":[27997.55042954533,29829.404525640653,31777.698635375098,33849.3677386603,36051.69582236704,38392.32438248587,40879.25968297677,43520.87848776192,46325.93194554013,49303.54726723811,52463.22679299692,55814.84399971804,59368.635951566655,63135.19164478068,67125.43564513883,71350.60636216526,75822.2282494707,80552.07716668647,85552.13808667105,90834.55428382658,96411.56709760898,102295.44533222217,108498.40333209233,115032.50676655008,121909.5651702533,129141.01032282092,136737.75961698365,144710.06366481725,153067.33753220277,161817.97517870058,170969.14691974907,180526.5800265311,190494.32294153806,200874.49401943758,211667.01620660108,222869.3396499081,234476.15487499651,246479.09989147526,258866.46535929176,271622.902773225,284729.1414727595,298161.72113780427,311892.7472559478,325889.67780686385,340115.15006065735,354526.85688059445,369077.4822040281,383714.70539362234,398381.2838501108,413015.22260764573,427550.03855107696,441915.1253712289,456036.2233961357,469835.99601109535,483234.71154110396,496151.02627630095,508502.86086426536,520208.35869069904,531186.9112664765,541360.232199047,550653.4582275247,558996.2532243154,566323.8891840827,572578.2771846725,577708.9212323071,581673.7688686969,584439.9344411602,585984.2739804646,586293.794597164,585365.8860416064,583208.3673730345,579839.3473102232,575286.9025296156,569588.583672136,562790.7638651008,554947.8489384135,546121.3720349341,536378.9978569549,525793.4632861186,514441.4815545595,502402.6365785915,489758.29259001836,476590.54195036035,462981.21117335884,449010.94188913994,434758.35994001426,420299.3421755003,405706.38696809753,391048.0911334307,376388.73291289236,361787.9580389245,347300.56369901344,332976.3734642296,318860.19494845276,304991.85109310335,291406.2754925406,278133.66204060736,265199.65933650127,252625.6006834418,240428.7610924011,228622.63341450322,217217.2165233366,206219.30931190067,195632.80512412256,185458.98208009748,175696.78555590566,166343.0998272111,157393.0065700895,148840.0285262795,140676.3571805336,132893.06376510544,125480.29330303526,118427.4417318069,111723.31641729723,105356.28058054965,99314.3823229372,93585.46905494288,88157.2882161166,83017.57522449184,78154.12961816373,73554.88035466065,69207.94121948647,65101.65726755868,61224.643183492204,57565.81440158831,54114.41177633268,50860.02054114887,47792.5842386825,44902.414251290305,42180.19550667658,39616.988881527206,37204.23077610313,34933.73028547341,32797.66434865201,30788.571215506843,28899.342532990813],"mode":"lines","marker":{},"name":"snd derivative"}];
+            var layout = {"yaxis":{"title":"slope or curvature","mirror":"all","showline":true,"showgrid":false},"xaxis":{"title":"time [hours]","mirror":"all","showline":true,"showgrid":false}};
+            var config = {};
+            Plotly.newPlot('12f90226-f478-43a8-b29d-b89d6a490f1a', data, layout, config);
+});
+            };
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+                var script = document.createElement("script");
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+                script.onload = function(){
+                    renderPlotly_12f90226f47843a8b29db89d6a490f1a();
+                };
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }
+            else {
+                renderPlotly_12f90226f47843a8b29db89d6a490f1a();
+            }
+</script>
+
+<div class="container">
+We define the region between the maximal and minimal curvature (second derivative) as the time period to derive the growth rate from. 
+An alternative is to just use the slope at the midpoint because this is the point of maximal slope (minimal generation time), but since 
+this calculation would be only dependent from this particular point we go for the more conservative approach.
+<p>When the xValues of the maximal curvatures are identified (either by calculus or by plotting the derivatives) the generation time calculation
+is straight forward (<a href="https://en.wikipedia.org/wiki/Doubling_time">Wikipedia - Doubling time</a>).
+</div></p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 6</span>
+
+<span class="c">// The exponential phase is considered to be between the maximal positive curvature</span>
+<span class="c">// and the minimal negative curvature of the fitting functions (other interpretations possible).</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs101', 307)" onmouseover="showTip(event, 'fs101', 307)" class="id">xValuesOfMaximalCurvature</span> <span class="o">=</span> <span class="pn">[|</span> <span class="n">23.5</span> <span class="pn">;</span> <span class="n">44.0</span> <span class="pn">|]</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs102', 308)" onmouseover="showTip(event, 'fs102', 308)" class="fn">calculateDoublingTimeLogistic</span> <span onmouseout="hideTip(event, 'fs103', 309)" onmouseover="showTip(event, 'fs103', 309)" class="fn">fittingFunction</span> <span class="o">=</span>
+
+    <span class="c">//https://en.wikipedia.org/wiki/Doubling_time</span>
+    <span class="c">// -&gt; Cell culture doubling time</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs104', 310)" onmouseover="showTip(event, 'fs104', 310)" class="fn">growthRate</span> <span onmouseout="hideTip(event, 'fs105', 311)" onmouseover="showTip(event, 'fs105', 311)" class="fn">nCells0</span> <span onmouseout="hideTip(event, 'fs106', 312)" onmouseover="showTip(event, 'fs106', 312)" class="fn">nCellsT</span> <span onmouseout="hideTip(event, 'fs107', 313)" onmouseover="showTip(event, 'fs107', 313)" class="fn">t</span> <span class="o">=</span>
+        <span onmouseout="hideTip(event, 'fs108', 314)" onmouseover="showTip(event, 'fs108', 314)" class="fn">log</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs106', 315)" onmouseover="showTip(event, 'fs106', 315)" class="fn">nCellsT</span><span class="o">/</span><span onmouseout="hideTip(event, 'fs105', 316)" onmouseover="showTip(event, 'fs105', 316)" class="fn">nCells0</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs15', 317)" onmouseover="showTip(event, 'fs15', 317)" class="fn">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs15', 318)" onmouseover="showTip(event, 'fs15', 318)" class="fn">x</span><span class="o">/</span><span onmouseout="hideTip(event, 'fs107', 319)" onmouseover="showTip(event, 'fs107', 319)" class="fn">t</span>
+
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs109', 320)" onmouseover="showTip(event, 'fs109', 320)" class="fn">doublingTime</span> <span onmouseout="hideTip(event, 'fs110', 321)" onmouseover="showTip(event, 'fs110', 321)" class="fn">growthRate</span> <span class="o">=</span>
+        <span class="pn">(</span><span onmouseout="hideTip(event, 'fs108', 322)" onmouseover="showTip(event, 'fs108', 322)" class="fn">log</span><span class="pn">(</span><span class="n">2.</span><span class="pn">)</span><span class="pn">)</span><span class="o">/</span><span onmouseout="hideTip(event, 'fs110', 323)" onmouseover="showTip(event, 'fs110', 323)" class="fn">growthRate</span>
+
+    <span class="c">/// get the corresponding cell counts around the midpoint of the logistic function</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs111', 324)" onmouseover="showTip(event, 'fs111', 324)" class="fn">rootsYY</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs101', 325)" onmouseover="showTip(event, 'fs101', 325)" class="id">xValuesOfMaximalCurvature</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs12', 326)" onmouseover="showTip(event, 'fs12', 326)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs40', 327)" onmouseover="showTip(event, 'fs40', 327)" class="id">map</span> <span onmouseout="hideTip(event, 'fs103', 328)" onmouseover="showTip(event, 'fs103', 328)" class="fn">fittingFunction</span>
+    
+    <span class="c">/// calculate the time difference between both roots</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs112', 329)" onmouseover="showTip(event, 'fs112', 329)" class="fn">diff</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs101', 330)" onmouseover="showTip(event, 'fs101', 330)" class="id">xValuesOfMaximalCurvature</span><span class="id">.</span><span class="pn">[</span><span class="n">1</span><span class="pn">]</span> <span class="o">-</span> <span onmouseout="hideTip(event, 'fs101', 331)" onmouseover="showTip(event, 'fs101', 331)" class="id">xValuesOfMaximalCurvature</span><span class="id">.</span><span class="pn">[</span><span class="n">0</span><span class="pn">]</span>
+    
+    <span class="c">/// get the minimum measured cell count and the maximum measured cell count</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs113', 332)" onmouseover="showTip(event, 'fs113', 332)" class="fn">min</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs114', 333)" onmouseover="showTip(event, 'fs114', 333)" class="fn">max</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs111', 334)" onmouseover="showTip(event, 'fs111', 334)" class="fn">rootsYY</span><span class="id">.</span><span class="pn">[</span><span class="n">0</span><span class="pn">]</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs111', 335)" onmouseover="showTip(event, 'fs111', 335)" class="fn">rootsYY</span><span class="id">.</span><span class="pn">[</span><span class="n">1</span><span class="pn">]</span>
+
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs115', 336)" onmouseover="showTip(event, 'fs115', 336)" class="fn">doublingTime</span> <span class="o">=</span>
+        <span onmouseout="hideTip(event, 'fs104', 337)" onmouseover="showTip(event, 'fs104', 337)" class="fn">growthRate</span> <span onmouseout="hideTip(event, 'fs113', 338)" onmouseover="showTip(event, 'fs113', 338)" class="fn">min</span> <span onmouseout="hideTip(event, 'fs114', 339)" onmouseover="showTip(event, 'fs114', 339)" class="fn">max</span> <span onmouseout="hideTip(event, 'fs112', 340)" onmouseover="showTip(event, 'fs112', 340)" class="fn">diff</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs115', 341)" onmouseover="showTip(event, 'fs115', 341)" class="fn">doublingTime</span>
+
+    <span onmouseout="hideTip(event, 'fs115', 342)" onmouseover="showTip(event, 'fs115', 342)" class="fn">doublingTime</span>
+    
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs115', 343)" onmouseover="showTip(event, 'fs115', 343)" class="id">doublingTime</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs102', 344)" onmouseover="showTip(event, 'fs102', 344)" class="fn">calculateDoublingTimeLogistic</span> <span onmouseout="hideTip(event, 'fs90', 345)" onmouseover="showTip(event, 'fs90', 345)" class="fn">fittingLogisticFunction</span>
+    
+<span onmouseout="hideTip(event, 'fs116', 346)" onmouseover="showTip(event, 'fs116', 346)" class="fn">sprintf</span> <span class="s">&quot;The doubling time is </span><span class="pf">%.2f</span><span class="s"> hours.&quot;</span> <span onmouseout="hideTip(event, 'fs115', 347)" onmouseover="showTip(event, 'fs115', 347)" class="id">doublingTime</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>"The doubling time is 13.12 hours."</code></pre></td></tr></table>
+<nav class="level is-mobile">
+    <div class="level-left">
+        <div class="level-item">
+            <button class="button is-primary is-outlined" onclick="location.href='/JP01_FSharpExcercises.html';">&#171; JP01</button>
+        </div>
+    </div>
+    <div class="level-right">
+        <div class="level-item">
+            <button class="button is-primary is-outlined" onclick="location.href='/JP03_Mass_spectrometry_based_proteomics.html';">JP03 &#187;</button>
+        </div>
+    </div>
+</nav>
+<h2><a name="References" class="anchor" href="#References">References</a></h2>
+<a href="#Plant-Systems-Biology" style="display: inline-block"><sup>&#8593;back</sup></a><br>
+<br>
+<ol>
+<li Value="8" Id="8">Ruffel, S., Krouk, G. & Coruzzi, G. M. A systems view of responses to nutritional cues in Arabidopsis: toward a paradigm shift for predictive network modeling. Plant physiology 152, 445–452; 10.1104/pp.109.148502 (2010).</li>
+<li Id="9"> Minorsky, P. V. Achieving the in Silico Plant. Systems Biology and the Future of Plant Biological Research. Plant physiology 132, 404–409; 10.1104/pp.900076 (2003). <div>
+<li Id="10">Van Norman, Jaimie M & Benfey, P. N. Arabidopsis thaliana as a model organism in systems biology. Wiley interdisciplinary reviews. Systems biology and medicine 1, 372–379; 10.1002/wsbm.25 (2009).</li>
+<li Id="11">Pãcurar, D. I. Model organisms - a journey from the dawn of biological research to the post-genomic era. Romanian Society of Biological Sciences, 4087–4094 (2009).</li>
+<li Id="12">Cagnon, C. et al. Development of a forward genetic screen to isolate oil mutants in the green microalga Chlamydomonas reinhardtii. Biotechnology for biofuels 6, 178; 10.1186/1754-6834-6-178 (2013).</li>
+<li Id="13">Eberhard, S., Finazzi, G. & Wollman, F.-A. The dynamics of photosynthesis. Annual review of genetics 42, 463–515; 10.1146/annurev.genet.42.110807.091452 (2008).</li>
+<li Id="14">Merchant, S. S. et al. The Chlamydomonas genome reveals the evolution of key animal and plant functions. Science (New York, N.Y.) 318, 245–250; 10.1126/science.1143609 (2007).</li>
+<li Id="15">Harris, E. H. The chlamydomonas sourcebook. 2nd ed. (Academic, London, 2008).</li>
+<li Id="16">Bruggeman, F. J. & Westerhoff, H. V. The nature of systems biology. Trends in microbiology 15, 45–50; 10.1016/j.tim.2006.11.003 (2007).</li>
+<li Id="17">Harris, E. H. CHLAMYDOMONAS AS A MODEL ORGANISM. Annual review of plant physiology and plant molecular biology 52, 363–406; 10.1146/annurev.arplant.52.1.363 (2001).</li>
+<li Id="18">Kaplan, S. et al. Comparison of growth curves using non-linear regression function in Japanese squail. Journal of Applied Animal Research 46, 112-117; 10.1080/09712119.2016.1268965 (2018).</li>.
+</ol>
+
+                </div>
+            </div>
+        </div>
+        <div class="fsdocs-tip" id="fs1">namespace Plotly</div>
+<div class="fsdocs-tip" id="fs2">namespace Plotly.NET</div>
+<div class="fsdocs-tip" id="fs3">Multiple items<br />namespace FSharp<br /><br />--------------------<br />namespace Microsoft.FSharp</div>
+<div class="fsdocs-tip" id="fs4">namespace FSharp.Stats</div>
+<div class="fsdocs-tip" id="fs5">namespace FSharp.Stats.Fitting</div>
+<div class="fsdocs-tip" id="fs6">module NonLinearRegression<br /><br />from FSharp.Stats.Fitting</div>
+<div class="fsdocs-tip" id="fs7">val exmp_x_Hours : float []</div>
+<div class="fsdocs-tip" id="fs8">val exmp_y_Count : float []</div>
+<div class="fsdocs-tip" id="fs9">val nan : float</div>
+<div class="fsdocs-tip" id="fs10">val exmp_x_Hours_Filtered : float []<br /><em>&#160;filter out any nans. These could be introduced through missing measurements.</em></div>
+<div class="fsdocs-tip" id="fs11">val exmp_y_Count_Filtered : float []<br /><em>&#160;filter out any nans. These could be introduced through missing measurements.</em></div>
+<div class="fsdocs-tip" id="fs12">Multiple items<br />module Array<br /><br />from FSharp.Stats<br /><br />--------------------<br />module Array<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="fsdocs-tip" id="fs13">val zip : array1:&#39;T1 [] -&gt; array2:&#39;T2 [] -&gt; (&#39;T1 * &#39;T2) []</div>
+<div class="fsdocs-tip" id="fs14">val filter : predicate:(&#39;T -&gt; bool) -&gt; array:&#39;T [] -&gt; &#39;T []</div>
+<div class="fsdocs-tip" id="fs15">val x : float</div>
+<div class="fsdocs-tip" id="fs16">val y : float</div>
+<div class="fsdocs-tip" id="fs17">val isNan : num:&#39;a -&gt; bool (requires equality)</div>
+<div class="fsdocs-tip" id="fs18">val unzip : array:(&#39;T1 * &#39;T2) [] -&gt; &#39;T1 [] * &#39;T2 []</div>
+<div class="fsdocs-tip" id="fs19">val example_Chart_1 : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs20">type Chart =<br />&#160;&#160;static member Area : xy:seq&lt;#IConvertible * #IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:&#39;a2 -&gt; GenericChart<br />&#160;&#160;static member Area : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:&#39;a2 -&gt; GenericChart<br />&#160;&#160;static member Bar : keysvalues:seq&lt;#IConvertible * #IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?Color:&#39;a2 * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Marker:Marker -&gt; GenericChart<br />&#160;&#160;static member Bar : keys:seq&lt;#IConvertible&gt; * values:seq&lt;#IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?Color:&#39;a2 * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Marker:Marker -&gt; GenericChart<br />&#160;&#160;static member BoxPlot : xy:seq&lt;&#39;a0 * &#39;a1&gt; * ?Name:string * ?Showlegend:bool * ?Color:string * ?Fillcolor:&#39;a2 * ?Opacity:float * ?Whiskerwidth:&#39;a3 * ?Boxpoints:Boxpoints * ?Boxmean:BoxMean * ?Jitter:&#39;a4 * ?Pointpos:&#39;a5 * ?Orientation:Orientation * ?Marker:Marker * ?Line:Line * ?Alignmentgroup:&#39;a6 * ?Offsetgroup:&#39;a7 * ?Notched:bool * ?NotchWidth:float * ?QuartileMethod:QuartileMethod -&gt; GenericChart<br />&#160;&#160;static member BoxPlot : ?x:&#39;a0 * ?y:&#39;a1 * ?Name:string * ?Showlegend:bool * ?Color:string * ?Fillcolor:&#39;a2 * ?Opacity:float * ?Whiskerwidth:&#39;a3 * ?Boxpoints:Boxpoints * ?Boxmean:BoxMean * ?Jitter:&#39;a4 * ?Pointpos:&#39;a5 * ?Orientation:Orientation * ?Marker:Marker * ?Line:Line * ?Alignmentgroup:&#39;a6 * ?Offsetgroup:&#39;a7 * ?Notched:bool * ?NotchWidth:float * ?QuartileMethod:QuartileMethod -&gt; GenericChart<br />&#160;&#160;static member Bubble : xysizes:seq&lt;#IConvertible * #IConvertible * #IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?MarkerSymbol:Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool -&gt; GenericChart<br />&#160;&#160;static member Bubble : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * sizes:seq&lt;#IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?MarkerSymbol:Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool -&gt; GenericChart<br />&#160;&#160;static member Candlestick : stockTimeSeries:seq&lt;DateTime * StockData&gt; * ?Increasing:Line * ?Decreasing:Line * ?WhiskerWidth:float * ?Line:Line * ?XCalendar:Calendar -&gt; GenericChart<br />&#160;&#160;static member Candlestick : open:seq&lt;#IConvertible&gt; * high:seq&lt;#IConvertible&gt; * low:seq&lt;#IConvertible&gt; * close:seq&lt;#IConvertible&gt; * x:seq&lt;#IConvertible&gt; * ?Increasing:Line * ?Decreasing:Line * ?WhiskerWidth:float * ?Line:Line * ?XCalendar:Calendar -&gt; GenericChart<br />&#160;&#160;...</div>
+<div class="fsdocs-tip" id="fs21">static member Chart.Point : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?MarkerSymbol:StyleParam.Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:StyleParam.Orientation * ?GroupNorm:StyleParam.GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart<br />static member Chart.Point : x:seq&lt;#System.IConvertible&gt; * y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?MarkerSymbol:StyleParam.Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:StyleParam.Orientation * ?GroupNorm:StyleParam.GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs22">static member Chart.withTitle : title:string * ?Titlefont:Font -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs23">static member Chart.withX_AxisStyle : title:string * ?MinMax:(float * float) * ?Showgrid:bool * ?Showline:bool * ?Side:StyleParam.Side * ?Overlaying:StyleParam.AxisAnchorId * ?Id:int * ?Domain:(float * float) * ?Position:float * ?Zeroline:bool * ?Anchor:StyleParam.AxisAnchorId -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs24">static member Chart.withY_AxisStyle : title:string * ?MinMax:(float * float) * ?Showgrid:bool * ?Showline:bool * ?Side:StyleParam.Side * ?Overlaying:StyleParam.AxisAnchorId * ?Id:int * ?Domain:(float * float) * ?Position:float * ?Zeroline:bool * ?Anchor:StyleParam.AxisAnchorId -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs25">module GenericChart<br /><br />from Plotly.NET</div>
+<div class="fsdocs-tip" id="fs26">val toChartHTML : gChart:GenericChart.GenericChart -&gt; string</div>
+<div class="fsdocs-tip" id="fs27">val expModel : Model</div>
+<div class="fsdocs-tip" id="fs28">module Table<br /><br />from FSharp.Stats.Fitting.NonLinearRegression</div>
+<div class="fsdocs-tip" id="fs29">val solverOptions : SolverOptions</div>
+<div class="fsdocs-tip" id="fs30">val expSolverOptions : xData:float [] -&gt; yData:float [] -&gt; SolverOptions</div>
+<div class="fsdocs-tip" id="fs31">val coefficientsExp : vector</div>
+<div class="fsdocs-tip" id="fs32">module GaussNewton<br /><br />from FSharp.Stats.Fitting.NonLinearRegression</div>
+<div class="fsdocs-tip" id="fs33">val estimatedParams : model:Model -&gt; solverOptions:SolverOptions -&gt; xData:float [] -&gt; yData:float [] -&gt; vector</div>
+<div class="fsdocs-tip" id="fs34">val fittingExpFunction : x:float -&gt; float</div>
+<div class="fsdocs-tip" id="fs35">namespace System</div>
+<div class="fsdocs-tip" id="fs36">type Math =<br />&#160;&#160;static val E : float<br />&#160;&#160;static val PI : float<br />&#160;&#160;static val Tau : float<br />&#160;&#160;static member Abs : value:decimal -&gt; decimal + 6 overloads<br />&#160;&#160;static member Acos : d:float -&gt; float<br />&#160;&#160;static member Acosh : d:float -&gt; float<br />&#160;&#160;static member Asin : d:float -&gt; float<br />&#160;&#160;static member Asinh : d:float -&gt; float<br />&#160;&#160;static member Atan : d:float -&gt; float<br />&#160;&#160;static member Atan2 : y:float * x:float -&gt; float<br />&#160;&#160;...</div>
+<div class="fsdocs-tip" id="fs37">System.Math.Exp(d: float) : float</div>
+<div class="fsdocs-tip" id="fs38">val exp_Chart_1 : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs39">val last : array:&#39;T [] -&gt; &#39;T</div>
+<div class="fsdocs-tip" id="fs40">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []</div>
+<div class="fsdocs-tip" id="fs41">val xValue : float</div>
+<div class="fsdocs-tip" id="fs42">static member Chart.Line : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:StyleParam.Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?Dash:&#39;c * ?Width:&#39;d * ?StackGroup:string * ?Orientation:StyleParam.Orientation * ?GroupNorm:StyleParam.GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart<br />static member Chart.Line : x:seq&lt;#System.IConvertible&gt; * y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:StyleParam.Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?Dash:&#39;a2 * ?Width:&#39;a3 * ?StackGroup:string * ?Orientation:StyleParam.Orientation * ?GroupNorm:StyleParam.GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs43">static member Chart.withTraceName : ?Name:string * ?Showlegend:bool * ?Legendgroup:string * ?Visible:StyleParam.Visible -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs44">val templateAxis : title:string -&gt; Axis.LinearAxis</div>
+<div class="fsdocs-tip" id="fs45">val title : string</div>
+<div class="fsdocs-tip" id="fs46">module Axis<br /><br />from Plotly.NET</div>
+<div class="fsdocs-tip" id="fs47">Multiple items<br />type LinearAxis =<br />&#160;&#160;inherit DynamicObj<br />&#160;&#160;new : unit -&gt; LinearAxis<br />&#160;&#160;static member init : ?AxisType:AxisType * ?Title:string * ?Titlefont:Font * ?Autorange:AutoRange * ?Rangemode:RangeMode * ?Range:Range * ?RangeSlider:RangeSlider * ?Fixedrange:&#39;a * ?Tickmode:TickMode * ?nTicks:&#39;b * ?Tick0:&#39;c * ?dTick:&#39;d * ?Tickvals:&#39;e * ?Ticktext:&#39;f * ?Ticks:TickOptions * ?Mirror:Mirror * ?Ticklen:&#39;g * ?Tickwidth:&#39;h * ?Tickcolor:&#39;i * ?Showticklabels:&#39;j * ?Tickfont:Font * ?Tickangle:&#39;k * ?Tickprefix:&#39;l * ?Showtickprefix:ShowTickOption * ?Ticksuffix:&#39;m * ?Showticksuffix:ShowTickOption * ?Showexponent:ShowExponent * ?Exponentformat:ExponentFormat * ?Tickformat:&#39;n * ?Hoverformat:&#39;o * ?Showline:bool * ?Linecolor:&#39;p * ?Linewidth:&#39;q * ?Showgrid:bool * ?Gridcolor:&#39;r * ?Gridwidth:&#39;s * ?Zeroline:bool * ?Zerolinecolor:&#39;t * ?Zerolinewidth:&#39;a1 * ?Anchor:AxisAnchorId * ?Side:Side * ?Overlaying:AxisAnchorId * ?Domain:Range * ?Position:float * ?IsSubplotObj:&#39;a2 * ?Tickvalssrc:&#39;a3 * ?Ticktextsrc:&#39;a4 * ?Showspikes:&#39;a5 * ?Spikesides:&#39;a6 * ?Spikethickness:&#39;a7 * ?Spikecolor:&#39;a8 * ?Showbackground:&#39;a9 * ?Backgroundcolor:&#39;a10 * ?Showaxeslabels:&#39;a11 -&gt; LinearAxis<br />&#160;&#160;static member style : ?AxisType:AxisType * ?Title:string * ?Titlefont:Font * ?Autorange:AutoRange * ?Rangemode:RangeMode * ?Range:Range * ?RangeSlider:RangeSlider * ?Fixedrange:&#39;a * ?Tickmode:TickMode * ?nTicks:&#39;b * ?Tick0:&#39;c * ?dTick:&#39;d * ?Tickvals:&#39;e * ?Ticktext:&#39;f * ?Ticks:TickOptions * ?Mirror:Mirror * ?Ticklen:&#39;g * ?Tickwidth:&#39;h * ?Tickcolor:&#39;i * ?Showticklabels:&#39;j * ?Tickfont:Font * ?Tickangle:&#39;k * ?Tickprefix:&#39;l * ?Showtickprefix:ShowTickOption * ?Ticksuffix:&#39;m * ?Showticksuffix:ShowTickOption * ?Showexponent:ShowExponent * ?Exponentformat:ExponentFormat * ?Tickformat:&#39;n * ?Hoverformat:&#39;o * ?Showline:bool * ?Linecolor:&#39;p * ?Linewidth:&#39;q * ?Showgrid:bool * ?Gridcolor:&#39;r * ?Gridwidth:&#39;s * ?Zeroline:bool * ?Zerolinecolor:&#39;t * ?Zerolinewidth:&#39;a1 * ?Anchor:AxisAnchorId * ?Side:Side * ?Overlaying:AxisAnchorId * ?Domain:Range * ?Position:float * ?IsSubplotObj:&#39;a2 * ?Tickvalssrc:&#39;a3 * ?Ticktextsrc:&#39;a4 * ?Showspikes:&#39;a5 * ?Spikesides:&#39;a6 * ?Spikethickness:&#39;a7 * ?Spikecolor:&#39;a8 * ?Showbackground:&#39;a9 * ?Backgroundcolor:&#39;a10 * ?Showaxeslabels:&#39;a11 -&gt; (LinearAxis -&gt; LinearAxis)<br /><br />--------------------<br />new : unit -&gt; Axis.LinearAxis</div>
+<div class="fsdocs-tip" id="fs48">static member Axis.LinearAxis.init : ?AxisType:StyleParam.AxisType * ?Title:string * ?Titlefont:Font * ?Autorange:StyleParam.AutoRange * ?Rangemode:StyleParam.RangeMode * ?Range:StyleParam.Range * ?RangeSlider:RangeSlider * ?Fixedrange:&#39;a * ?Tickmode:StyleParam.TickMode * ?nTicks:&#39;b * ?Tick0:&#39;c * ?dTick:&#39;d * ?Tickvals:&#39;e * ?Ticktext:&#39;f * ?Ticks:StyleParam.TickOptions * ?Mirror:StyleParam.Mirror * ?Ticklen:&#39;g * ?Tickwidth:&#39;h * ?Tickcolor:&#39;i * ?Showticklabels:&#39;j * ?Tickfont:Font * ?Tickangle:&#39;k * ?Tickprefix:&#39;l * ?Showtickprefix:StyleParam.ShowTickOption * ?Ticksuffix:&#39;m * ?Showticksuffix:StyleParam.ShowTickOption * ?Showexponent:StyleParam.ShowExponent * ?Exponentformat:StyleParam.ExponentFormat * ?Tickformat:&#39;n * ?Hoverformat:&#39;o * ?Showline:bool * ?Linecolor:&#39;p * ?Linewidth:&#39;q * ?Showgrid:bool * ?Gridcolor:&#39;r * ?Gridwidth:&#39;s * ?Zeroline:bool * ?Zerolinecolor:&#39;t * ?Zerolinewidth:&#39;a1 * ?Anchor:StyleParam.AxisAnchorId * ?Side:StyleParam.Side * ?Overlaying:StyleParam.AxisAnchorId * ?Domain:StyleParam.Range * ?Position:float * ?IsSubplotObj:&#39;a2 * ?Tickvalssrc:&#39;a3 * ?Ticktextsrc:&#39;a4 * ?Showspikes:&#39;a5 * ?Spikesides:&#39;a6 * ?Spikethickness:&#39;a7 * ?Spikecolor:&#39;a8 * ?Showbackground:&#39;a9 * ?Backgroundcolor:&#39;a10 * ?Showaxeslabels:&#39;a11 -&gt; Axis.LinearAxis</div>
+<div class="fsdocs-tip" id="fs49">module StyleParam<br /><br />from Plotly.NET</div>
+<div class="fsdocs-tip" id="fs50">type Mirror =<br />&#160;&#160;| True<br />&#160;&#160;| Ticks<br />&#160;&#160;| False<br />&#160;&#160;| All<br />&#160;&#160;| AllTicks<br />&#160;&#160;&#160;&#160;static member convert : (Mirror -&gt; obj)<br />&#160;&#160;&#160;&#160;static member toString : (Mirror -&gt; string)</div>
+<div class="fsdocs-tip" id="fs51">union case StyleParam.Mirror.All: StyleParam.Mirror</div>
+<div class="fsdocs-tip" id="fs52">val exponentialFitChart : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs53">static member Chart.Combine : gCharts:seq&lt;GenericChart.GenericChart&gt; -&gt; GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs54">static member Chart.withX_Axis : xAxis:Axis.LinearAxis * ?Id:int -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs55">static member Chart.withY_Axis : yAxis:Axis.LinearAxis * ?Id:int -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs56">static member Chart.withSize : width:float * height:float -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs57">val modelLogistic : Model</div>
+<div class="fsdocs-tip" id="fs58">val LogisticFunctionVarYAscending : Model</div>
+<div class="fsdocs-tip" id="fs59">val lineSolverOptions : initialParamGuess:float [] -&gt; SolverOptions</div>
+<div class="fsdocs-tip" id="fs60">val initialParamGuess : float []</div>
+<div class="fsdocs-tip" id="fs61">val initialGuess : SolverOptions []</div>
+<div class="fsdocs-tip" id="fs62">val l : float</div>
+<div class="fsdocs-tip" id="fs63">val max : array:&#39;T [] -&gt; &#39;T (requires comparison)</div>
+<div class="fsdocs-tip" id="fs64">val x0 : float</div>
+<div class="fsdocs-tip" id="fs65">val n : float</div>
+<div class="fsdocs-tip" id="fs66">val min : array:&#39;T [] -&gt; &#39;T (requires comparison)</div>
+<div class="fsdocs-tip" id="fs67">val steepnessRange : float []</div>
+<div class="fsdocs-tip" id="fs68">val steepness : float</div>
+<div class="fsdocs-tip" id="fs69">val estimateCoefficientsRSS : vector</div>
+<div class="fsdocs-tip" id="fs70">val solvOpt : SolverOptions</div>
+<div class="fsdocs-tip" id="fs71">val lowerBound : Vector&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs72">SolverOptions.InitialParamGuess: float []</div>
+<div class="fsdocs-tip" id="fs73">val param : float</div>
+<div class="fsdocs-tip" id="fs74">val abs : value:&#39;T -&gt; &#39;T (requires member Abs)</div>
+<div class="fsdocs-tip" id="fs75">Multiple items<br />val vector : l:seq&lt;float&gt; -&gt; Vector&lt;float&gt;<br /><br />--------------------<br />type vector = Vector&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs76">val upperBound : Vector&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs77">module LevenbergMarquardtConstrained<br /><br />from FSharp.Stats.Fitting.NonLinearRegression</div>
+<div class="fsdocs-tip" id="fs78">val estimatedParamsWithRSS : model:Model -&gt; solverOptions:SolverOptions -&gt; lambdaInitial:float -&gt; lambdaFactor:float -&gt; lowerBound:vector -&gt; upperBound:vector -&gt; xData:float [] -&gt; yData:float [] -&gt; vector * float</div>
+<div class="fsdocs-tip" id="fs79">val coeffs : vector</div>
+<div class="fsdocs-tip" id="fs80">val rss : float</div>
+<div class="fsdocs-tip" id="fs81">val not : value:bool -&gt; bool</div>
+<div class="fsdocs-tip" id="fs82">Multiple items<br />module Vector<br /><br />from FSharp.Stats<br /><br />--------------------<br />type Vector&lt;&#39;T&gt; =<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;interface IStructuralEquatable<br />&#160;&#160;interface IStructuralComparable<br />&#160;&#160;interface IComparable<br />&#160;&#160;new : opsV:INumeric&lt;&#39;T&gt; option * arrV:&#39;T array -&gt; Vector&lt;&#39;T&gt;<br />&#160;&#160;override Equals : yobj:obj -&gt; bool<br />&#160;&#160;override GetHashCode : unit -&gt; int<br />&#160;&#160;member GetSlice : start:int option * finish:int option -&gt; Vector&lt;&#39;T&gt;<br />&#160;&#160;member Permute : p:permutation -&gt; Vector&lt;&#39;T&gt;<br />&#160;&#160;...<br /><br />--------------------<br />new : opsV:INumeric&lt;&#39;T&gt; option * arrV:&#39;T array -&gt; Vector&lt;&#39;T&gt;</div>
+<div class="fsdocs-tip" id="fs83">val exists : predicate:(float -&gt; bool) -&gt; vector:vector -&gt; bool</div>
+<div class="fsdocs-tip" id="fs84">type Double =<br />&#160;&#160;struct<br />&#160;&#160;&#160;&#160;member CompareTo : value:float -&gt; int + 1 overload<br />&#160;&#160;&#160;&#160;member Equals : obj:float -&gt; bool + 1 overload<br />&#160;&#160;&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;&#160;&#160;member GetTypeCode : unit -&gt; TypeCode<br />&#160;&#160;&#160;&#160;member ToString : unit -&gt; string + 3 overloads<br />&#160;&#160;&#160;&#160;member TryFormat : destination:Span&lt;char&gt; * charsWritten:int * ?format:ReadOnlySpan&lt;char&gt; * ?provider:IFormatProvider -&gt; bool<br />&#160;&#160;&#160;&#160;static val Epsilon : float<br />&#160;&#160;&#160;&#160;static val MaxValue : float<br />&#160;&#160;&#160;&#160;static val MinValue : float<br />&#160;&#160;&#160;&#160;static val NaN : float<br />&#160;&#160;&#160;&#160;...<br />&#160;&#160;end</div>
+<div class="fsdocs-tip" id="fs85">System.Double.IsNaN(d: float) : bool</div>
+<div class="fsdocs-tip" id="fs86">val minBy : projection:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;T (requires comparison)</div>
+<div class="fsdocs-tip" id="fs87">val snd : tuple:(&#39;T1 * &#39;T2) -&gt; &#39;T2</div>
+<div class="fsdocs-tip" id="fs88">val solCoeffs : vector</div>
+<div class="fsdocs-tip" id="fs89">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T</div>
+<div class="fsdocs-tip" id="fs90">val fittingLogisticFunction : (float -&gt; float)</div>
+<div class="fsdocs-tip" id="fs91">Model.GetFunctionValue: Vector&lt;float&gt; -&gt; float -&gt; float</div>
+<div class="fsdocs-tip" id="fs92">val fittedY : (float * float) []</div>
+<div class="fsdocs-tip" id="fs93">val fittedLogisticFunc : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs94">val fstDerivative : x:float -&gt; float</div>
+<div class="fsdocs-tip" id="fs95">val k : float</div>
+<div class="fsdocs-tip" id="fs96">val exp : float</div>
+<div class="fsdocs-tip" id="fs97">val sndDerivative : x:float -&gt; float</div>
+<div class="fsdocs-tip" id="fs98">val yValuesOfDerivative : fkt:(float -&gt; &#39;a) -&gt; (float * &#39;a) []</div>
+<div class="fsdocs-tip" id="fs99">val fkt : (float -&gt; &#39;a)</div>
+<div class="fsdocs-tip" id="fs100">val fitAllLogisticFunc : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs101">val xValuesOfMaximalCurvature : float []</div>
+<div class="fsdocs-tip" id="fs102">val calculateDoublingTimeLogistic : fittingFunction:(float -&gt; float) -&gt; float</div>
+<div class="fsdocs-tip" id="fs103">val fittingFunction : (float -&gt; float)</div>
+<div class="fsdocs-tip" id="fs104">val growthRate : (float -&gt; float -&gt; float -&gt; float)</div>
+<div class="fsdocs-tip" id="fs105">val nCells0 : float</div>
+<div class="fsdocs-tip" id="fs106">val nCellsT : float</div>
+<div class="fsdocs-tip" id="fs107">val t : float</div>
+<div class="fsdocs-tip" id="fs108">val log : value:&#39;T -&gt; &#39;T (requires member Log)</div>
+<div class="fsdocs-tip" id="fs109">val doublingTime : (float -&gt; float)</div>
+<div class="fsdocs-tip" id="fs110">val growthRate : float</div>
+<div class="fsdocs-tip" id="fs111">val rootsYY : float []<br /><em>&#160;get the corresponding cell counts around the midpoint of the logistic function</em></div>
+<div class="fsdocs-tip" id="fs112">val diff : float<br /><em>&#160;calculate the time difference between both roots</em></div>
+<div class="fsdocs-tip" id="fs113">val min : float<br /><em>&#160;get the minimum measured cell count and the maximum measured cell count</em></div>
+<div class="fsdocs-tip" id="fs114">val max : float<br /><em>&#160;get the minimum measured cell count and the maximum measured cell count</em></div>
+<div class="fsdocs-tip" id="fs115">val doublingTime : float</div>
+<div class="fsdocs-tip" id="fs116">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T</div>
+
+    </div>
+
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <script type="text/javascript">var fsdocs_search_baseurl = '/BIO-BTE-06-L-7/'</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+    <script type="text/javascript" src="/BIO-BTE-06-L-7/content/fsdocs-search.js"></script>
+    <!-- END SEARCH BOX: this adds support for the search box -->
+</body>
+
+</html>
