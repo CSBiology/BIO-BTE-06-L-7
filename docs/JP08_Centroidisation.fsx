@@ -120,7 +120,7 @@ let filteredChart =
 
 (***hide***)
 filteredChart |> GenericChart.toChartHTML
-(***include-it-raw*)
+(***include-it-raw***)
 
 (**
 <hr>
