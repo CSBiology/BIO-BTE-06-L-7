@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>JP11_Quantification</title>
+    <title>Quantification
+</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="">
     <link rel="shortcut icon" type="image/x-icon" href="/BIO-BTE-06-L-7//img/favicon.ico">
@@ -89,7 +90,8 @@
 </li>             
 <li class="nav-item">
   <a class="nav-link" href="/BIO-BTE-06-L-7/JP11_Quantification.html">
-    JP11_Quantification
+    Quantification
+
   </a>
 </li>             
 <li class="nav-item">
@@ -176,11 +178,300 @@
         <div class="column is-10 is-paddingless has-text-justified	">
             <div class="section pt-4">
                 <div class="container" id="fsdocs-content">
-                    
+                    <h1><a name="Quantification" class="anchor" href="#Quantification">Quantification</a></h1>
+<ol>
+<li>
+<a href="#Quantification-Theory">Quantification Theory</a><br>
+<ol>
+<li><a href="#Targeted-quantification">Targeted quantification</a></li>
+<li><a href="#(i)-Targeted-acquisition-at-peptide">(i) Targeted acquisition at peptide</a></li>
+<li><a href="#(ii)-Targeted-data-analysis-at-peptide-ion-level">(ii) Targeted data analysis at peptide ion level</a></li>
+</ol>
+</li>
+<li><a href="#References">References</a></li>
+</ol>
+<h2><a name="Quantification-Theory" class="anchor" href="#Quantification-Theory">Quantification Theory</a></h2>
+<a href="#Quantification" style="display: inline-block"><sup>&#8593;back</sup></a><br>
+<div class="container">
+To estimate the amount of individual proteins in complex mixtures, all peptide signals corresponding to a common protein serve as a 
+proxy for their abundance. Peptide information needs to be obtained from multidimensional signal data detected by the mass spectrometer. 
+All signals generated from one peptide ion species, often referred to as peptide feature, need to be grouped to form a three-dimensional peak 
+along the m/z, ion intensity, and retention time dimension. This process is generally defined as peak detection or feature detection. 
+Peak detection algorithms are a set of rules defining how neighboring signal points are joined. Whether noise filtering is done before or after 
+peak detection strongly depends on the peak detection algorithm. Traditional approaches mainly focused on signal amplitude neglecting 
+characteristic peak shapes as a common feature of chromatographic or spectroscopic peaks. These algorithms are prone to miss detection of low 
+intensity peaks with a signal strength close to the noise level. To overcome these issues, techniques like smoothing, shape-matching and curve 
+fitting are often implemented and applied. At the time, the most promising approach to do shape-matching and noise reduction in one step uses the 
+continuous wavelet transformation (CWT).
+<p>In general, a CWT based approach describes a family of time-frequency-transformations often used in data compression and feature detection.
+The term is coined by the use of a wavelet, as a basis function which is “compared” to the signal. The point of highest correlation between the
+basis function and the signal reflects the location of the peak present. Due to the fact that MS derived peaks often follow the shape of a
+gaussian distribution, the <i>Mexican Hat</i> wavelet as the negative normalized second derivative of the Gaussian distribution is perfectly
+suited to find the peptide feature.</p>
+<div Id="figure5" Style="float: right ; display: inline-block ; color: #44546a ; width: 70% ; padding: 15px">
+    <img src="img/Wavelets.png" Style="width: 100%">
+    <div Style="padding-left: 1rem ; padding-right: 1rem ; text-align: justify ; font-size: 0.8rem">
+        <b>Figure 5: Schematic representation of the ‘Haar’-wavelet (blue) and the ‘Mexican Hat’- wavelet (green). </b>The ‘Haar’-wavelet is 
+        named after its discoverer Alfred Haar and represents the first wavelet ever to be described. The ‘Mexican Hat’- or ‘Ricker’-wavelet is 
+        frequently used in the fields of signal detection and compression.
+    </div>
+</div>    
+<p>Depending on the quantification approach, the peptide features used for protein quantification might differ. In case of isotopic labeling,
+quantification means pairing features with the proper mass shift according to the utilized label. It is essential to account for the frequency
+of label incorporation when calculating the mass shift for the utilized label. Taking the ICAT method as an example, by which a heavy/light
+difference of 9 Dalton per cysteine is incorporated, the total mass shift is 9 Dalton times the number of cysteine within the sequence.
+Consequently, pairing peptide features for <sup>15</sup>N labeling is even more challenging, as the mass shift is less discrete. Using stable
+isotope labeling, different peptide feature pairs belonging to the same protein can be treated as technical replicates and averaged to gain
+protein quantification. In contrast, the sum of all extracted peptide signals results in a label-free protein quantiﬁcation. Spectral counting
+computes abundance values from the number of times a peptide was successfully identiﬁed by tandem mass spectrometry (MS/MS) and combines all
+these events per protein. The spectral counting values can be normalized by the number of peptides theoretically expected from the particular
+protein.</p>
+<div Style="float: right ; display: inline-block ; color: #44546a ; width: 100% ; padding: 15px; max-width: 800px">
+    <img src="img/ComputationalProteinQuantification.png" Style="width: 100%">
+    <div Style="padding-left: 1rem ; padding-right: 1rem ; text-align: justify ; font-size: 0.8rem">
+        <b>Figure 6: Computational strategy of peptide and protein quantiﬁcation on based on stable isotope labeling or by label-free 
+        quantiﬁcation.</b> (A) Label-free methods compare corresponding peptide abundances over different MS runs. The abundance is either 
+        estimated by the elution proﬁle les of the pep de ions or (B) in case of spectral counting, by the number of times a peptide was 
+        successfully identiﬁed (MS2). In contrast, methods based on differential stable isotope labeling analyze peptides pairs detected by 
+        their characteristic mass diﬀerence Δm/z. The abundance is estimated by the ratio of their corresponding elution proﬁles (C). Isobaric 
+        tagging methods (D) compare the reporter ion abundances in the fragmentation spectrum.
+    </div>
+</div>
+</div>
+<h3><a name="Targeted-quantification" class="anchor" href="#Targeted-quantification">Targeted quantification</a></h3>
+<a href="#Quantification" style="display: inline-block"><sup>&#8593;back</sup></a><br>
+<div class="container">
+Targeted proteomics has gained significant popularity in mass spectrometry‐based protein quantification as a method to detect proteins of 
+interest with high sensitivity, quantitative accuracy and reproducibility. The two major strategies of (i) targeted acquisition at peptide, 
+and (ii) targeted data analysis at peptide ion level need to be distinguished.
+</div>
+<h3><a name="i-Targeted-acquisition-at-peptide" class="anchor" href="#i-Targeted-acquisition-at-peptide">(i) Targeted acquisition at peptide</a></h3>
+<a href="#Quantification" style="display: inline-block"><sup>&#8593;back</sup></a><br>
+<div class="container">
+In multiple reaction monitoring (MRM or SRM for single/selected reaction monitoring) simply predefined transitions are recorded. 
+Knowledge about the targeted transitions from precursor to their corresponding fragment ions are needed and predefined in the mass 
+spectrometer. MRM can be performed rapidly and is highly specific even for low abundant peptide ions in complex mixtures, but with the 
+drawback of a necessary bias in the sense that only predefined peptides are measured.
+</div>
+<h3><a name="ii-Targeted-data-analysis-at-peptide-ion-level" class="anchor" href="#ii-Targeted-data-analysis-at-peptide-ion-level">(ii) Targeted data analysis at peptide ion level</a></h3>
+<a href="#Quantification" style="display: inline-block"><sup>&#8593;back</sup></a><br>
+<div class="container">
+Data‐independent acquisition at the peptide level makes it possible to acquire peptide data for virtually all peptide ions present in a sample. 
+In this strategy, a high‐resolution mass analyzer—such as an orbitrap or a time‐of‐flight—is used to constantly sample the full mass range 
+at the peptide level during the entire chromatographic gradient. In a subsequent step, precursor ion chromatograms can be extracted by targeted 
+data analysis. Those extracted-ion chromatogram (XIC) can be obtained to calculate the area under the curve and used for peptide quantification.
+<p>Let’s start and extract a XIC…
+</div></p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="pp">#r</span> <span class="s">&quot;nuget: FSharp.Stats, 0.4.0&quot;</span>
+<span class="pp">#r</span> <span class="s">&quot;nuget: BioFSharp, 2.0.0-beta5&quot;</span>
+<span class="pp">#r</span> <span class="s">&quot;nuget: BioFSharp.IO, 2.0.0-beta5&quot;</span>
+<span class="pp">#r</span> <span class="s">&quot;nuget: Plotly.NET, 2.0.0-beta6&quot;</span>
+<span class="pp">#r</span> <span class="s">&quot;nuget: System.Data.SQLite, 1.0.113.7&quot;</span>
+
+<span class="pp">#if</span> <span class="id">IPYNB</span>
+<span class="inactive">#r</span><span class="inactive"> </span><span class="inactive">&quot;nuget:</span><span class="inactive"> </span><span class="inactive">Plotly.NET,</span><span class="inactive"> </span><span class="inactive">2.0.0-beta6&quot;</span>
+<span class="inactive">#r</span><span class="inactive"> </span><span class="inactive">&quot;nuget:</span><span class="inactive"> </span><span class="inactive">Plotly.NET.Interactive,</span><span class="inactive"> </span><span class="inactive">2.0.0-beta6&quot;</span>
+<span class="pp">#endif</span> <span class="c">// IPYNB</span>
+
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">Plotly</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="id">NET</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="id">FSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="id">Stats</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="id">BioFSharp</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="id">System</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="id">IO</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs6', 8)" onmouseover="showTip(event, 'fs6', 8)" class="id">System</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs8', 9)" onmouseover="showTip(event, 'fs8', 9)" class="id">Data</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs9', 10)" onmouseover="showTip(event, 'fs9', 10)" class="id">SQLite</span>
+</code></pre>
+<div class="container">
+We now want to extract the XIC for the peptide where we previously calculated the matching score.
+<p>Since we need several mass spectrometry scans to quantify over the retention time, we connect to our database
+and index the entries according to their retention time.
+</div></p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 1</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 11)" onmouseover="showTip(event, 'fs10', 11)" class="id">path</span> <span class="o">=</span> <span class="s">&quot;../AuxFiles/sample.mzlite&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 12)" onmouseover="showTip(event, 'fs11', 12)" class="id">runID</span> <span class="o">=</span> <span class="s">&quot;sample=0&quot;</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 13)" onmouseover="showTip(event, 'fs12', 13)" class="id">mzReader</span> <span class="o">=</span> <span class="k">new</span> <span class="id">MzIO</span><span class="pn">.</span><span class="id">MzSQL</span><span class="pn">.</span><span class="id">MzSQL</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="id">path</span><span class="pn">)</span> <span class="o">:&gt;</span>  <span class="id">MzIO</span><span class="pn">.</span><span class="id">IO</span><span class="pn">.</span><span class="id">IMzIODataReader</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs13', 15)" onmouseover="showTip(event, 'fs13', 15)" class="id">transaction</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 16)" onmouseover="showTip(event, 'fs12', 16)" class="id">mzReader</span><span class="pn">.</span><span class="id">BeginTransaction</span><span class="pn">(</span><span class="pn">)</span>
+
+<span class="c">// Indexes all spectra of the related sample run</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 17)" onmouseover="showTip(event, 'fs14', 17)" class="id">idx</span> <span class="o">=</span> <span class="id">MzIO</span><span class="pn">.</span><span class="id">Processing</span><span class="pn">.</span><span class="id">Query</span><span class="pn">.</span><span class="id">getMS1RTIdx</span> <span onmouseout="hideTip(event, 'fs12', 18)" onmouseover="showTip(event, 'fs12', 18)" class="id">mzReader</span> <span onmouseout="hideTip(event, 'fs11', 19)" onmouseover="showTip(event, 'fs11', 19)" class="id">runID</span>
+<span onmouseout="hideTip(event, 'fs14', 20)" onmouseover="showTip(event, 'fs14', 20)" class="id">idx</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<div class="container">
+<b>We know from the MS<sup>2</sup> measurement, that our peptide had its match at a retention of around 51.95 min</b>. We create a query 
+to the database to extract the intensities of all peaks that are +/-5 min of our retention time and within 0.04 m/z of our peptide of interest. 
+After we are done, we close the connection to the database.
+</div>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 2</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs15', 21)" onmouseover="showTip(event, 'fs15', 21)" class="id">retentionTime</span> <span class="o">=</span> <span class="n">51.95</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 22)" onmouseover="showTip(event, 'fs16', 22)" class="id">mzAtCharge2</span>   <span class="o">=</span> <span class="n">511.2691141</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 23)" onmouseover="showTip(event, 'fs17', 23)" class="id">rtQuery</span> <span class="o">=</span> <span class="id">MzIO</span><span class="pn">.</span><span class="id">Processing</span><span class="pn">.</span><span class="id">Query</span><span class="pn">.</span><span class="id">createRangeQuery</span> <span onmouseout="hideTip(event, 'fs15', 24)" onmouseover="showTip(event, 'fs15', 24)" class="id">retentionTime</span> <span class="n">5.</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 25)" onmouseover="showTip(event, 'fs18', 25)" class="id">mzQuery</span> <span class="o">=</span> <span class="id">MzIO</span><span class="pn">.</span><span class="id">Processing</span><span class="pn">.</span><span class="id">Query</span><span class="pn">.</span><span class="id">createRangeQuery</span> <span onmouseout="hideTip(event, 'fs16', 26)" onmouseover="showTip(event, 'fs16', 26)" class="id">mzAtCharge2</span> <span class="n">0.04</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 27)" onmouseover="showTip(event, 'fs19', 27)" class="id">xic</span> <span class="o">=</span> 
+    <span class="id">MzIO</span><span class="pn">.</span><span class="id">Processing</span><span class="pn">.</span><span class="id">Query</span><span class="pn">.</span><span class="id">getXIC</span> <span onmouseout="hideTip(event, 'fs12', 28)" onmouseover="showTip(event, 'fs12', 28)" class="id">mzReader</span> <span onmouseout="hideTip(event, 'fs14', 29)" onmouseover="showTip(event, 'fs14', 29)" class="id">idx</span> <span onmouseout="hideTip(event, 'fs17', 30)" onmouseover="showTip(event, 'fs17', 30)" class="id">rtQuery</span> <span onmouseout="hideTip(event, 'fs18', 31)" onmouseover="showTip(event, 'fs18', 31)" class="id">mzQuery</span>  
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 32)" onmouseover="showTip(event, 'fs20', 32)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs21', 33)" onmouseover="showTip(event, 'fs21', 33)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs22', 34)" onmouseover="showTip(event, 'fs22', 34)" class="fn">p</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs22', 35)" onmouseover="showTip(event, 'fs22', 35)" class="fn">p</span><span class="pn">.</span><span class="id">Rt</span> <span class="pn">,</span> <span onmouseout="hideTip(event, 'fs22', 36)" onmouseover="showTip(event, 'fs22', 36)" class="fn">p</span><span class="pn">.</span><span class="id">Intensity</span><span class="pn">)</span>
+    
+<span onmouseout="hideTip(event, 'fs13', 37)" onmouseover="showTip(event, 'fs13', 37)" class="id">transaction</span><span class="pn">.</span><span class="id">Dispose</span><span class="pn">(</span><span class="pn">)</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs23', 38)" onmouseover="showTip(event, 'fs23', 38)" class="id">xicChart</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs19', 39)" onmouseover="showTip(event, 'fs19', 39)" class="id">xic</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 40)" onmouseover="showTip(event, 'fs24', 40)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs25', 41)" onmouseover="showTip(event, 'fs25', 41)" class="id">Point</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 42)" onmouseover="showTip(event, 'fs24', 42)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 43)" onmouseover="showTip(event, 'fs26', 43)" class="id">withX_AxisStyle</span> <span class="s">&quot;Retention Time&quot;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 44)" onmouseover="showTip(event, 'fs24', 44)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 45)" onmouseover="showTip(event, 'fs27', 45)" class="id">withY_AxisStyle</span> <span class="s">&quot;Intensity/Score&quot;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 46)" onmouseover="showTip(event, 'fs24', 46)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs28', 47)" onmouseover="showTip(event, 'fs28', 47)" class="id">withSize</span> <span class="pn">(</span><span class="n">900.</span><span class="pn">,</span><span class="n">900.</span><span class="pn">)</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<p>We have now the XIC in our hands and can use the second derivative to identify peaks with our trace.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 3</span>
+
+<span class="c">// get all peaks</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 51)" onmouseover="showTip(event, 'fs31', 51)" class="id">peaks</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs19', 52)" onmouseover="showTip(event, 'fs19', 52)" class="id">xic</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 53)" onmouseover="showTip(event, 'fs20', 53)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs32', 54)" onmouseover="showTip(event, 'fs32', 54)" class="id">unzip</span>
+    <span class="o">|&gt;</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs33', 55)" onmouseover="showTip(event, 'fs33', 55)" class="fn">ret</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs34', 56)" onmouseover="showTip(event, 'fs34', 56)" class="fn">intensity</span><span class="pn">)</span> <span class="k">-&gt;</span>
+        <span onmouseout="hideTip(event, 'fs3', 57)" onmouseover="showTip(event, 'fs3', 57)" class="id">FSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs4', 58)" onmouseover="showTip(event, 'fs4', 58)" class="id">Stats</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs35', 59)" onmouseover="showTip(event, 'fs35', 59)" class="id">Signal</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs36', 60)" onmouseover="showTip(event, 'fs36', 60)" class="m">PeakDetection</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs37', 61)" onmouseover="showTip(event, 'fs37', 61)" class="m">SecondDerivative</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs38', 62)" onmouseover="showTip(event, 'fs38', 62)" class="id">getPeaks</span> <span class="n">0.1</span> <span class="n">2</span> <span class="n">13</span> <span onmouseout="hideTip(event, 'fs33', 63)" onmouseover="showTip(event, 'fs33', 63)" class="fn">ret</span> <span onmouseout="hideTip(event, 'fs34', 64)" onmouseover="showTip(event, 'fs34', 64)" class="fn">intensity</span>
+        <span class="pn">)</span>
+
+<span onmouseout="hideTip(event, 'fs31', 65)" onmouseover="showTip(event, 'fs31', 65)" class="id">peaks</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 66)" onmouseover="showTip(event, 'fs20', 66)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs39', 67)" onmouseover="showTip(event, 'fs39', 67)" class="id">head</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<p>The peak model includes numerus information. Therefore we can mark the apices of the peaks we identified.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 4</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs40', 68)" onmouseover="showTip(event, 'fs40', 68)" class="id">apices</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs31', 69)" onmouseover="showTip(event, 'fs31', 69)" class="id">peaks</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 70)" onmouseover="showTip(event, 'fs20', 70)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs21', 71)" onmouseover="showTip(event, 'fs21', 71)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs41', 72)" onmouseover="showTip(event, 'fs41', 72)" class="fn">peak</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs41', 73)" onmouseover="showTip(event, 'fs41', 73)" class="fn">peak</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs42', 74)" onmouseover="showTip(event, 'fs42', 74)" class="prop">Apex</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs43', 75)" onmouseover="showTip(event, 'fs43', 75)" class="id">XVal</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs41', 76)" onmouseover="showTip(event, 'fs41', 76)" class="fn">peak</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs42', 77)" onmouseover="showTip(event, 'fs42', 77)" class="prop">Apex</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs44', 78)" onmouseover="showTip(event, 'fs44', 78)" class="id">YVal</span><span class="pn">)</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs45', 79)" onmouseover="showTip(event, 'fs45', 79)" class="id">apicesChart</span><span class="o">=</span>
+    <span class="pn">[</span>    
+        <span onmouseout="hideTip(event, 'fs24', 80)" onmouseover="showTip(event, 'fs24', 80)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs25', 81)" onmouseover="showTip(event, 'fs25', 81)" class="id">Point</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs40', 82)" onmouseover="showTip(event, 'fs40', 82)" class="id">apices</span><span class="pn">,</span> <span class="fn">Name</span><span class="o">=</span><span class="s">&quot;apices&quot;</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 83)" onmouseover="showTip(event, 'fs24', 83)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs46', 84)" onmouseover="showTip(event, 'fs46', 84)" class="id">withMarkerStyle</span><span class="pn">(</span><span class="fn">Size</span><span class="o">=</span><span class="n">15</span><span class="pn">)</span>
+        <span onmouseout="hideTip(event, 'fs24', 85)" onmouseover="showTip(event, 'fs24', 85)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs25', 86)" onmouseover="showTip(event, 'fs25', 86)" class="id">Point</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs19', 87)" onmouseover="showTip(event, 'fs19', 87)" class="id">xic</span><span class="pn">,</span> <span class="fn">Name</span> <span class="o">=</span> <span class="s">&quot;XIC&quot;</span><span class="pn">)</span>
+
+    <span class="pn">]</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 88)" onmouseover="showTip(event, 'fs24', 88)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs47', 89)" onmouseover="showTip(event, 'fs47', 89)" class="id">Combine</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 90)" onmouseover="showTip(event, 'fs24', 90)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 91)" onmouseover="showTip(event, 'fs26', 91)" class="id">withX_AxisStyle</span> <span class="s">&quot;Retention Time&quot;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 92)" onmouseover="showTip(event, 'fs24', 92)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 93)" onmouseover="showTip(event, 'fs27', 93)" class="id">withY_AxisStyle</span> <span class="s">&quot;Intensity&quot;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 94)" onmouseover="showTip(event, 'fs24', 94)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs28', 95)" onmouseover="showTip(event, 'fs28', 95)" class="id">withSize</span> <span class="pn">(</span><span class="n">900.</span><span class="pn">,</span><span class="n">900.</span><span class="pn">)</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<p>We can then go ahead and characterize our peak and quantify the area under the fitted curve.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 5</span>
+
+<span class="c">// get peak at &quot;ret=51.95&quot; from all peaks &quot;peaks&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs48', 99)" onmouseover="showTip(event, 'fs48', 99)" class="id">quantifiedXIC</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs5', 100)" onmouseover="showTip(event, 'fs5', 100)" class="id">BioFSharp</span><span class="pn">.</span><span class="id">Mz</span><span class="pn">.</span><span class="id">Quantification</span><span class="pn">.</span><span class="id">HULQ</span><span class="pn">.</span><span class="id">getPeakBy</span> <span onmouseout="hideTip(event, 'fs31', 101)" onmouseover="showTip(event, 'fs31', 101)" class="id">peaks</span> <span onmouseout="hideTip(event, 'fs15', 102)" onmouseover="showTip(event, 'fs15', 102)" class="id">retentionTime</span>
+    <span class="c">// quantify peak of interest</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs5', 103)" onmouseover="showTip(event, 'fs5', 103)" class="id">BioFSharp</span><span class="pn">.</span><span class="id">Mz</span><span class="pn">.</span><span class="id">Quantification</span><span class="pn">.</span><span class="id">HULQ</span><span class="pn">.</span><span class="id">quantifyPeak</span> 
+    
+<span onmouseout="hideTip(event, 'fs48', 104)" onmouseover="showTip(event, 'fs48', 104)" class="id">quantifiedXIC</span><span class="pn">.</span><span class="id">Area</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<p>The peak model gives us all the information we need for our peptide of interest. If we want to see what we quantified, we can take an
+exponential modified gaussian function using the parameters given by the peak model and plot it together with the previously extracted XIC.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 6</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs49', 105)" onmouseover="showTip(event, 'fs49', 105)" class="fn">eval</span> <span onmouseout="hideTip(event, 'fs50', 106)" onmouseover="showTip(event, 'fs50', 106)" class="fn">x</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs51', 107)" onmouseover="showTip(event, 'fs51', 107)" class="id">Fitting</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs52', 108)" onmouseover="showTip(event, 'fs52', 108)" class="m">NonLinearRegression</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs53', 109)" onmouseover="showTip(event, 'fs53', 109)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs54', 110)" onmouseover="showTip(event, 'fs54', 110)" class="id">emgModel</span><span class="pn">.</span><span class="id">GetFunctionValue</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs55', 111)" onmouseover="showTip(event, 'fs55', 111)" class="fn">vector</span> <span onmouseout="hideTip(event, 'fs48', 112)" onmouseover="showTip(event, 'fs48', 112)" class="id">quantifiedXIC</span><span class="pn">.</span><span class="id">EstimatedParams</span><span class="pn">)</span> <span onmouseout="hideTip(event, 'fs50', 113)" onmouseover="showTip(event, 'fs50', 113)" class="fn">x</span>
+
+<span onmouseout="hideTip(event, 'fs49', 114)" onmouseover="showTip(event, 'fs49', 114)" class="fn">eval</span>
+</code></pre>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 7</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs56', 115)" onmouseover="showTip(event, 'fs56', 115)" class="id">quantifiedArea</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs19', 116)" onmouseover="showTip(event, 'fs19', 116)" class="id">xic</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 117)" onmouseover="showTip(event, 'fs20', 117)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs21', 118)" onmouseover="showTip(event, 'fs21', 118)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs57', 119)" onmouseover="showTip(event, 'fs57', 119)" class="fn">rt</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs58', 120)" onmouseover="showTip(event, 'fs58', 120)" class="fn">i</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs57', 121)" onmouseover="showTip(event, 'fs57', 121)" class="fn">rt</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs49', 122)" onmouseover="showTip(event, 'fs49', 122)" class="fn">eval</span> <span onmouseout="hideTip(event, 'fs57', 123)" onmouseover="showTip(event, 'fs57', 123)" class="fn">rt</span><span class="pn">)</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs59', 124)" onmouseover="showTip(event, 'fs59', 124)" class="id">quantifiedAreaChart</span> <span class="o">=</span>
+    <span class="pn">[</span>
+        <span onmouseout="hideTip(event, 'fs24', 125)" onmouseover="showTip(event, 'fs24', 125)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs25', 126)" onmouseover="showTip(event, 'fs25', 126)" class="id">Point</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs19', 127)" onmouseover="showTip(event, 'fs19', 127)" class="id">xic</span><span class="pn">,</span><span class="fn">Name</span><span class="o">=</span><span class="s">&quot;XIC&quot;</span><span class="pn">)</span>
+        <span onmouseout="hideTip(event, 'fs24', 128)" onmouseover="showTip(event, 'fs24', 128)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs60', 129)" onmouseover="showTip(event, 'fs60', 129)" class="id">SplineArea</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs56', 130)" onmouseover="showTip(event, 'fs56', 130)" class="id">quantifiedArea</span><span class="pn">,</span><span class="fn">Name</span><span class="o">=</span><span class="s">&quot;quantified XIC&quot;</span><span class="pn">)</span>
+    <span class="pn">]</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 131)" onmouseover="showTip(event, 'fs24', 131)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs47', 132)" onmouseover="showTip(event, 'fs47', 132)" class="id">Combine</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 133)" onmouseover="showTip(event, 'fs24', 133)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 134)" onmouseover="showTip(event, 'fs26', 134)" class="id">withX_AxisStyle</span> <span class="pn">(</span><span class="fn">title</span> <span class="o">=</span> <span class="s">&quot;Retention Time&quot;</span><span class="pn">,</span> <span class="fn">MinMax</span> <span class="o">=</span> <span class="pn">(</span><span class="n">51.</span><span class="pn">,</span><span class="n">55.</span><span class="pn">)</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 135)" onmouseover="showTip(event, 'fs24', 135)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 136)" onmouseover="showTip(event, 'fs27', 136)" class="id">withY_AxisStyle</span> <span class="s">&quot;Intensity&quot;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 137)" onmouseover="showTip(event, 'fs24', 137)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs28', 138)" onmouseover="showTip(event, 'fs28', 138)" class="id">withSize</span> <span class="pn">(</span><span class="n">900.</span><span class="pn">,</span><span class="n">900.</span><span class="pn">)</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<hr>
+<nav class="level is-mobile">
+    <div class="level-left">
+        <div class="level-item">
+            <button class="button is-primary is-outlined" onclick="location.href='/JP10_Peptide_Identification.html';">JP10 &#187;</button>
+        </div>
+    </div>
+    <div class="level-right">
+    </div>
+</nav>
+
                 </div>
             </div>
         </div>
-        
+        <div class="fsdocs-tip" id="fs1">namespace Plotly</div>
+<div class="fsdocs-tip" id="fs2">namespace Plotly.NET</div>
+<div class="fsdocs-tip" id="fs3">Multiple items<br />namespace FSharp<br /><br />--------------------<br />namespace Microsoft.FSharp</div>
+<div class="fsdocs-tip" id="fs4">namespace FSharp.Stats</div>
+<div class="fsdocs-tip" id="fs5">namespace BioFSharp</div>
+<div class="fsdocs-tip" id="fs6">namespace System</div>
+<div class="fsdocs-tip" id="fs7">namespace System.IO</div>
+<div class="fsdocs-tip" id="fs8">namespace System.Data</div>
+<div class="fsdocs-tip" id="fs9">namespace System.Data.SQLite</div>
+<div class="fsdocs-tip" id="fs10">val path : string</div>
+<div class="fsdocs-tip" id="fs11">val runID : string</div>
+<div class="fsdocs-tip" id="fs12">val mzReader : obj</div>
+<div class="fsdocs-tip" id="fs13">val transaction : obj</div>
+<div class="fsdocs-tip" id="fs14">val idx : obj</div>
+<div class="fsdocs-tip" id="fs15">val retentionTime : float</div>
+<div class="fsdocs-tip" id="fs16">val mzAtCharge2 : float</div>
+<div class="fsdocs-tip" id="fs17">val rtQuery : obj</div>
+<div class="fsdocs-tip" id="fs18">val mzQuery : obj</div>
+<div class="fsdocs-tip" id="fs19">val xic : (float * float) []</div>
+<div class="fsdocs-tip" id="fs20">Multiple items<br />module Array<br /><br />from FSharp.Stats<br /><br />--------------------<br />module Array<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="fsdocs-tip" id="fs21">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []</div>
+<div class="fsdocs-tip" id="fs22">val p : obj</div>
+<div class="fsdocs-tip" id="fs23">val xicChart : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs24">type Chart =<br />&#160;&#160;static member Area : xy:seq&lt;#IConvertible * #IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:&#39;a2 -&gt; GenericChart<br />&#160;&#160;static member Area : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:&#39;a2 -&gt; GenericChart<br />&#160;&#160;static member Bar : keysvalues:seq&lt;#IConvertible * #IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?Color:&#39;a2 * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Marker:Marker -&gt; GenericChart<br />&#160;&#160;static member Bar : keys:seq&lt;#IConvertible&gt; * values:seq&lt;#IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?Color:&#39;a2 * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Marker:Marker -&gt; GenericChart<br />&#160;&#160;static member BoxPlot : xy:seq&lt;&#39;a0 * &#39;a1&gt; * ?Name:string * ?Showlegend:bool * ?Color:string * ?Fillcolor:&#39;a2 * ?Opacity:float * ?Whiskerwidth:&#39;a3 * ?Boxpoints:Boxpoints * ?Boxmean:BoxMean * ?Jitter:&#39;a4 * ?Pointpos:&#39;a5 * ?Orientation:Orientation * ?Marker:Marker * ?Line:Line * ?Alignmentgroup:&#39;a6 * ?Offsetgroup:&#39;a7 * ?Notched:bool * ?NotchWidth:float * ?QuartileMethod:QuartileMethod -&gt; GenericChart<br />&#160;&#160;static member BoxPlot : ?x:&#39;a0 * ?y:&#39;a1 * ?Name:string * ?Showlegend:bool * ?Color:string * ?Fillcolor:&#39;a2 * ?Opacity:float * ?Whiskerwidth:&#39;a3 * ?Boxpoints:Boxpoints * ?Boxmean:BoxMean * ?Jitter:&#39;a4 * ?Pointpos:&#39;a5 * ?Orientation:Orientation * ?Marker:Marker * ?Line:Line * ?Alignmentgroup:&#39;a6 * ?Offsetgroup:&#39;a7 * ?Notched:bool * ?NotchWidth:float * ?QuartileMethod:QuartileMethod -&gt; GenericChart<br />&#160;&#160;static member Bubble : xysizes:seq&lt;#IConvertible * #IConvertible * #IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?MarkerSymbol:Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool -&gt; GenericChart<br />&#160;&#160;static member Bubble : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * sizes:seq&lt;#IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?MarkerSymbol:Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool -&gt; GenericChart<br />&#160;&#160;static member Candlestick : stockTimeSeries:seq&lt;DateTime * StockData&gt; * ?Increasing:Line * ?Decreasing:Line * ?WhiskerWidth:float * ?Line:Line * ?XCalendar:Calendar -&gt; GenericChart<br />&#160;&#160;static member Candlestick : open:seq&lt;#IConvertible&gt; * high:seq&lt;#IConvertible&gt; * low:seq&lt;#IConvertible&gt; * close:seq&lt;#IConvertible&gt; * x:seq&lt;#IConvertible&gt; * ?Increasing:Line * ?Decreasing:Line * ?WhiskerWidth:float * ?Line:Line * ?XCalendar:Calendar -&gt; GenericChart<br />&#160;&#160;...</div>
+<div class="fsdocs-tip" id="fs25">static member Chart.Point : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?MarkerSymbol:StyleParam.Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:StyleParam.Orientation * ?GroupNorm:StyleParam.GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart<br />static member Chart.Point : x:seq&lt;#System.IConvertible&gt; * y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?MarkerSymbol:StyleParam.Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:StyleParam.Orientation * ?GroupNorm:StyleParam.GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs26">static member Chart.withX_AxisStyle : title:string * ?MinMax:(float * float) * ?Showgrid:bool * ?Showline:bool * ?Side:StyleParam.Side * ?Overlaying:StyleParam.AxisAnchorId * ?Id:int * ?Domain:(float * float) * ?Position:float * ?Zeroline:bool * ?Anchor:StyleParam.AxisAnchorId -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs27">static member Chart.withY_AxisStyle : title:string * ?MinMax:(float * float) * ?Showgrid:bool * ?Showline:bool * ?Side:StyleParam.Side * ?Overlaying:StyleParam.AxisAnchorId * ?Id:int * ?Domain:(float * float) * ?Position:float * ?Zeroline:bool * ?Anchor:StyleParam.AxisAnchorId -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs28">static member Chart.withSize : width:float * height:float -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs29">module GenericChart<br /><br />from Plotly.NET</div>
+<div class="fsdocs-tip" id="fs30">val toChartHTML : gChart:GenericChart.GenericChart -&gt; string</div>
+<div class="fsdocs-tip" id="fs31">val peaks : Signal.PeakDetection.IdentifiedPeak []</div>
+<div class="fsdocs-tip" id="fs32">val unzip : array:(&#39;T1 * &#39;T2) [] -&gt; &#39;T1 [] * &#39;T2 []</div>
+<div class="fsdocs-tip" id="fs33">val ret : float []</div>
+<div class="fsdocs-tip" id="fs34">val intensity : float []</div>
+<div class="fsdocs-tip" id="fs35">namespace FSharp.Stats.Signal</div>
+<div class="fsdocs-tip" id="fs36">module PeakDetection<br /><br />from FSharp.Stats.Signal</div>
+<div class="fsdocs-tip" id="fs37">module SecondDerivative<br /><br />from FSharp.Stats.Signal.PeakDetection</div>
+<div class="fsdocs-tip" id="fs38">val getPeaks : snr:float -&gt; polOrder:int -&gt; ws:int -&gt; xData:float [] -&gt; yData:float [] -&gt; Signal.PeakDetection.IdentifiedPeak []</div>
+<div class="fsdocs-tip" id="fs39">val head : array:&#39;T [] -&gt; &#39;T</div>
+<div class="fsdocs-tip" id="fs40">val apices : (float * float) []</div>
+<div class="fsdocs-tip" id="fs41">val peak : Signal.PeakDetection.IdentifiedPeak</div>
+<div class="fsdocs-tip" id="fs42">Signal.PeakDetection.IdentifiedPeak.Apex: Signal.PeakDetection.PeakFeature</div>
+<div class="fsdocs-tip" id="fs43">Signal.PeakDetection.PeakFeature.XVal: float</div>
+<div class="fsdocs-tip" id="fs44">Signal.PeakDetection.PeakFeature.YVal: float</div>
+<div class="fsdocs-tip" id="fs45">val apicesChart : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs46">static member Chart.withMarkerStyle : ?Size:int * ?Color:&#39;a0 * ?Symbol:StyleParam.Symbol * ?Opacity:float -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs47">static member Chart.Combine : gCharts:seq&lt;GenericChart.GenericChart&gt; -&gt; GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs48">val quantifiedXIC : obj</div>
+<div class="fsdocs-tip" id="fs49">val eval : x:float -&gt; float</div>
+<div class="fsdocs-tip" id="fs50">val x : float</div>
+<div class="fsdocs-tip" id="fs51">namespace FSharp.Stats.Fitting</div>
+<div class="fsdocs-tip" id="fs52">module NonLinearRegression<br /><br />from FSharp.Stats.Fitting</div>
+<div class="fsdocs-tip" id="fs53">module Table<br /><br />from FSharp.Stats.Fitting.NonLinearRegression</div>
+<div class="fsdocs-tip" id="fs54">val emgModel : Fitting.NonLinearRegression.Model</div>
+<div class="fsdocs-tip" id="fs55">Multiple items<br />val vector : l:seq&lt;float&gt; -&gt; Vector&lt;float&gt;<br /><br />--------------------<br />type vector = Vector&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs56">val quantifiedArea : (float * float) []</div>
+<div class="fsdocs-tip" id="fs57">val rt : float</div>
+<div class="fsdocs-tip" id="fs58">val i : float</div>
+<div class="fsdocs-tip" id="fs59">val quantifiedAreaChart : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs60">static member Chart.SplineArea : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:StyleParam.Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?Dash:StyleParam.DrawingStyle * ?Width:&#39;a2 * ?Smoothing:&#39;a3 -&gt; GenericChart.GenericChart<br />static member Chart.SplineArea : x:seq&lt;#System.IConvertible&gt; * y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:StyleParam.Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?Dash:StyleParam.DrawingStyle * ?Width:&#39;a2 * ?Smoothing:&#39;a3 -&gt; GenericChart.GenericChart</div>
+
     </div>
 
     <!-- BEGIN SEARCH BOX: this adds support for the search box -->
