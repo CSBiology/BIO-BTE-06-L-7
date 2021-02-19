@@ -1,5 +1,5 @@
 (**
-# Quantification
+# JP11 Quantification
 
 1. [Quantification Theory](#Quantification-Theory)<br>
     1. [Targeted quantification](#Targeted-quantification)
@@ -107,6 +107,7 @@ Let’s start and extract a XIC…
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
 #r "nuget: Plotly.NET, 2.0.0-beta6"
 #r "nuget: System.Data.SQLite, 1.0.113.7"
+#r "nuget: BioFSharp.Mz, 0.1.5-beta"
 
 #if IPYNB
 #r "nuget: Plotly.NET, 2.0.0-beta6"

@@ -26,6 +26,7 @@ explained under quantification in the following section.
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
 #r "nuget: Plotly.NET, 2.0.0-beta6"
+#r "nuget: BioFSharp.Mz, 0.1.5-beta"
 
 #if IPYNB
 #r "nuget: Plotly.NET, 2.0.0-beta6"
@@ -57,12 +58,12 @@ let ms1PeakPicking (mzData:float []) (intensityData: float []) =
         let paddingParams = 
             SignalDetection.Padding.createPaddingParameters paddYValue (Some 7) 0.05 150 95.
         let waveletParameters = 
-            SignalDetection.Wavelet.createWaveletParameters 10 paddYValue 0.1 90. 1.
+            SignalDetection.Wavelet.createWaveletParameters 10 paddYValue 0.1 90. 1. false false
         
         let paddedMz,paddedIntensity = 
             SignalDetection.Padding.paddDataBy paddingParams mzData intensityData
         
-        BioFSharp.Mz.SignalDetection.Wavelet.toCentroidWithRicker2D waveletParameters paddedMz paddedIntensity
+        BioFSharp.Mz.SignalDetection.Wavelet.toCentroidWithRicker2D waveletParameters paddedMz paddedIntensity 
 
 
 (**
