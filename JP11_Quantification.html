@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Quantification
+    <title>JP11 Quantification
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="">
@@ -90,7 +90,7 @@
 </li>             
 <li class="nav-item">
   <a class="nav-link" href="/BIO-BTE-06-L-7/JP11_Quantification.html">
-    Quantification
+    JP11 Quantification
 
   </a>
 </li>             
@@ -178,7 +178,7 @@
         <div class="column is-10 is-paddingless has-text-justified	">
             <div class="section pt-4">
                 <div class="container" id="fsdocs-content">
-                    <h1><a name="Quantification" class="anchor" href="#Quantification">Quantification</a></h1>
+                    <h1><a name="JP11-Quantification" class="anchor" href="#JP11-Quantification">JP11 Quantification</a></h1>
 <ol>
 <li>
 <a href="#Quantification-Theory">Quantification Theory</a><br>
@@ -267,6 +267,7 @@ data analysis. Those extracted-ion chromatogram (XIC) can be obtained to calcula
 <span class="pp">#r</span> <span class="s">&quot;nuget: BioFSharp.IO, 2.0.0-beta5&quot;</span>
 <span class="pp">#r</span> <span class="s">&quot;nuget: Plotly.NET, 2.0.0-beta6&quot;</span>
 <span class="pp">#r</span> <span class="s">&quot;nuget: System.Data.SQLite, 1.0.113.7&quot;</span>
+<span class="pp">#r</span> <span class="s">&quot;nuget: BioFSharp.Mz, 0.1.5-beta&quot;</span>
 
 <span class="pp">#if</span> <span class="id">IPYNB</span>
 <span class="inactive">#r</span><span class="inactive"> </span><span class="inactive">&quot;nuget:</span><span class="inactive"> </span><span class="inactive">Plotly.NET,</span><span class="inactive"> </span><span class="inactive">2.0.0-beta6&quot;</span>
@@ -364,37 +365,37 @@ After we are done, we close the connection to the database.
 
 <span class="c">// get peak at &quot;ret=51.95&quot; from all peaks &quot;peaks&quot;</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs48', 99)" onmouseover="showTip(event, 'fs48', 99)" class="id">quantifiedXIC</span> <span class="o">=</span> 
-    <span onmouseout="hideTip(event, 'fs5', 100)" onmouseover="showTip(event, 'fs5', 100)" class="id">BioFSharp</span><span class="pn">.</span><span class="id">Mz</span><span class="pn">.</span><span class="id">Quantification</span><span class="pn">.</span><span class="id">HULQ</span><span class="pn">.</span><span class="id">getPeakBy</span> <span onmouseout="hideTip(event, 'fs31', 101)" onmouseover="showTip(event, 'fs31', 101)" class="id">peaks</span> <span onmouseout="hideTip(event, 'fs15', 102)" onmouseover="showTip(event, 'fs15', 102)" class="id">retentionTime</span>
+    <span onmouseout="hideTip(event, 'fs5', 100)" onmouseover="showTip(event, 'fs5', 100)" class="id">BioFSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs49', 101)" onmouseover="showTip(event, 'fs49', 101)" class="id">Mz</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs50', 102)" onmouseover="showTip(event, 'fs50', 102)" class="m">Quantification</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs51', 103)" onmouseover="showTip(event, 'fs51', 103)" class="m">HULQ</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs52', 104)" onmouseover="showTip(event, 'fs52', 104)" class="id">getPeakBy</span> <span onmouseout="hideTip(event, 'fs31', 105)" onmouseover="showTip(event, 'fs31', 105)" class="id">peaks</span> <span onmouseout="hideTip(event, 'fs15', 106)" onmouseover="showTip(event, 'fs15', 106)" class="id">retentionTime</span>
     <span class="c">// quantify peak of interest</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs5', 103)" onmouseover="showTip(event, 'fs5', 103)" class="id">BioFSharp</span><span class="pn">.</span><span class="id">Mz</span><span class="pn">.</span><span class="id">Quantification</span><span class="pn">.</span><span class="id">HULQ</span><span class="pn">.</span><span class="id">quantifyPeak</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs5', 107)" onmouseover="showTip(event, 'fs5', 107)" class="id">BioFSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs49', 108)" onmouseover="showTip(event, 'fs49', 108)" class="id">Mz</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs50', 109)" onmouseover="showTip(event, 'fs50', 109)" class="m">Quantification</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs51', 110)" onmouseover="showTip(event, 'fs51', 110)" class="m">HULQ</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs53', 111)" onmouseover="showTip(event, 'fs53', 111)" class="id">quantifyPeak</span> 
     
-<span onmouseout="hideTip(event, 'fs48', 104)" onmouseover="showTip(event, 'fs48', 104)" class="id">quantifiedXIC</span><span class="pn">.</span><span class="id">Area</span>
+<span onmouseout="hideTip(event, 'fs48', 112)" onmouseover="showTip(event, 'fs48', 112)" class="id">quantifiedXIC</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs54', 113)" onmouseover="showTip(event, 'fs54', 113)" class="id">Area</span>
 </code></pre>
 <table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
 <p>The peak model gives us all the information we need for our peptide of interest. If we want to see what we quantified, we can take an
 exponential modified gaussian function using the parameters given by the peak model and plot it together with the previously extracted XIC.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 6</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs49', 105)" onmouseover="showTip(event, 'fs49', 105)" class="fn">eval</span> <span onmouseout="hideTip(event, 'fs50', 106)" onmouseover="showTip(event, 'fs50', 106)" class="fn">x</span> <span class="o">=</span> 
-    <span onmouseout="hideTip(event, 'fs51', 107)" onmouseover="showTip(event, 'fs51', 107)" class="id">Fitting</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs52', 108)" onmouseover="showTip(event, 'fs52', 108)" class="m">NonLinearRegression</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs53', 109)" onmouseover="showTip(event, 'fs53', 109)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs54', 110)" onmouseover="showTip(event, 'fs54', 110)" class="id">emgModel</span><span class="pn">.</span><span class="id">GetFunctionValue</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs55', 111)" onmouseover="showTip(event, 'fs55', 111)" class="fn">vector</span> <span onmouseout="hideTip(event, 'fs48', 112)" onmouseover="showTip(event, 'fs48', 112)" class="id">quantifiedXIC</span><span class="pn">.</span><span class="id">EstimatedParams</span><span class="pn">)</span> <span onmouseout="hideTip(event, 'fs50', 113)" onmouseover="showTip(event, 'fs50', 113)" class="fn">x</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs55', 114)" onmouseover="showTip(event, 'fs55', 114)" class="fn">eval</span> <span onmouseout="hideTip(event, 'fs56', 115)" onmouseover="showTip(event, 'fs56', 115)" class="fn">x</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs57', 116)" onmouseover="showTip(event, 'fs57', 116)" class="id">Fitting</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs58', 117)" onmouseover="showTip(event, 'fs58', 117)" class="m">NonLinearRegression</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs59', 118)" onmouseover="showTip(event, 'fs59', 118)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs60', 119)" onmouseover="showTip(event, 'fs60', 119)" class="id">emgModel</span><span class="pn">.</span><span class="id">GetFunctionValue</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs61', 120)" onmouseover="showTip(event, 'fs61', 120)" class="fn">vector</span> <span onmouseout="hideTip(event, 'fs48', 121)" onmouseover="showTip(event, 'fs48', 121)" class="id">quantifiedXIC</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs62', 122)" onmouseover="showTip(event, 'fs62', 122)" class="id">EstimatedParams</span><span class="pn">)</span> <span onmouseout="hideTip(event, 'fs56', 123)" onmouseover="showTip(event, 'fs56', 123)" class="fn">x</span>
 
-<span onmouseout="hideTip(event, 'fs49', 114)" onmouseover="showTip(event, 'fs49', 114)" class="fn">eval</span>
+<span onmouseout="hideTip(event, 'fs55', 124)" onmouseover="showTip(event, 'fs55', 124)" class="fn">eval</span>
 </code></pre>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 7</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs56', 115)" onmouseover="showTip(event, 'fs56', 115)" class="id">quantifiedArea</span> <span class="o">=</span>
-    <span onmouseout="hideTip(event, 'fs19', 116)" onmouseover="showTip(event, 'fs19', 116)" class="id">xic</span> 
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 117)" onmouseover="showTip(event, 'fs20', 117)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs21', 118)" onmouseover="showTip(event, 'fs21', 118)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs57', 119)" onmouseover="showTip(event, 'fs57', 119)" class="fn">rt</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs58', 120)" onmouseover="showTip(event, 'fs58', 120)" class="fn">i</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs57', 121)" onmouseover="showTip(event, 'fs57', 121)" class="fn">rt</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs49', 122)" onmouseover="showTip(event, 'fs49', 122)" class="fn">eval</span> <span onmouseout="hideTip(event, 'fs57', 123)" onmouseover="showTip(event, 'fs57', 123)" class="fn">rt</span><span class="pn">)</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs63', 125)" onmouseover="showTip(event, 'fs63', 125)" class="id">quantifiedArea</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs19', 126)" onmouseover="showTip(event, 'fs19', 126)" class="id">xic</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 127)" onmouseover="showTip(event, 'fs20', 127)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs21', 128)" onmouseover="showTip(event, 'fs21', 128)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs64', 129)" onmouseover="showTip(event, 'fs64', 129)" class="fn">rt</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs65', 130)" onmouseover="showTip(event, 'fs65', 130)" class="fn">i</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs64', 131)" onmouseover="showTip(event, 'fs64', 131)" class="fn">rt</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs55', 132)" onmouseover="showTip(event, 'fs55', 132)" class="fn">eval</span> <span onmouseout="hideTip(event, 'fs64', 133)" onmouseover="showTip(event, 'fs64', 133)" class="fn">rt</span><span class="pn">)</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs59', 124)" onmouseover="showTip(event, 'fs59', 124)" class="id">quantifiedAreaChart</span> <span class="o">=</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs66', 134)" onmouseover="showTip(event, 'fs66', 134)" class="id">quantifiedAreaChart</span> <span class="o">=</span>
     <span class="pn">[</span>
-        <span onmouseout="hideTip(event, 'fs24', 125)" onmouseover="showTip(event, 'fs24', 125)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs25', 126)" onmouseover="showTip(event, 'fs25', 126)" class="id">Point</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs19', 127)" onmouseover="showTip(event, 'fs19', 127)" class="id">xic</span><span class="pn">,</span><span class="fn">Name</span><span class="o">=</span><span class="s">&quot;XIC&quot;</span><span class="pn">)</span>
-        <span onmouseout="hideTip(event, 'fs24', 128)" onmouseover="showTip(event, 'fs24', 128)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs60', 129)" onmouseover="showTip(event, 'fs60', 129)" class="id">SplineArea</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs56', 130)" onmouseover="showTip(event, 'fs56', 130)" class="id">quantifiedArea</span><span class="pn">,</span><span class="fn">Name</span><span class="o">=</span><span class="s">&quot;quantified XIC&quot;</span><span class="pn">)</span>
+        <span onmouseout="hideTip(event, 'fs24', 135)" onmouseover="showTip(event, 'fs24', 135)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs25', 136)" onmouseover="showTip(event, 'fs25', 136)" class="id">Point</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs19', 137)" onmouseover="showTip(event, 'fs19', 137)" class="id">xic</span><span class="pn">,</span><span class="fn">Name</span><span class="o">=</span><span class="s">&quot;XIC&quot;</span><span class="pn">)</span>
+        <span onmouseout="hideTip(event, 'fs24', 138)" onmouseover="showTip(event, 'fs24', 138)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs67', 139)" onmouseover="showTip(event, 'fs67', 139)" class="id">SplineArea</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs63', 140)" onmouseover="showTip(event, 'fs63', 140)" class="id">quantifiedArea</span><span class="pn">,</span><span class="fn">Name</span><span class="o">=</span><span class="s">&quot;quantified XIC&quot;</span><span class="pn">)</span>
     <span class="pn">]</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 131)" onmouseover="showTip(event, 'fs24', 131)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs47', 132)" onmouseover="showTip(event, 'fs47', 132)" class="id">Combine</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 133)" onmouseover="showTip(event, 'fs24', 133)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 134)" onmouseover="showTip(event, 'fs26', 134)" class="id">withX_AxisStyle</span> <span class="pn">(</span><span class="fn">title</span> <span class="o">=</span> <span class="s">&quot;Retention Time&quot;</span><span class="pn">,</span> <span class="fn">MinMax</span> <span class="o">=</span> <span class="pn">(</span><span class="n">51.</span><span class="pn">,</span><span class="n">55.</span><span class="pn">)</span><span class="pn">)</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 135)" onmouseover="showTip(event, 'fs24', 135)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 136)" onmouseover="showTip(event, 'fs27', 136)" class="id">withY_AxisStyle</span> <span class="s">&quot;Intensity&quot;</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 137)" onmouseover="showTip(event, 'fs24', 137)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs28', 138)" onmouseover="showTip(event, 'fs28', 138)" class="id">withSize</span> <span class="pn">(</span><span class="n">900.</span><span class="pn">,</span><span class="n">900.</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 141)" onmouseover="showTip(event, 'fs24', 141)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs47', 142)" onmouseover="showTip(event, 'fs47', 142)" class="id">Combine</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 143)" onmouseover="showTip(event, 'fs24', 143)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 144)" onmouseover="showTip(event, 'fs26', 144)" class="id">withX_AxisStyle</span> <span class="pn">(</span><span class="fn">title</span> <span class="o">=</span> <span class="s">&quot;Retention Time&quot;</span><span class="pn">,</span> <span class="fn">MinMax</span> <span class="o">=</span> <span class="pn">(</span><span class="n">51.</span><span class="pn">,</span><span class="n">55.</span><span class="pn">)</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 145)" onmouseover="showTip(event, 'fs24', 145)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 146)" onmouseover="showTip(event, 'fs27', 146)" class="id">withY_AxisStyle</span> <span class="s">&quot;Intensity&quot;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 147)" onmouseover="showTip(event, 'fs24', 147)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs28', 148)" onmouseover="showTip(event, 'fs28', 148)" class="id">withSize</span> <span class="pn">(</span><span class="n">900.</span><span class="pn">,</span><span class="n">900.</span><span class="pn">)</span>
 </code></pre>
 <table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
 <hr>
@@ -458,19 +459,26 @@ exponential modified gaussian function using the parameters given by the peak mo
 <div class="fsdocs-tip" id="fs45">val apicesChart : GenericChart.GenericChart</div>
 <div class="fsdocs-tip" id="fs46">static member Chart.withMarkerStyle : ?Size:int * ?Color:&#39;a0 * ?Symbol:StyleParam.Symbol * ?Opacity:float -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
 <div class="fsdocs-tip" id="fs47">static member Chart.Combine : gCharts:seq&lt;GenericChart.GenericChart&gt; -&gt; GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs48">val quantifiedXIC : obj</div>
-<div class="fsdocs-tip" id="fs49">val eval : x:float -&gt; float</div>
-<div class="fsdocs-tip" id="fs50">val x : float</div>
-<div class="fsdocs-tip" id="fs51">namespace FSharp.Stats.Fitting</div>
-<div class="fsdocs-tip" id="fs52">module NonLinearRegression<br /><br />from FSharp.Stats.Fitting</div>
-<div class="fsdocs-tip" id="fs53">module Table<br /><br />from FSharp.Stats.Fitting.NonLinearRegression</div>
-<div class="fsdocs-tip" id="fs54">val emgModel : Fitting.NonLinearRegression.Model</div>
-<div class="fsdocs-tip" id="fs55">Multiple items<br />val vector : l:seq&lt;float&gt; -&gt; Vector&lt;float&gt;<br /><br />--------------------<br />type vector = Vector&lt;float&gt;</div>
-<div class="fsdocs-tip" id="fs56">val quantifiedArea : (float * float) []</div>
-<div class="fsdocs-tip" id="fs57">val rt : float</div>
-<div class="fsdocs-tip" id="fs58">val i : float</div>
-<div class="fsdocs-tip" id="fs59">val quantifiedAreaChart : GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs60">static member Chart.SplineArea : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:StyleParam.Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?Dash:StyleParam.DrawingStyle * ?Width:&#39;a2 * ?Smoothing:&#39;a3 -&gt; GenericChart.GenericChart<br />static member Chart.SplineArea : x:seq&lt;#System.IConvertible&gt; * y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:StyleParam.Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?Dash:StyleParam.DrawingStyle * ?Width:&#39;a2 * ?Smoothing:&#39;a3 -&gt; GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs48">val quantifiedXIC : Mz.Quantification.HULQ.QuantifiedPeak</div>
+<div class="fsdocs-tip" id="fs49">namespace BioFSharp.Mz</div>
+<div class="fsdocs-tip" id="fs50">module Quantification<br /><br />from BioFSharp.Mz</div>
+<div class="fsdocs-tip" id="fs51">module HULQ<br /><br />from BioFSharp.Mz.Quantification</div>
+<div class="fsdocs-tip" id="fs52">val getPeakBy : peaks:Signal.PeakDetection.IdentifiedPeak [] -&gt; x:float -&gt; Signal.PeakDetection.IdentifiedPeak</div>
+<div class="fsdocs-tip" id="fs53">val quantifyPeak : p:Signal.PeakDetection.IdentifiedPeak -&gt; Mz.Quantification.HULQ.QuantifiedPeak</div>
+<div class="fsdocs-tip" id="fs54">Mz.Quantification.HULQ.QuantifiedPeak.Area: float</div>
+<div class="fsdocs-tip" id="fs55">val eval : x:float -&gt; float</div>
+<div class="fsdocs-tip" id="fs56">val x : float</div>
+<div class="fsdocs-tip" id="fs57">namespace FSharp.Stats.Fitting</div>
+<div class="fsdocs-tip" id="fs58">module NonLinearRegression<br /><br />from FSharp.Stats.Fitting</div>
+<div class="fsdocs-tip" id="fs59">module Table<br /><br />from FSharp.Stats.Fitting.NonLinearRegression</div>
+<div class="fsdocs-tip" id="fs60">val emgModel : Fitting.NonLinearRegression.Model</div>
+<div class="fsdocs-tip" id="fs61">Multiple items<br />val vector : l:seq&lt;float&gt; -&gt; Vector&lt;float&gt;<br /><br />--------------------<br />type vector = Vector&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs62">Mz.Quantification.HULQ.QuantifiedPeak.EstimatedParams: float []</div>
+<div class="fsdocs-tip" id="fs63">val quantifiedArea : (float * float) []</div>
+<div class="fsdocs-tip" id="fs64">val rt : float</div>
+<div class="fsdocs-tip" id="fs65">val i : float</div>
+<div class="fsdocs-tip" id="fs66">val quantifiedAreaChart : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs67">static member Chart.SplineArea : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:StyleParam.Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?Dash:StyleParam.DrawingStyle * ?Width:&#39;a2 * ?Smoothing:&#39;a3 -&gt; GenericChart.GenericChart<br />static member Chart.SplineArea : x:seq&lt;#System.IConvertible&gt; * y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:StyleParam.Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?Dash:StyleParam.DrawingStyle * ?Width:&#39;a2 * ?Smoothing:&#39;a3 -&gt; GenericChart.GenericChart</div>
 
     </div>
 
