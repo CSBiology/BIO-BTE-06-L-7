@@ -136,7 +136,7 @@ and index the entries according to their retention time.
 
 // Code-Block 1
 let directory = __SOURCE_DIRECTORY__
-let path = Path.Combine[|directory;"../AuxFiles/sample.mzlite"|]
+let path = Path.Combine[|__SOURCE_DIRECTORY__;"../../AuxFiles/sample.mzlite"|]
 let runID = "sample=0"
 
 let mzReader = new MzIO.MzSQL.MzSQL(path)
