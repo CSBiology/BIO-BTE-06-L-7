@@ -134,10 +134,9 @@ Since we need several mass spectrometry scans to quantify over the retention tim
 and index the entries according to their retention time.
 </div>
 *)
-(***hide***)
-let s3Client = FS3.S3Client.initS3UniKl "NVN8Q7U7Y7P09X2YCQD3" "GhN62eaDzqEV/tVAPrbG4Bz1sbkAWWyYZxo4YsZ8"
-(** *)
+
 // Code-Block 1
+let s3Client = FS3.S3Client.initS3UniKl "NVN8Q7U7Y7P09X2YCQD3" "GhN62eaDzqEV/tVAPrbG4Bz1sbkAWWyYZxo4YsZ8"
 let directory = __SOURCE_DIRECTORY__
 let path = Path.Combine[|directory;"downloads/sample.mzlite"|]
 let checkFile =
