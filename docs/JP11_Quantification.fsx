@@ -1,6 +1,8 @@
 (**
 # JP11 Quantification
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP11_Quantification.ipynb)
+
 1. [Quantification Theory](#Quantification-Theory)<br>
     1. [Targeted quantification](#Targeted-quantification)
     2. [(i) Targeted acquisition at peptide](#(i)-Targeted-acquisition-at-peptide)
@@ -108,6 +110,9 @@ Let’s start and extract a XIC…
 #r "nuget: Plotly.NET, 2.0.0-beta6"
 #r "nuget: System.Data.SQLite, 1.0.113.7"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
+#r "nuget: MzIO, 0.1.0-beta"
+#r "nuget: MzIO.SQL, 0.1.0-beta"
+#r "nuget: MzIO.Processing, 0.1.0-beta"
 
 #if IPYNB
 #r "nuget: Plotly.NET, 2.0.0-beta6"
@@ -130,11 +135,12 @@ and index the entries according to their retention time.
 *)
 
 // Code-Block 1
-
-let path = "../AuxFiles/sample.mzlite"
+let directory = __SOURCE_DIRECTORY__
+let path = Path.Combine[|directory;"../AuxFiles/sample.mzlite"|]
 let runID = "sample=0"
 
-let mzReader = new MzIO.MzSQL.MzSQL(path) :>  MzIO.IO.IMzIODataReader
+let mzReader = new MzIO.MzSQL.MzSQL(path)
+let cn = mzReader.Open()
 let transaction = mzReader.BeginTransaction()
 
 // Indexes all spectra of the related sample run
