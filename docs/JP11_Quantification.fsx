@@ -113,6 +113,7 @@ Let’s start and extract a XIC…
 #r "nuget: MzIO, 0.1.0-beta"
 #r "nuget: MzIO.SQL, 0.1.0-beta"
 #r "nuget: MzIO.Processing, 0.1.0-beta"
+#r "nuget: FS3, 0.0.2-alpha"
 
 #if IPYNB
 #r "nuget: Plotly.NET, 2.0.0-beta6"
@@ -133,10 +134,17 @@ Since we need several mass spectrometry scans to quantify over the retention tim
 and index the entries according to their retention time.
 </div>
 *)
-
+(***hide***)
+let s3Client = FS3.S3Client.initS3UniKl "NVN8Q7U7Y7P09X2YCQD3" "GhN62eaDzqEV/tVAPrbG4Bz1sbkAWWyYZxo4YsZ8"
+(** *)
 // Code-Block 1
 let directory = __SOURCE_DIRECTORY__
-let path = Path.Combine[|__SOURCE_DIRECTORY__;"../../AuxFiles/sample.mzlite"|]
+let path = Path.Combine[|directory;"downloads/sample.mzlite"|]
+let checkFile =
+    if File.Exists path then ()
+    else
+        Directory.CreateDirectory (Path.GetDirectoryName path)
+        FS3.AccessTransferUtility.objectMultipartDownload s3Client "sample.mzlite" "bio-bte-06-l-7" path
 let runID = "sample=0"
 
 let mzReader = new MzIO.MzSQL.MzSQL(path)
