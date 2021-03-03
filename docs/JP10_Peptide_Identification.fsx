@@ -95,6 +95,7 @@ Matching a measured spectrum against chlamy database
 
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
+#r "nuget: BioFSharp.Mz, 0.1.5-beta"
 #r "nuget: Plotly.NET, 2.0.0-beta6"
 
 #if IPYNB
