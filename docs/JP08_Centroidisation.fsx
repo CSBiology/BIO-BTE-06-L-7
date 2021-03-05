@@ -27,6 +27,7 @@ explained under quantification in the following section.
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
 #r "nuget: Plotly.NET, 2.0.0-beta6"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"
 
 #if IPYNB
 #r "nuget: Plotly.NET, 2.0.0-beta6"
@@ -35,6 +36,7 @@ explained under quantification in the following section.
 
 open Plotly.NET
 open BioFSharp.Mz
+open BIO_BTE_06_L_7_Aux.FS3_Aux
 
 (**
 ## Peak fitting and picking functions
@@ -71,9 +73,12 @@ We load a sample MS<sup>1</sup> from a mgf file.
 *)
 
 // Code-Block 2
+let directory = __SOURCE_DIRECTORY__
+let path = Path.Combine[|directory;"downloads/ms1MGF.mgf"|]
+downloadFile path "ms1MGF.mgf" "bio-bte-06-l-7"
 
 let ms1 = 
-    BioFSharp.IO.Mgf.readMgf (__SOURCE_DIRECTORY__ + @"/../AuxFiles/DavesTaskData/ms1MGF.mgf")
+    BioFSharp.IO.Mgf.readMgf (path)
     |> List.head
 
 ms1
