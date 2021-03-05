@@ -92,8 +92,8 @@ Matching a measured spectrum against chlamy database
 </div>
 *)
 
-#r "nuget: BioFSharp, 2.0.0-beta5"
-#r "nuget: BioFSharp.IO, 2.0.0-beta5"
+#r "nuget: BioFSharp, 2.0.0-beta4"
+#r "nuget: BioFSharp.IO, 2.0.0-beta4"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
 #r "nuget: Plotly.NET, 2.0.0-beta6"
 #r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"
