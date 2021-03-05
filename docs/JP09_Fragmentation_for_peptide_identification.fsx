@@ -122,7 +122,7 @@ let ionChart =
         Chart.Column (ionSeriesY, Name="y ions")
     ]
     |> Chart.Combine
-
+ionChart
 (***hide***)
 ionChart |> GenericChart.toChartHTML
 (***include-it-raw***)

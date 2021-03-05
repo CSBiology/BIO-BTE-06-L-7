@@ -131,7 +131,7 @@ let chargedPeptideChar =
     |> Chart.withX_AxisStyle("m/z", MinMax=(0.,3000.))
     |> Chart.withY_AxisStyle ("Intensity", MinMax=(0.,1.3))
     |> Chart.withSize (900.,400.)
-
+chargedPeptideChar
 (***hide***)
 chargedPeptideChar |> GenericChart.toChartHTML
 (***include-it-raw***)
@@ -185,7 +185,7 @@ let peptidesAndMassesChart =
     |> Chart.withX_AxisStyle("m/z", MinMax=(0.,3000.))
     |> Chart.withY_AxisStyle ("Intensity", MinMax=(0.,1.3))
     |> Chart.withSize (900.,400.)
-
+peptidesAndMassesChart
 // HINT: zoom in on peptides
 
 (***hide***)
@@ -268,7 +268,7 @@ let peptidesFirst200Chart =
     |> Chart.withX_AxisStyle("m/z", MinMax=(0.,3000.))
     |> Chart.withY_AxisStyle ("Intensity", MinMax=(0.,1.3))
     |> Chart.withSize (900.,400.)
-
+peptidesFirst200Chart
 // HINT: zoom in on peptides
 
 (***hide***)

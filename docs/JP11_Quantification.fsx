@@ -181,7 +181,7 @@ let xicChart =
     |> Chart.withX_AxisStyle "Retention Time"
     |> Chart.withY_AxisStyle "Intensity/Score"
     |> Chart.withSize (900.,900.)
-
+xicChart
 (***hide***)
 xicChart |> GenericChart.toChartHTML
 (***include-it-raw***)
@@ -225,7 +225,7 @@ let apicesChart=
     |> Chart.withX_AxisStyle "Retention Time"
     |> Chart.withY_AxisStyle "Intensity"
     |> Chart.withSize (900.,900.)
-
+apicesChart
 (***hide***)
 apicesChart |> GenericChart.toChartHTML
 (***include-it-raw***)
@@ -276,7 +276,7 @@ let quantifiedAreaChart =
     |> Chart.withX_AxisStyle (title = "Retention Time", MinMax = (51.,55.))
     |> Chart.withY_AxisStyle "Intensity"
     |> Chart.withSize (900.,900.)
-
+quantifiedAreaChart
 (***hide***)
 quantifiedAreaChart |> GenericChart.toChartHTML
 (***include-it-raw***)

@@ -118,7 +118,7 @@ let filteredChart =
     |> Chart.withY_AxisStyle "Intensity"
     |> Chart.withX_AxisStyle (title = "m/z", MinMax = (400., 800.))
     |> Chart.withSize (900.,900.)
-
+filteredChart
 (***hide***)
 filteredChart |> GenericChart.toChartHTML
 (***include-it-raw***)
