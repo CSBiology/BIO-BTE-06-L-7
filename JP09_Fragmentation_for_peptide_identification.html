@@ -278,30 +278,31 @@ in the mass. Notice, that we do not know the intesity of the fragment ions and j
         <span onmouseout="hideTip(event, 'fs22', 42)" onmouseover="showTip(event, 'fs22', 42)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs23', 43)" onmouseover="showTip(event, 'fs23', 43)" class="id">Column</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs7', 44)" onmouseover="showTip(event, 'fs7', 44)" class="id">ionSeriesY</span><span class="pn">,</span> <span class="fn">Name</span><span class="o">=</span><span class="s">&quot;y ions&quot;</span><span class="pn">)</span>
     <span class="pn">]</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs22', 45)" onmouseover="showTip(event, 'fs22', 45)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 46)" onmouseover="showTip(event, 'fs24', 46)" class="id">Combine</span>
+<span onmouseout="hideTip(event, 'fs21', 47)" onmouseover="showTip(event, 'fs21', 47)" class="id">ionChart</span>
 </code></pre>
-<div id="4f5c7d90-2544-4f8e-8d16-406ae5da4956" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="c2a10528-ef52-4a0e-81b7-39322dc0d30c" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_4f5c7d9025444f8e8d16406ae5da4956 = function() {
+            var renderPlotly_c2a10528ef524a0e81b739322dc0d30c = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"bar","x":[115.02694302215,216.07462148944,331.10156451159,444.18562848816003,557.26969246473,628.3068062488801,699.3439200330301,846.4123339454602,1002.5134449685002],"y":[1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0],"marker":{},"name":"b ions"},{"type":"bar","x":[1020.52400965164,905.49706662949,804.4493881622,689.42244514005,576.33838116348,463.25431718691,392.21720340276,321.18008961861,174.11167570618],"y":[1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0],"marker":{},"name":"y ions"}];
             var layout = {};
             var config = {};
-            Plotly.newPlot('4f5c7d90-2544-4f8e-8d16-406ae5da4956', data, layout, config);
+            Plotly.newPlot('c2a10528-ef52-4a0e-81b7-39322dc0d30c', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_4f5c7d9025444f8e8d16406ae5da4956();
+                    renderPlotly_c2a10528ef524a0e81b739322dc0d30c();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_4f5c7d9025444f8e8d16406ae5da4956();
+                renderPlotly_c2a10528ef524a0e81b739322dc0d30c();
             }
 </script>
 
