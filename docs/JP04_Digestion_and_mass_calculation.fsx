@@ -34,6 +34,7 @@ Amino acid composition of the proteome is simply counting each amino acid occurr
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
 #r "nuget: Plotly.NET, 2.0.0-beta6"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"
 
 #if IPYNB
 #r "nuget: Plotly.NET, 2.0.0-beta6"
@@ -42,6 +43,8 @@ Amino acid composition of the proteome is simply counting each amino acid occurr
 
 open Plotly.NET
 open BioFSharp
+open BIO_BTE_06_L_7_Aux.FS3_Aux
+open System.IO
 
 (**
 ## Accessing the protein sequences of <i>Chlamydomonas reinhardtii</i>
@@ -57,10 +60,11 @@ of <i>Chlamydomonas</i>, which is saved in the .fasta file we are accessing belo
 *)
 
 // __SOURCE_DIRECTORY__ returns the directory in which the current notebook is located
-let source = __SOURCE_DIRECTORY__
+let directory = __SOURCE_DIRECTORY__
+let path = Path.Combine[|directory;"downloads/Chlamy_JGI5_5(Cp_Mp).fasta"|]
+downloadFile path "Chlamy_JGI5_5(Cp_Mp).fasta" "bio-bte-06-l-7"
 // with /../ we navigate a directory 
-let filePath = source + "/../AuxFiles/Chlamy_JGI5_5(Cp_Mp).fasta"
-filePath
+path
 
 (*** include-it ***)
 
@@ -69,7 +73,7 @@ Functions to read information from FASTA files exist in the <a href="https://csb
 *)
 
 let sequences = 
-    filePath
+    path
     |> IO.FastA.fromFile BioArray.ofAminoAcidString
     |> Seq.toArray
     

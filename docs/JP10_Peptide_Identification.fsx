@@ -97,6 +97,7 @@ Matching a measured spectrum against chlamy database
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
 #r "nuget: Plotly.NET, 2.0.0-beta6"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"
 
 #if IPYNB
 #r "nuget: Plotly.NET, 2.0.0-beta6"
@@ -105,6 +106,7 @@ Matching a measured spectrum against chlamy database
 
 open Plotly.NET
 open BioFSharp
+open BIO_BTE_06_L_7_Aux.FS3_Aux
 
 (**
 ### Step 1: Data acquisition and preprocessing
@@ -114,9 +116,12 @@ We load a single MS<sup>2</sup> spectrum that is saved in a mgf file.
 *)
 
 // Code-Block 1
+let directory = __SOURCE_DIRECTORY__
+let path = Path.Combine[|directory;"downloads/ms2sample.mgf"|]
+downloadFile path "ms2sample.mgf" "bio-bte-06-l-7"
 
 let ms2 = 
-    BioFSharp.IO.Mgf.readMgf (__SOURCE_DIRECTORY__ + @"/../AuxFiles/ms2sample.mgf")
+    BioFSharp.IO.Mgf.readMgf path
     |> List.head
     
 ms2
@@ -181,12 +186,11 @@ calculate all peptide masses that we can expect to be present in <i>Chlamydomona
 *)
 
 // Code-Block 4
-
-let source = __SOURCE_DIRECTORY__
-let filePath = source + @"/../AuxFiles/Chlamy_JGI5_5(Cp_Mp).fasta"
+let path2 = Path.Combine[|directory;"downloads/Chlamy_JGI5_5(Cp_Mp).fasta"|]
+downloadFile path2 "Chlamy_JGI5_5(Cp_Mp).fasta" "bio-bte-06-l-7"
 
 let peptideAndMasses = 
-    filePath
+    path2
     |> IO.FastA.fromFile BioArray.ofAminoAcidString
     |> Seq.toArray
     |> Array.mapi (fun i fastAItem ->

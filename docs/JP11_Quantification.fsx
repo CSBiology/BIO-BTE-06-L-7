@@ -113,7 +113,7 @@ Let’s start and extract a XIC…
 #r "nuget: MzIO, 0.1.0-beta"
 #r "nuget: MzIO.SQL, 0.1.0-beta"
 #r "nuget: MzIO.Processing, 0.1.0-beta"
-#r "nuget: FS3, 0.0.2-alpha"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"
 
 #if IPYNB
 #r "nuget: Plotly.NET, 2.0.0-beta6"
@@ -125,6 +125,7 @@ open FSharp.Stats
 open BioFSharp
 open System.IO
 open System.Data.SQLite
+open BIO_BTE_06_L_7_Aux.FS3_Aux
 
 (**
 <div class="container">
@@ -136,14 +137,9 @@ and index the entries according to their retention time.
 *)
 
 // Code-Block 1
-let s3Client = FS3.S3Client.initS3UniKl "NVN8Q7U7Y7P09X2YCQD3" "GhN62eaDzqEV/tVAPrbG4Bz1sbkAWWyYZxo4YsZ8"
 let directory = __SOURCE_DIRECTORY__
 let path = Path.Combine[|directory;"downloads/sample.mzlite"|]
-let checkFile =
-    if File.Exists path then ()
-    else
-        Directory.CreateDirectory (Path.GetDirectoryName path)
-        FS3.AccessTransferUtility.objectMultipartDownload s3Client "sample.mzlite" "bio-bte-06-l-7" path
+downloadFile path "sample.mzlite" "bio-bte-06-l-7"
 let runID = "sample=0"
 
 let mzReader = new MzIO.MzSQL.MzSQL(path)
