@@ -286,7 +286,7 @@ quantifiedAreaChart |> GenericChart.toChartHTML
 <nav class="level is-mobile">
     <div class="level-left">
         <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP10_Peptide_Identification.html';">JP10 &#187;</button>
+            <button class="button is-primary is-outlined" onclick="location.href='/JP10_Peptide_Identification.html';">&#171; JP10</button>
         </div>
     </div>
     <div class="level-right">

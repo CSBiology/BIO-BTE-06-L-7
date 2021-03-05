@@ -104,11 +104,11 @@ aminoAcidDistribution
 
 let aaDistributionHis =
     aminoAcidDistribution
-    |> Array.map (fun (name,count) -> count, string name)
+    |> Array.map (fun (name,count) -> string name, count)
     // sort by number of occurences
     |> Array.sortBy fst
     // create chart
-    |> Chart.Bar
+    |> Chart.Column
     // style chart
     |> Chart.withX_AxisStyle "Count"
     |> Chart.withTitle "Amino Acid composition of the <i>Chlamydomonas reinhardtii</i> proteome"
