@@ -92,7 +92,8 @@ A diagram of a general function would be:
 
 ![](img/function.png)
 
-<b>Figure 2: diagram of a general function</b>
+<div><b>Figure 2: diagram of a general function</b></div>
+
 
 ## Binding function values and simple values
 
@@ -138,7 +139,7 @@ add1 5 = plus1 5
 (***include-it***)
 
 (**
-You can see that `add1` and `plus1` are two names that refer ("bound to") to the same function. You can always identify a function value because its signature has the standard form domain -> range. 
+You can see that `add1` and `plus1` are two names that refer ("bound to") to the same function. You can always identify a function value because its signature has the standard form domain → range. 
 Here is a generic function value signature:
 
 ```
@@ -379,7 +380,7 @@ simplePatternMatch "I will not match"
 (**
 In the following we will use a `printfn` function. Normally in FSharp only the last output is returned, but side effects, can always be returned. As a rule of thumb: All Unit outputs are side effects. <br>
 In this case, this means, we will print the result and still can keep working with the output.
-Also you will notice, that the last output is only `f (1=3)` -> "b", but we still will get all other results, as we print them below.
+Also you will notice, that the last output is only `f (1=3)` → `"b"`, but we still will get all other results, as we print them below.
 *)
 
 let f x = 
@@ -407,7 +408,10 @@ f (1=3)
 (***include-it***)
 
 (**
+
 ## Complex Data Types
+
+</br>
 
 ### Tuples
 

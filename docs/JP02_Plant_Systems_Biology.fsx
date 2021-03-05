@@ -93,7 +93,7 @@ open FSharp.Stats.Fitting.NonLinearRegression
 <a href="#Plant-Systems-Biology" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
 A normal cell culture experiment with measurements for the growth curve will return data like the following.
-Multiple cell counts (y_Count) each related to a specific timepoint (x_Hours).
+Multiple cell counts (`y_Count`) each related to a specific timepoint (`x_Hours`).
 *)
 // Code-Block 1
 
@@ -123,9 +123,9 @@ example_Chart_1 |> GenericChart.toChartHTML
 ## Calculation of growth rate and doubling time for cell cultures
 <a href="#Plant-Systems-Biology" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
-<div class="container">
-The normal growth of an in vitro cell culture is defined through three phases. The lag phase in which the cells still acclimate to the growth conditions, the exponential growth, also called log phase, during which cell growth is exponential due to the proliferation of cells into two daughter cells, and the stationary phase in which the growth rate and the death rate are equal. The stationary phase is typically initiated due to limitations in growth conditions, e.g. depletion of essential nutrients or accumulation of toxic/inhibitory excretions/products. The doubling time defines a time interval in which the quantity of cells doubles and is calculated as seen in Equation 1.
+<div class="container">The normal growth of an in vitro cell culture is defined through three phases. The lag phase in which the cells still acclimate to the growth conditions, the exponential growth, also called log phase, during which cell growth is exponential due to the proliferation of cells into two daughter cells, and the stationary phase in which the growth rate and the death rate are equal. The stationary phase is typically initiated due to limitations in growth conditions, e.g. depletion of essential nutrients or accumulation of toxic/inhibitory excretions/products. The doubling time defines a time interval in which the quantity of cells doubles and is calculated as seen in Equation 1.</div>
 
+<div class="container">
 <i>Equation 1: Calculation of the doubling time. Growth rate is calculates as shown in Equation 2.</i>
 
 <div class="container">
