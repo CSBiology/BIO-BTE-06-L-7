@@ -267,7 +267,7 @@ So first, let’s start with a mathematical function that adds 1 to a number.</p
 </ul>
 <p>A diagram of a general function would be:</p>
 <p><img src="img/function.png" alt="" /></p>
-<b>Figure 2: diagram of a general function</b>
+<div><b>Figure 2: diagram of a general function</b></div>
 <h2><a name="Binding-function-values-and-simple-values" class="anchor" href="#Binding-function-values-and-simple-values">Binding function values and simple values</a></h2>
 <p>The process of using a name to represent a function or a value is called “binding“. A binding is done by using the <code>let</code> keyword in F#. Let’s look at the simple function we used previously:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="fn">add1</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="fn">x</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs2', 3)" onmouseover="showTip(event, 'fs2', 3)" class="fn">x</span> <span class="o">+</span> <span class="n">1</span>
@@ -296,7 +296,7 @@ replace it with <em>the function that adds one to its input</em>”. <code>add1<
 <span onmouseout="hideTip(event, 'fs1', 10)" onmouseover="showTip(event, 'fs1', 10)" class="fn">add1</span> <span class="n">5</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs4', 11)" onmouseover="showTip(event, 'fs4', 11)" class="fn">plus1</span> <span class="n">5</span>
 </code></pre>
 <table class="pre"><tr><td><pre><code>true</code></pre></td></tr></table>
-<p>You can see that <code>add1</code> and <code>plus1</code> are two names that refer ("bound to") to the same function. You can always identify a function value because its signature has the standard form domain -&gt; range.
+<p>You can see that <code>add1</code> and <code>plus1</code> are two names that refer ("bound to") to the same function. You can always identify a function value because its signature has the standard form domain → range.
 Here is a generic function value signature:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">val</span> <span class="id">functionName</span> <span class="pn">:</span> <span class="id">domain</span> <span class="k">-&gt;</span> <span class="id">range</span>
 </code></pre>
@@ -442,7 +442,7 @@ It evaluates to a different value depending on the <code>boolean</code> expressi
 <table class="pre"><tr><td><pre><code>input is something else</code></pre></td></tr></table>
 <p>In the following we will use a <code>printfn</code> function. Normally in FSharp only the last output is returned, but side effects, can always be returned. As a rule of thumb: All Unit outputs are side effects. <br>
 In this case, this means, we will print the result and still can keep working with the output.
-Also you will notice, that the last output is only <code>f (1=3)</code> -&gt; "b", but we still will get all other results, as we print them below.</p>
+Also you will notice, that the last output is only <code>f (1=3)</code> → <code>"b"</code>, but we still will get all other results, as we print them below.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs26', 78)" onmouseover="showTip(event, 'fs26', 78)" class="fn">f</span> <span onmouseout="hideTip(event, 'fs27', 79)" onmouseover="showTip(event, 'fs27', 79)" class="fn">x</span> <span class="o">=</span> 
     <span class="k">if</span> <span onmouseout="hideTip(event, 'fs27', 80)" onmouseover="showTip(event, 'fs27', 80)" class="fn">x</span> <span class="k">then</span> 
         <span onmouseout="hideTip(event, 'fs25', 81)" onmouseover="showTip(event, 'fs25', 81)" class="fn">printfn</span> <span class="s">&quot;a&quot;</span><span class="pn">;</span>
@@ -464,6 +464,7 @@ Also you will notice, that the last output is only <code>f (1=3)</code> -&gt; "b
 </code></pre>
 <table class="pre"><tr><td><pre><code>"b"</code></pre></td></tr></table>
 <h2><a name="Complex-Data-Types" class="anchor" href="#Complex-Data-Types">Complex Data Types</a></h2>
+</br>
 <h3><a name="Tuples" class="anchor" href="#Tuples">Tuples</a></h3>
 <p>Tuple types are pairs, triples, and so on of values.</p>
 <p>Tuples use commas <code>,</code> as delimiter.</p>
