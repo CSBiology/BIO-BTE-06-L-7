@@ -110,9 +110,9 @@ let aaDistributionHis =
     // create chart
     |> Chart.Column
     // style chart
-    |> Chart.withX_AxisStyle "Count"
+    |> Chart.withY_AxisStyle "Count"
     |> Chart.withTitle "Amino Acid composition of the <i>Chlamydomonas reinhardtii</i> proteome"
-
+aaDistributionHis
 (***hide***)
 aaDistributionHis |> GenericChart.toChartHTML
 (***include-it-raw***)
@@ -179,11 +179,12 @@ let chartDigestedProteins =
         // calculate mass for each peptide
         BioSeq.toMonoisotopicMassWith (BioItem.monoisoMass ModificationInfo.Table.H2O) peptide.PepSequence
         )
+    |> Array.filter (fun x -> x<3000.)
     // visualize distribution of all peptide masses < 5000 Da
-    |> Chart.Histogram
-    |> Chart.withX_AxisStyle (title = "Mass [Da]",MinMax=(0.,5000.))
+    |> fun masses -> Chart.Histogram(data=masses,nBinsx=100)
+    |> Chart.withX_AxisStyle (title = "Mass [Da]",MinMax=(0.,3000.))
     |> Chart.withY_AxisStyle "Count"
-
+chartDigestedProteins
 (***hide***)
 chartDigestedProteins |> GenericChart.toChartHTML
 (***include-it-raw***)
@@ -214,11 +215,12 @@ let digestedPeptideMasses =
 
 let chartDigestedPeptideMasses =
     digestedPeptideMasses
-    |> Array.map (fun ucMass -> Mass.toMZ ucMass 2.) 
-    |> Chart.Histogram
-    |> Chart.withX_AxisStyle (title = "m/z",MinMax=(0.,5000.))
+    |> Array.map (fun ucMass -> Mass.toMZ ucMass 2.)
+    |> Array.filter (fun x -> x<3000.)
+    |> fun masses -> Chart.Histogram(data=masses,nBinsx=100)
+    |> Chart.withX_AxisStyle (title = "m/z",MinMax=(0.,3000.))
     |> Chart.withY_AxisStyle "Count"
-
+chartDigestedPeptideMasses
 (***hide***)
 chartDigestedPeptideMasses |> GenericChart.toChartHTML
 (***include-it-raw***)

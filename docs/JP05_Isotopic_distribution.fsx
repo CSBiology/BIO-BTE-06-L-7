@@ -147,7 +147,7 @@ let isoPatternChart =
     |> Chart.withSize (900.,600.)
     |> Chart.withTitle "Isotopeclusters"
     |> Chart.withY_AxisStyle "intensity"
-
+isoPatternChart
 
 (***hide***)
 isoPatternChart |> GenericChart.toChartHTML
@@ -200,9 +200,11 @@ let N15_peptide_long  =
     |> label
 
 //result: N15_peptide_short
+N15_peptide_short
 (*** include-value:N15_peptide_short ***)
 
 //result: N15_peptide_long
+N15_peptide_long
 (*** include-value:N15_peptide_long ***)
 
 (** *)
@@ -244,7 +246,7 @@ let isoPatternChart2 =
     |> Chart.Stack 2
     |> Chart.withTitle "Isotopeclusters"
     |> Chart.withY_AxisStyle "intensity"
-
+isoPatternChart2
 (***hide***)
 isoPatternChart2 |> GenericChart.toChartHTML
 (***include-it-raw***)

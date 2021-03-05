@@ -366,7 +366,7 @@ let fittedLogisticFunc =
     |> Chart.Combine
     |> Chart.withY_Axis (templateAxis "cell count")
     |> Chart.withX_Axis (templateAxis "time [Hours]")
-
+fittedLogisticFunc
 (***hide***)
 fittedLogisticFunc |> GenericChart.toChartHTML
 (***include-it-raw***)
@@ -429,7 +429,7 @@ let fitAllLogisticFunc =
     |> Chart.Combine
     |> Chart.withY_Axis (templateAxis "slope or curvature")
     |> Chart.withX_Axis (templateAxis "time [hours]")
-
+fitAllLogisticFunc
 (***hide***)
 fitAllLogisticFunc |> GenericChart.toChartHTML
 (***include-it-raw***)

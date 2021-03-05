@@ -136,7 +136,7 @@ Here, the spectrum is already centroidized as shown in <a href="JP08_Centroidisa
 // Code-Block 2
 
 let ms2Chart = Chart.Column(ms2.Mass, ms2.Intensity)
-
+ms2Chart
 (***hide***)
 ms2Chart |> GenericChart.toChartHTML
 (***include-it-raw***)
@@ -157,7 +157,7 @@ let preprocessedIntesities =
     |> (fun pa -> Mz.SequestLike.windowNormalizeIntensities pa 10)
     
 let intensityChart = Chart.Column([lowerScanLimit .. upperScanLimit], preprocessedIntesities)
-
+intensityChart
 (***hide***)
 intensityChart |> GenericChart.toChartHTML
 (***include-it-raw***)
