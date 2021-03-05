@@ -31,7 +31,7 @@ As always, we start by loading our famous libraries.
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
 #r "nuget: Plotly.NET, 2.0.0-beta6"
-#load @"..\AuxFsx\JP06_Retention_time_and_scan_time_Aux.fsx"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"
 
 #if IPYNB
 #r "nuget: Plotly.NET, 2.0.0-beta6"
@@ -41,7 +41,10 @@ As always, we start by loading our famous libraries.
 open BioFSharp
 open Plotly.NET
 open BioFSharp.Elements
-open JP06_Retention_time_and_scan_time_Aux
+open BIO_BTE_06_L_7_Aux
+open FS3_Aux
+open Retention_time_and_scan_time_Aux
+open System.IO
 
 open FSharp.Stats
 
@@ -57,11 +60,14 @@ Digestion and mass calculation</a>). This time we also remember the peptide sequ
 
 // Code-Block 1
 
-let source = __SOURCE_DIRECTORY__
-let filePath = source + @"/../AuxFiles/Chlamy_JGI5_5(Cp_Mp).fasta"
+let directory = __SOURCE_DIRECTORY__
+let path = Path.Combine[|directory;"downloads/Chlamy_JGI5_5(Cp_Mp).fasta"|]
+downloadFile path "Chlamy_JGI5_5(Cp_Mp).fasta" "bio-bte-06-l-7"
+// with /../ we navigate a directory 
+path
 
 let peptideAndMasses = 
-    filePath
+    path
     |> IO.FastA.fromFile BioArray.ofAminoAcidString
     |> Seq.toArray
     |> Array.mapi (fun i fastAItem ->

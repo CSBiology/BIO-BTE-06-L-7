@@ -107,6 +107,7 @@ Matching a measured spectrum against chlamy database
 open Plotly.NET
 open BioFSharp
 open BIO_BTE_06_L_7_Aux.FS3_Aux
+open System.IO
 
 (**
 ### Step 1: Data acquisition and preprocessing
