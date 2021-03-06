@@ -3,7 +3,7 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP12_Targeted_quantification_of_photosynthetic_proteins_LE.ipynb)
 
-1. [Label Efficiency of 15N QProteins](#Label-Efficiency-of-15N-QProteins)<br>
+1. [Label Efficiency of 15N QProteins](#Label-Efficiency-of-15N-QProteins)
 2. [Read in .txt as Deedle Frame](#Read-in-.txt-as-Deedle-Frame)
 3. [Verify Limit of Detection](#Verify-Limit-of-Detection)
     1. [Pearson correlation coefficient](#Pearson-correlation-coefficient)

@@ -1,5 +1,5 @@
 (**
-# JP12 Targeted quantification of photosynthetic proteins (Label Efficiency)
+# JP12 Targeted quantification of photosynthetic proteins (SDS in gel digest)
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP12_Targeted_quantification_of_photosynthetic_proteins_SDS_IGD.ipynb)
 
@@ -77,7 +77,6 @@ the experiment (mixing ratio, strain, etc.). Here you need to write <b>YOUR</b> 
 
 // Code block 3
 
-let directory = __SOURCE_DIRECTORY__
 let path2 = Path.Combine[|directory;"downloads/Group2/IGD_SampleDesc.txt"|]
 downloadFile path2 "IGD_SampleDesc.txt" "bio-bte-06-l-7/Group2"
 
@@ -121,8 +120,11 @@ protein relationship. We read this information from the "PeptideProtMap.txt" fil
 
 // Code block 5
 
+let path3 = Path.Combine[|directory;"downloads/PeptideProtMap.txt"|]
+downloadFile path3 "PeptideProtMap.txt" "bio-bte-06-l-7"
+
 let peptideProtMapping =
-    Frame.ReadCsv(source + @"\..\AuxFiles\PeptideProtMap.txt",hasHeaders=true,separators="\t")
+    Frame.ReadCsv(path3,hasHeaders=true,separators="\t")
     |> Frame.indexRowsString "Peptide"
     
 peptideProtMapping
