@@ -1,7 +1,7 @@
 (**
 # JP12 Targeted quantification of photosynthetic proteins (Whole Cell)
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP12_Targeted_quantification_of_photosynthetic_proteins_wc.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP12_Targeted_quantification_of_photosynthetic_proteins_WC.ipynb)
 
 1. [General steps for targeted quantification](#General-steps-for-targeted-quantification)
 2. [Peptide Ratio Visualization](#Peptide-Ratio-Visualization)
