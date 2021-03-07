@@ -67,9 +67,9 @@ let qConcatRawData =
             os.GetAs<int>("Charge")
         )
         
-qConcatRawData
+qConcatRawData.Print()
 
-(***include-it***)
+(***include-fsi-merged-output***)
 
 (**
 From literature we know that there are peptides with a very bad flyability 
@@ -100,9 +100,9 @@ let sampleDesc =
     Frame.ReadCsv(path2 ,separators="\t",schema="Strain=string")
     |> Frame.indexRowsString "RawFileName"
     
-sampleDesc
+sampleDesc.Print()
 
-(***include-it***)
+(***include-fsi-merged-output***)
 
 (**
 We map the list of filenames and get the corresponding <sup>14</sup>N and <sup>15</sup>N column series. 
@@ -120,9 +120,9 @@ let ionRatios =
         )
     |> Frame.ofColumns
     
-ionRatios
+ionRatios.Print()
 
-(***include-it***)
+(***include-fsi-merged-output***)
 
 (**
 From our in silico protein digest during the design of the qConCat protein, 
@@ -138,9 +138,9 @@ let peptideProtMapping =
     Frame.ReadCsv(path3,hasHeaders=true,separators="\t")
     |> Frame.indexRowsString "Peptide"
     
-peptideProtMapping
+peptideProtMapping.Print()
 
-(***include-it***)
+(***include-fsi-merged-output***)
 
 (**
 Next, we will aggregate the peptide ion ratios to obtain one ratio per peptide sequence despite the ion charge. For convenience, we join the protein names.
@@ -156,9 +156,9 @@ let peptideRatios =
     |> Frame.getNumericCols
     |> Frame.ofColumns
     
-peptideRatios
+peptideRatios.Print()
 
-(***include-it***)
+(***include-fsi-merged-output***)
 
 (**
 Now, we join the sample description with the data.
@@ -182,9 +182,9 @@ let peptideRatiosWithDesc =
         )
     |> Frame.unnest
     
-peptideRatiosWithDesc
+peptideRatiosWithDesc.Print()
 
-(***include-it***)
+(***include-fsi-merged-output***)
 
 (**
 By calculating the mean value per protein, we have two final tables with peptide and protein ratios:
@@ -197,9 +197,9 @@ let proteinRatiosWithDesc =
     peptideRatiosWithDesc
     |> Frame.applyLevel fst Stats.mean
     
-proteinRatiosWithDesc
+proteinRatiosWithDesc.Print()
 
-(***include-it***)
+(***include-fsi-merged-output***)
 
 (**
 Here are functions and parameters which are used for the styling of the graphs.
