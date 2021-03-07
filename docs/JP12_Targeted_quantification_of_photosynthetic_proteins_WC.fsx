@@ -30,7 +30,7 @@ It supports working with structured data frames, ordered and unordered data, as 
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
 #r "nuget: Plotly.NET, 2.0.0-beta6"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.2"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"
 #r "nuget: Deedle, 2.3.0"
 
 #if IPYNB
@@ -45,9 +45,7 @@ open FSharp.Stats
 open Plotly.NET
 open FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares.Linear
 open System.IO
-open BIO_BTE_06_L_7_Aux
-open FS3_Aux
-open Deedle_Aux
+open BIO_BTE_06_L_7_Aux.FS3_Aux
 
 (**
 At the start we have the output file of the QconQuantifier. We want to read the file, bind it to 
@@ -70,11 +68,8 @@ let qConcatRawData =
         )
         
 qConcatRawData
-|> formatAsTable
 
-(***hide***)
-qConcatRawData |> formatAsTable |> GenericChart.toChartHTML
-(***include-it-raw***)
+(***include-it***)
 
 (**
 From literature we know that there are peptides with a very bad flyability 
@@ -89,13 +84,6 @@ let qConcatData =
         sequence <> "EVTLGFVDLMR" && sequence <> "AFPDAYVR" 
         )
     |> Frame.mapValues (fun x ->  if x < 2000000. && x > 1. then x else nan)
-
-qConcatData
-|> formatAsTable
-
-(***hide***)
-qConcatData |> formatAsTable |> GenericChart.toChartHTML
-(***include-it-raw***)
 
 (**
 Reading the sample description file provides us with a list of all measured files and additional information about the experiment (mixing ratio, strain, etc.) 
@@ -113,11 +101,8 @@ let sampleDesc =
     |> Frame.indexRowsString "RawFileName"
     
 sampleDesc
-|> formatAsTable
 
-(***hide***)
-sampleDesc |> formatAsTable |> GenericChart.toChartHTML
-(***include-it-raw***)
+(***include-it***)
 
 (**
 We map the list of filenames and get the corresponding <sup>14</sup>N and <sup>15</sup>N column series. 
@@ -136,11 +121,8 @@ let ionRatios =
     |> Frame.ofColumns
     
 ionRatios
-|> formatAsTable
 
-(***hide***)
-ionRatios |> formatAsTable |> GenericChart.toChartHTML
-(***include-it-raw***)
+(***include-it***)
 
 (**
 From our in silico protein digest during the design of the qConCat protein, 
@@ -157,11 +139,8 @@ let peptideProtMapping =
     |> Frame.indexRowsString "Peptide"
     
 peptideProtMapping
-|> formatAsTable
 
-(***hide***)
-peptideProtMapping |> formatAsTable |> GenericChart.toChartHTML
-(***include-it-raw***)
+(***include-it***)
 
 (**
 Next, we will aggregate the peptide ion ratios to obtain one ratio per peptide sequence despite the ion charge. For convenience, we join the protein names.
@@ -178,11 +157,8 @@ let peptideRatios =
     |> Frame.ofColumns
     
 peptideRatios
-|> formatAsTable
 
-(***hide***)
-peptideRatios |> formatAsTable |> GenericChart.toChartHTML
-(***include-it-raw***)
+(***include-it***)
 
 (**
 Now, we join the sample description with the data.
