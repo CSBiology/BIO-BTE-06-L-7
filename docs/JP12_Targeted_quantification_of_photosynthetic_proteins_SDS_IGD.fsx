@@ -29,8 +29,8 @@ open System.IO
 open BIO_BTE_06_L_7_Aux.FS3_Aux
 
 (**
-At start we have the output file of the QconQuantifier. We want to read the file, bind it to <code>qConcatRawData</code> 
-and group the rows by peptide sequence, modifcation (<sup>14</sup>N or <sup>15</sup>N) and the charge state of the ion.
+At start we have the output file of the QconQuantifier. We want to read the file, bind it to `qConcatRawData` 
+and group the rows by peptide sequence, modifcation (14N or 15N) and the charge state of the ion.
 *)
 
 // Code block 1
@@ -72,7 +72,7 @@ qConcatData
 
 (**
 Reading the sample description file provides us with a list of all measured files and additional information about 
-the experiment (mixing ratio, strain, etc.). Here you need to write <b>YOUR</b> filenames into the .txt file!
+the experiment (mixing ratio, strain, etc.). Here you need to write ***YOUR*** filenames into the .txt file!
 *)
 
 // Code block 3
@@ -90,8 +90,8 @@ sampleDesc
 (***include-it***)
 
 (**
-We map the list of filenames and get the corresponding <sup>14</sup>N and <sup>15</sup>N column series. 
-This allows us to calculate the <sup>14</sup>N/<sup>15</sup>N ratio per peptide ion per sample.
+We map the list of filenames and get the corresponding 14N and 15N column series. 
+This allows us to calculate the 14N/15N ratio per peptide ion per sample.
 *)
 
 // Code block 4
@@ -230,7 +230,7 @@ let config = Config.init(ToImageButtonOptions = ToImageButtonOptions.init(Format
 
 (**
 ## Relative Quantification between rbcL and rbcS
-At first we calculated the <sup>14</sup>N/<sup>15</sup>N relative quantities for rbcL and rbcS. Then, as we normalized against the same 
+At first we calculated the 14N/15N relative quantities for rbcL and rbcS. Then, as we normalized against the same 
 QProtein we can now calculate the relation of subunits from rbcL and rbcS, both from their respective cut-out band.
 
 First we will access the data for rbcL and rbcS for a given strain from our Deedle frame.
@@ -315,8 +315,8 @@ chartRatios "rbcL" "RBCS2" "1690" |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
-## Compare <sup>14</sup>N/<sup>15</sup>N for rbcL and rbcS
-To calculate absolute quantities we need to know the relation of <sup>14</sup>N protein to the <sup>15</sup>N QProtein. 
+## Compare 14N/15N for rbcL and rbcS
+To calculate absolute quantities we need to know the relation of 14N protein to the 15N QProtein. 
 We will show these relation with the following charts.
 We add a linear fit to the charts to allow for more precise evaluation of sample linearity.
 *)

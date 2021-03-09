@@ -19,8 +19,8 @@
 (**
 ## Label Efficiency of 15N QProteins
 
-The amount of measured <sup>15</sup>N QProtein quantities can, even if you pipette perfectly, vary due to a faulty label efficiency.
-The label efficiency is an indicator on how many atoms of the designated type (here <sup>15</sup>N) are in fact their stable isotope.
+The amount of measured 15N QProtein quantities can, even if you pipette perfectly, vary due to a faulty label efficiency.
+The label efficiency is an indicator on how many atoms of the designated type (here 15N) are in fact their stable isotope.
 A lower label efficiency will lead to lower quantities of the measured labeled peptides, as they will be detected on other m/z values than the predicted ones.
 *)
 
@@ -46,7 +46,7 @@ open System.IO
 open BIO_BTE_06_L_7_Aux.FS3_Aux
 
 (**
-We will use the same auxiliary functions as in <a href="JP12_Targeted_quantification_of_photosynthetic_proteins_WC.ipynb">JP12_WC</a>.
+We will use the same auxiliary functions as in [JP12_WC](JP12_Targeted_quantification_of_photosynthetic_proteins_WC.ipynb).
 *)
 
 // Code-Block 1
@@ -61,7 +61,7 @@ let yAxis showGrid title titleSize tickSize = Axis.LinearAxis.init(Title=title,S
 let config = Config.init(ShowEditInChartStudio=true, ToImageButtonOptions = ToImageButtonOptions.init(Format = StyleParam.ImageFormat.SVG, Filename = "praktikumsplot.svg"), EditableAnnotations = [AnnotationEditOptions.LegendPosition])
 
 (**
-Next, we need a <code>map</code> of all proteins present in our QconCat proteins with their corresponding peptides.
+Next, we need a `map` of all proteins present in our QconCat proteins with their corresponding peptides.
 *)
 
 // Code block 2
@@ -152,7 +152,7 @@ peptideProtMapping
 (***include-it***)
 
 (**
-After we got our peptide &#8594; protein map, we need a <code>map</code> for the files we want to analyze. For that we need the filename and a description of what 
+After we got our peptide &#8594; protein map, we need a `map` for the files we want to analyze. For that we need the filename and a description of what 
 the file contains (experiment, spiked in peptide concentration).
 This will be used as a schema for the .txt reader later on.
 *)
@@ -227,7 +227,7 @@ qConCatResults
 (***include-it***)
 
 (**
-Next we apply all our label <code>map</code>s to the data and filter to reduce the information to only include necessary data for these functions.
+Next we apply all our label `map`s to the data and filter to reduce the information to only include necessary data for these functions.
 Pay attention to the all caps comment in the code below!
 *)
 
@@ -348,7 +348,7 @@ type LabelEffCollectorLinearity =
 
 (**
 ## Verify Limit of Detection
-<code>getLabelData</code> filters the data for the given dilutions and returns relative quantifications for each peptide. 
+`getLabelData` filters the data for the given dilutions and returns relative quantifications for each peptide. 
 Additionally, it also tells us the corresponding protein and the charge of the peptide.
 *)
 
@@ -402,7 +402,7 @@ labelData
 
 (**
 ### Pearson correlation coefficient
-Testing the limit of detection can be done with a dilution array and the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">pearson coefficient</a>.
+Testing the limit of detection can be done with a dilution array and the [pearson coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient).
  As you should assume a rather low pipetting error you can check the mass spectrometry detection for all 
  QProtein peptides with this experiment. If for any peptide the pearson coefficient is not high (so the relation would be non-linear) 
  the mass spectrometry was not able to detect the small quantities for some of the given dilutions and therefore underestimated the real amount of QProtein.
@@ -472,7 +472,7 @@ showLinearity |> Array.head |> GenericChart.toChartHTML
 
 (**
 ## Calculate Label Efficiency
-<code>prepareLabelEfficiencyResults</code> extracts all the information needed for label efficiency determination from our read-in mass 
+`prepareLabelEfficiencyResults` extracts all the information needed for label efficiency determination from our read-in mass 
 spectrometry results for the given dilutions.
 *)
 
@@ -611,7 +611,7 @@ labelEfficiency |> Array.head
 (**
 ### Median Label Efficiency
 In the following, we will determine outlier borders for our calculated label efficiencies. 
-We will do this via <a href="https://en.wikipedia.org/wiki/Outlier">tukey outlier calculation</a>.
+We will do this via [tukey outlier calculation](https://en.wikipedia.org/wiki/Outlier).
 *)
 
 // Code block 12
@@ -771,7 +771,7 @@ showLabelEfficiencyChartsSimple |> Array.head |> GenericChart.toChartHTML
 (**
 ### Midas Results Var 2
 The following code is used to generate in depth charts with most information about the midas calculation.
-If <a href="#Midas-Results-Var-1">variant 1</a> does not contain enough information, this variant can be used instead.
+If [variant 1](#Midas-Results-Var-1) does not contain enough information, this variant can be used instead.
 *)
 
 // Code block 16

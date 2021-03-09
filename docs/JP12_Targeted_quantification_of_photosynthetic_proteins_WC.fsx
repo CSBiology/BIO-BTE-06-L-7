@@ -14,13 +14,13 @@
 
 1. Read the output file of the QconQuantifier containing the raw peptide ion quantification.
 2. Performing a first data cleaning step
-3. Calculating the <sup>14</sup>N/<sup>15</sup>N ratio per peptide ion per sample
+3. Calculating the 14N/15N ratio per peptide ion per sample
 4. Aggregating the peptide ions to their corresponding peptide
 5. Calculating the average of the peptide quantification value for protein quantification
 6. Visually inspect the peptide/protein quantification
 
 For the explorative data analysis, we are using 
-<a href="http://bluemountaincapital.github.io/Deedle/tutorial.html">Deedle</a>.
+[Deedle](http://bluemountaincapital.github.io/Deedle/tutorial.html).
 Deedle is an easy to use library for data and time series manipulation and for scientific programming. 
 It supports working with structured data frames, ordered and unordered data, as well as time series. Deedle is designed to work well for exploratory programming using F#.
 *)
@@ -30,7 +30,7 @@ It supports working with structured data frames, ordered and unordered data, as 
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
 #r "nuget: Plotly.NET, 2.0.0-beta6"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.2"
 #r "nuget: Deedle, 2.3.0"
 
 #if IPYNB
@@ -49,7 +49,7 @@ open BIO_BTE_06_L_7_Aux.FS3_Aux
 
 (**
 At the start we have the output file of the QconQuantifier. We want to read the file, bind it to 
-<code>qConcatRawData</code> and group the rows by peptide sequence, modifcation (<sup>14</sup>N or <sup>15</sup>N) and the charge state of the ion.
+`qConcatRawData` and group the rows by peptide sequence, modifcation (14N or 15N) and the charge state of the ion.
 *)
 
 // Code block 1
@@ -67,7 +67,9 @@ let qConcatRawData =
             os.GetAs<int>("Charge")
         )
         
-qConcatRawData.Print()
+qConcatRawData
+|> BIO_BTE_06_L_7_Aux.Deedle_Aux.formatAsTable
+|> Chart.Show
 
 (***include-fsi-merged-output***)
 
@@ -105,8 +107,8 @@ sampleDesc.Print()
 (***include-fsi-merged-output***)
 
 (**
-We map the list of filenames and get the corresponding <sup>14</sup>N and <sup>15</sup>N column series. 
-This allows us to calculate the <sup>14</sup>N/<sup>15</sup>N ratio per peptide ion per sample.
+We map the list of filenames and get the corresponding 14N and 15N column series. 
+This allows us to calculate the 14N/15N ratio per peptide ion per sample.
 *)
 
 // Code block 4
@@ -215,7 +217,7 @@ let config = Config.init(ToImageButtonOptions = ToImageButtonOptions.init(Format
 (**
 ## Peptide Ratio Visualization
 
-createChartForPeptideComparison</code> creates a chart for the given protein comparing the ratios for each given strain. 
+`createChartForPeptideComparison` creates a chart for the given protein comparing the ratios for each given strain. 
 It generates a chart for each strain showing the individual peptide ratios and their mean (protein ratio). It also compares the protein ratios for each strain.
 *)
 
@@ -291,8 +293,8 @@ let createChartForPeptideComparison (protString:string) (strainStrings:string []
     |> Chart.withConfig config
 
 (**
-<code>rbclChart</code> executes <code>createChartForPeptideComparison</code> for rbcL and the strains 4A, 1690 and 1883. 
-With <code>allCharts</code> you can generate charts for all proteins and strains (<span Style="color: red">Warning! This displays a lot of charts</span>).
+`rbclChart` executes `createChartForPeptideComparison` for rbcL and the strains 4A, 1690 and 1883. 
+With `allCharts` you can generate charts for all proteins and strains (***Warning! This displays a lot of charts***).
 *)
 
 // Code block 11
@@ -323,14 +325,14 @@ rbclChart |> GenericChart.toChartHTML
 ## Sample stability
 
 Next, we do a quality assessment for the whole-cell sample preparation. 
-For that we will do a linear regression of the RuBisCO subunits relative quantification (<sup>14</sup>N/<sup>15</sup>N) protein ratio in whole-cell samples.
+For that we will do a linear regression of the RuBisCO subunits relative quantification (14N/15N) protein ratio in whole-cell samples.
 
 Next we need two peptides (in this case rbcl and rbcs) for the assessment. You can exchange them for other proteins if you want to.
 *)
 
 (**
-Here, we fit a linear function to our mean peptide ratios and dilution series for the first protein. The  x-values are our different dilutions and the y-values our ratios. We calculate the <a href="https://en.wikipedia.org/wiki/Goodness_of_fit">goodness
- of the fit</a> (discrepancy between predicted and observed values) for each fit and and also the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">pearson correlation coefficient</a> (measure of the linear correlation between our ratios and dilution) for our values.
+Here, we fit a linear function to our mean peptide ratios and dilution series for the first protein. The  x-values are our different dilutions and the y-values our ratios. We calculate the [goodness
+ of the fit](https://en.wikipedia.org/wiki/Goodness_of_fit) (discrepancy between predicted and observed values) for each fit and and also the [pearson correlation coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient) (measure of the linear correlation between our ratios and dilution) for our values.
 *)
 
 // Code block 12
@@ -360,7 +362,7 @@ meanValuesFor "rbcL" "4A"
 //|> calculateFit "rbcL" "4A"
 
 (**
-<code>chartRatios</code> generates charts for each given strain and our chosen proteins. 
+`chartRatios` generates charts for each given strain and our chosen proteins. 
 Each chart contains a comparison of the two proteins, showing their mean data points, the linear fit and the goodness of the fit.
 *)
 
