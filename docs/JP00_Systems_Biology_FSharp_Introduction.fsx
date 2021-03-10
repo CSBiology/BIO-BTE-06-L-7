@@ -64,6 +64,7 @@ are applied to extract the information or underlying principles hidden in the da
 The most flexible way of working with huge amounts of data is using a lightweight programming language with a succinct syntax. Therefore, it becomes necessary that biologist become familiar with a suitable programming language to solve real world problems in (Systems) Biology.
 
 ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/OmicSpace.png)
+
 ***Figure 1: A conceptual view of the omic space.***
 
 The omics space comprises of genomic, transcriptomic, proteomic, metabolomic and phenomic systems level represented as a plane. Complex biological function is the result of the interplay between molecules of one and/or different systems level.
@@ -108,6 +109,7 @@ What does this really mean? Well it seems pretty straightforward. It means that 
 A diagram of a general function would be:
 
 ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/function.png)
+
 ***Figure 2: diagram of a general function***
 
 
@@ -173,7 +175,7 @@ fun x -> x + 1
 (**
 ## Simple values
 
-![](img/valueBinding.png)
+![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/valueBinding.png)
       
 Imagine an operation that always returned the integer 5 and didn’t have any input.
    
@@ -237,6 +239,7 @@ This concept is so important that all collection types (lists, arrays, ...) have
 Let's look at an example of what that means. Therefore, we first define a function working on the normal space:
 
 ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/map.png)
+
 ***Figure 3: A conceptual view of the `map` concept.***
 *)
 
@@ -334,6 +337,7 @@ This results in an aggregation. A simple but concreate example would be to sum a
 
 
 ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/fold.png)
+
 ***Figure 4: A conceptual view of the `fold` concept.***
 
 ## Control flow expressions
