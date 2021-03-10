@@ -7,25 +7,21 @@ If you have questions at any point please ask us. We will discuss the first batc
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP01_FSharpExcercises.ipynb)
 
 
-1. [Code Examples](#Code-Examples)
-2. [Excercises](#Excercises)
-    * [Task 1](#Task-1)
-    * [Task 2](#Task-2)
-    * [Task 3](#Task-3)
-    * [Task 4](#Task-4)
-    * [Task 5](#Task-5)
-    * [Task 6](#Task-6)
-    * [Task 7](#Task-7)
-    * [Task 8](#Task-8)
-    * [Task 9](#Task-9)
-    * [Task 10](#Task-10)
-    * [Task 11](#Task-11)
-
-<hr>
+1. Code Examples
+2. Excercises
+    * Task 1
+    * Task 2
+    * Task 3
+    * Task 4
+    * Task 5
+    * Task 6
+    * Task 7
+    * Task 8
+    * Task 9
+    * Task 10
+    * Task 11
 
 ## Code Examples
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
-
 
 We will beginn with some minor code examples to show you correct formatting. You can even use these examples to help you understand minor programming logics for your excercises below.
 
@@ -43,7 +39,7 @@ mulitplyBy2 3.
 If a excercise asks you to bind something to a specific name, keep that name! It might be used later on!
 Also remember to use camel case for names. This works by having a regular first letter and then have a capital letter at the start of each new word.
 
-exmp: <code>thisIsACamelCaseExample</code>
+exmp: `thisIsACamelCaseExample`
 
 *)
 
@@ -65,12 +61,12 @@ calculateCylinderVolume 2. 10.
 
 (**
 
-<ul>
-    <li>Try to follow the excercise as close as possible, to not overlook something like ".. calculate (..) the volume of a cylinder AND print .." as these small differences migth be a valuable part of the excercise.</li>
-    <li>Lines of code do not have any cost, don't be to stingy about them, e.g. have an extra line with a binding of <code>let pi = 3.14159</code>, so you can just use "pi" instead of the number. </li>
-    <li>This improves readability and keeps the function modular.</li>
-    <li>By defining pi inside of the scope of <code>calculateCylinderVolume</code> it cannot be accessed from outside, keeping your overall code nice and clean.</li>
-</ul>
+
+* Try to follow the excercise as close as possible, to not overlook something like ".. calculate (..) the volume of a cylinder AND print .." as these small differences migth be a valuable part of the excercise.
+* Lines of code do not have any cost, don't be to stingy about them, e.g. have an extra line with a binding of `let pi = 3.14159`, so you can just use "pi" instead of the number.
+* This improves readability and keeps the function modular.
+* By defining pi inside of the scope of `calculateCylinderVolume` it cannot be accessed from outside, keeping your overall code nice and clean.
+
 
 *)
 
@@ -100,13 +96,10 @@ canHit (3,5) (5,7)
 (*** include-output ***)
 
 (**
-<hr>
- 
+
 ## Excercises 
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
 ### Task 1
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
 *)
 
@@ -122,7 +115,6 @@ myFirstName
 
 (**
 ### Task 2
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 *)
 
 // Define a variable 'myName', by adding 'myFirstName' to the rest of your name.
@@ -137,7 +129,6 @@ myName
 
 (** 
 ### Task 3
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 *)
 
 // Define a variable 'summeXY' as the sum of any two Integer numbers. Do this, by defining x and y as separate 
@@ -156,7 +147,6 @@ let summeXY =
 
 (** 
 ### Task 4
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 *)
 
 // Declare a Tuple, consisting of 2 and "February" and bind the Tuple to the name 'tuple1'
@@ -169,7 +159,6 @@ let tuple1 = (2,"February")
 
 (**
 ### Task 5
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 *)
 
 // Declare a Tuple, consisting of 2, "February" and "spring" and bind the Tuple to the name 'tuple2'
@@ -182,7 +171,6 @@ let tuple2 = (2,"February","spring")
 
 (**
 ### Task 6 
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 *)
 
 // Access the second variable of the Tuple 'tuple1'.
@@ -199,7 +187,6 @@ let solution2 = (fun (x,y,z) -> y) tuple2 // or: let (x,y,z) = tuple2
 
 (** 
 ### Task 7
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 *)
 
 // Create a Record Type with the name 'Month'. 'Month' should contain the fields 'Number' (int),
@@ -216,7 +203,6 @@ type Month =
     
 (** 
 ### Task 8
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 *)
 
 // Declare a function 'createMonth' with three input parameters and which should return a 'Month' - Record Type.
@@ -238,7 +224,6 @@ feb
 
 (** 
 ### Task 9
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 *)
 
 // Create a function called 'myMonthsPrinter' which should take a 'Month' as input and return a unit output 
@@ -261,7 +246,6 @@ myMonthsPrinter feb
 
 (** 
 ### Task 10
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 *)
 
 // We want to put additional emphasis on readability of code ...
@@ -286,7 +270,6 @@ readableFunc 4 = unreadableFunc 4
 
 (** 
 ### Task 11
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 *)
 
 // Create a function 'replaceSmallNumbers', which should replace all 
@@ -308,17 +291,3 @@ let replaceSmallNumbers (numList:int list) =
 replaceSmallNumbers numList
 
 (*** include-it ***)
-(**
-<nav class="level is-mobile">
-    <div class="level-left">
-        <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP00_Systems_Biology_FSharp_Introduction.html';">&#171; JP00</button>
-        </div>
-    </div>
-    <div class="level-right">
-        <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP02_Plant_Systems_Biology.html';">JP02 &#187;</button>
-        </div>
-    </div>
-</nav>
-*)
