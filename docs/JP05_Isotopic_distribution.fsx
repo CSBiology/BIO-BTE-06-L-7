@@ -4,38 +4,32 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP05_Isotopic_distribution.ipynb)
 
 
-1. [Isotopic Distribution](#Isotopic-Distribution)
-    1. [Simulating Isotopic Clusters for peptides](#Simulating-Isotopic-Clusters-for-peptides)
-    2. [Simulating Isotopic Clusters for peptides with stable isotope labeled variant](#Simulating-Isotopic-Clusters-for-peptides-with-stable-isotope-labeled-variant)
-2. [References](#References)
+1. Isotopic Distribution
+    1. Simulating Isotopic Clusters for peptides
+    2. Simulating Isotopic Clusters for peptides with stable isotope labeled variant
+2. References
 *)
 (**
 ## Isotopic Distribution
-<a href="#Isotopic-Distribution" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
-<div class="container">
 Peptide signals exhibit a characteristic shape in the mass spectrum that depend on their isotopic profile, which is defined by 
 the number of naturally occurring isotopes in the peptide. The occurrence probabilities of natural isotopes are reflected in the mass 
 spectrum by the relative heights of the peak series belonging to the respective peptide. The frequency at which natural isotopes occur 
 is known and can be used to compute the isotope distribution of a molecule. The isotopic distribution for a given peptide molecule 
-C<sub>v</sub>H<sub>w</sub>N<sub>x</sub>O<sub>y</sub>S<sub>z</sub> is described by the following product of polynomials:
+C(v)H(w)N(x)O(y)S(z) is described by the following product of polynomials:
 
-<div class="container">
-<img src="https://latex.codecogs.com/gif.latex?\large&space;\newline(&space;{}^{12}\textrm{C}&space;&plus;&space;{}^{13}\textrm{C})^{v}&space;\times&space;({}^{1}\textrm{H}&plus;{}^{2}\textrm{H})^{w}&space;\times&space;({}^{14}\textrm{N}&plus;{}^{15}\textrm{N})^{x}\times({}^{16}\textrm{O}&plus;{}^{17}\textrm{O}&space;&plus;&space;{}^{18}\textrm{O})^{y}\newline\times({}^{32}\textrm{S}&plus;{}^{33}\textrm{S}&plus;{}^{34}\textrm{S}&plus;{}^{36}\textrm{S})^{z}" title="\large \newline( {}^{12}\textrm{C} + {}^{13}\textrm{C})^{v} \times ({}^{1}\textrm{H}+{}^{2}\textrm{H})^{w} \times ({}^{14}\textrm{N}+{}^{15}\textrm{N})^{x}\times({}^{16}\textrm{O}+{}^{17}\textrm{O} + {}^{18}\textrm{O})^{y}\newline\times({}^{32}\textrm{S}+{}^{33}\textrm{S}+{}^{34}\textrm{S}+{}^{36}\textrm{S})^{z}" Style="margin: 1rem auto 1rem; display: block"/>
-</div>
+![](https://latex.codecogs.com/gif.latex?\large&space;\newline(&space;{}^{12}\textrm{C}&space;&plus;&space;{}^{13}\textrm{C})^{v}&space;\times&space;({}^{1}\textrm{H}&plus;{}^{2}\textrm{H})^{w}&space;\times&space;({}^{14}\textrm{N}&plus;{}^{15}\textrm{N})^{x}\times({}^{16}\textrm{O}&plus;{}^{17}\textrm{O}&space;&plus;&space;{}^{18}\textrm{O})^{y}\newline\times({}^{32}\textrm{S}&plus;{}^{33}\textrm{S}&plus;{}^{34}\textrm{S}&plus;{}^{36}\textrm{S})^{z})
 
 Symbolic expansion of the polynomials results in many product terms, which correspond to different isotopic variants of a molecule. 
 Even for molecules of a medium size, the straightforward expansion of the polynomials leads to an explosion regarding the number of product terms. 
 Due to this complexity, there was a need to develop algorithms for efficient computation. The different strategies comprise pruning the 
-polynomials to discard terms with coefficients below a threshold<sup><a href="#25">25</a></sup> combined with a recursive 
-computation<sup><a href="#26">26</a></sup>, and Fourier Transformation for a more efficient convolution of the isotope distributions of 
-individual elements<sup><a href="#27">27</a></sup>, or rely on dynamic programming<sup><a href="#28">28</a></sup>.
+polynomials to discard terms with coefficients below a threshold (Yergey 1983) combined with a recursive 
+computation (Claesen et al. 2012), and Fourier Transformation for a more efficient convolution of the isotope distributions of 
+individual elements (Rockwood et al. 1995), or rely on dynamic programming (Snider 2007).
 
-<div Style="text-align: justify ; margin-top: 2rem ; margin-bottom: 2rem ; line-height: 1.3 ; width: 85% ; margin-left: auto ; margin-right: auto ; padding: 10px ; border: 2px dotted #708090 ; color: #708090">
-MIDAs<sup><a href="#29">29</a></sup> is one of the more elaborate algorithms to predict an isotope cluster based on a given peptide sequence. 
-Simulate the isotopic cluster of the peptide sequence ‘PEPTIDES’ and ‘PEPTIDEPEPTIDEPEPTIDEPEPTIDES’ with natural occurring isotope abundances.
-</div>
-</div>
+> MIDAs (Alves and Yu 2005) is one of the more elaborate algorithms to predict an isotope cluster based on a given peptide sequence. 
+> Simulate the isotopic cluster of the peptide sequence ‘PEPTIDES’ and ‘PEPTIDEPEPTIDEPEPTIDEPEPTIDES’ with natural occurring isotope abundances.
+
 *)
 
 #r "nuget: BioFSharp, 2.0.0-beta5"
@@ -52,12 +46,9 @@ open BioFSharp
 (**
 
 ## Simulating Isotopic Clusters for peptides
-<a href="#Isotopic-Distribution" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
-<div class="container">
 We will use two artificial peptide sequences and translate them into their elemental composition to simulate their isotopic clusters. 
-Therefore, we first define a function that maps from a peptide sequence to its formula: 
-</div>
+Therefore, we first define a function that maps from a peptide sequence to its formula:
 *)
 
 // Code-Block 1
@@ -100,11 +91,9 @@ let peptide_longString =
 (*** include-value:peptide_longString ***)
 
 (**
-<div class="container">
 Additionally, we need a function that maps from Formula (and charge) to the isotopic distribution. Here, we 
-can use <code>IsotopicDistribution.MIDA.ofFormula</code> from the BioFSharp library. However, for convenience 
-(to use the same parameter twice), we define our function <code>generateIsotopicDistribution</code>:
-</div>
+can use `IsotopicDistribution.MIDA.ofFormula` from the BioFSharp library. However, for convenience 
+(to use the same parameter twice), we define our function `generateIsotopicDistribution`:
 *)
 
 // Code-Block 3
@@ -131,7 +120,6 @@ isoPattern_peptide_long
 
 (*** include-it ***)
 
-(** *)
 
 // Code-Block 4
 
@@ -155,25 +143,19 @@ isoPatternChart |> GenericChart.toChartHTML
 
 (**
 ## Simulating Isotopic Clusters for peptides with stable isotope labeled variant
-<a href="#Isotopic-Distribution" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
-<div class="container">
 In addition to the natural occurring isotopic distribution, the field of proteomics has benefited greatly from the ability to 
 introduce stable isotopes into peptide sequences. So called isotopic labeling refers to the introduction of a naturally low-abundance 
-isotope of carbon, nitrogen, hydrogen and, in some cases, oxygen, into a peptide sequence. The isotopes commonly used are <sup>13</sup>C, 
-<sup>15</sup>N, <sup>2</sup>H (deuterium) and <sup>18</sup>O with natural abundances of 1.10%, 0.366%, 0.015% and 0.200%, 
-respectively<sup><a href="#30">30</a></sup>. Therefore, the introduction of these isotopes into a peptide sequence can be detected by 
+isotope of carbon, nitrogen, hydrogen and, in some cases, oxygen, into a peptide sequence. The isotopes commonly used are 13C, 
+15N, 2H (deuterium) and 18O with natural abundances of 1.10%, 0.366%, 0.015% and 0.200%, 
+respectively (Becker 2008). Therefore, the introduction of these isotopes into a peptide sequence can be detected by 
 most modern mass spectrometers leading to a respective mass shift and the ability to separate the same peptide species within the same run.
- 
-<div Style="text-align: justify ; margin-top: 2rem ; margin-bottom: 2rem ; line-height: 1.3 ; width: 85% ; margin-left: auto ; margin-right: auto ; padding: 10px ; border: 2px dotted #708090 ; color: #708090">
-MIDAs<sup><a href="#29">29</a></sup> is also able to predict isotope clusters with altered isotope abundances. Simulate the isotopic cluster 
-of the peptide sequence ‘PEPTIDES’ and ‘PEPTIDEPEPTIDEPEPTIDEPEPTIDES’ with stable isotopes <sup>15</sup>N labeling. 
-</div>
 
-Therefore, we define a function called <code>label</code>. The function maps from a formula to a formula with exchangen nitrogen isotopes. 
+> MIDAs (Alves and Yu 2005) is also able to predict isotope clusters with altered isotope abundances. Simulate the isotopic cluster 
+> of the peptide sequence ‘PEPTIDES’ and ‘PEPTIDEPEPTIDEPEPTIDEPEPTIDES’ with stable isotopes 15N labeling. 
+
+Therefore, we define a function called `label`. The function maps from a formula to a formula with exchangen nitrogen isotopes. 
 (Attention: Don't get confused a formula is just a FSharpMap.) 
-
-</div>
 *)
 
 // Code-Block 5
@@ -252,32 +234,13 @@ isoPatternChart2 |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
-<hr>
-<nav class="level is-mobile">
-    <div class="level-left">
-        <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP04_Digestion_and_mass_calculation.html';">&#171; JP04</button>
-        </div>
-    </div>
-    <div class="level-right">
-        <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP06_Retention_time_and_scan_time.html';">JP06 &#187;</button>
-        </div>
-    </div>
-</nav>
-*)
-
-(**
 ## References
-<a href="#Isotopic-Distribution" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
-<ol>
-<li Value="25" Id="25"> Yergey, J. A. A General-Approach to Calculating Isotopic Distributions for Mass-Spectrometry. Int J Mass Spectrom 52, 337–349; 10.1016/0020-7381(83)85053-0 (1983).</li>
-<li Id="26"> Claesen, J., Dittwald, P., Burzykowski, T. & Valkenborg, D. An efficient method to calculate the aggregated isotopic distribution and exact center-masses. Journal of the American Society for Mass Spectrometry 23, 753–763; 10.1007/s13361-011-0326-2 (2012).</li>
-<li Id="27"> Rockwood, A. L., Vanorden, S. L. & Smith, R. D. Rapid Calculation of Isotope Distributions. Anal Chem 67, 2699–2704; 10.1021/Ac00111a031 (1995).</li>
-<li Id="28"> Snider, R. K. Efficient calculation of exact mass isotopic distributions. Journal of the American Society for Mass Spectrometry 18, 1511–1515; 10.1016/j.jasms.2007.05.016 (2007).</li>
-<li Id="29"> Alves, G. & Yu, Y. K. Robust accurate identification of peptides (RAId). deciphering MS2 data using a structured library search with de novo based statistics. Bioinformatics 21, 3726–3732; 10.1093/bioinformatics/bti620 (2005).</li>
-<li Id="30"> Becker, G. W. Stable isotopic labeling of proteins for quantitative proteomic applications. Brief Funct Genomic Proteomic 7, 371–382; 10.1093/bfgp/eln047 (2008).</li>
-</ol>
+25. Yergey, J. A. A General-Approach to Calculating Isotopic Distributions for Mass-Spectrometry. Int J Mass Spectrom 52, 337–349; 10.1016/0020-7381(83)85053-0 (1983).
+26. Claesen, J., Dittwald, P., Burzykowski, T. & Valkenborg, D. An efficient method to calculate the aggregated isotopic distribution and exact center-masses. Journal of the American Society for Mass Spectrometry 23, 753–763; 10.1007/s13361-011-0326-2 (2012).
+27. Rockwood, A. L., Vanorden, S. L. & Smith, R. D. Rapid Calculation of Isotope Distributions. Anal Chem 67, 2699–2704; 10.1021/Ac00111a031 (1995).
+28. Snider, R. K. Efficient calculation of exact mass isotopic distributions. Journal of the American Society for Mass Spectrometry 18, 1511–1515; 10.1016/j.jasms.2007.05.016 (2007).
+29. Alves, G. & Yu, Y. K. Robust accurate identification of peptides (RAId). deciphering MS2 data using a structured library search with de novo based statistics. Bioinformatics 21, 3726–3732; 10.1093/bioinformatics/bti620 (2005).
+30. Becker, G. W. Stable isotopic labeling of proteins for quantitative proteomic applications. Brief Funct Genomic Proteomic 7, 371–382; 10.1093/bfgp/eln047 (2008).
 *)
 
