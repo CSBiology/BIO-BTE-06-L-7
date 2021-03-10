@@ -201,27 +201,25 @@ If you have questions at any point please ask us. We will discuss the first batc
 <h1><a name="JP01-FSharp-Introduction-Excercises" class="anchor" href="#JP01-FSharp-Introduction-Excercises">JP01 FSharp Introduction Excercises</a></h1>
 <p><a href="https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP01_FSharpExcercises.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a></p>
 <ol>
-<li><a href="#Code-Examples">Code Examples</a></li>
+<li>Code Examples</li>
 <li>
-<a href="#Excercises">Excercises</a>
+Excercises
 <ul>
-<li><a href="#Task-1">Task 1</a></li>
-<li><a href="#Task-2">Task 2</a></li>
-<li><a href="#Task-3">Task 3</a></li>
-<li><a href="#Task-4">Task 4</a></li>
-<li><a href="#Task-5">Task 5</a></li>
-<li><a href="#Task-6">Task 6</a></li>
-<li><a href="#Task-7">Task 7</a></li>
-<li><a href="#Task-8">Task 8</a></li>
-<li><a href="#Task-9">Task 9</a></li>
-<li><a href="#Task-10">Task 10</a></li>
-<li><a href="#Task-11">Task 11</a></li>
+<li>Task 1</li>
+<li>Task 2</li>
+<li>Task 3</li>
+<li>Task 4</li>
+<li>Task 5</li>
+<li>Task 6</li>
+<li>Task 7</li>
+<li>Task 8</li>
+<li>Task 9</li>
+<li>Task 10</li>
+<li>Task 11</li>
 </ul>
 </li>
 </ol>
-<hr>
 <h2><a name="Code-Examples" class="anchor" href="#Code-Examples">Code Examples</a></h2>
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 <p>We will beginn with some minor code examples to show you correct formatting. You can even use these examples to help you understand minor programming logics for your excercises below.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Define a function &#39;mulitplyBy2&#39;, which should double any input Float.</span>
 
@@ -250,10 +248,10 @@ Also remember to use camel case for names. This works by having a regular first 
 <table class="pre"><tr><td><pre><code>125.6636</code></pre></td></tr></table>
 <table class="pre"><tr><td><pre><code>Das Volumen des Zylinders ist: 125.663600</code></pre></td></tr></table>
 <ul>
-    <li>Try to follow the excercise as close as possible, to not overlook something like ".. calculate (..) the volume of a cylinder AND print .." as these small differences migth be a valuable part of the excercise.</li>
-    <li>Lines of code do not have any cost, don't be to stingy about them, e.g. have an extra line with a binding of <code>let pi = 3.14159</code>, so you can just use "pi" instead of the number. </li>
-    <li>This improves readability and keeps the function modular.</li>
-    <li>By defining pi inside of the scope of <code>calculateCylinderVolume</code> it cannot be accessed from outside, keeping your overall code nice and clean.</li>
+<li>Try to follow the excercise as close as possible, to not overlook something like ".. calculate (..) the volume of a cylinder AND print .." as these small differences migth be a valuable part of the excercise.</li>
+<li>Lines of code do not have any cost, don't be to stingy about them, e.g. have an extra line with a binding of <code>let pi = 3.14159</code>, so you can just use "pi" instead of the number.</li>
+<li>This improves readability and keeps the function modular.</li>
+<li>By defining pi inside of the scope of <code>calculateCylinderVolume</code> it cannot be accessed from outside, keeping your overall code nice and clean.</li>
 </ul>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// A chessboard is a 8x8 field. The rows and columns have the indices 0 - 7.</span>
 <span class="c">// Create a function, which should return true if two queens can hit each other or false if they can&#39;t.</span>
@@ -279,11 +277,8 @@ Also remember to use camel case for names. This works by having a regular first 
 </code></pre>
 <table class="pre"><tr><td><pre><code>true</code></pre></td></tr></table>
 <table class="pre"><tr><td><pre><code>Both queens can hit each other</code></pre></td></tr></table>
-<hr>
 <h2><a name="Excercises" class="anchor" href="#Excercises">Excercises</a></h2>
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 <h3><a name="Task-1" class="anchor" href="#Task-1">Task 1</a></h3>
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Bind a String of your name (&quot;Name&quot;) to the name &#39;myFirstName&#39;.</span>
 
 <span class="c">// Solution</span>
@@ -294,7 +289,6 @@ Also remember to use camel case for names. This works by having a regular first 
 </code></pre>
 <table class="pre"><tr><td><pre><code>"Kevin"</code></pre></td></tr></table>
 <h3><a name="Task-2" class="anchor" href="#Task-2">Task 2</a></h3>
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Define a variable &#39;myName&#39;, by adding &#39;myFirstName&#39; to the rest of your name.</span>
 
 <span class="c">// Solution</span>
@@ -305,7 +299,6 @@ Also remember to use camel case for names. This works by having a regular first 
 </code></pre>
 <table class="pre"><tr><td><pre><code>"Kevin Frey"</code></pre></td></tr></table>
 <h3><a name="Task-3" class="anchor" href="#Task-3">Task 3</a></h3>
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Define a variable &#39;summeXY&#39; as the sum of any two Integer numbers. Do this, by defining x and y as separate </span>
 <span class="c">// let - bindings inside the functional scope of the &#39;summeXY&#39; function. </span>
 <span class="c">// (The function MUST contain three let - bindings)</span>
@@ -319,7 +312,6 @@ Also remember to use camel case for names. This works by having a regular first 
 </code></pre>
 <table class="pre"><tr><td><pre><code>36</code></pre></td></tr></table>
 <h3><a name="Task-4" class="anchor" href="#Task-4">Task 4</a></h3>
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Declare a Tuple, consisting of 2 and &quot;February&quot; and bind the Tuple to the name &#39;tuple1&#39;</span>
 
 <span class="c">// Solution </span>
@@ -328,7 +320,6 @@ Also remember to use camel case for names. This works by having a regular first 
 </code></pre>
 <table class="pre"><tr><td><pre><code>(2, "February")</code></pre></td></tr></table>
 <h3><a name="Task-5" class="anchor" href="#Task-5">Task 5</a></h3>
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Declare a Tuple, consisting of 2, &quot;February&quot; and &quot;spring&quot; and bind the Tuple to the name &#39;tuple2&#39;</span>
 
 <span class="c">// Solution </span>
@@ -337,7 +328,6 @@ Also remember to use camel case for names. This works by having a regular first 
 </code></pre>
 <table class="pre"><tr><td><pre><code>(2, "February", "spring")</code></pre></td></tr></table>
 <h3><a name="Task-6" class="anchor" href="#Task-6">Task 6</a></h3>
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Access the second variable of the Tuple &#39;tuple1&#39;.</span>
 <span class="c">// Access the second variable of the Tuple &#39;tuple2&#39;.</span>
 
@@ -350,7 +340,6 @@ Also remember to use camel case for names. This works by having a regular first 
 <table class="pre"><tr><td><pre><code>"February"</code></pre></td></tr></table>
 <table class="pre"><tr><td><pre><code>"February"</code></pre></td></tr></table>
 <h3><a name="Task-7" class="anchor" href="#Task-7">Task 7</a></h3>
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Create a Record Type with the name &#39;Month&#39;. &#39;Month&#39; should contain the fields &#39;Number&#39; (int),</span>
 <span class="c">// &#39;Name&#39; (string) and &#39;Season&#39; (string).</span>
 
@@ -365,7 +354,6 @@ Also remember to use camel case for names. This works by having a regular first 
     
 </code></pre>
 <h3><a name="Task-8" class="anchor" href="#Task-8">Task 8</a></h3>
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Declare a function &#39;createMonth&#39; with three input parameters and which should return a &#39;Month&#39; - Record Type.</span>
 <span class="c">// Use the values from &#39;tuple2&#39; and create a month with these as input.  </span>
 
@@ -385,7 +373,6 @@ Also remember to use camel case for names. This works by having a regular first 
   Name = "February"
   Season = "spring" }</code></pre></td></tr></table>
 <h3><a name="Task-9" class="anchor" href="#Task-9">Task 9</a></h3>
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Create a function called &#39;myMonthsPrinter&#39; which should take a &#39;Month&#39; as input and return a unit output </span>
 <span class="c">// (printfn - command) in the form of &quot;My favorite month is [Month Name]. It is the [Number of Month] month</span>
 <span class="c">// in the year and i especially like this time because it is part of [Season].&quot;</span>
@@ -405,7 +392,6 @@ Also remember to use camel case for names. This works by having a regular first 
 <table class="pre"><tr><td><pre><code>My favorite month is February. It is the 2 month in the year 
         and i especially like this time because it is part of spring.</code></pre></td></tr></table>
 <h3><a name="Task-10" class="anchor" href="#Task-10">Task 10</a></h3>
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// We want to put additional emphasis on readability of code ...</span>
 
 <span class="c">// Oh no, the following function is not readable. Write the function new and use pipe operators!</span>
@@ -426,7 +412,6 @@ Also remember to use camel case for names. This works by having a regular first 
 </code></pre>
 <table class="pre"><tr><td><pre><code>true</code></pre></td></tr></table>
 <h3><a name="Task-11" class="anchor" href="#Task-11">Task 11</a></h3>
-<a href="#FSharp-Introduction-Excercises" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Create a function &#39;replaceSmallNumbers&#39;, which should replace all </span>
 <span class="c">// integers in a list with a 0 if the integer is smaller than 5.</span>
 
@@ -446,18 +431,6 @@ Also remember to use camel case for names. This works by having a regular first 
 <span onmouseout="hideTip(event, 'fs48', 126)" onmouseover="showTip(event, 'fs48', 126)" class="fn">replaceSmallNumbers</span> <span onmouseout="hideTip(event, 'fs47', 127)" onmouseover="showTip(event, 'fs47', 127)" class="id">numList</span>
 </code></pre>
 <table class="pre"><tr><td><pre><code>[0; 0; 0; 0; 0; 5; 6; 7; 8; 9; 10; 11; 12; 13; 14; 15; 16; 17; 18; 19; 20]</code></pre></td></tr></table>
-<nav class="level is-mobile">
-    <div class="level-left">
-        <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP00_Systems_Biology_FSharp_Introduction.html';">&#171; JP00</button>
-        </div>
-    </div>
-    <div class="level-right">
-        <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP02_Plant_Systems_Biology.html';">JP02 &#187;</button>
-        </div>
-    </div>
-</nav>
 
                 </div>
             </div>
