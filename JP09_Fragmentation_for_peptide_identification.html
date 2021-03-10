@@ -199,39 +199,32 @@
                     <h1><a name="JP09-Fragmentation-for-peptide-identification" class="anchor" href="#JP09-Fragmentation-for-peptide-identification">JP09 Fragmentation for peptide identification</a></h1>
 <p><a href="https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP09_Fragmentation_for_peptide_identification.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a></p>
 <ol>
-<li><a href="#Understanding-MS2-spectra:-From-peptide-to-fragment">Understanding MS2 spectra: From peptide to fragment</a></li>
-<li><a href="#Simulate-MS2-Fragmentation">Simulate MS2 Fragmentation</a><br></li>
-<li><a href="#References">References</a></li>
+<li>Understanding MS2 spectra: From peptide to fragment</li>
+<li>Simulate MS2 Fragmentation</li>
+<li>References</li>
 </ol>
 <h2><a name="Understanding-MS2-spectra-From-peptide-to-fragment" class="anchor" href="#Understanding-MS2-spectra-From-peptide-to-fragment">Understanding MS2 spectra: From peptide to fragment</a></h2>
-<a href="#Fragmentation-for-peptide-identification" style="display: inline-block"><sup>&#8593;back</sup></a><br>
-<div class="container">
-The currency of information for identification in MS-based proteomics is the fragment ion spectrum (MS/MS spectrum) that is typically 
-derived from the fragmentation of a specific peptide in the collision cell of a mass spectrometer. Peptides produce fragments that provide 
-information on their amino acid sequence. The correct assignment of such a spectrum to a peptide sequence is the central step to link 
-m/z values and ion intensities to biology<sup><a href="#31">31</a></sup>. 
-<div Id="figure4" Style="float: right ; display: inline-block ; color: #44546a ; width: 60% ; padding: 15px">
-    <img src="img/FragmentIonNomenclature.png" Style="width: 100%">
-    <div Style="padding-left: 1rem ; padding-right: 1rem ; margin-top: 1rem ; text-align: justify ; font-size: 0.8rem">
-        <b>Figure 4: The Roepstorff-Fohlmann-Biemann nomenclature of fragment ions.</b>
-        N-terminal and C-terminal peptide fragments result of dissociation of electron bonds along the peptide backbone.
-    </div>
-</div>    
+<p>The currency of information for identification in MS-based proteomics is the fragment ion spectrum (MS/MS spectrum) that is typically
+derived from the fragmentation of a specific peptide in the collision cell of a mass spectrometer. Peptides produce fragments that provide
+information on their amino acid sequence. The correct assignment of such a spectrum to a peptide sequence is the central step to link
+m/z values and ion intensities to biology (Nesvizhskii et al. 2007).</p>
+<p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/FragmentIonNomenclature.PNG" alt="" /></p>
+<p><strong>Figure 4: The Roepstorff-Fohlmann-Biemann nomenclature of fragment ions.</strong>
+N-terminal and C-terminal peptide fragments result of dissociation of electron bonds along the peptide backbone.</p>
 <p>During the unimolecular peptide ion dissociation processes, different chemical reactions can lead to different types
 of product ions. The types of ions observed in MS/MS experiments depend on the physicochemical properties of the amino
 acids and their sequence, on the amount of internal energy, and on the peptide’s charge state. In addition, product ion formation
-is strongly influenced by the fragmentation method<sup><a href="#32">32</a></sup>. The most widely used fragmentation methods today
-are low-energy collision-induced dissociation (CID)<sup><a href="#33">33</a></sup> and electron transfer dissociation
-(ETD)<sup><a href="#34">34</a></sup>. These methods favor fragmentation along the peptide backbone and result in an N-terminal prefix
+is strongly influenced by the fragmentation method (Medzihradszky 2005). The most widely used fragmentation methods today
+are low-energy collision-induced dissociation (CID) (Johnson et al. 1987) and electron transfer dissociation
+(ETD) (Mikesh et al. 2006). These methods favor fragmentation along the peptide backbone and result in an N-terminal prefix
 fragment and a C-terminal suffix fragment. The standard nomenclature for the C-terminal fragments is x, y and z whereas the corresponding
 N-terminal fragments are denoted as a, b and c depending on the position where the breakage occurs at the peptide backbone level. The numbering
-of each fragment starts from the N-terminus for a,b,c series and from the C-terminus for x,y,z series (<a href="#figure4">Figure 4</a>).
+of each fragment starts from the N-terminus for a,b,c series and from the C-terminus for x,y,z series (Figure 4).
 One should keep in mind that during parent ion selection many of the same peptide ions are selected and dissociated into fragments, with the
 resulting fragment ions having different relative abundances according to the preferred fragmentation reaction. In addition to the
 fragmentation along the peptide backbone, fragment ions containing the amino acids R, K, N, or Q can lose ammonia (-17 Da) and are then
 denoted a<em>, b</em> and y*. Fragments containing the amino acids S, T, E, or D may lose water (-18 Da) and are then denoted a°, b° and y°.
-These losses do not change the charge of the ions and are observable as natural losses <sup><a href="#35">35</a>,<a href="#36">36</a></sup>.</p>
-</div>
+These losses do not change the charge of the ions and are observable as natural losses (Forner et al. 2007, Steen and Mann 2004).</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="pp">#r</span> <span class="s">&quot;nuget: BioFSharp, 2.0.0-beta5&quot;</span>
 <span class="pp">#r</span> <span class="s">&quot;nuget: BioFSharp.IO, 2.0.0-beta5&quot;</span>
 <span class="pp">#r</span> <span class="s">&quot;nuget: Plotly.NET, 2.0.0-beta6&quot;</span>
@@ -246,7 +239,6 @@ These losses do not change the charge of the ions and are observable as natural 
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="id">BioFSharp</span>
 </code></pre>
 <h2><a name="Simulate-MS2-Fragmentation" class="anchor" href="#Simulate-MS2-Fragmentation">Simulate MS2 Fragmentation</a></h2>
-<a href="#Fragmentation-for-peptide-identification" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 <p>For the simulation we first define a short peptide. The peptide we take for this example is from rbcL.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 1</span>
 
@@ -257,11 +249,9 @@ These losses do not change the charge of the ions and are observable as natural 
 <span onmouseout="hideTip(event, 'fs4', 7)" onmouseover="showTip(event, 'fs4', 7)" class="id">peptide</span>
 </code></pre>
 <table class="pre"><tr><td><pre><code>[Asp; Thr; Asp; Ile; Leu; Ala; Ala; Phe; Arg]</code></pre></td></tr></table>
-<div class="container">
-In the <code>Mz</code> namespace of <a href="https://csbiology.github.io/BioFSharp/">BioFSharp</a>, we can find a function that can 
-generate the theoretical series of y-ions from the given peptide. This function provides a lot of information, but we are only interested 
-in the mass. Notice, that we do not know the intesity of the fragment ions and just use '1.' for simulation.
-</div>
+<p>In the <code>Mz</code> namespace of <a href="https://csbiology.github.io/BioFSharp/">BioFSharp</a>, we can find a function that can
+generate the theoretical series of y-ions from the given peptide. This function provides a lot of information, but we are only interested
+in the mass. Notice, that we do not know the intesity of the fragment ions and just use '1.' for simulation.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 2</span>
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="id">ionSeriesY</span> <span class="o">=</span>
@@ -298,54 +288,40 @@ in the mass. Notice, that we do not know the intesity of the fragment ions and j
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs22', 45)" onmouseover="showTip(event, 'fs22', 45)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 46)" onmouseover="showTip(event, 'fs24', 46)" class="id">Combine</span>
 <span onmouseout="hideTip(event, 'fs21', 47)" onmouseover="showTip(event, 'fs21', 47)" class="id">ionChart</span>
 </code></pre>
-<div id="5aca5f2c-1f1b-4db3-bbd5-dbed6460d57c" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="2a7ce091-a5a9-49b1-8925-aa7f5dd529ed" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_5aca5f2c1f1b4db3bbd5dbed6460d57c = function() {
+            var renderPlotly_2a7ce091a5a949b18925aa7f5dd529ed = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"bar","x":[115.02694302215,216.07462148944,331.10156451159,444.18562848816003,557.26969246473,628.3068062488801,699.3439200330301,846.4123339454602,1002.5134449685002],"y":[1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0],"marker":{},"name":"b ions"},{"type":"bar","x":[1020.52400965164,905.49706662949,804.4493881622,689.42244514005,576.33838116348,463.25431718691,392.21720340276,321.18008961861,174.11167570618],"y":[1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0],"marker":{},"name":"y ions"}];
             var layout = {};
             var config = {};
-            Plotly.newPlot('5aca5f2c-1f1b-4db3-bbd5-dbed6460d57c', data, layout, config);
+            Plotly.newPlot('2a7ce091-a5a9-49b1-8925-aa7f5dd529ed', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_5aca5f2c1f1b4db3bbd5dbed6460d57c();
+                    renderPlotly_2a7ce091a5a949b18925aa7f5dd529ed();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_5aca5f2c1f1b4db3bbd5dbed6460d57c();
+                renderPlotly_2a7ce091a5a949b18925aa7f5dd529ed();
             }
 </script>
 
-<hr>
-<nav class="level is-mobile">
-    <div class="level-left">
-        <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP08_Centroidisation.html';">&#171; JP08</button>
-        </div>
-    </div>
-    <div class="level-right">
-        <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP10_Peptide_Identification.html';">JP10 &#187;</button>
-        </div>
-    </div>
-</nav>
 <h2><a name="References" class="anchor" href="#References">References</a></h2>
-<a href="#Fragmentation-for-peptide-identification" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 <ol>
-<li Value="31" Id="31"> Nesvizhskii, A. I., Vitek, O. & Aebersold, R. Analysis and validation of proteomic data generated by tandem mass spectrometry. Nature methods 4, 787–797; 10.1038/nmeth1088 (2007).
-<li Id="32"> Medzihradszky, K. F. Peptide sequence analysis. Method Enzymol 402, 209–244; 10.1016/S0076-6879(05)02007-0 (2005).
-<li Id="33"> Johnson, R. S., Martin, S. A., Biemann, K., Stults, J. T. & Watson, J. T. Novel fragmentation process of peptides by collision-induced decomposition in a tandem mass spectrometer: differentiation of leucine and isoleucine. Anal. Chem. 59, 2621–2625; 10.1021/Ac00148a019 (1987).
-<li Id="34"> Mikesh, L. M. et al. The utility of ETD mass spectrometry in proteomic analysis. Biochimica et biophysica acta 1764, 1811–1822; 10.1016/j.bbapap.2006.10.003 (2006).
-<li Id="35"> Forner, F., Foster, L. J. & Toppo, S. Mass spectrometry data analysis in the proteomics era. Curr Bioinform 2, 63–93; 10.2174/157489307779314285 (2007).
-<li Id="36"> Steen, H. & Mann, M. The ABC's (and XYZ's) of peptide sequencing. Nat. Rev. Mol. Cell Biol. 5, 699–711; 10.1038/nrm1468 (2004).
+<li>Nesvizhskii, A. I., Vitek, O. &amp; Aebersold, R. Analysis and validation of proteomic data generated by tandem mass spectrometry. Nature methods 4, 787–797; 10.1038/nmeth1088 (2007).</li>
+<li>Medzihradszky, K. F. Peptide sequence analysis. Method Enzymol 402, 209–244; 10.1016/S0076-6879(05)02007-0 (2005).</li>
+<li>Johnson, R. S., Martin, S. A., Biemann, K., Stults, J. T. &amp; Watson, J. T. Novel fragmentation process of peptides by collision-induced decomposition in a tandem mass spectrometer: differentiation of leucine and isoleucine. Anal. Chem. 59, 2621–2625; 10.1021/Ac00148a019 (1987).</li>
+<li>Mikesh, L. M. et al. The utility of ETD mass spectrometry in proteomic analysis. Biochimica et biophysica acta 1764, 1811–1822; 10.1016/j.bbapap.2006.10.003 (2006).</li>
+<li>Forner, F., Foster, L. J. &amp; Toppo, S. Mass spectrometry data analysis in the proteomics era. Curr Bioinform 2, 63–93; 10.2174/157489307779314285 (2007).</li>
+<li>Steen, H. &amp; Mann, M. The ABC's (and XYZ's) of peptide sequencing. Nat. Rev. Mol. Cell Biol. 5, 699–711; 10.1038/nrm1468 (2004).</li>
 </ol>
 
                 </div>
