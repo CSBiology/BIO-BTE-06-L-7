@@ -14,6 +14,7 @@
     3. Exponential Fit
 4. Calculate Doubling Time
 5. References
+
 *)
 
 (** 

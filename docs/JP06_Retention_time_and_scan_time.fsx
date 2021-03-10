@@ -6,12 +6,10 @@
 1. Retention time and scan time
     1. m/z calculation of the digested peptides
     2. Determination of peptide hydrophobicity
+
 *)
 
 (**
-
-
-
 ## Retention time and scan time
 
 In general, peptides are separated by one or more steps of liquid chromatography (LC). The retention time (RT) is the time when the measured 

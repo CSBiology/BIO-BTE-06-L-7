@@ -11,6 +11,7 @@
     6. Calculating peptide masses
     7. Calculating peptide masses for charge 2
 6. References
+
 *)
 
 (** 
