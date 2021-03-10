@@ -271,8 +271,8 @@ information on a biological system such that it is sustainably stored in a forma
 to integrate the huge amount of differently structured data, often referred to as the “big data” challenge. In a last step, statistical or machine learning methods
 are applied to extract the information or underlying principles hidden in the data.</p>
 <p>The most flexible way of working with huge amounts of data is using a lightweight programming language with a succinct syntax. Therefore, it becomes necessary that biologist become familiar with a suitable programming language to solve real world problems in (Systems) Biology.</p>
-<p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/OmicSpace.png" alt="" />
-<strong><em>Figure 1: A conceptual view of the omic space.</em></strong></p>
+<p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/OmicSpace.png" alt="" /></p>
+<p><strong><em>Figure 1: A conceptual view of the omic space.</em></strong></p>
 <p>The omics space comprises of genomic, transcriptomic, proteomic, metabolomic and phenomic systems level represented as a plane. Complex biological function is the result of the interplay between molecules of one and/or different systems level.</p>
 <h2><a name="Starting-with-FSharp" class="anchor" href="#Starting-with-FSharp">Starting with FSharp</a></h2>
 <p>F# (pronounced “F Sharp”) is a simple and expressive programming language. It can be described as statically typed impure functional language that supports functional,
@@ -298,8 +298,8 @@ So first, let’s start with a mathematical function that adds 1 to a number.</p
 <li>The function is said to map the domain to the range.</li>
 </ul>
 <p>A diagram of a general function would be:</p>
-<p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/function.png" alt="" />
-<strong><em>Figure 2: diagram of a general function</em></strong></p>
+<p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/function.png" alt="" /></p>
+<p><strong><em>Figure 2: diagram of a general function</em></strong></p>
 <h2><a name="Binding-function-values-and-simple-values" class="anchor" href="#Binding-function-values-and-simple-values">Binding function values and simple values</a></h2>
 <p>The process of using a name to represent a function or a value is called “binding“. A binding is done by using the <code>let</code> keyword in F#. Let’s look at the simple function we used previously:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="fn">add1</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="fn">x</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs2', 3)" onmouseover="showTip(event, 'fs2', 3)" class="fn">x</span> <span class="o">+</span> <span class="n">1</span>
@@ -338,7 +338,7 @@ This is called anonymous function, or - referring to lambda calculus - <strong>l
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs2', 12)" onmouseover="showTip(event, 'fs2', 12)" class="fn">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs2', 13)" onmouseover="showTip(event, 'fs2', 13)" class="fn">x</span> <span class="o">+</span> <span class="n">1</span>
 </code></pre>
 <h2><a name="Simple-values" class="anchor" href="#Simple-values">Simple values</a></h2>
-<p><img src="img/valueBinding.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/valueBinding.png" alt="" /></p>
 <p>Imagine an operation that always returned the integer 5 and didn’t have any input.</p>
 <p>This would be a “constant” operation.
 How would we write this in F#? We want to tell the F# compiler “every time you see the name c, replace it with 5”. Here’s how:</p>
@@ -374,8 +374,8 @@ This is simple, but leads to one of the most important concepts of functional pr
 <p>The higher-order and polytypic function <code>map</code> applies a function working on the normal space to an elevated space.
 This concept is so important that all collection types (lists, arrays, ...) have a build in <code>map</code> function.
 Let's look at an example of what that means. Therefore, we first define a function working on the normal space:</p>
-<p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/map.png" alt="" />
-<strong><em>Figure 3: A conceptual view of the <code>map</code> concept.</em></strong></p>
+<p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/map.png" alt="" /></p>
+<p><strong><em>Figure 3: A conceptual view of the <code>map</code> concept.</em></strong></p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 23)" onmouseover="showTip(event, 'fs9', 23)" class="fn">square</span> <span onmouseout="hideTip(event, 'fs2', 24)" onmouseover="showTip(event, 'fs2', 24)" class="fn">x</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs2', 25)" onmouseover="showTip(event, 'fs2', 25)" class="fn">x</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs2', 26)" onmouseover="showTip(event, 'fs2', 26)" class="fn">x</span>
 <span class="c">// evaluate</span>
 <span onmouseout="hideTip(event, 'fs9', 27)" onmouseover="showTip(event, 'fs9', 27)" class="fn">square</span> <span class="n">3</span>
@@ -434,8 +434,8 @@ Here is the same <code>sumOfSquares</code> function written using pipes.</p>
 <p>You already used the <code>List.sum</code> function. It is important to notice that this function doesn’t follow the <code>map</code> concept. There is a second related concept called <code>fold</code>.
 The higher-order and polytypic function <code>fold</code> applies a function working on the normal space to an elevated space and reduces the elevated space into the normal space.
 This results in an aggregation. A simple but concreate example would be to sum a list of numeric values.</p>
-<p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/fold.png" alt="" />
-<strong><em>Figure 4: A conceptual view of the <code>fold</code> concept.</em></strong></p>
+<p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/fold.png" alt="" /></p>
+<p><strong><em>Figure 4: A conceptual view of the <code>fold</code> concept.</em></strong></p>
 <h2><a name="Control-flow-expressions" class="anchor" href="#Control-flow-expressions">Control flow expressions</a></h2>
 <p>Control flow expressions are used to determine the program pathing under multiple possible conditions. These different paths must always lead to the same <code>Type</code> (e.g. <code>string</code>).</p>
 <h3><a name="if-then-else" class="anchor" href="#if-then-else">if-then-else</a></h3>
