@@ -3,17 +3,18 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP12_Targeted_quantification_of_photosynthetic_proteins_LE.ipynb)
 
-1. [Label Efficiency of 15N QProteins](#Label-Efficiency-of-15N-QProteins)
-2. [Read in .txt as Deedle Frame](#Read-in-.txt-as-Deedle-Frame)
-3. [Verify Limit of Detection](#Verify-Limit-of-Detection)
-    1. [Pearson correlation coefficient](#Pearson-correlation-coefficient)
-4. [Calculate Label Efficiency](#Calculate-Label-Efficiency)
-    1. [Median Label Efficiency](#Median-Label-Efficiency)
-5. [Midas Results](#Midas-Results)
-    1. [Midas Results Var 1](#Midas-Results-Var-1)
-    2. [Midas Results Var 2](#Midas-Results-Var-2)
-6. [Label Efficiency Conclusion Frame](#Label-Efficiency-Conclusion-Frame)
-7. [References](#References)
+1. Label Efficiency of 15N QProteins
+2. Read in .txt as Deedle Frame
+3. Verify Limit of Detection
+    1. Pearson correlation coefficient
+4. Calculate Label Efficiency
+    1. Median Label Efficiency
+5. Midas Results
+    1. Midas Results Var 1
+    2. Midas Results Var 2
+6. Label Efficiency Conclusion Frame
+7. References
+
 *)
 
 (**
@@ -771,7 +772,7 @@ showLabelEfficiencyChartsSimple |> Array.head |> GenericChart.toChartHTML
 (**
 ### Midas Results Var 2
 The following code is used to generate in depth charts with most information about the midas calculation.
-If [variant 1](#Midas-Results-Var-1) does not contain enough information, this variant can be used instead.
+If variant 1 does not contain enough information, this variant can be used instead.
 *)
 
 // Code block 16

@@ -3,8 +3,9 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP12_Targeted_quantification_of_photosynthetic_proteins_SDS_IGD.ipynb)
 
-1. [Relative Quantification between rbcL and rbcS](#Relative-Quantification-between-rbcL-and-rbcS)<br>
-2. [Compare 14N/15N for rbcL and rbcS](#Compare-14N/15N-for-rbcL-and-rbcS)
+1. Relative Quantification between rbcL and rbcS
+2. Compare 14N/15N for rbcL and rbcS
+
 *)
 
 #r "nuget: FSharp.Stats, 0.4.0"

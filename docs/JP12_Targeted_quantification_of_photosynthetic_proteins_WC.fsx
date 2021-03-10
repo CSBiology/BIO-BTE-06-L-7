@@ -3,9 +3,10 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP12_Targeted_quantification_of_photosynthetic_proteins_WC.ipynb)
 
-1. [General steps for targeted quantification](#General-steps-for-targeted-quantification)
-2. [Peptide Ratio Visualization](#Peptide-Ratio-Visualization)
-3. [Sample stability](#Sample-stability)
+1. General steps for targeted quantification
+2. Peptide Ratio Visualization
+3. Sample stability
+
 *)
 
 (**
@@ -68,8 +69,6 @@ let qConcatRawData =
         )
         
 qConcatRawData
-|> BIO_BTE_06_L_7_Aux.Deedle_Aux.formatAsTable
-|> Chart.Show
 
 (***include-fsi-merged-output***)
 
@@ -294,7 +293,7 @@ let createChartForPeptideComparison (protString:string) (strainStrings:string []
 
 (**
 `rbclChart` executes `createChartForPeptideComparison` for rbcL and the strains 4A, 1690 and 1883. 
-With `allCharts` you can generate charts for all proteins and strains (***Warning! This displays a lot of charts***).
+With `allCharts` you can generate charts for all proteins and strains ( ***Warning! This displays a lot of charts*** ).
 *)
 
 // Code block 11
