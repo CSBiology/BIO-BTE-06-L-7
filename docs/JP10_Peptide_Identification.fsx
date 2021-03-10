@@ -84,7 +84,7 @@ For the preprocessed experimental spectrum y' it follows:
 
 ***Equation 8***
 
-![](https://latex.codecogs.com/gif.latex?xcorr&space;=&space;x_{0}\cdot&space;y')
+![](https://latex.codecogs.com/gif.latex?xcorr&space;=&space;x_{0}\cdot&space;y`)
 
 where:
 
@@ -108,6 +108,7 @@ Matching a measured spectrum against chlamy database
 
 open Plotly.NET
 open BioFSharp
+open BioFSharp.Mz
 open BIO_BTE_06_L_7_Aux.FS3_Aux
 open System.IO
 
@@ -265,3 +266,4 @@ peptideAndMasses
 Finaly, we pick the sequence with the best score and are done for now. Notice however, that in a real world we would need to 
 relate our score to the complete data set to get an idea of the overall quality and which numerical value we could trust. 
 *)
+
