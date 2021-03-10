@@ -3,45 +3,39 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP09_Fragmentation_for_peptide_identification.ipynb)
 
-1. [Understanding MS2 spectra: From peptide to fragment](#Understanding-MS2-spectra:-From-peptide-to-fragment)
-2. [Simulate MS2 Fragmentation](#Simulate-MS2-Fragmentation)<br>
-2. [References](#References)
+1. Understanding MS2 spectra: From peptide to fragment
+2. Simulate MS2 Fragmentation
+2. References
+
 *)
 
 (**
 ## Understanding MS2 spectra: From peptide to fragment
-<a href="#Fragmentation-for-peptide-identification" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
-<div class="container">
 The currency of information for identification in MS-based proteomics is the fragment ion spectrum (MS/MS spectrum) that is typically 
 derived from the fragmentation of a specific peptide in the collision cell of a mass spectrometer. Peptides produce fragments that provide 
 information on their amino acid sequence. The correct assignment of such a spectrum to a peptide sequence is the central step to link 
-m/z values and ion intensities to biology<sup><a href="#31">31</a></sup>. 
+m/z values and ion intensities to biology (Nesvizhskii et al. 2007). 
 
-<div Id="figure4" Style="float: right ; display: inline-block ; color: #44546a ; width: 60% ; padding: 15px">
-    <img src="img/FragmentIonNomenclature.png" Style="width: 100%">
-    <div Style="padding-left: 1rem ; padding-right: 1rem ; margin-top: 1rem ; text-align: justify ; font-size: 0.8rem">
-        <b>Figure 4: The Roepstorff-Fohlmann-Biemann nomenclature of fragment ions.</b>
-        N-terminal and C-terminal peptide fragments result of dissociation of electron bonds along the peptide backbone.
-    </div>
-</div>    
+![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/FragmentIonNomenclature.PNG)
+
+**Figure 4: The Roepstorff-Fohlmann-Biemann nomenclature of fragment ions.**
+N-terminal and C-terminal peptide fragments result of dissociation of electron bonds along the peptide backbone.
 
 During the unimolecular peptide ion dissociation processes, different chemical reactions can lead to different types 
 of product ions. The types of ions observed in MS/MS experiments depend on the physicochemical properties of the amino 
 acids and their sequence, on the amount of internal energy, and on the peptide’s charge state. In addition, product ion formation 
-is strongly influenced by the fragmentation method<sup><a href="#32">32</a></sup>. The most widely used fragmentation methods today 
-are low-energy collision-induced dissociation (CID)<sup><a href="#33">33</a></sup> and electron transfer dissociation 
-(ETD)<sup><a href="#34">34</a></sup>. These methods favor fragmentation along the peptide backbone and result in an N-terminal prefix 
+is strongly influenced by the fragmentation method (Medzihradszky 2005). The most widely used fragmentation methods today 
+are low-energy collision-induced dissociation (CID) (Johnson et al. 1987) and electron transfer dissociation 
+(ETD) (Mikesh et al. 2006). These methods favor fragmentation along the peptide backbone and result in an N-terminal prefix 
 fragment and a C-terminal suffix fragment. The standard nomenclature for the C-terminal fragments is x, y and z whereas the corresponding 
 N-terminal fragments are denoted as a, b and c depending on the position where the breakage occurs at the peptide backbone level. The numbering 
-of each fragment starts from the N-terminus for a,b,c series and from the C-terminus for x,y,z series (<a href="#figure4">Figure 4</a>). 
+of each fragment starts from the N-terminus for a,b,c series and from the C-terminus for x,y,z series (Figure 4). 
 One should keep in mind that during parent ion selection many of the same peptide ions are selected and dissociated into fragments, with the 
 resulting fragment ions having different relative abundances according to the preferred fragmentation reaction. In addition to the 
 fragmentation along the peptide backbone, fragment ions containing the amino acids R, K, N, or Q can lose ammonia (-17 Da) and are then 
 denoted a*, b* and y*. Fragments containing the amino acids S, T, E, or D may lose water (-18 Da) and are then denoted a°, b° and y°. 
-These losses do not change the charge of the ions and are observable as natural losses <sup><a href="#35">35</a>,<a href="#36">36</a></sup>.
-
-</div>
+These losses do not change the charge of the ions and are observable as natural losses (Forner et al. 2007, Steen and Mann 2004).
 *)
 
 #r "nuget: BioFSharp, 2.0.0-beta5"
@@ -59,11 +53,8 @@ open BioFSharp
 
 (**
 ## Simulate MS2 Fragmentation
-<a href="#Fragmentation-for-peptide-identification" style="display: inline-block"><sup>&#8593;back</sup></a><br>
-
 
 For the simulation we first define a short peptide. The peptide we take for this example is from rbcL.
-
 *)
 
 // Code-Block 1
@@ -77,11 +68,9 @@ peptide
 (***include-it***)
 
 (**
-<div class="container">
-In the <code>Mz</code> namespace of <a href="https://csbiology.github.io/BioFSharp/">BioFSharp</a>, we can find a function that can 
+In the `Mz` namespace of [BioFSharp](https://csbiology.github.io/BioFSharp/), we can find a function that can 
 generate the theoretical series of y-ions from the given peptide. This function provides a lot of information, but we are only interested 
 in the mass. Notice, that we do not know the intesity of the fragment ions and just use '1.' for simulation.
-</div>
 *)
 
 // Code-Block 2
@@ -127,33 +116,15 @@ ionChart
 ionChart |> GenericChart.toChartHTML
 (***include-it-raw***)
 
-(**
-<hr>
-<nav class="level is-mobile">
-    <div class="level-left">
-        <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP08_Centroidisation.html';">&#171; JP08</button>
-        </div>
-    </div>
-    <div class="level-right">
-        <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP10_Peptide_Identification.html';">JP10 &#187;</button>
-        </div>
-    </div>
-</nav>
-*)
 
 (**
 ## References
-<a href="#Fragmentation-for-peptide-identification" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
-<ol>
-<li Value="31" Id="31"> Nesvizhskii, A. I., Vitek, O. & Aebersold, R. Analysis and validation of proteomic data generated by tandem mass spectrometry. Nature methods 4, 787–797; 10.1038/nmeth1088 (2007).
-<li Id="32"> Medzihradszky, K. F. Peptide sequence analysis. Method Enzymol 402, 209–244; 10.1016/S0076-6879(05)02007-0 (2005).
-<li Id="33"> Johnson, R. S., Martin, S. A., Biemann, K., Stults, J. T. & Watson, J. T. Novel fragmentation process of peptides by collision-induced decomposition in a tandem mass spectrometer: differentiation of leucine and isoleucine. Anal. Chem. 59, 2621–2625; 10.1021/Ac00148a019 (1987).
-<li Id="34"> Mikesh, L. M. et al. The utility of ETD mass spectrometry in proteomic analysis. Biochimica et biophysica acta 1764, 1811–1822; 10.1016/j.bbapap.2006.10.003 (2006).
-<li Id="35"> Forner, F., Foster, L. J. & Toppo, S. Mass spectrometry data analysis in the proteomics era. Curr Bioinform 2, 63–93; 10.2174/157489307779314285 (2007).
-<li Id="36"> Steen, H. & Mann, M. The ABC's (and XYZ's) of peptide sequencing. Nat. Rev. Mol. Cell Biol. 5, 699–711; 10.1038/nrm1468 (2004).
-</ol>
+31. Nesvizhskii, A. I., Vitek, O. & Aebersold, R. Analysis and validation of proteomic data generated by tandem mass spectrometry. Nature methods 4, 787–797; 10.1038/nmeth1088 (2007).
+32. Medzihradszky, K. F. Peptide sequence analysis. Method Enzymol 402, 209–244; 10.1016/S0076-6879(05)02007-0 (2005).
+33. Johnson, R. S., Martin, S. A., Biemann, K., Stults, J. T. & Watson, J. T. Novel fragmentation process of peptides by collision-induced decomposition in a tandem mass spectrometer: differentiation of leucine and isoleucine. Anal. Chem. 59, 2621–2625; 10.1021/Ac00148a019 (1987).
+34. Mikesh, L. M. et al. The utility of ETD mass spectrometry in proteomic analysis. Biochimica et biophysica acta 1764, 1811–1822; 10.1016/j.bbapap.2006.10.003 (2006).
+35. Forner, F., Foster, L. J. & Toppo, S. Mass spectrometry data analysis in the proteomics era. Curr Bioinform 2, 63–93; 10.2174/157489307779314285 (2007).
+36. Steen, H. & Mann, M. The ABC's (and XYZ's) of peptide sequencing. Nat. Rev. Mol. Cell Biol. 5, 699–711; 10.1038/nrm1468 (2004).
 *)
 
