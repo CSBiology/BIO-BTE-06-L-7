@@ -104,9 +104,7 @@ let aaDistributionHis =
     |> Chart.withY_AxisStyle "Count"
     |> Chart.withTitle "Amino Acid composition of the *Chlamydomonas reinhardtii* proteome"
 aaDistributionHis
-(***hide***)
-aaDistributionHis |> GenericChart.toChartHTML
-(***include-it-raw***)
+
     
 
 (**
@@ -164,9 +162,7 @@ let chartDigestedProteins =
     |> Chart.withX_AxisStyle (title = "Mass [Da]",MinMax=(0.,3000.))
     |> Chart.withY_AxisStyle "Count"
 chartDigestedProteins
-(***hide***)
-chartDigestedProteins |> GenericChart.toChartHTML
-(***include-it-raw***)
+
     
 (**
 ## Calculating peptide masses for charge 2
@@ -196,9 +192,7 @@ let chartDigestedPeptideMasses =
     |> Chart.withX_AxisStyle (title = "m/z",MinMax=(0.,3000.))
     |> Chart.withY_AxisStyle "Count"
 chartDigestedPeptideMasses
-(***hide***)
-chartDigestedPeptideMasses |> GenericChart.toChartHTML
-(***include-it-raw***)
+
 
 (**
 ## References
