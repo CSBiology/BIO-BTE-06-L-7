@@ -3,18 +3,17 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP11_Quantification.ipynb)
 
-1. [Quantification Theory](#Quantification-Theory)<br>
-    1. [Targeted quantification](#Targeted-quantification)
-    2. [(i) Targeted acquisition at peptide](#(i)-Targeted-acquisition-at-peptide)
-    3. [(ii) Targeted data analysis at peptide ion level](#(ii)-Targeted-data-analysis-at-peptide-ion-level)
-2. [References](#References)
+1. Quantification Theory
+    1. Targeted quantification
+    2. (i) Targeted acquisition at peptide
+    3. (ii) Targeted data analysis at peptide ion level
+2. References
+
 *)
 
 (**
 ## Quantification Theory
-<a href="#Quantification" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
-<div class="container">
 To estimate the amount of individual proteins in complex mixtures, all peptide signals corresponding to a common protein serve as a 
 proxy for their abundance. Peptide information needs to be obtained from multidimensional signal data detected by the mass spectrometer. 
 All signals generated from one peptide ion species, often referred to as peptide feature, need to be grouped to form a three-dimensional peak 
@@ -29,79 +28,62 @@ continuous wavelet transformation (CWT).
 In general, a CWT based approach describes a family of time-frequency-transformations often used in data compression and feature detection. 
 The term is coined by the use of a wavelet, as a basis function which is “compared” to the signal. The point of highest correlation between the 
 basis function and the signal reflects the location of the peak present. Due to the fact that MS derived peaks often follow the shape of a 
-gaussian distribution, the <i>Mexican Hat</i> wavelet as the negative normalized second derivative of the Gaussian distribution is perfectly 
+gaussian distribution, the *Mexican Hat* wavelet as the negative normalized second derivative of the Gaussian distribution is perfectly 
 suited to find the peptide feature.
 
-<div Id="figure5" Style="float: right ; display: inline-block ; color: #44546a ; width: 70% ; padding: 15px">
-    <img src="img/Wavelets.png" Style="width: 100%">
-    <div Style="padding-left: 1rem ; padding-right: 1rem ; text-align: justify ; font-size: 0.8rem">
-        <b>Figure 5: Schematic representation of the ‘Haar’-wavelet (blue) and the ‘Mexican Hat’- wavelet (green). </b>The ‘Haar’-wavelet is 
-        named after its discoverer Alfred Haar and represents the first wavelet ever to be described. The ‘Mexican Hat’- or ‘Ricker’-wavelet is 
-        frequently used in the fields of signal detection and compression.
-    </div>
-</div>    
+![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/Wavelets.png)
+
+**Figure 5: Schematic representation of the ‘Haar’-wavelet (blue) and the ‘Mexican Hat’- wavelet (green). **
+The ‘Haar’-wavelet is named after its discoverer Alfred Haar and represents the first wavelet ever to be described. The ‘Mexican Hat’- or ‘Ricker’-wavelet is 
+frequently used in the fields of signal detection and compression.
 
 Depending on the quantification approach, the peptide features used for protein quantification might differ. In case of isotopic labeling, 
 quantification means pairing features with the proper mass shift according to the utilized label. It is essential to account for the frequency 
 of label incorporation when calculating the mass shift for the utilized label. Taking the ICAT method as an example, by which a heavy/light 
 difference of 9 Dalton per cysteine is incorporated, the total mass shift is 9 Dalton times the number of cysteine within the sequence. 
-Consequently, pairing peptide features for <sup>15</sup>N labeling is even more challenging, as the mass shift is less discrete. Using stable 
+Consequently, pairing peptide features for 15N labeling is even more challenging, as the mass shift is less discrete. Using stable 
 isotope labeling, different peptide feature pairs belonging to the same protein can be treated as technical replicates and averaged to gain 
 protein quantification. In contrast, the sum of all extracted peptide signals results in a label-free protein quantiﬁcation. Spectral counting 
 computes abundance values from the number of times a peptide was successfully identiﬁed by tandem mass spectrometry (MS/MS) and combines all 
 these events per protein. The spectral counting values can be normalized by the number of peptides theoretically expected from the particular 
 protein. 
 
-<div Style="float: right ; display: inline-block ; color: #44546a ; width: 100% ; padding: 15px; max-width: 800px">
-    <img src="img/ComputationalProteinQuantification.png" Style="width: 100%">
-    <div Style="padding-left: 1rem ; padding-right: 1rem ; text-align: justify ; font-size: 0.8rem">
-        <b>Figure 6: Computational strategy of peptide and protein quantiﬁcation on based on stable isotope labeling or by label-free 
-        quantiﬁcation.</b> (A) Label-free methods compare corresponding peptide abundances over different MS runs. The abundance is either 
-        estimated by the elution proﬁle les of the pep de ions or (B) in case of spectral counting, by the number of times a peptide was 
-        successfully identiﬁed (MS2). In contrast, methods based on differential stable isotope labeling analyze peptides pairs detected by 
-        their characteristic mass diﬀerence Δm/z. The abundance is estimated by the ratio of their corresponding elution proﬁles (C). Isobaric 
-        tagging methods (D) compare the reporter ion abundances in the fragmentation spectrum.
-    </div>
-</div>
+![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/ComputationalProteinQuantification.png)
 
-</div>
+**Figure 6: Computational strategy of peptide and protein quantiﬁcation on based on stable isotope labeling or by label-free quantiﬁcation.**
+(A) Label-free methods compare corresponding peptide abundances over different MS runs. The abundance is either 
+estimated by the elution proﬁle les of the pep de ions or (B) in case of spectral counting, by the number of times a peptide was 
+successfully identiﬁed (MS2). In contrast, methods based on differential stable isotope labeling analyze peptides pairs detected by 
+their characteristic mass diﬀerence Δm/z. The abundance is estimated by the ratio of their corresponding elution proﬁles (C). Isobaric 
+tagging methods (D) compare the reporter ion abundances in the fragmentation spectrum.
 *)
 
 (**
 ### Targeted quantification
-<a href="#Quantification" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
-<div class="container">
 Targeted proteomics has gained significant popularity in mass spectrometry‐based protein quantification as a method to detect proteins of 
 interest with high sensitivity, quantitative accuracy and reproducibility. The two major strategies of (i) targeted acquisition at peptide, 
 and (ii) targeted data analysis at peptide ion level need to be distinguished.
-</div>
 *)
 
 (**
 ###(i) Targeted acquisition at peptide
-<a href="#Quantification" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
-<div class="container">
 In multiple reaction monitoring (MRM or SRM for single/selected reaction monitoring) simply predefined transitions are recorded. 
 Knowledge about the targeted transitions from precursor to their corresponding fragment ions are needed and predefined in the mass 
 spectrometer. MRM can be performed rapidly and is highly specific even for low abundant peptide ions in complex mixtures, but with the 
 drawback of a necessary bias in the sense that only predefined peptides are measured.
-</div>
 *)
 
 (**
 ### (ii) Targeted data analysis at peptide ion level
-<a href="#Quantification" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
-<div class="container">
 Data‐independent acquisition at the peptide level makes it possible to acquire peptide data for virtually all peptide ions present in a sample. 
 In this strategy, a high‐resolution mass analyzer—such as an orbitrap or a time‐of‐flight—is used to constantly sample the full mass range 
 at the peptide level during the entire chromatographic gradient. In a subsequent step, precursor ion chromatograms can be extracted by targeted 
 data analysis. Those extracted-ion chromatogram (XIC) can be obtained to calculate the area under the curve and used for peptide quantification.
 
 Let’s start and extract a XIC…
-</div>
 *)
 
 #r "nuget: FSharp.Stats, 0.4.0"
@@ -128,12 +110,10 @@ open System.Data.SQLite
 open BIO_BTE_06_L_7_Aux.FS3_Aux
 
 (**
-<div class="container">
 We now want to extract the XIC for the peptide where we previously calculated the matching score.
 
 Since we need several mass spectrometry scans to quantify over the retention time, we connect to our database 
 and index the entries according to their retention time.
-</div>
 *)
 
 // Code-Block 1
@@ -153,11 +133,9 @@ idx
 (***include-it***)
 
 (**
-<div class="container">
-<b>We know from the MS<sup>2</sup> measurement, that our peptide had its match at a retention of around 51.95 min</b>. We create a query 
+**We know from the MS2 measurement, that our peptide had its match at a retention of around 51.95 min**. We create a query 
 to the database to extract the intensities of all peaks that are +/-5 min of our retention time and within 0.04 m/z of our peptide of interest. 
 After we are done, we close the connection to the database.
-</div>
 *)
 
 // Code-Block 2
@@ -280,16 +258,3 @@ quantifiedAreaChart
 (***hide***)
 quantifiedAreaChart |> GenericChart.toChartHTML
 (***include-it-raw***)
-
-(**
-<hr>
-<nav class="level is-mobile">
-    <div class="level-left">
-        <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP10_Peptide_Identification.html';">&#171; JP10</button>
-        </div>
-    </div>
-    <div class="level-right">
-    </div>
-</nav>
-*)
