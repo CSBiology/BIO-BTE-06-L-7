@@ -35,6 +35,7 @@ explained under quantification in the following section.
 open Plotly.NET
 open BioFSharp.Mz
 open BIO_BTE_06_L_7_Aux.FS3_Aux
+open System.IO
 
 (**
 ## Peak fitting and picking functions

@@ -240,7 +240,7 @@ model with many coefficients, since the excessive use of coefficients leads to o
 A better model that can be used in growth curve fitting, is a [logistic function](https://en.wikipedia.org/wiki/Logistic_function). 
 It is defined by a minimum, a maximum, and a sigmoidal transition between those two. Thereby, the lag, log, and stationary phase are covered.
 
-The function has the form: "[](https://latex.codecogs.com/gif.latex?f(x)=\frac{L}{1&plus;e^{-k(x-x_{0})}}&plus;N" title="f(x)=\frac{L}{1+e^{-k(x-x_{0})}}+N)
+The function has the form: ![](https://latex.codecogs.com/gif.latex?f(x)=\frac{L}{1&plus;e^{-k(x-x_{0})}}&plus;N" title="f(x)=\frac{L}{1+e^{-k(x-x_{0})}}+N)
 
 where:
 
