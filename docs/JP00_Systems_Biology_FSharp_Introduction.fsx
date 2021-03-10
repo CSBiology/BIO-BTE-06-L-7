@@ -6,33 +6,37 @@
 
 This notebook introduces the field of Systems Biology and explains why programming is a necessary skill to it. You will get a short introduction to the programming language F# and some links to resource for further studies.
 
-1. [Systems Biology: A brief introduction](#Systems-Biology-A-brief-introduction)
-2. [Starting with FSharp](#Starting-with-FSharp)<br>
-    1. [Functions](#Functions)<br>
-    2. [Binding function values and simple values](#Binding-function-values-and-simple-values)<br>
-        1. [Side note: Lambda expressions](#Side-note:-Lambda-expressions)<br>
-    3. [Simple values](#Simple-values)
-    4. [Lists & Arrays](#Lists-&-Arrays)
-    5. [Higher-order functions](#Higher-order-functions)
-        1. [Side Note: Pipe-forward operator |>](#Side-Note:-Pipe-forward-operator-|>)
-    6. [Control flow expressions](#Control-flow-expressions)
-        1. [if-then-else](#if-then-else)
-        2. [Pattern Matching](#Pattern-Matching)
-    7. [Complex Data Types](#Complex-Data-Types)
-        1. [Tuples](#Tuples)
-        2. [Record Types](#Record-Types)
-    8. [Code organization](#Code-organization)
-        1. [Namespaces and modules](#Namespaces-and-modules)
-        2. [Comments](#Comments)
-3. [References](#References)
+1. Systems Biology: A brief introduction
+2. Starting with FSharp
+    1. Functions
+    2. Binding function values and simple values
+        1. Side note: Lambda expressions
+    3. Simple values
+    4. Lists & Arrays
+    5. Higher-order functions
+        1. Side Note: Pipe-forward operator |>
+    6. Control flow expressions
+        1. if-then-else
+        2. Pattern Matching
+    7. Complex Data Types
+        1. Tuples
+        2. Record Types
+    8. Code organization
+        1. Namespaces and modules
+        2. Comments
+3. References
 
 ## Systems Biology: A brief introduction
 
-<div class="columns">
-<div class="column is-8">
-The term “systems theory” was introduced by the biologist L. von Bertalanffy. He defined a system as a set of related components that work together in a particular environment to perform whatever functions are required to achieve the system's objective<sup><a href="#1" id="ref1">1</a></sup>. The hierarchical organization orchestrating the interaction of thousands of molecules with individual properties allows complex biological functions. Biological processes like cell division, biomass production, or a systemic response to perturbations are molecular physiological functions which result from a complex dynamic interplay between genes, proteins and metabolites (<a href="#figure1">Figure 1</a>). To gain a holistic understanding of a biological system, all parts of the system need to be studied simultaneously by quantitative measures<sup><a id="ref2" href="#2">2</a></sup>. The focus on a system-wide perspective lies on the quantitative understanding of the organizational structure, functional state, robustness and dynamics of a biological system and led to the coining of the term “Systems Biology”<sup><a href="#3">3</a></sup>.
 
-The current challenges of Systems Biology approaches are mainly along four lines<sup><a href="#2">2</a>,<a href="#4">4</a></sup>: 
+The term “systems theory” was introduced by the biologist L. von Bertalanffy. He defined a system as a set of related components that work together in a particular environment to perform whatever 
+functions are required to achieve the system's objective (Bertalanffy 1945). The hierarchical organization orchestrating the interaction of thousands of molecules with individual 
+properties allows complex biological functions. Biological processes like cell division, biomass production, or a systemic response to perturbations are molecular physiological functions 
+which result from a complex dynamic interplay between genes, proteins and metabolites (Figure 1). To gain a holistic understanding of a biological system, all parts of the 
+system need to be studied simultaneously by quantitative measures (Sauer et al. 2007). The focus on a system-wide perspective lies on the quantitative understanding of the 
+organizational structure, functional state, robustness and dynamics of a biological system and led to the coining of the term “Systems Biology”(Kitano 2002a).
+
+The current challenges of Systems Biology approaches are mainly along four lines (Sauer et al. 2007, Joyce and Palsson 2006): 
 
  - (**i**) - system-wide quantification of transcriptome, proteome (including protein modifications) and metabolome
  
@@ -40,32 +44,46 @@ The current challenges of Systems Biology approaches are mainly along four lines
  
  - (**iii**) - inference of structure, type and quantity of found interactions
  
- - (**iv**) - analysis and integration of the resulting large amounts of heterogeneous data. It becomes obvious that an interdisciplinary effort is needed to resolve these challenges in Systems Biology<sup><a href="#5">5</a></sup>. Here Biology dictates which analytical, experimental and computational methods are required.
+ - (**iv**) - analysis and integration of the resulting large amounts of heterogeneous data. It becomes obvious that an interdisciplinary effort is needed to resolve these challenges in Systems Biology (Aderem 2006). Here Biology dictates which analytical, experimental and computational methods are required.
 
-Modern analytical methods to measure the identity and quantity of biomolecules system-wide, summarized under the term “quantitative omics”-technologies, address the first two mentioned challenges of Systems Biology. Among these “omics”-technologies are transcriptomics based on microarrays/next generation sequencing and proteomics/metabolomics based on mass-spectrometry.
+Modern analytical methods to measure the identity and quantity of biomolecules system-wide, summarized under the term “quantitative omics”-technologies, address the first two 
+mentioned challenges of Systems Biology. Among these “omics”-technologies are transcriptomics based on microarrays/next generation sequencing and proteomics/metabolomics based on mass-spectrometry.
 
-Tying in with the area of genome sequencing, the focus is set on the accurate profiling of gene/protein expression and metabolite concentrations, as well as on the determination of biological protein modifications and of physical interactions between proteins.
+Tying in with the area of genome sequencing, the focus is set on the accurate profiling of gene/protein expression and metabolite concentrations, as well as on the determination of biological 
+protein modifications and of physical interactions between proteins.
 
-Addressing the abovementioned challenges three and four of Systems Biology, the development of numerous computational approaches reaches out to unravel the intrinsic complexity of biological systems<sup><a href="#6">6</a></sup>. These computational approaches focus on knowledge discovery and on in silico simulation or modeling<sup><a href="#7">7</a></sup>. In the latter approach knowledge on a biological process is converted into a mathematical model. In silico simulations based on such a model can provide predictions that may subsequently be tested experimentally. Computation-based knowledge discovery (also known as data mining) aims to extract hidden patterns from complex and high-dimensional data to generate hypotheses. Therefore, the first step is to describe information on a biological system such that it is sustainably stored in a format rendering it readable and manipulable for machines and humans. The second step is to integrate the huge amount of differently structured data, often referred to as the “big data” challenge. In a last step, statistical or machine learning methods are applied to extract the information or underlying principles hidden in the data.
+Addressing the abovementioned challenges three and four of Systems Biology, the development of numerous computational approaches reaches out to unravel the 
+intrinsic complexity of biological systems (Kahlem and Birney 2006). These computational approaches focus on knowledge discovery and on in silico 
+simulation or modeling (Kitano 2002b). In the latter approach knowledge on a biological process is converted into a mathematical model. 
+In silico simulations based on such a model can provide predictions that may subsequently be tested experimentally. Computation-based knowledge discovery 
+(also known as data mining) aims to extract hidden patterns from complex and high-dimensional data to generate hypotheses. Therefore, the first step is to describe 
+information on a biological system such that it is sustainably stored in a format rendering it readable and manipulable for machines and humans. The second step is 
+to integrate the huge amount of differently structured data, often referred to as the “big data” challenge. In a last step, statistical or machine learning methods 
+are applied to extract the information or underlying principles hidden in the data.
 
 The most flexible way of working with huge amounts of data is using a lightweight programming language with a succinct syntax. Therefore, it becomes necessary that biologist become familiar with a suitable programming language to solve real world problems in (Systems) Biology.
-</div>
-<div class="column is-4">
+
 ![](img/OmicSpace.png)
-<b>Figure 1: A conceptual view of the omic space.</b> The omics space comprises of genomic, transcriptomic, proteomic, metabolomic and phenomic systems level represented as a plane. Complex biological function is the result of the interplay between molecules of one and/or different systems level.
-</div>
-</div>
+
+***Figure 1: A conceptual view of the omic space.***
+
+The omics space comprises of genomic, transcriptomic, proteomic, metabolomic and phenomic systems level represented as a plane. Complex biological function is the result of the interplay between molecules of one and/or different systems level.
 
 ## Starting with FSharp
 
 
-F# (pronounced “F Sharp”) is a simple and expressive programming language. It can be described as statically typed impure functional language that supports functional, imperative and object-oriented paradigm and also several other programming styles including data-driven, event-driven and parallel programming. This makes it an excellent tool for introducing programming as well as programming paradigms.
+F# (pronounced “F Sharp”) is a simple and expressive programming language. It can be described as statically typed impure functional language that supports functional, 
+imperative and object-oriented paradigm and also several other programming styles including data-driven, event-driven and parallel programming. 
+This makes it an excellent tool for introducing programming as well as programming paradigms.
 
-F# is supported by the <a href="http://fsharp.org">F# Software Foundation</a> and a worldwide community of contributors. Microsoft and other companies develop professional tooling for F#. The <a href="https://docs.microsoft.com/en-us/dotnet/articles/fsharp/">F# Language Reference</a> is a reference for the F# language, and the <a href="https://docs.microsoft.com/en-us/dotnet/articles/fsharp/">F# Guide</a> covers general topics. There are lots of excellent <a href="http://fsharp.org/learn.html">F# learning resources</a> available online.
+F# is supported by the [F# Software Foundation](http://fsharp.org) and a worldwide community of contributors. Microsoft and other companies 
+develop professional tooling for F#. The [F# Language Reference](https://docs.microsoft.com/en-us/dotnet/articles/fsharp/) is a reference for 
+the F# language, and the [F# Guide](https://docs.microsoft.com/en-us/dotnet/articles/fsharp/) covers general topics. There are lots of excellent 
+[F# learning resources](http://fsharp.org/learn.html) available online.
    
-To learn more about how to use Jupyter notebooks, see the [Jupyter documentation](http://jupyter-notebook.readthedocs.io/) and the [Jupyter keyboard shortcuts](https://www.cheatography.com/weidadeyue/cheat-sheets/jupyter-notebook/). You can find more information baoutthe F# and Jupyter tooling locally using <a href="https://github.com/fsprojects/IfSharp">IfSharp</a>.
+To learn more about how to use Jupyter notebooks, see the [Jupyter documentation](http://jupyter-notebook.readthedocs.io/) and the [Jupyter keyboard shortcuts](https://www.cheatography.com/weidadeyue/cheat-sheets/jupyter-notebook/). You can find more information baoutthe F# and Jupyter tooling locally using [IfSharp](https://github.com/fsprojects/IfSharp).
   
-With the help of the following FSharp coding information/examples, you will be able to solve all exercises in <a href="JP01_FSharpExcercises.ipynb" style="color: orange">JP01_FsharpExcercises</a>!
+With the help of the following FSharp coding information/examples, you will be able to solve all exercises in *JP01_FSharpExcercises.ipynb*!
    
 Let's start with our basic introduction:
 
@@ -92,7 +110,7 @@ A diagram of a general function would be:
 
 ![](img/function.png)
 
-<div><b>Figure 2: diagram of a general function</b></div>
+***Figure 2: diagram of a general function***
 
 
 ## Binding function values and simple values
@@ -213,20 +231,16 @@ _Note_: commas are **never** used as delimiters in collection types, only semico
 
 ## Higher-order functions
 
-<div class="columns">
-<div class="column is-8">
 A higher-order function is a function that takes another function as a parameter. 
-This is simple, but leads to one of the most important concepts of functional programming: The conceptual operation: <strong>map</strong>
+This is simple, but leads to one of the most important concepts of functional programming: The conceptual operation: ***map***
 
 The higher-order and polytypic function `map` applies a function working on the normal space to an elevated space.
 This concept is so important that all collection types (lists, arrays, ...) have a build in `map` function. 
 Let's look at an example of what that means. Therefore, we first define a function working on the normal space:
-</div>
-<div class="column is-4">
+
 ![](img/map.png)
-<b>Figure 3: A conceptual view of the `map` concept.</b>
-</div>
-</div>
+
+***Figure 3: A conceptual view of the `map` concept.***
 *)
 
 let square x = x * x
@@ -265,7 +279,8 @@ evens [1..5]
 (***include-it***)
 
 (**
-You can use `()` to clarify precedence (think brackets in math). In this example, do `List.map` first, with two parameters. Then do `List.sum` on the result. `List.map` applies a function to all elements in the list.
+You can use `()` to clarify precedence (think brackets in math). In this example, do `List.map` first, with two parameters. Then do `List.sum` on the result. `List.map` 
+applies a function to all elements in the list.
 *)
 
 let sumOfSquaresTo100 =
@@ -316,20 +331,14 @@ sumOfSquaresTo100withFun
 (***include-it***)
 
 (**
-<div class="columns">
-<div class="column is-8">
+You already used the `List.sum` function. It is important to notice that this function doesn’t follow the `map` concept. There is a second related concept called `fold`. 
+The higher-order and polytypic function `fold` applies a function working on the normal space to an elevated space and reduces the elevated space into the normal space. 
+This results in an aggregation. A simple but concreate example would be to sum a list of numeric values.
 
-You already used the `List.sum` function. It is important to notice that this function doesn’t follow the `map` concept. There is a second related concept called `fold`.  The higher-order and polytypic function `fold` applies a function working on the normal space to an elevated space and reduces the elevated space into the normal space. This results in an aggregation. A simple but concreate example would be to sum a list of numeric values.
-
-</div>
-<div class="column is-4">
 
 ![](img/fold.png)
 
-<b>Figure 4: A conceptual view of the `fold` concept.</b>
-
-</div>
-</div>
+***Figure 4: A conceptual view of the `fold` concept.***
 
 ## Control flow expressions
 
@@ -353,7 +362,7 @@ v
 
 ### Pattern Matching
 
-Pattern matchings are one method to apply these control flow expressions. These function similiar to the <a href="#if-then-else">if then else</a> expression, but much more powerful.
+Pattern matchings are one method to apply these control flow expressions. These function similiar to the *if then else* expression, but much more powerful.
 
 *)
 
@@ -364,9 +373,7 @@ let simplePatternMatch x =
     | _   -> printfn "input is something else"
 
 (**
-<div Style="text-align: justify ; font-size: 1.8rem ; margin-top: 2rem ; line-height: 1.5">
-    Underscore `_` matches anything
-</div>
+Underscore `_` matches anything
 *)
 
 simplePatternMatch "a" 
@@ -378,7 +385,7 @@ simplePatternMatch "I will not match"
 (***include-output***)
 
 (**
-In the following we will use a `printfn` function. Normally in FSharp only the last output is returned, but side effects, can always be returned. As a rule of thumb: All Unit outputs are side effects. <br>
+In the following we will use a `printfn` function. Normally in FSharp only the last output is returned, but side effects, can always be returned. As a rule of thumb: All Unit outputs are side effects. 
 In this case, this means, we will print the result and still can keep working with the output.
 Also you will notice, that the last output is only `f (1=3)` → `"b"`, but we still will get all other results, as we print them below.
 *)
@@ -411,7 +418,6 @@ f (1=3)
 
 ## Complex Data Types
 
-</br>
 
 ### Tuples
 
@@ -460,7 +466,9 @@ Sometimes it can be necessary to organize code for example to ship a library to 
 
 ### Namespaces and modules
 
-You can think of namespaces and modules as containers and sub containers, respectively, in which you can put function and type definitions. The hierarchy is defined that you can have multiple modules in one namespace, also nested modules in a module, but no namespace in another namespace. You can acces namespaces and modules with the `.` operator.
+You can think of namespaces and modules as containers and sub containers, respectively, in which you can put function and type definitions. 
+The hierarchy is defined that you can have multiple modules in one namespace, also nested modules in a module, but no namespace in another 
+namespace. You can acces namespaces and modules with the `.` operator.
 
 *)
 
@@ -501,35 +509,16 @@ type PersonalInformation =
         PhoneNumber: int
     }
 
-(**
-<nav class="level is-mobile">
-    <div class="level-left">
-    </div>
-    <div class="level-right">
-        <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP01_FSharpExcercises.html';">JP01 &#187;</button>
-        </div>
-    </div>
-</nav>
-*)
 
 (**
 
 ## References
 
-<ol>
-<li Id="1"> Bertalanffy, L. von. Zu einer allgemeinen Systemlehre. Blätter für deutsche Philosophie 18 (1945).</li>
-
-<li Id="2"> Sauer, U., Heinemann, M. & Zamboni, N. Genetics. Getting closer to the whole picture. Science 316, 550–551; 10.1126/science.1142502 (2007).</li>
-
-<li Id="3"> Kitano, H. Systems biology. a brief overview. Science 295, 1662–1664; 10.1126/science.1069492 (2002).</li>
-
-<li Id="4"> Joyce, A. R. & Palsson, B. O. The model organism as a system. integrating 'omics' data sets. Nat Rev Mol Cell Bio 7, 198–210; 10.1038/Nrm1857 (2006).</li>
-
-<li Id="5"> Aderem, A. Systems biology. Its practice and challenges. Cell 121, 511–513; 10.1016/j.cell.2005.04.020 (2005).</li>
-
-<li Id="6"> Kahlem, P. & Birney, E. Dry work in a wet world. computation in systems biology. Mol Syst Biol 2 (2006).</li>
-
-<li Id="7"> Kitano, H. Computational systems biology. Nature 420, 206–210; 10.1038/nature01254 (2002). </li>
-</ol>
+1. Bertalanffy, L. von. Zu einer allgemeinen Systemlehre. Blätter für deutsche Philosophie 18 (1945).
+2. Sauer, U., Heinemann, M. & Zamboni, N. Genetics. Getting closer to the whole picture. Science 316, 550–551; 10.1126/science.1142502 (2007).
+3. Kitano, H. Systems biology. a brief overview. Science 295, 1662–1664; 10.1126/science.1069492 (2002).
+4. Joyce, A. R. & Palsson, B. O. The model organism as a system. integrating 'omics' data sets. Nat Rev Mol Cell Bio 7, 198–210; 10.1038/Nrm1857 (2006).
+5. Aderem, A. Systems biology. Its practice and challenges. Cell 121, 511–513; 10.1016/j.cell.2005.04.020 (2005).
+6. Kahlem, P. & Birney, E. Dry work in a wet world. computation in systems biology. Mol Syst Biol 2 (2006).
+7. Kitano, H. Computational systems biology. Nature 420, 206–210; 10.1038/nature01254 (2002).
 *)
