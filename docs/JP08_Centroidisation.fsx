@@ -4,23 +4,21 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP08_Centroidisation.ipynb)
 
 
-1. [Centroidisation](#Centroidisation)
-2. [Peak fitting and picking functions](#Peak-fitting-and-picking-functions)
-3. [Application of the peak picking function](#Application-of-the-peak-picking-function)
+1. Centroidisation
+2. Peak fitting and picking functions
+3. Application of the peak picking function
+
 *)
 
 (**
 ## Centroidisation
-<a href="#Centroidisation" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
-<div class="container">
 In reality, a peak is represented by a collection of signals from a peptide or fragment ion species that are measured by the 
 specific detector. Due to imperfections of the measurement, there is a scatter around the accurate mass. This distribution 
 along the m/z axis of signals from ion species is termed profile peak. The conversion of a peak profile into the corresponding m/z and 
 intensity values reduces the complexity, its representation is termed centroiding. To extract the masses for identification in a simple 
 and fast way, peak fitting approaches are used. Further, peak fitting algorithms are also needed to extract ion abundancies and therefore 
 explained under quantification in the following section.
-</div>
 *)
 
 #r "nuget: BioFSharp, 2.0.0-beta5"
@@ -40,13 +38,10 @@ open BIO_BTE_06_L_7_Aux.FS3_Aux
 
 (**
 ## Peak fitting and picking functions
-<a href="#Centroidisation" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
-<div class="container">
 We declare a function which centroids the given m/z and intensity data. In the scope of the function the m/z and intensity data 
-are padded for the wavelet (You will read more about wavelet functions later in <a href="JP11_Quantification.ipynb#Quantification-Theorie">JP11</a>) 
+are padded for the wavelet (You will read more about wavelet functions later in *JP11_Quantification.ipynb* ) 
 and the centroided. For the centroidisation, we use a Ricker 2D wavelet.
-</div>
 *)
 
 // Code-Block 1
@@ -69,7 +64,7 @@ let ms1PeakPicking (mzData:float []) (intensityData: float []) =
 
 
 (**
-We load a sample MS<sup>1</sup> from a mgf file.
+We load a sample MS1 from a mgf file.
 *)
 
 // Code-Block 2
@@ -87,11 +82,8 @@ ms1
 
 (**
 ## Application of the peak picking function
-<a href="#Centroidisation" style="display: inline-block"><sup>&#8593;back</sup></a><br>
 
-<div class="container">
 We centroid the MS2 data using the function declared beforehand:
-</div>
 *)
 
 // Code-Block 3
@@ -128,19 +120,4 @@ filteredChart
 filteredChart |> GenericChart.toChartHTML
 (***include-it-raw***)
 
-(**
-<hr>
-<nav class="level is-mobile">
-    <div class="level-left">
-        <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP07_Signal_detection_and_quantification.html';">&#171; JP07</button>
-        </div>
-    </div>
-    <div class="level-right">
-        <div class="level-item">
-            <button class="button is-primary is-outlined" onclick="location.href='/JP09_Fragmentation_for_peptide_identification.html';">JP09 &#187;</button>
-        </div>
-    </div>
-</nav>
-*)
 
