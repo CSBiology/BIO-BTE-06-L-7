@@ -237,7 +237,6 @@ let predictFromSequence peptide =
     |> List.concat
     |> Mz.SequestLike.predictOf (lowerScanLimit,upperScanLimit) 2.
 
-predictFromSequence
 
 (**
 ### Step 3+4: Matching and Scoring
@@ -247,23 +246,38 @@ We get a score which tells us how well the theoretical spectrum fits the given e
 *)
 
 // Code-Block 7
+let sortedScores = 
+    peptideAndMasses
+    |> Array.filter (fun (sequence,mass) ->
+        mass > 1020.52  && mass < 1020.53
+    )
+    |> Array.map (fun (sequence,mass)    ->
+        sequence,predictFromSequence sequence
+    )
+    |> Array.map (fun (sequence,theoSpectrum) -> 
+        sequence,SequestLike.scoreSingle theoSpectrum preprocessedIntesities
+    )
+    |> Array.sortByDescending (fun (sequence,score) -> score)
 
-peptideAndMasses
-|> Array.filter (fun (sequence,mass) ->
-    mass > 1020.52  && mass < 1020.53
-)
-|> Array.map (fun (sequence,mass)    ->
-    sequence,predictFromSequence sequence
-)
-|> Array.map (fun (sequence,theoSpectrum) -> 
-    sequence,Mz.SequestLike.scoreSingle theoSpectrum preprocessedIntesities
-)
-|> Array.sortByDescending (fun (sequence,score) -> score)
+sortedScores 
 
 (***include-it***)
 
 (**
-Finaly, we pick the sequence with the best score and are done for now. Notice however, that in a real world we would need to 
+Finally, we pick the sequence with the best score and are done for now. Notice however, that in a real world we would need to 
 relate our score to the complete data set to get an idea of the overall quality and which numerical value we could trust. 
 *)
 
+(**
+## Questions
+
+1. How does the Chart change, when you change the value of 'numberofwindows' from 10 to 20?
+  What does this parameter specify? (Code-Block 3)
+2. What is the rational behind the normalization of measured spectra?
+3. Why are we adding the mass of water to the peptide sequence? (BioItem.monoisoMass ModificationInfo.Table.H2O) (Code-Block 4)
+4. In code block 6 you get a raw estimate on how many peptide sequences are candidates for a match, when given a certain mz.
+Given that one MS run can consist of up to 120.000 ms2 spectra, how many peptide spectrum matches do you have to perform?
+What does that mean for the performance of the application? Which parameters influence the size of the "search space"? (Code-Block 6)
+5. What happens when you choose different lower and upper scan limits?
+6. Visualize the distribution of scores using a histogram. (Code-Block 7)
+*)
