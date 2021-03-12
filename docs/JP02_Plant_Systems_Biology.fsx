@@ -5,15 +5,15 @@
 
 
 1. Plant Systems Biology
-2. Modeling growth for a defined cell number
-1. Insert Growth Data and Display as Chart
+2. Modeling growth
+1. Insert growth data and display as chart
 2. Calculation of growth rate and doubling time for cell cultures
 3. Fitting biological growth curves
     1. Theory
     2. Model selection
-    3. Exponential Fit
-4. Calculate Doubling Time
-5. References
+4. Calculate cell doubling time
+5. Questions
+6. References
 
 *)
 
@@ -49,9 +49,9 @@ interpretation of results involving many genes/proteins (Merchant et al. 2007).
 *)
 
 (** 
-## Modeling growth for a defined cell number
+## Modeling growth
 
-In order to solves real world task more convenient, F# provides a huge collection of additional programming libraries. 
+In order to solve real world tasks more convenient, F# provides a huge collection of additional programming libraries. 
 Anything that extends beyond the basics must be written by a user. If the chunk of code is useful to multiple different users, 
 it's often put into a library to make it easily reusable. A library is a collection of related pieces of code that have been compiled 
 and stored together in a single file and can than be used an included. The most important libraries in F# for bioinformatics are:
@@ -64,11 +64,11 @@ and stored together in a single file and can than be used an included. The most 
 
 The first real world use case of F# in Systems Biology is to model growth for a defined cell number to see possible overexpression effects. 
 Biologists often utilize growth experiments to analyze basic properties of a given organism or cellular model. For a solid comparison of data 
-obtain from different experiment and to investigate the speciﬁc eﬀect of a given experimental set up, modeling the growth is needed after recording the data. 
+obtained from different experiments and to investigate the speciﬁc effect of a given experimental set up, modeling the growth is needed after recording the data. 
 
-This notebook introduces two basic ways to model growth of *Chlamydomonas reinhardtii* using F#.
+This notebook introduces the most classical way to model growth of *Chlamydomonas reinhardtii* or any other growth data using F#.
 
-Now, let's get started by loading our libraries first.
+Now, let's get started by loading the required libraries first.
 *)
 
 #r "nuget: FSharp.Stats, 0.4.0"
@@ -79,72 +79,104 @@ Now, let's get started by loading our libraries first.
 #r "nuget: Plotly.NET.Interactive, 2.0.0-beta6"
 #endif // IPYNB
 
+open System
 open Plotly.NET
 open FSharp.Stats
-open FSharp.Stats.Fitting.NonLinearRegression
 
 (** 
-## Insert Growth Data and Display as Chart
+## Insert growth data and display as chart
 
-A normal cell culture experiment with measurements for the growth curve will return data like the following.
-Multiple cell counts (`y_Count`) each related to a specific timepoint (`x_Hours`).
+A standard cell culture experiment with cell count measurements will result in data like the following.
+Multiple cell counts (`y_Count`), each related to a specific timepoint (`x_Hours`).
 *)
 // Code-Block 1
 
-let exmp_x_Hours = [|0.; 19.5; 25.5; 43.; 48.5; 51.25; 67.75|]
-let exmp_y_Count = [|1659000.; 4169000.; 6585400.; 16608400.; 17257800.; nan; 18041000.|]
-
-/// filter out any nans. These could be introduced through missing measurements.
-let exmp_x_Hours_Filtered,exmp_y_Count_Filtered =
-    Array.zip exmp_x_Hours exmp_y_Count
-    |> Array.filter (fun (x,y) -> isNan y = false && isNan x = false )
-    |> Array.unzip
+let exmp_x_Hours = [|0.; 19.5; 25.5; 43.; 48.5; 67.75|]
+let exmp_y_Count = [|1659000.; 4169000.; 6585400.; 16608400.; 17257800.; 18041000.|]
 
 // Such data can easily be display with the following code block.
 // Chart.Point takes a sequence of x-axis-points and a series of y-axis-points as input
 let example_Chart_1 = 
-    Chart.Point(exmp_x_Hours_Filtered,exmp_y_Count_Filtered)
+    Chart.Point(exmp_x_Hours,exmp_y_Count)
     // some minor styling with title and axis-titles.
-    |> Chart.withTitle "Growth curve of *Clamydomonas reinhardtii* cell cultures"
-    |> Chart.withX_AxisStyle ("Number of cells")
-    |> Chart.withY_AxisStyle ("Time [hours]")
+    |> Chart.withTitle "Growth curve of Chlamydomonas reinhardtii cell cultures"
+    |> Chart.withY_AxisStyle ("Number of cells")
+    |> Chart.withX_AxisStyle ("Time [hours]")
 
 (***hide***)
 example_Chart_1 |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
+
 ## Calculation of growth rate and doubling time for cell cultures
 
-The normal growth of an in vitro cell culture is defined through three phases. The lag phase in which the cells still acclimate to the growth conditions, the exponential growth, 
-also called log phase, during which cell growth is exponential due to the proliferation of cells into two daughter cells, and the stationary phase in which the growth rate and the 
+The standard growth of an in vitro cell culture is defined by three phases. The lag phase in which the cells still acclimate to the growth conditions, the exponential growth, 
+also called log phase, during which cell growth is exponential due to the iterative proliferation of cells into two daughter cells, and the stationary phase in which the growth rate and the 
 death rate are equal. The stationary phase is typically initiated due to limitations in growth conditions, e.g. depletion of essential nutrients or accumulation of toxic/inhibitory 
-excretions/products. The doubling time defines a time interval in which the quantity of cells doubles and is calculated as seen in Equation 1.
+excretions/products. The doubling time (or generation time) defines a time interval in which the quantity of cells doubles.
 
-*Equation 1: Calculation of the doubling time. Growth rate is calculates as shown in Equation 2.*
+![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/growthCurve.png)
 
-![](https://latex.codecogs.com/gif.latex?doubling&space;Time&space;=&space;\frac{ln(2)}{growthRate})
+Growth data always should be visualized in log space. Therefore the count data must be log transformed. When a log2 transform is applied, 
+a doubling of the original counts is achieved, when the value increase 1 unit. 
+Keeping that in mind, the slope of the growth function can be used to calculate the time it takes for the log transformed data to increase 1 unit.
 
-Growth rate can then be calculated as shown in Equation 2.
+The corresponding chart of the log transformed count data looks like this:
 
-*Equation 2: Calculation of the growth rate. With N(t) = the number of cells at time t, N(0) = number of cells at time 0, gr = growth rate, and t = time.*
+*)
+// Code-Block 2
 
-![](https://latex.codecogs.com/gif.latex?gr=\frac{ln(\frac{N(t)}{N(0)})}{t})
+// log transform the count data with a base of 2
+let exmp_y_Count_Log = exmp_y_Count |> Array.map log2
+
+let example_Chart_2 = 
+    Chart.Point(exmp_x_Hours,exmp_y_Count_Log)
+    |> Chart.withTitle "Growth curve of Chlamydomonas reinhardtii cell cultures"
+    |> Chart.withY_AxisStyle ("Number of cells [log2]")
+    |> Chart.withX_AxisStyle ("Time [hours]")
+
+
+(***hide***)
+example_Chart_2 |> GenericChart.toChartHTML
+(***include-it-raw***)  
+
+(**
+
+After the log transform the exponential phase becomes linear. Since a y axis difference of 1 corresponds to a doubling of the cells the generation time can simply be estimated by determination of how many hours are required for the data to span one y axis unit.
+In this case it seems, that the time required to get from y=22 to y=23 takes approximately 10 hours. 
+
+As you may noticed we just determined the cell doubling time per eye. 
+The formalization of this process is trivial. 
+
+  - The y-value increment that is required for doubling can be calculated by log_x(2) where x defines the used base. So for log2 transformed data it is 1 (log2(2)).
+
+  - The generation time is calculated by dividing this y-value increment by the growth rate which is the steepest slope of the log transformed data (approximately 0.1 in the given data). The steepest slope in growth curves always occurs at the inflection point of the sigmoidal function shape.
+
+So all we have to know is the performed log transform and the slope of the function at its steepest point and afterwards apply the following equation.
+
+
+*Equation 1: Calculation of the doubling time. Growth rate is the steepest slope of the log transformed count data.*
+
+![](https://latex.codecogs.com/gif.latex?doubling&space;Time&space;=&space;\frac{log_x(2)}{growthRate})
+
+For a log2 transform the numerator is 1.
+
 *)
 
 (** 
 ## Fitting biological growth curves
 
-
+<br>
 ### Theory
 
-To derive parameters required for e.g. the doubling time calculation, the measured growth data points have to be modelled. 
+To derive the slope required for the doubling time calculation, the measured growth data points have to be modelled. 
 In order to obtain a continuous function with known coefficients, a suitable model function is fitted onto the existing data. 
 Many models exist, each one of them optimized for a specific task (Kaplan et al. 2018).
 
 Linear model function example: ![](https://latex.codecogs.com/gif.latex?f(x)&space;=&space;mx&space;&plus;&space;b)
  
-When a model is fitted onto the data, there are endless possibilities to choose coefficients of the model function. 
+When a model function is fitted onto the data, there are endless possibilities to choose coefficients of the model function. 
 In the case above there are two coefficients to be identified: The slope m and the y-intercept b. But how can the best fitting coefficients be determined?
 
 Therefore a quality measure called ***Residual Sum of Squares (RSS)*** is used. It describes the discrepancy of the measured points 
@@ -162,297 +194,161 @@ Algorithms, that perform such a 'gradient descent' methods to solve nonlinear re
 
 ### Model selection
 
-Under certain circumstances, more than one solution may arise out of a optimization process. 
-If the solutions are based on the same data and the same fitting model, the function minimizing the RSS can be selected as best estimator. 
+Depending on the given problem, different models can be fitted to the data. Several growth models exist, each is specialized for a particular problem. See [Types of growth curve](http://www.pisces-conservation.com/growthhelp/index.html) or [FSharp.Stats - Growth Curve](https://fslab.org/FSharp.Stats/GrowthCurve.html) for more information.
 
-### Exponential Fit
-
-Since cellular growth behaves in an exponential manner, it seems to make sense to use an exponential fitting function. 
-
-![](https://latex.codecogs.com/gif.latex?f(x)&space;=&space;ae^{bx}" title="f(x) = ae^{bx})
-
-As seen below, the resulting [exponential fit](https://da.khanacademy.org/science/biology/ecology/population-growth-and-regulation/a/exponential-logistic-growth) does not represent the data 
-sufficiently, even though it is the best fit, that a exponential model can provide. This is caused by the lag- and stationary phase, both not following an exponential increase. 
-In order to use an exponential function as model, it would be necessary to discard data points from lag- and stationary phases and model the remaining data points. 
-
- 
-There are two main problems regarding this workflow: 
-
-1. The assignment of points to lag-, log-, and stationary phases is a nontrivial task.
-2. The exponential phase only lasts a short period of time and therefore the number of points that can be assigned to the log phase is (very) low.
-
-Consequential the fitted function is not robust against variance introduced during cell count measurements.
-
-
-*)
-
-// Code-Block 2
-
-// An template exponential function has the form f(x) = a * exp(b * x) with the two unknowns a and b. 
-
-// The model we need already exists in FSharp.Stats and can be taken from the "Table" module.
-let expModel = Table.expModel
-
-// the solver needs additional information like the initial coefficient guesses or the coefficient accuracy
-// FSharp.Stats assists by estimating the required parameters based on the original input data
-let solverOptions = Table.expSolverOptions exmp_x_Hours_Filtered exmp_y_Count_Filtered
-
-// The Gauss-Newton solver is used to find the optimal coefficients for an exponential function (expModel)
-// The result is a vector, containing parameter a and b as floats.
-let coefficientsExp = GaussNewton.estimatedParams expModel solverOptions exmp_x_Hours_Filtered exmp_y_Count_Filtered
-
-// The determined coefficients can be inserted into the exponential template function
-let fittingExpFunction x = coefficientsExp.[0] * System.Math.Exp(coefficientsExp.[1] * x)
-
-// create a chart with 
-let exp_Chart_1 = 
-    [|0. .. (Array.last exmp_x_Hours_Filtered)|]
-    |> Array.map (fun xValue -> xValue,fittingExpFunction xValue) // gives tuples of (xValue,yValue)
-    |> Chart.Line
-    |> Chart.withTraceName "exponential fit"
-
-// styling of the chart axis
-let templateAxis title = Axis.LinearAxis.init(Title=title,Showgrid=false,Showline=true,Mirror=StyleParam.Mirror.All)       
-
-let exponentialFitChart =
-    [
-        example_Chart_1
-        |> Chart.withTraceName "data points"
-        exp_Chart_1
-    ]
-    |> Chart.Combine
-    |> Chart.withX_Axis (templateAxis "time [hours]")
-    |> Chart.withY_Axis (templateAxis "number of cells")
-    |> Chart.withSize (900.,600.)
-
-(***hide***)
-exponentialFitChart |> GenericChart.toChartHTML
-(***include-it-raw***)
-    
-(**
-## Logistic regression fit
-
-As seen above, the model selection is a crucial step for obtaining reasonable functions and to derive function properties with 
-which further studies are examined. The selected model should match the theoretical (time) course of the studied signal, but under 
+The selected model should match the theoretical (time) course of the studied signal, but under 
 consideration of Occams razor principle. It states, that a approriate model with a low number of coefficients should be preferred over a 
 model with many coefficients, since the excessive use of coefficients leads to overfitting.
 
-A better model that can be used in growth curve fitting, is a [logistic function](https://en.wikipedia.org/wiki/Logistic_function). 
-It is defined by a minimum, a maximum, and a sigmoidal transition between those two. Thereby, the lag, log, and stationary phase are covered.
+A often used growth curve model is the four parameter [Gompertz model](https://en.wikipedia.org/wiki/Gompertz_function). 
 
-The function has the form: ![](https://latex.codecogs.com/gif.latex?f(x)=\frac{L}{1&plus;e^{-k(x-x_{0})}}&plus;N" title="f(x)=\frac{L}{1+e^{-k(x-x_{0})}}+N)
+The function has the form: ![](https://latex.codecogs.com/gif.latex?A+Ce^{-e^{-B(t-M)}}) [Gibson et al. 1988](https://www.sciencedirect.com/science/article/pii/0168160588900517?via%3Dihub). 
 
 where:
 
-***L*** = curve maximum
+  - A = curve minimum
 
-***k*** = steepness
+  - B = relative growth rate (not to be confused with absolute)
 
-***x0*** = xValue of sigmoid's midpoint
+  - C = curve maximum - curve minimum (y range)
 
-***N*** = curve minimum
+  - M = x position of inflection point
 
-In the following, we will go through the necessary steps to calculate the doubling time with the help of a logistic fit. 
-This is more complex than the exponential fit, but the given problem requires a more sophisticated method.
+  - t = time point
+
+In the following, we will go through the necessary steps to calculate the generation time with the help of a Gompertz model.
+While the curve minimum and maximum are easy to define by eye, to estimate the remaining coefficients is a nontrivial task.
+
+FSharp.Stats provides a function, that estimates the model coefficients from the data and a guess of the expected generation time. For Chlamydomonas the initial guess would be 8 hours.
+
+
 *)
-
 // Code-Block 3
 
+// open module in FSharp.Stats to perform nonlinear regression
+open FSharp.Stats.Fitting.NonLinearRegression
+
 // The model we need already exists in FSharp.Stats and can be taken from the "Table" module.
-let modelLogistic = Table.LogisticFunctionVarYAscending
+let modelGompertz = Table.GrowthModels.gompertz
 
-// To fit the logistic function, the solver requires more parameters. Some of them are stored in the solverOption type
-let lineSolverOptions initialParamGuess = {
-    // defines the stepwidth of the x_value change
-    MinimumDeltaValue       = 0.00001
-    // defines the stepwidth of the parameter change
-    MinimumDeltaParameters  = 0.00001
-    // defines the number of iterations until the solver converges to a solution
-    MaximumIterations       = 10000
-    // initial parameters to start the solving algorithms
-    // vector containing all coefficients of the function: vector [L;k;x0;N]
-    InitialParamGuess       = initialParamGuess
-    }
+// The solver, that iteratively optimizes the coefficients requires an initial guess of the coefficients.
+// The following function was specifically designed to estimate gompertz model coefficients from the data
+// You have to provide the time data, the log transformed count data, the expected generation time, and the used log transform
+let solverOptions = Table.GrowthModels.getSolverOptionsGompertz exmp_x_Hours exmp_y_Count_Log 8. log2
 
-// Generation of solverOptions with varying steepnesses
-let initialGuess = 
-    // maximum measured intensity/cell count
-    let l  = exmp_y_Count_Filtered |> Array.max
-    // estimate of the xValue of sigmoid's midpoint
-    let x0 = (exmp_x_Hours_Filtered |> Array.max) / 2.
-    // minimum measured intensity/cell count.
-    let n  = exmp_y_Count_Filtered |> Array.min 
-    
-    //since steepness in unknown, a variety of steepnesses is provided 
-    let steepnessRange = [|0.01 .. 0.01 .. 1.|]
-    
-    steepnessRange
-    |> Array.map (fun steepness -> lineSolverOptions [|l; steepness; x0; n|])
+// sequence of initial guess coefficients
+solverOptions.InitialParamGuess
 
-// Estimate coefficients for a possible solution based on residual sum 
-// of squares. Besides the solverOptions, an upper and lower bound for 
-// the parameters are required. It is recommended to define them depending 
-// on the initial param guess.
-// It reports coefficients tupled with a corresponding RSS value.
-let estimateCoefficientsRSS =
-    initialGuess
-    |> Array.map (fun solvOpt ->
-        let lowerBound =
-            solvOpt.InitialParamGuess
-            |> Array.map (fun param -> param - (abs param) * 0.2)
-            |> vector
-        let upperBound =
-            solvOpt.InitialParamGuess
-            |> Array.map (fun param -> param + (abs param) * 0.2)
-            |> vector
-        // all parameters are given to the solver and the set of coefficients that minimize the RSS are reported
-        LevenbergMarquardtConstrained.estimatedParamsWithRSS 
-            modelLogistic         // logistic function model
-            solvOpt               // solver options with optimization parameters and initial guess
-            0.001                 //
-            10.                   //
-            lowerBound            // lower bound of coefficient space
-            upperBound            // upper bound of coefficient space
-            exmp_x_Hours_Filtered // x data
-            exmp_y_Count_Filtered // y data
-    )
-    |> Array.filter (fun (coeffs,rss) -> not(coeffs |> Vector.exists System.Double.IsNaN)) // discard solutions with nan as coefficients
-    |> Array.minBy snd // minimize all possible solutions based on RSS quality measure
-    |> fun (solCoeffs,rss) ->
-        printfn "Chosen Estimate: %A" solCoeffs
-        printfn "Equation: (%.1f / (1. + exp(-%.3f * (x - %.3f)))) + %.1f" solCoeffs.[0] solCoeffs.[1] solCoeffs.[2] solCoeffs.[3]
-        solCoeffs
-        
-// Create fitting function from optimal coefficients
-let fittingLogisticFunction = modelLogistic.GetFunctionValue estimateCoefficientsRSS
+(***hide***)
+solverOptions.InitialParamGuess
+(***include-it-raw***)  
 
+(** 
+The initial coefficient estimations match the expectations. 
+
+  - A = 20.7
+  - B = 0.099
+  - C = 3.4
+  - M = 19.5
+  
+*)
 // Code-Block 4
 
-// fit of the optimized logistic function over all x Values
-let fittedY = 
-     [|0. .. exmp_x_Hours |> Array.max|]
-     |> Array.map (fun x -> x, fittingLogisticFunction x) //tupled (xValue,yValue)
+// By solving the nonlinear fitting problem, the optimal model coefficients are determined. 
+// The solver iteratively changes the coefficients until the model function fits the data best.
+let gompertzParams =
+    LevenbergMarquardt.estimatedParams // The Levenberg Marquardt is used as solver
+        modelGompertz    // The gompertz model is used as growth model
+        solverOptions    // The initial guess of the coefficients
+        0.1              // Parameter required from the solver
+        10.              // Parameter required from the solver
+        exmp_x_Hours     // The time data
+        exmp_y_Count_Log // The transformed count data
 
-let fittedLogisticFunc =
-    [
-        // raw chart
-        Chart.Point (exmp_x_Hours, exmp_y_Count) |> Chart.withTraceName"data points"
-        // logistic fit
-        Chart.Line fittedY                       |> Chart.withTraceName "logistic fit"
-    ]
-    |> Chart.Combine
-    |> Chart.withY_Axis (templateAxis "cell count")
-    |> Chart.withX_Axis (templateAxis "time [Hours]")
-fittedLogisticFunc
+gompertzParams
+
 (***hide***)
-fittedLogisticFunc |> GenericChart.toChartHTML
+gompertzParams
 (***include-it-raw***)
 
 (**
+The model coefficients were determined to be:
+
+- A = 20.66
+- B = 0.107
+- C = 3.52
+- M = 19.63
+
+They are pretty close to the initial estimations that were determined in Code-Block 3 With the coefficients at hand, the model function can be filled with coefficients and can be used to create a fit to the data.
+
+*)
+// Code-Block 4
+
+// Create fitting function from optimal coefficients
+let fittingFunction = modelGompertz.GetFunctionValue gompertzParams
+
+// Fit the optimized model function to all x values from 0 to 70 hours.
+let fittedValuesGompertz =
+    [0. .. 0.1 .. 70.]
+    |> Seq.map (fun x -> x,fittingFunction x) 
+    |> Chart.Line
     
-## Calculate Doubling Time
+
+// combine the raw data and the fit into one chart
+let fittedChartGompertz = 
+    [
+        example_Chart_2      |> Chart.withTraceName "raw data"
+        fittedValuesGompertz |> Chart.withTraceName "gompertz model"
+    ]
+    |> Chart.Combine
+
+(***hide***)
+fittedChartGompertz |> GenericChart.toChartHTML
+(***include-it-raw***)  
+
+(**
+    
+## Calculate cell doubling time
 
 To calculate the doubling time it is necessary to determine the growth rate (gr) for *equation 1*.
-To get gr we make use of the first and second derivative of the logistic function. They can be calculated by hand or with help 
-of [derivative calculator](https://www.ableitungsrechner.net/).
+As discussed above the growth rate is the maximal slope of the model function. It always occurs at the inflection point, which we know is at x=19.628. 
+After calculating the first derivative of the model function, we would be able to calculate the growth rate as the slope at the inflection point.
+Luckily, there is a short cut when using the Gompertz model. It allows the determination of generation times from its parameters (see Gibson et al. 1988 for details).
 
-The first derivative of the logistic function is: 
 
-![](https://latex.codecogs.com/gif.latex?\dfrac{kl\mathrm{e}^{k\left(x-m\right)}}{\left(\mathrm{e}^{k\left(x-m\right)}&plus;1\right)^2}" title="\dfrac{kl\mathrm{e}^{k\left(x-m\right)}}{\left(\mathrm{e}^{k\left(x-m\right)}+1\right)^2})
-
-The second derivative of the logistic function is: 
-
-![](https://latex.codecogs.com/gif.latex?-\dfrac{k^2l\left(\mathrm{e}^{k\left(x-m\right)}-1\right)\mathrm{e}^{k\left(x-m\right)}}{\left(\mathrm{e}^{k\left(x-m\right)}&plus;1\right)^3}" title="-\dfrac{k^2l\left(\mathrm{e}^{k\left(x-m\right)}-1\right)\mathrm{e}^{k\left(x-m\right)}}{\left(\mathrm{e}^{k\left(x-m\right)}+1\right)^3})
 *)
 
-// Code-Block 5
+let getGenTimeFromGompertz (parametervector:vector) (logTransform:float -> float) =
+    logTransform 2. * Math.E / (parametervector.[1] * parametervector.[2])
 
-// calculate fst derivative of logistic function
-let fstDerivative x = 
-    let l  = estimateCoefficientsRSS.[0]
-    let k  = estimateCoefficientsRSS.[1]
-    let x0 = estimateCoefficientsRSS.[2]
-    let n  = estimateCoefficientsRSS.[3]
-    let exp = System.Math.Exp(k*(x-x0))
-    - (k**2.*l*(exp - 1.)* exp ) / (exp + 1.)**3.
+let genTime = getGenTimeFromGompertz gompertzParams log2
 
-// calculate snd derivative of logistic function 
-let sndDerivative x = 
-    let l  = estimateCoefficientsRSS.[0]
-    let k  = estimateCoefficientsRSS.[1]
-    let x0 = estimateCoefficientsRSS.[2]
-    let n  = estimateCoefficientsRSS.[3]
-    let exp = System.Math.Exp(k*(x-x0))
-    (k*l*exp) / (exp + 1.)**2.
+let gt = sprintf "The generation time is %.2f hours." genTime
 
-// calculate derivatives to corresponding x values
-let yValuesOfDerivative fkt = 
-    [|0. .. 0.5 .. exmp_x_Hours |> Array.max|]
-    |> Array.map (fun x -> x,fkt x)
-    
-let fitAllLogisticFunc =
-    [
-        Chart.Line (yValuesOfDerivative fstDerivative)|> Chart.withTraceName "fst derivative"
-        Chart.Line (yValuesOfDerivative sndDerivative)|> Chart.withTraceName "snd derivative"
-    ]
-    |> Chart.Combine
-    |> Chart.withY_Axis (templateAxis "slope or curvature")
-    |> Chart.withX_Axis (templateAxis "time [hours]")
-fitAllLogisticFunc
 (***hide***)
-fitAllLogisticFunc |> GenericChart.toChartHTML
+gt
 (***include-it-raw***)
 
+
 (**
-We define the region between the maximal and minimal curvature (second derivative) as the time period to derive the growth rate from. 
-An alternative is to just use the slope at the midpoint because this is the point of maximal slope (minimal generation time), but since 
-this calculation would be only dependent from this particular point we go for the more conservative approach.
-    
-When the xValues of the maximal curvatures are identified (either by calculus or by plotting the derivatives) the generation time calculation
- is straight forward ([Wikipedia - Doubling time](https://en.wikipedia.org/wiki/Doubling_time)).
+
+<br>
+## Questions:
+
+1. Why is it useful to use a log2 transform rather than a ln, log10, or any other log transform?
+Hint: Define your own exponentially growing cell counts with a generation time of 1 and transform them using different log transforms.
+
+2. Why is it not sufficient to fit the (raw or transformed) data using the possibilities Excel offers? 
+Hint: Which models are available and why are these not always appropriate?
+
+3. Calculate the generation time of the following data. Compare the time points of maximal slope of the raw data and the transformed data by eye. Without the log transform you are blind for the actual point of maximal growth.
+
 *)
-
-// Code-Block 6
-
-// The exponential phase is considered to be between the maximal positive curvature
-// and the minimal negative curvature of the fitting functions (other interpretations possible).
-let xValuesOfMaximalCurvature = [| 23.5 ; 44.0 |]
-
-let calculateDoublingTimeLogistic fittingFunction =
-
-    //https://en.wikipedia.org/wiki/Doubling_time
-    // -> Cell culture doubling time
-    let growthRate nCells0 nCellsT t =
-        log(nCellsT/nCells0)
-        |> fun x -> x/t
-
-    let doublingTime growthRate =
-        (log(2.))/growthRate
-
-    /// get the corresponding cell counts around the midpoint of the logistic function
-    let rootsYY = xValuesOfMaximalCurvature |> Array.map fittingFunction
-    
-    /// calculate the time difference between both roots
-    let diff = xValuesOfMaximalCurvature.[1] - xValuesOfMaximalCurvature.[0]
-    
-    /// get the minimum measured cell count and the maximum measured cell count
-    let min,max = rootsYY.[0], rootsYY.[1]
-
-    let doublingTime =
-        growthRate min max diff
-        |> doublingTime
-
-    doublingTime
-    
-let doublingTime = 
-    calculateDoublingTimeLogistic fittingLogisticFunction
-    
-sprintf "The doubling time is %.2f hours." doublingTime
-
-(*** include-it ***)
-
-
+let rawX_hours = [|0. .. 12.|]
+let rawY_count = [|2.;2.2;2.9;5.;9.5;19.;38.;65.;85.;90.;91.;91.;91.;|]
 (**
+
+
 ## References
 
 8. Ruffel, S., Krouk, G. & Coruzzi, G. M. A systems view of responses to nutritional cues in Arabidopsis: toward a paradigm shift for predictive network modeling. Plant physiology 152, 445–452; 10.1104/pp.109.148502 (2010).
@@ -466,4 +362,5 @@ sprintf "The doubling time is %.2f hours." doublingTime
 16. Bruggeman, F. J. & Westerhoff, H. V. The nature of systems biology. Trends in microbiology 15, 45–50; 10.1016/j.tim.2006.11.003 (2007).
 17. Harris, E. H. CHLAMYDOMONAS AS A MODEL ORGANISM. Annual review of plant physiology and plant molecular biology 52, 363–406; 10.1146/annurev.arplant.52.1.363 (2001).
 18. Kaplan, S. et al. Comparison of growth curves using non-linear regression function in Japanese squail. Journal of Applied Animal Research 46, 112-117; 10.1080/09712119.2016.1268965 (2018).
+19. Gibson, A., Bratchell, N., Roberts, T.A., Predicting microbial growth: growth responses of salmonellae in a laboratory medium as affected by pH, sodium chloride and storage temperature, International Journal of Food Microbiology, Volume 6, Issue 2,  https://doi.org/10.1016/0168-1605(88)90051-7 (1988).
 *)
