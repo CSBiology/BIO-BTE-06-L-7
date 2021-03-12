@@ -166,8 +166,6 @@ Therefore, we define a function called `label`. The function maps from a formula
 let label formula =
     Formula.replaceElement formula Elements.Table.N Elements.Table.Heavy.N15
 
-(** *)
-
 // Code-Block 6
 
 let N15_peptide_short = 
@@ -190,8 +188,6 @@ N15_peptide_short
 N15_peptide_long
 (*** include-value:N15_peptide_long ***)
 
-(** *)
-
 // Code-Block 7
 
 // create pattern for N15_peptide_short
@@ -205,11 +201,9 @@ let N15_isoPattern_peptid_long =
 (***include-value:N15_isoPattern_peptide_short***)
 (***include-value:N15_isoPattern_peptid_long***)
 
-(** *)
-
 // Code-Block 8
 
-// Create two charts. Each with the related N14 and N15 isotopic clusters. Then stack them two one unit.
+// Create two charts. Each with the related 14N and 15N isotopic clusters. Then stack them two one unit.
 let isoPatternChart2 = 
     [
         [
@@ -233,6 +227,14 @@ isoPatternChart2
 (***hide***)
 isoPatternChart2 |> GenericChart.toChartHTML
 (***include-it-raw***)
+
+(**
+## Questions
+
+1. Does the isotopic distribution tend to vary more or less the larger a peptide sequence becomes?
+2. How does the isotopic distribution of the amino acid-sequence "SEQUENCE" look like with natural and heavy N-labelling? Plot it via using the functions provided above.
+3. Which information can be drawn from the distance of two values of adjacent signals (of one isotopic cluster) regarding m/z?
+*)
 
 (**
 ## References
