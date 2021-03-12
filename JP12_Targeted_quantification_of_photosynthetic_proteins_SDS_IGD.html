@@ -456,29 +456,29 @@ QProtein we can now calculate the relation of subunits from rbcL and rbcS, both 
 
 <span onmouseout="hideTip(event, 'fs155', 468)" onmouseover="showTip(event, 'fs155', 468)" class="fn">chartRatios</span> <span class="s">&quot;rbcL&quot;</span> <span class="s">&quot;RBCS2&quot;</span> <span class="s">&quot;1690&quot;</span>
 </code></pre>
-<div id="ab4f22ae-9184-431d-8f0d-92f45cfda603" style="width: 1000px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="90344038-58af-4eca-b6c1-e8ce4ff75bfd" style="width: 1000px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_ab4f22ae9184431d8f0d92f45cfda603 = function() {
+            var renderPlotly_9034403858af4ecab6c1e8ce4ff75bfd = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"scatter","x":[5.0,10.0,20.0],"y":[1.3116197857891108,0.5468129565563647,0.5359809895468356],"mode":"markers","name":"rbcL/RBCS2 Quantified Ratios","marker":{"size":10,"symbol":3}},{"type":"scatter","x":[5.0,10.0,20.0],"y":[1.0946509727239733,0.8722661761540711,0.42749658301426685],"mode":"lines","name":"rbcL/RBCS2 linear regression: -0.04 x + (1.317036) ; R = 0.5835","marker":{},"line":{"color":"lightblue","dash":"dashdot"}}];
             var layout = {"title":"1690 - In-Gel-Digest: Stability of rbcL/RBCS2 ratios between samples","xaxis":{"title":"Cut Out 1 - rbcL / Cut Out 2 - RBCS2","tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"zeroline":false,"titlefont":{"family":"Arial","size":20},"tickfont":{"family":"Arial","size":16}},"yaxis":{"title":"relative quantification","tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"zeroline":false,"titlefont":{"family":"Arial","size":20},"tickfont":{"family":"Arial","size":16}},"width":1000.0,"height":400.0};
             var config = {"toImageButtonOptions":{"format":"svg","filename":"praktikumsplot.svg"},"edits":{"legendPosition":true}};
-            Plotly.newPlot('ab4f22ae-9184-431d-8f0d-92f45cfda603', data, layout, config);
+            Plotly.newPlot('90344038-58af-4eca-b6c1-e8ce4ff75bfd', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_ab4f22ae9184431d8f0d92f45cfda603();
+                    renderPlotly_9034403858af4ecab6c1e8ce4ff75bfd();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_ab4f22ae9184431d8f0d92f45cfda603();
+                renderPlotly_9034403858af4ecab6c1e8ce4ff75bfd();
             }
 </script>
 
@@ -575,81 +575,81 @@ We add a linear fit to the charts to allow for more precise evaluation of sample
 <span class="pn">[|</span><span class="s">&quot;4A&quot;</span><span class="pn">;</span> <span class="s">&quot;1883&quot;</span><span class="pn">;</span><span class="s">&quot;1690&quot;</span><span class="pn">|]</span>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs131', 667)" onmouseover="showTip(event, 'fs131', 667)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs146', 668)" onmouseover="showTip(event, 'fs146', 668)" class="id">map</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs188', 669)" onmouseover="showTip(event, 'fs188', 669)" class="fn">createChartForRbcsRbclComparison</span> <span onmouseout="hideTip(event, 'fs70', 670)" onmouseover="showTip(event, 'fs70', 670)" class="id">prot1</span> <span onmouseout="hideTip(event, 'fs71', 671)" onmouseover="showTip(event, 'fs71', 671)" class="id">prot2</span><span class="pn">)</span>
 </code></pre>
-[|"<div id="c0c87778-2cfe-423e-93a0-369884c96791" style="width: 1200px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+[|"<div id="c0849f17-a75c-4b2a-8b52-57ff73f9ba2a" style="width: 1200px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_c0c877782cfe423e93a0369884c96791 = function() {
+            var renderPlotly_c0849f17a75c4b2a8b5257ff73f9ba2a = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"scatter","x":[5.0,10.0,20.0],"y":[0.11186098426802878,0.19793043920169257,0.37006934906902017],"mode":"lines","marker":{},"name":"linear regression: 0.02 x + (0.025792) ; R² = 0.9492 for strain 4A and rbcL","line":{"color":"#D3D3D3","dash":"dashdot"}},{"type":"scatter","x":[5.0,20.0],"y":[0.06884415680812295,0.23298351569020823],"mode":"lines","marker":{},"name":"linear regression: 0.01 x + (0.014131) ; R² = 1.0000 for strain 4A and RBCS2","line":{"color":"#D3D3D3","dash":"dashdot"}},{"type":"scatter","x":[5.0,10.0,20.0],"y":[0.0888770540035107,0.23240633459846965,0.3585773839367612],"mode":"lines+markers","opacity":0.8,"line":{"width":{}},"marker":{"symbol":0},"name":"Mean rbcL - 4A"},{"type":"scatter","x":[5.0,20.0],"y":[0.06884415680812295,0.23298351569020825],"mode":"lines+markers","opacity":0.8,"line":{"width":{}},"marker":{"symbol":0},"name":"Mean RBCS2 - 4A"}];
             var layout = {"xaxis":{"title":"Loaded protein [µg]","tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"zeroline":false,"titlefont":{"family":"Arial","size":20},"tickfont":{"family":"Arial","size":16}},"yaxis":{"title":"<sup>14</sup>N/<sup>15</sup>N Quantification ratio","tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"zeroline":false,"titlefont":{"family":"Arial","size":20},"tickfont":{"family":"Arial","size":16}},"title":"rbcL/RBCS2 relative protein quantification","width":1200.0,"height":400.0};
             var config = {};
-            Plotly.newPlot('c0c87778-2cfe-423e-93a0-369884c96791', data, layout, config);
+            Plotly.newPlot('c0849f17-a75c-4b2a-8b52-57ff73f9ba2a', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_c0c877782cfe423e93a0369884c96791();
+                    renderPlotly_c0849f17a75c4b2a8b5257ff73f9ba2a();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_c0c877782cfe423e93a0369884c96791();
+                renderPlotly_c0849f17a75c4b2a8b5257ff73f9ba2a();
             }
 </script>
 ";
-  "<div id="88f50539-bf37-4c69-8a6f-1c601393a9b0" style="width: 1200px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+  "<div id="11f08fb8-e885-4c02-b505-ac1f0d32cd24" style="width: 1200px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_88f50539bf374c698a6f1c601393a9b0 = function() {
+            var renderPlotly_11f08fb8e8854c02b505ac1f0d32cd24 = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"scatter","x":[5.0,10.0,20.0],"y":[0.278744160443413,0.3569579402085009,0.5133854997386768],"mode":"lines","marker":{},"name":"linear regression: 0.02 x + (0.200530) ; R² = 0.9363 for strain 1883 and rbcL","line":{"color":"#D3D3D3","dash":"dashdot"}},{"type":"scatter","x":[10.0,20.0],"y":[0.12514936804353058,0.23278478863539157],"mode":"lines","marker":{},"name":"linear regression: 0.01 x + (0.017514) ; R² = 1.0000 for strain 1883 and RBCS2","line":{"color":"#D3D3D3","dash":"dashdot"}},{"type":"scatter","x":[5.0,10.0,20.0],"y":[0.3022936894172453,0.3216336467477523,0.5251602642255929],"mode":"lines+markers","opacity":0.8,"line":{"width":{}},"marker":{"symbol":0},"name":"Mean rbcL - 1883"},{"type":"scatter","x":[10.0,20.0],"y":[0.12514936804353058,0.23278478863539157],"mode":"lines+markers","opacity":0.8,"line":{"width":{}},"marker":{"symbol":0},"name":"Mean RBCS2 - 1883"}];
             var layout = {"xaxis":{"title":"Loaded protein [µg]","tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"zeroline":false,"titlefont":{"family":"Arial","size":20},"tickfont":{"family":"Arial","size":16}},"yaxis":{"title":"<sup>14</sup>N/<sup>15</sup>N Quantification ratio","tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"zeroline":false,"titlefont":{"family":"Arial","size":20},"tickfont":{"family":"Arial","size":16}},"title":"rbcL/RBCS2 relative protein quantification","width":1200.0,"height":400.0};
             var config = {};
-            Plotly.newPlot('88f50539-bf37-4c69-8a6f-1c601393a9b0', data, layout, config);
+            Plotly.newPlot('11f08fb8-e885-4c02-b505-ac1f0d32cd24', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_88f50539bf374c698a6f1c601393a9b0();
+                    renderPlotly_11f08fb8e8854c02b505ac1f0d32cd24();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_88f50539bf374c698a6f1c601393a9b0();
+                renderPlotly_11f08fb8e8854c02b505ac1f0d32cd24();
             }
 </script>
 ";
-  "<div id="ec7e5855-0bbb-4965-94dc-efac8f05406a" style="width: 1200px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+  "<div id="55397656-a350-48f9-b8a1-cb8ceac0da67" style="width: 1200px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_ec7e58550bbb496594dcefac8f05406a = function() {
+            var renderPlotly_55397656a35048f9b8a1cb8ceac0da67 = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"scatter","x":[5.0,10.0,20.0],"y":[0.13260315991113977,0.14348866886447184,0.16525968677113595],"mode":"lines","marker":{},"name":"linear regression: 0.00 x + (0.121718) ; R² = 0.3364 for strain 1690 and rbcL","line":{"color":"#D3D3D3","dash":"dashdot"}},{"type":"scatter","x":[5.0,10.0,20.0],"y":[0.12713319219951302,0.19511806882071905,0.3310878220631311],"mode":"lines","marker":{},"name":"linear regression: 0.01 x + (0.059148) ; R² = 0.9750 for strain 1690 and RBCS2","line":{"color":"#D3D3D3","dash":"dashdot"}},{"type":"scatter","x":[5.0,10.0,20.0],"y":[0.15025779074425646,0.1170067226147968,0.17408700218769427],"mode":"lines+markers","opacity":0.8,"line":{"width":{}},"marker":{"symbol":0},"name":"Mean rbcL - 1690"},{"type":"scatter","x":[5.0,10.0,20.0],"y":[0.11455895402939256,0.2139794260758997,0.3248007029780709],"mode":"lines+markers","opacity":0.8,"line":{"width":{}},"marker":{"symbol":0},"name":"Mean RBCS2 - 1690"}];
             var layout = {"xaxis":{"title":"Loaded protein [µg]","tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"zeroline":false,"titlefont":{"family":"Arial","size":20},"tickfont":{"family":"Arial","size":16}},"yaxis":{"title":"<sup>14</sup>N/<sup>15</sup>N Quantification ratio","tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"zeroline":false,"titlefont":{"family":"Arial","size":20},"tickfont":{"family":"Arial","size":16}},"title":"rbcL/RBCS2 relative protein quantification","width":1200.0,"height":400.0};
             var config = {};
-            Plotly.newPlot('ec7e5855-0bbb-4965-94dc-efac8f05406a', data, layout, config);
+            Plotly.newPlot('55397656-a350-48f9-b8a1-cb8ceac0da67', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_ec7e58550bbb496594dcefac8f05406a();
+                    renderPlotly_55397656a35048f9b8a1cb8ceac0da67();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_ec7e58550bbb496594dcefac8f05406a();
+                renderPlotly_55397656a35048f9b8a1cb8ceac0da67();
             }
 </script>
 "|]
