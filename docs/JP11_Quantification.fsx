@@ -251,10 +251,27 @@ let quantifiedAreaChart =
         Chart.SplineArea(quantifiedArea,Name="quantified XIC")
     ]
     |> Chart.Combine
-    |> Chart.withX_AxisStyle (title = "Retention Time", MinMax = (51.,55.))
+    |> Chart.withX_AxisStyle (title = "Retention Time", MinMax = (51.,58.))
     |> Chart.withY_AxisStyle "Intensity"
     |> Chart.withSize (900.,900.)
 quantifiedAreaChart
 (***hide***)
 quantifiedAreaChart |> GenericChart.toChartHTML
 (***include-it-raw***)
+
+
+(**
+## Questions
+
+1. How does the Chart created by Code-Block 2 change, when you change the value of 'retentionTime' to 53.95? What does this parameter specify?
+2. How does the Chart created by Code-Block 2 change, when you change the value of the parameter 'offset' from 5 to 10 or 20?
+3. How does the Chart created by Code-Block 4 change, when you change the value of the parameter snr from 0.1 to 2.1? 
+What does this parameter specify, what does the abbreviation snr stand for?
+4. How does the Chart created by Code-Block 7 change, when you change the value of the parameter retentionTime in CodeBlock 5 to 55.15?
+5. Have a look at the peaks, how are the peaks shaped, are the shapes symmetric?
+6. What does the term "peak tailing" imply. 
+7. What factors determine peak shape? Think of explanations (e.g. biochemical-interactions, detection method) for different peak shapes. 
+8. How many parameters does the model have (see quantifiedXIC.EstimatedParams, Code-Block 6), what does the abbreviation "EMG" stand for and 
+how is this function different from a gaussian function?
+9. How could the fit created by the change in Code-Block 5, 6 and 8 profit from baseline correction?
+*)

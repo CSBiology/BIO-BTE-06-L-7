@@ -24,3 +24,15 @@ operational mode used to record the spectrum. It is either a full scan or the nu
 The MS1-space and the (iii) MS2-space represent two independent entities that differ in signal shape, resolution and their 
 information content (‘features’).
 *)
+
+
+(**
+## Questions
+
+1. How can it be benefitial to store meta data and peak data separated from each other? 
+2. A raw ms1 spectrum measured in profile mode can contain up to 150.000 data points. Each 
+data point is given by a value pair: mz and intensity. Lets say you want to encode both values
+at a very high precision using 64 bit float numbers, how much memory do you need to store one 
+spectrum? How much for a file consisting of 60.000 spectra. 
+3. Can you store the data more efficiently?
+*)
