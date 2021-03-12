@@ -7,6 +7,7 @@
 1. Centroidisation
 2. Peak fitting and picking functions
 3. Application of the peak picking function
+4. Questions
 
 *)
 
@@ -121,4 +122,15 @@ filteredChart
 filteredChart |> GenericChart.toChartHTML
 (***include-it-raw***)
 
+(**
 
+<br>
+## Questions:
+
+1. The aim of centroidization is finding the m/z for each profile peak. How can this improve the performance and quality of the following steps?
+
+2. In the result plot, a single ms1 spectrum is shown. Naively describe the differences between the uncentroided and the centroided spectrums.
+
+3. Taking into consideration your answer for question 1, do your findings of question 2 meet your expectations? If yes, why? If no, why?
+
+*)
