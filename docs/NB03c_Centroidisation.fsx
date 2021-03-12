@@ -1,7 +1,7 @@
 (**
-# JP08 Centroidisation
+# NB03c Centroidisation
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP08_Centroidisation.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB03c_Centroidisation.ipynb)
 
 
 1. Centroidisation
@@ -41,7 +41,7 @@ open System.IO
 ## Peak fitting and picking functions
 
 We declare a function which centroids the given m/z and intensity data. In the scope of the function the m/z and intensity data 
-are padded for the wavelet (You will read more about wavelet functions later in *JP11_Quantification.ipynb* ) 
+are padded for the wavelet (You will read more about wavelet functions later in *NB05a\_Quantification.ipynb* ) 
 and the centroided. For the centroidisation, we use a Ricker 2D wavelet.
 *)
 

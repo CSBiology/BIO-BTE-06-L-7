@@ -1,7 +1,7 @@
 (**
-# JP12 Targeted quantification of photosynthetic proteins (Label Efficiency)
+# NB06c Targeted quantification of photosynthetic proteins (Label Efficiency)
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP12_Targeted_quantification_of_photosynthetic_proteins_LE.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06c_Targeted_quantification_of_photosynthetic_proteins_LE.ipynb)
 
 1. Label Efficiency of 15N QProteins
 2. Read in .txt as Deedle Frame
@@ -47,7 +47,7 @@ open System.IO
 open BIO_BTE_06_L_7_Aux.FS3_Aux
 
 (**
-We will use the same auxiliary functions as in [JP12_WC](JP12_Targeted_quantification_of_photosynthetic_proteins_WC.ipynb).
+We will use the same auxiliary functions as in *NB06a\_Targeted\_quantification\_of\_photosynthetic\_proteins\_WC.ipynb*.
 *)
 
 // Code-Block 1

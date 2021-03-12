@@ -1,7 +1,7 @@
 (**
-# JP12 Targeted quantification of photosynthetic proteins (SDS in gel digest)
+# NB06b Targeted quantification of photosynthetic proteins (SDS in gel digest)
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP12_Targeted_quantification_of_photosynthetic_proteins_SDS_IGD.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b_Targeted_quantification_of_photosynthetic_proteins_SDS_IGD.ipynb)
 
 1. Relative Quantification between rbcL and rbcS
 2. Compare 14N/15N for rbcL and rbcS

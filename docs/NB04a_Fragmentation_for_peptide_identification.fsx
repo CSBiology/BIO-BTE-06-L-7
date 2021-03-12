@@ -1,7 +1,7 @@
 (**
-# JP09 Fragmentation for peptide identification
+# NB04a Fragmentation for peptide identification
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP09_Fragmentation_for_peptide_identification.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB04a_Fragmentation_for_peptide_identification.ipynb)
 
 1. Understanding MS2 spectra: From peptide to fragment
 2. Simulate MS2 Fragmentation

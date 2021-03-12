@@ -1,7 +1,7 @@
 (**
-# JP10 Peptide Identification
+# NB04b Peptide Identification
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP10_Peptide_Identification.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB04b_Peptide_Identification.ipynb)
 
 
 1. Understanding peptide identification from MS2 spectra
@@ -132,7 +132,7 @@ ms2
 (***include-it***)
 
 (**
-Here, the spectrum is already centroidized as shown in *JP08_Centroidisation.ipynb* using the function 
+Here, the spectrum is already centroidized as shown in *NB03c\_Centroidisation.ipynb* using the function 
 `msPeakPicking`. So we just visualize mass and intensity:
 *)
 
@@ -181,7 +181,7 @@ peptideMass
 (***include-it***)
 
 (**
-From our previos notebook *JP04_Digestion_and_mass_calculation.ipynb*, we know how to 
+From our previos notebook *NB02b\_Digestion\_and\_mass\_calculation.ipynb*, we know how to 
 calculate all peptide masses that we can expect to be present in *Chlamydomonas reinhardtii*.
 *)
 
@@ -220,7 +220,7 @@ peptideAndMasses
 (***include-it***)
 
 (**
-In the previous notebook *JP09_Fragmentation_for_peptide_identification.ipynb*, 
+In the previous notebook *NB04a\_Fragmentation\_for\_peptide\_identification.ipynb*, 
 we used functions that generate the theoretical series of b- and y-ions from the given peptide. Combined with the function 
 `Mz.SequestLike.predictOf` that generates theoretical spectra that fit the Sequest scoring algorithm.
 *)

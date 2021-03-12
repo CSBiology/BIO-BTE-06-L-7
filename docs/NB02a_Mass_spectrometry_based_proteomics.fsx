@@ -1,8 +1,8 @@
 (** 
 
-# JP03 Mass Spectrometry Based Proteomics
+# NB02a Mass Spectrometry Based Proteomics
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP03_Mass_spectrometry_based_proteomics.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB02a_Mass_spectrometry_based_proteomics.ipynb)
 
 1. Mass spectrometry (MS)-based proteomic
 6. References

@@ -1,7 +1,7 @@
 (**
-# JP05 Isotopic Distribution
+# NB02c Isotopic Distribution
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP05_Isotopic_distribution.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB02c_Isotopic_distribution.ipynb)
 
 
 1. Isotopic Distribution

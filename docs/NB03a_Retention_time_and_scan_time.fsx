@@ -1,7 +1,7 @@
 (**
-# JP06 Retention time and scan time
+# NB03a Retention time and scan time
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP06_Retention_time_and_scan_time.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB03a_Retention_time_and_scan_time.ipynb)
 
 1. Retention time and scan time
     1. m/z calculation of the digested peptides
@@ -48,7 +48,7 @@ open FSharp.Stats
 (**
 ## m/z calculation of the digested peptides
 
-I think you remember the protein digestion process from the privious notebook (see: *JP04\_Digestion\_and\_mass\_calculation.ipynb* ). This time we also remember the peptide sequence, because we need it later for hydrophobicity calculation. 
+I think you remember the protein digestion process from the privious notebook (see: *NB02b\_Digestion\_and\_mass\_calculation.ipynb* ). This time we also remember the peptide sequence, because we need it later for hydrophobicity calculation. 
 *)
 
 // Code-Block 1
@@ -133,7 +133,7 @@ chargedPeptideChar |> GenericChart.toChartHTML
 
 This looks quite strange. I think you immediately see that we forgot about our isotopic cluster. A peptide doesn’t produce a single peak, 
 but a full isotopic cluster. Therefore, we use our convenience function from the previous notebook 
-(see: *JP05\_Isotopic\_distribution.ipynb* ).
+(see: *NB02c\_Isotopic\_distribution.ipynb* ).
 
 *)
 

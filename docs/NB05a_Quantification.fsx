@@ -1,7 +1,7 @@
 (**
-# JP11 Quantification
+# NB05a Quantification
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP11_Quantification.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB05a_Quantification.ipynb)
 
 1. Quantification Theory
     1. Targeted quantification

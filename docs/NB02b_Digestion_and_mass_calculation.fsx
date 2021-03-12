@@ -1,7 +1,7 @@
 (** 
-# JP04 Digestion and mass calculation
+# NB02b Digestion and mass calculation
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=JP04_Digestion_and_mass_calculation.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB02b_Digestion_and_mass_calculation.ipynb)
 
 1. Digestion and mass calculation
     2. Accessing the protein sequences of *Chlamydomonas reinhardtii*
