@@ -11,6 +11,7 @@
     6. Calculating peptide masses
     7. Calculating peptide masses for charge 2
 6. References
+7. Questions
 
 *)
 
@@ -102,10 +103,13 @@ let aaDistributionHis =
     |> Chart.Column
     // style chart
     |> Chart.withY_AxisStyle "Count"
-    |> Chart.withTitle "Amino Acid composition of the *Chlamydomonas reinhardtii* proteome"
+    |> Chart.withTitle "Amino Acid composition of the <i>Chlamydomonas reinhardtii</i> proteome"
+
 aaDistributionHis
 
-    
+(***hide***)
+aaDistributionHis |> GenericChart.toChartHTML
+(***include-it-raw***)    
 
 (**
 
@@ -161,9 +165,11 @@ let chartDigestedProteins =
     |> fun masses -> Chart.Histogram(data=masses,nBinsx=100)
     |> Chart.withX_AxisStyle (title = "Mass [Da]",MinMax=(0.,3000.))
     |> Chart.withY_AxisStyle "Count"
-chartDigestedProteins
 
-    
+chartDigestedProteins
+(***hide***)
+chartDigestedProteins |> GenericChart.toChartHTML
+(***include-it-raw***) 
 (**
 ## Calculating peptide masses for charge 2
 
@@ -191,7 +197,21 @@ let chartDigestedPeptideMasses =
     |> fun masses -> Chart.Histogram(data=masses,nBinsx=100)
     |> Chart.withX_AxisStyle (title = "m/z",MinMax=(0.,3000.))
     |> Chart.withY_AxisStyle "Count"
+    
 chartDigestedPeptideMasses
+
+(***hide***)
+chartDigestedPeptideMasses |> GenericChart.toChartHTML
+(***include-it-raw***)
+
+(**
+## Questions
+
+1. When trypsin is used for digestion in a MS experiment, it is often combined with another protease (e.g. Lys-C). Why can it be beneficial to combine trypsin?
+2. A peptide with a charge of 2 has a m/z of 414. What is the m/z of the same peptide with a charge of 3? Visualize the m/z of the peptides from the fastA with a charge of 3
+like done above.
+3. Peptides can occur at different charge states during a MS run. Do the different charge states of an peptide usually possess similar intensities?
+*)
 
 
 (**
