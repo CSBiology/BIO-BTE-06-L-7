@@ -29,18 +29,43 @@ and do some manipulations to achieve your desired outcome.
 | Day      | Topic                                 | Notebooks        |
 |----------|---------------------------------------|------------------|
 | 15.03.21 | Getting started                       |                  |
-| 16.03.21 | Programming in F#                     | 00.1; 00.2       |
-| 17.03.22 | 1: Growth Model and Cell number       | 01.1; 01.2       |
-| 18.03.23 | 2: In-silico analysis                 | 02.1; 02.2; 02.3 |
-| 19.03.24 | 3: Understanding the Data             | 03.1; 03.2; 03.3 |
-| 22.03.21 | 4: Protein and Peptide Identification | 04.1; 04.2       |
-| 23.03.21 | 5: Peptide quantification             | 05.1             |
-| 24.03.22 | Analysing your own Data               | 06.1; 06.2; 06.3 |
-| 25.03.22 | Analysing your own Data               | 06.1; 06.2; 06.3 |
-| 26.03.23 | Analysing your own Data               | 06.1; 06.2; 06.4 |
+| 16.03.21 | Coding literacy                       | 00a; 00b         |
+| 17.03.22 | 1: Growth Model and Cell number       | 01a; 01b         |
+| 18.03.23 | 2: In-silico proteome analysis        | 02a; 02b; 02c    |
+| 19.03.24 | 3: Understanding the Data             | 03a; 03b; 03c    |
+| 22.03.21 | 4: Protein and Peptide identification | 04a; 04b         |
+| 23.03.21 | 5: Peptide quantification             | 05a              |
+| 24.03.22 | Analysing the course Experiment       | 06a              |
+| 25.03.22 | Analysing the course Experiment       | 06b              |
+| 26.03.23 | Analysing the course Experiment       | 06c              |
 
 ## Getting started
 
+* Download the latest stable build for [Visual Studio Code](https://code.visualstudio.com/) and install it.
+* Open Visual Studio Code, navigate to the "Extensions" tab and install
+    * .NET Interactive Notebooks
+    * Ionide-fsharp
+    
+    ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/CodeExtensions.png)
 
+* Download the current notebook.
+* In Visual Studio Code press `Strg + Shift + P` and klick on `.NET Interactive Open notebook`.
+
+    ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/OpenNotebook.png)
+
+* Navigate to the location of your notebook and open it.
+* Notebooks contain Text- and Codeblocks:
+    * Adding a new Text- or Codeblock can be done by hovering at the uper or lower border of an existing block:
+
+    ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/AddingBlock.png)
+
+    * Working with Textblocks:
+        You can edit a Textblock by doubleklicking on it. Inside a Textblock you can write plain text or style it with [Markdown](https://en.wikipedia.org/wiki/Markdown).
+        Once you are finished you can press the `Esc` button.
+    * Working with Codeblocks:
+        You can start editing any Codeblock by clicking in it. In there you can start writing your own code or edit existing code. Once you are done you can execute the Codeblock by pressing `Strg + Alt + Enter`.
+        If you want to execute all codeblocks at once, you can press on the two arrows in the upper right corner of the notebook:
+
+    ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/ExecuteAll.png)
 *)
 
