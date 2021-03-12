@@ -255,7 +255,7 @@ let sortedScores =
         sequence,predictFromSequence sequence
     )
     |> Array.map (fun (sequence,theoSpectrum) -> 
-        sequence,SequestLike.scoreSingle theoSpectrum preprocessedIntesities
+        sequence,BioFSharp.Mz.SequestLike.scoreSingle theoSpectrum preprocessedIntesities
     )
     |> Array.sortByDescending (fun (sequence,score) -> score)
 

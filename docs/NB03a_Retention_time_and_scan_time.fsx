@@ -48,7 +48,7 @@ open FSharp.Stats
 (**
 ## m/z calculation of the digested peptides
 
-I think you remember the protein digestion process from the privious notebook (see: *JP04_Digestion_and_mass_calculation.ipynb* ). This time we also remember the peptide sequence, because we need it later for hydrophobicity calculation. 
+I think you remember the protein digestion process from the privious notebook (see: *JP04\_Digestion\_and\_mass\_calculation.ipynb* ). This time we also remember the peptide sequence, because we need it later for hydrophobicity calculation. 
 *)
 
 // Code-Block 1
@@ -133,7 +133,7 @@ chargedPeptideChar |> GenericChart.toChartHTML
 
 This looks quite strange. I think you immediately see that we forgot about our isotopic cluster. A peptide doesn’t produce a single peak, 
 but a full isotopic cluster. Therefore, we use our convenience function from the previous notebook 
-(see: *JP05_Isotopic_distribution.ipynb* ).
+(see: *JP05\_Isotopic\_distribution.ipynb* ).
 
 *)
 
@@ -188,7 +188,7 @@ peptidesAndMassesChart |> GenericChart.toChartHTML
 In a MS1 scan, peptides don't appear randomly. They elute according to their hydrophobicity and other physicochemical properties 
 from the LC.
 
-To more accurately represent a MSU+00B9 spectrum, we determine the hydrophobicity of each peptide. Therefore, we first need a function 
+To more accurately represent a MS1 spectrum, we determine the hydrophobicity of each peptide. Therefore, we first need a function 
 that maps from sequence to hydrophobicity.
 *)
 
