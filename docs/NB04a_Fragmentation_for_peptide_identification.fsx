@@ -5,7 +5,8 @@
 
 1. Understanding MS2 spectra: From peptide to fragment
 2. Simulate MS2 Fragmentation
-2. References
+3. Questions
+4. References
 
 *)
 
@@ -116,6 +117,15 @@ ionChart
 ionChart |> GenericChart.toChartHTML
 (***include-it-raw***)
 
+(**
+## Questions:
+
+1. Why are ms1 spectra not sufficent for peptide identification?
+2. How can fragmentation help with this?
+3. For an oligopeptide consisting of 3 amino acids, roughly estimate the number of possible fragments if only cosidering b/y fragments or abc/xyz fragments. What advantages and disadvantages might only considering b/y fragments have?
+
+
+*)
 
 (**
 ## References
