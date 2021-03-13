@@ -123,8 +123,6 @@ filteredChart |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
-
-<br>
 ## Questions:
 
 1. The aim of centroidization is finding the m/z for each profile peak. How can this improve the performance and quality of the following steps?
