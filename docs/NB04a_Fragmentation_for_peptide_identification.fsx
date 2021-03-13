@@ -121,10 +121,8 @@ ionChart |> GenericChart.toChartHTML
 ## Questions:
 
 1. Why are ms1 spectra not sufficent for peptide identification?
-
 2. How can fragmentation help with this?
-
-3. For an oligopeptide consisting of 3 amino acids, roughly estimate the possible fragments if only cosidering b/y fragments or abc/xyz fragments. 
+3. For an oligopeptide consisting of 3 amino acids, roughly estimate the number of possible fragments if only cosidering b/y fragments or abc/xyz fragments. What advantages and disadvantages might only considering b/y fragments have?
 
 
 *)
