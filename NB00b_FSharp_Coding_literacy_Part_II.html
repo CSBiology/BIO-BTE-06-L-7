@@ -256,8 +256,8 @@ module and be aware that you can access everything with the <code>.</code> opera
 from its type. <em>- FYI -</em> this is true for all core types in F#.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="m">String</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="id">length</span> <span class="s">&quot;atcg&quot;</span>
 </code></pre>
-<p>Here, the <code>String.Length</code> returns the length of the string sequence. If you are using a nice text editor with more sophisticated code completion (intelliSence), you can
-explore the functionality provided within a module by pressing <code>strg - space</code>. Otherwise, you need to look it up in one of many <a href="https://fsharp.github.io/fsharp-core-docs/reference/fsharp-core-stringmodule.html">documentations.</a></p>
+<p>Here, the <code>String.Length</code> returns the length of the string sequence. If you are using a nice text editor with more sophisticated code completion (intelliSense), you can
+explore the functionality provided within a module by pressing <code>Strg + Space</code>. Otherwise, you need to look it up in one of many <a href="https://fsharp.github.io/fsharp-core-docs/reference/fsharp-core-stringmodule.html">documentations.</a></p>
 <p>Another interesting feature of strings is that their characters can also be accessed according to their numerical position, starting from 0 up to 1 minus the length of the
 string. You can also slice strings up using a [from .. to] syntax:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="s">&quot;atcg&quot;</span><span class="id">.</span><span class="pn">[</span><span class="n">2</span><span class="pn">]</span>
@@ -277,7 +277,7 @@ represent biological sequence data that encode DNA and proteins more efficiently
 <p>Sequence types or collection types are a series of any items or values rather than only characters. There are different variations of collection types with different properties
 regarding there manipulation and efficiency. To cover all different kinds and their methods to manipulate them would go far beyond the scope of this introduction. So, we will
 focus on the most important types and methods of manipulation. Collections provide a more flexible way to work with groups of items. In the case of our Bio-collections from
-BioFSharp the items of the biological alphabets. Here, is an example of a list of nucleotides:</p>
+BioFSharp the items of the biological alphabets. Here is an example of a list of nucleotides:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs4', 11)" onmouseover="showTip(event, 'fs4', 11)" class="id">BioFSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs6', 12)" onmouseover="showTip(event, 'fs6', 12)" class="m">Nucleotides</span> 
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="id">nucs</span> <span class="o">=</span> <span class="pn">[</span> <span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="uc">A</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs13', 15)" onmouseover="showTip(event, 'fs13', 15)" class="uc">T</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs14', 16)" onmouseover="showTip(event, 'fs14', 16)" class="uc">C</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs15', 17)" onmouseover="showTip(event, 'fs15', 17)" class="uc">G</span><span class="pn">;</span> <span class="pn">]</span>
@@ -286,7 +286,7 @@ BioFSharp the items of the biological alphabets. Here, is an example of a list o
 enclosed in square brackets instead of quotes. Analogously, we can access each item by its index, however, in case of lists this is not very efficient.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Accessing position 3 (remember index start at 0)</span>
 <span onmouseout="hideTip(event, 'fs11', 18)" onmouseover="showTip(event, 'fs11', 18)" class="id">nucs</span><span class="pn">.</span><span class="pn">[</span><span class="n">2</span><span class="pn">]</span>
-<span class="c">// Add elongate the list (very efficient operation on lists)</span>
+<span class="c">// Add elongates the list (very efficient operation on lists)</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 19)" onmouseover="showTip(event, 'fs16', 19)" class="id">nucs&#39;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs15', 20)" onmouseover="showTip(event, 'fs15', 20)" class="uc">G</span><span class="uc">::</span><span onmouseout="hideTip(event, 'fs12', 21)" onmouseover="showTip(event, 'fs12', 21)" class="uc">A</span><span class="uc">::</span><span onmouseout="hideTip(event, 'fs11', 22)" onmouseover="showTip(event, 'fs11', 22)" class="id">nucs</span>
 </code></pre>
 <p>If you need a collection type with the opposite properties, meaning fast random access but very inefficient adding or deleting elements an array is what you want to use instead.
@@ -295,7 +295,7 @@ Just add the additional <code>|</code> and you have an array.</p>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 23)" onmouseover="showTip(event, 'fs17', 23)" class="id">nucsArr</span> <span class="o">=</span> <span class="pn">[|</span> <span onmouseout="hideTip(event, 'fs12', 24)" onmouseover="showTip(event, 'fs12', 24)" class="uc">A</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs13', 25)" onmouseover="showTip(event, 'fs13', 25)" class="uc">T</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs14', 26)" onmouseover="showTip(event, 'fs14', 26)" class="uc">C</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs15', 27)" onmouseover="showTip(event, 'fs15', 27)" class="uc">G</span><span class="pn">;</span> <span class="pn">|]</span>
 </code></pre>
 <h3><a name="All-collections-have-their-modules" class="anchor" href="#All-collections-have-their-modules">All collections have their modules</a></h3>
-<p>Whenever you need functions to manipulate bio-collections, you might find them in the respective module. You can either use intelliSence to browse the available functions or you
+<p>Whenever you need functions to manipulate bio-collections, you might find them in the respective module. You can either use intelliSense to browse the available functions or you
 can have a look at the documentation <a href="https://csbiology.github.io/BioFSharp">here.</a></p>
 <p>With functions you find in the Bio-collection modules you can easily compute for example the complementary mRNA sequence or translate it into the corresponding peptide sequence.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Reverse complement of a sequence as a BioArray</span>
@@ -304,7 +304,7 @@ can have a look at the documentation <a href="https://csbiology.github.io/BioFSh
 <span class="c">// Translate to peptide </span>
 <span onmouseout="hideTip(event, 'fs20', 31)" onmouseover="showTip(event, 'fs20', 31)" class="m">BioList</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs21', 32)" onmouseover="showTip(event, 'fs21', 32)" class="id">translate</span> <span class="n">0</span> <span class="pn">[</span><span onmouseout="hideTip(event, 'fs12', 33)" onmouseover="showTip(event, 'fs12', 33)" class="uc">A</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs22', 34)" onmouseover="showTip(event, 'fs22', 34)" class="uc">U</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs14', 35)" onmouseover="showTip(event, 'fs14', 35)" class="uc">C</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs15', 36)" onmouseover="showTip(event, 'fs15', 36)" class="uc">G</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs14', 37)" onmouseover="showTip(event, 'fs14', 37)" class="uc">C</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs15', 38)" onmouseover="showTip(event, 'fs15', 38)" class="uc">G</span><span class="pn">]</span>
 
-<span class="c">// Use the Arra module to find the index of the first occurring cytosine</span>
+<span class="c">// Use the Array module to find the index of the first occurring cytosine</span>
 <span onmouseout="hideTip(event, 'fs23', 39)" onmouseover="showTip(event, 'fs23', 39)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 40)" onmouseover="showTip(event, 'fs24', 40)" class="id">findIndex</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs25', 41)" onmouseover="showTip(event, 'fs25', 41)" class="fn">n</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs25', 42)" onmouseover="showTip(event, 'fs25', 42)" class="fn">n</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 43)" onmouseover="showTip(event, 'fs14', 43)" class="uc">C</span><span class="pn">)</span>  <span class="pn">[|</span> <span onmouseout="hideTip(event, 'fs12', 44)" onmouseover="showTip(event, 'fs12', 44)" class="uc">A</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs13', 45)" onmouseover="showTip(event, 'fs13', 45)" class="uc">T</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs14', 46)" onmouseover="showTip(event, 'fs14', 46)" class="uc">C</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs15', 47)" onmouseover="showTip(event, 'fs15', 47)" class="uc">G</span><span class="pn">;</span> <span class="pn">|]</span>
 </code></pre>
 <p>However, it is worth noticing that the bio-collections are normal F# collections. The Bio* modules just enhance the functionalities of the default modules. In the example, we
@@ -315,17 +315,17 @@ all enumerable collections. The <code>Seq.</code>  module contains functions tha
 (or others that are <a href="https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/fsharp-collection-types">enumerable).</a>.
 In the following example we apply the same functions on a list and on an array.</p>
 <h3><a name="Seq-module-contains-the-skeleton-key-functions" class="anchor" href="#Seq-module-contains-the-skeleton-key-functions">Seq module contains the skeleton key functions</a></h3>
-<p>It is worth mentioning, that in the module of F# collections you will find functions to convert from one collection type to another. I believe that you can imagen the reason
+<p>It is worth mentioning that in the module of F# collections you will find functions to convert from one collection type to another. I believe that you can imagine the reason
 for such an operation. You know by now that depending on the use case one collection might be advantages compared to the other. For example, if you know that you need to access
 your sequence multiple times at different position, you want to convert it from a list into an array.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Returns the length of the array</span>
 <span onmouseout="hideTip(event, 'fs26', 48)" onmouseover="showTip(event, 'fs26', 48)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 49)" onmouseover="showTip(event, 'fs27', 49)" class="id">length</span> <span class="pn">[|</span> <span onmouseout="hideTip(event, 'fs12', 50)" onmouseover="showTip(event, 'fs12', 50)" class="uc">A</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs13', 51)" onmouseover="showTip(event, 'fs13', 51)" class="uc">T</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs14', 52)" onmouseover="showTip(event, 'fs14', 52)" class="uc">C</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs15', 53)" onmouseover="showTip(event, 'fs15', 53)" class="uc">G</span><span class="pn">;</span> <span class="pn">|]</span>
 <span class="c">// Returns the length of the list  </span>
 <span onmouseout="hideTip(event, 'fs26', 54)" onmouseover="showTip(event, 'fs26', 54)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 55)" onmouseover="showTip(event, 'fs27', 55)" class="id">length</span> <span class="pn">[</span> <span onmouseout="hideTip(event, 'fs12', 56)" onmouseover="showTip(event, 'fs12', 56)" class="uc">A</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs13', 57)" onmouseover="showTip(event, 'fs13', 57)" class="uc">T</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs14', 58)" onmouseover="showTip(event, 'fs14', 58)" class="uc">C</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs15', 59)" onmouseover="showTip(event, 'fs15', 59)" class="uc">G</span><span class="pn">;</span> <span class="pn">]</span>
-<span class="c">// The input is a lit type the output an array type </span>
+<span class="c">// The input is a list type the output an array type </span>
 <span onmouseout="hideTip(event, 'fs28', 60)" onmouseover="showTip(event, 'fs28', 60)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs29', 61)" onmouseover="showTip(event, 'fs29', 61)" class="id">toArray</span> <span class="pn">[</span> <span onmouseout="hideTip(event, 'fs12', 62)" onmouseover="showTip(event, 'fs12', 62)" class="uc">A</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs13', 63)" onmouseover="showTip(event, 'fs13', 63)" class="uc">T</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs14', 64)" onmouseover="showTip(event, 'fs14', 64)" class="uc">C</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs15', 65)" onmouseover="showTip(event, 'fs15', 65)" class="uc">G</span><span class="pn">;</span> <span class="pn">]</span>
 </code></pre>
-<p>Due to those performance issues, certain functionality is only offered on particular collection types and you need to do the conversion first, before you can apply this function.</p>
+<p>Due to those performance issues, certain functionality is only offered on particular collection types and you need to do the conversion first before you can apply this function.</p>
 <h3><a name="Build-a-map-to-associate-values-with-a-key" class="anchor" href="#Build-a-map-to-associate-values-with-a-key">Build a map to associate values with a key</a></h3>
 <p>We learned that you can access the elements within collections by its numerical position index. To build more complex examples, it might be necessary to have a more sophisticated
 way to associate values with a key. A map is built from a list of key-value pairs using the so-called Map constructor.</p>
@@ -347,7 +347,7 @@ A full overview of all map function can be found <a href="https://fsharp.github.
 <p>The Pipe-forward operator lets you pass an intermediate result (value) onto the next function, it’s defined as:</p>
 <h2><a name="More-interesting-types" class="anchor" href="#More-interesting-types">More interesting types</a></h2>
 <p>We already learned about type annotation that it defines the kind of the value you and the compiler have to deal with. Therefore, you can think of type annotation as a sort of
-data modeling tool that allows you to represent a real-world domain in your code. The better the type definitions reflect the real-world domain, the better they will statically<br />
+data modelling tool that allows you to represent a real-world domain in your code. The better the type definitions reflect the real-world domain, the better they will statically<br />
 encode the rules. This means you will always be warned if you violate the rules you defined. That will help you to avoid mistakes within your code. In practice, if you try to<br />
 sum binding x + y and x is bound to the number 5 (datatype = int) whereas y is bound to the word “PEPTIDE” (datatype = string) the compiler will not allow it, while if y is
 bound to number 7 you will get 12 as a valid result.</p>
@@ -368,7 +368,7 @@ tuple, you will see why:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Creating a list</span>
 <span class="pn">[</span> <span class="n">1.1</span><span class="pn">;</span> <span class="n">3.5</span><span class="pn">;</span> <span class="n">2.0</span> <span class="pn">]</span>
 
-<span class="c">// Creating a tuple by changing the semicolon to a comma </span>
+<span class="c">// Creating a tuple by changing the semicolon to a comma and the square brackets to curved brackets</span>
 <span class="pn">(</span>  <span class="n">1.1</span><span class="pn">,</span> <span class="n">3.5</span><span class="pn">,</span> <span class="n">2.0</span> <span class="pn">)</span>
 
 <span class="c">// Creating another tuple</span>
@@ -379,11 +379,11 @@ different compared to a collection type.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Accessing the value at position 2 of a list</span>
 <span class="pn">[</span> <span class="n">1.1</span><span class="pn">;</span> <span class="n">3.5</span><span class="pn">;</span> <span class="n">2.0</span> <span class="pn">]</span><span class="pn">.</span><span class="pn">[</span><span class="n">1</span><span class="pn">]</span>
 
-<span class="c">// Accessing the value at position 2 of a</span>
+<span class="c">// Accessing the value at position 2 of a tuple</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs40', 80)" onmouseover="showTip(event, 'fs40', 80)" class="id">monoMass</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs41', 81)" onmouseover="showTip(event, 'fs41', 81)" class="id">threeLetterCode</span> <span class="o">=</span> <span class="pn">(</span> <span class="n">115.026943</span><span class="pn">,</span> <span class="s">&quot;asp&quot;</span> <span class="pn">)</span>
 <span onmouseout="hideTip(event, 'fs41', 82)" onmouseover="showTip(event, 'fs41', 82)" class="id">threeLetterCode</span>
 </code></pre>
-<p>You notice, that accessing a value from a tuple means create a named binding that has the same structure (a process called deconstruction). After this, the individual values have their
+<p>You notice that accessing a value from a tuple means create a named binding that has the same structure (a process called deconstruction). After this, the individual values have their
 own names and can be used separately. Therefore, it is easy to define functions that can access individual positions of tuple types.</p>
 <p>Let's define a function that returns the three-letter:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 83)" onmouseover="showTip(event, 'fs42', 83)" class="fn">getThreeLetterCode</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs43', 84)" onmouseover="showTip(event, 'fs43', 84)" class="fn">monoMass</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs44', 85)" onmouseover="showTip(event, 'fs44', 85)" class="fn">threeLetterCode</span><span class="pn">)</span> <span class="o">=</span>
@@ -399,7 +399,7 @@ own names and can be used separately. Therefore, it is easy to define functions 
 <p>Tuples are useful in many cases. But they have some disadvantages too. Because all tuple types are pre-defined, you can't distinguish between a string and a float used for an
 amino acid mass with one-letter-code say, vs. a similar tuple used for nucleotide.</p>
 <p>And when tuples have more than a few elements, it is easy to get confused about which element is in which place. In these situations, what you would like to do is label each
-slot in the tuple, which will both document what each element is for and force a distinction between tuples made from the same types. A record type is exactly that, a tuple
+slot in the tuple, which will both document what each element is for and force a distinction between tuples made from the same types. A record type is exactly that: A tuple
 where each element is labeled.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Define a record type amino acid</span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs46', 89)" onmouseover="showTip(event, 'fs46', 89)" class="rt">AminoAcidMass</span> <span class="o">=</span> <span class="pn">{</span> <span onmouseout="hideTip(event, 'fs47', 90)" onmouseover="showTip(event, 'fs47', 90)" class="prop">OneLetterCode</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs48', 91)" onmouseover="showTip(event, 'fs48', 91)" class="vt">char</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs49', 92)" onmouseover="showTip(event, 'fs49', 92)" class="prop">Mass</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs39', 93)" onmouseover="showTip(event, 'fs39', 93)" class="vt">float</span> <span class="pn">}</span>
@@ -409,12 +409,12 @@ where each element is labeled.</p>
 <span class="c">// Bind an amino acid value to a name binding</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs53', 99)" onmouseover="showTip(event, 'fs53', 99)" class="id">asp</span> <span class="o">=</span> <span class="pn">{</span> <span class="prop">OneLetterCode</span> <span class="o">=</span> <span class="s">&#39;D&#39;</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs54', 100)" onmouseover="showTip(event, 'fs54', 100)" class="prop">Mass</span> <span class="o">=</span> <span class="n">115.026943</span> <span class="pn">}</span>
 </code></pre>
-<p>A record type has the standard preamble: <code>type</code> typename = followed by curly braces. Inside the curly braces is a list of label: type pairs, separated by semicolons (notice, we
+<p>A record type has the standard preamble: <code>type</code> typename = followed by curly braces. Inside the curly braces is a list of label: type pairs, separated by semicolons (notice: We
 will see later that all lists in F# use semicolon separators -- commas are for tuples).</p>
 <p>Let's compare the "type syntax" for a record type with a tuple type:</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Defintion of a record type </span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Definition of a record type </span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs55', 101)" onmouseover="showTip(event, 'fs55', 101)" class="rt">AminoAcidMassRecord</span> <span class="o">=</span> <span class="pn">{</span> <span onmouseout="hideTip(event, 'fs56', 102)" onmouseover="showTip(event, 'fs56', 102)" class="prop">OneLetterCode</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs48', 103)" onmouseover="showTip(event, 'fs48', 103)" class="vt">char</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs57', 104)" onmouseover="showTip(event, 'fs57', 104)" class="prop">Mass</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs39', 105)" onmouseover="showTip(event, 'fs39', 105)" class="vt">float</span> <span class="pn">}</span>
-<span class="c">// Defintion of a tuple type </span>
+<span class="c">// Definition of a tuple type </span>
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs58', 106)" onmouseover="showTip(event, 'fs58', 106)" class="rt">AminoAcidMassTuple</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs48', 107)" onmouseover="showTip(event, 'fs48', 107)" class="vt">char</span> <span class="pn">*</span> <span onmouseout="hideTip(event, 'fs39', 108)" onmouseover="showTip(event, 'fs39', 108)" class="vt">float</span>
 </code></pre>
 <p>You see that record types have named fields that make them easily accessible. A Field of a record type can be accessed individually with the dot operator <code>.Fieldname</code></p>
