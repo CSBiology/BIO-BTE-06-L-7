@@ -30,7 +30,7 @@ application in live science.
 
 ### Numeric types
 
-Definitely, F# can be a good friend in your daily work even when you are doing simple calculations e.g., in the lab. Let’s jump right in and some stuff done:
+Definitely, F# can be a good friend in your daily work even when you are doing simple calculations, e.g. in the lab. Let’s jump right in and some stuff done:
 *)
 // Define numerical values
 let co2Oxygens = 2
@@ -49,7 +49,7 @@ The example shows the two most common types of numbers used in F#:
 * floating point numbers (`float`): let oxygenMass = 15.9994
 
 One of the most important action in programming is naming things, which is called binding. Binding is the naming process that associates an identifier (name) to a value or function. 
-In F#, the `let` keyword is used to do such a binding and bind a name to a value in our example. We can use `let` binding at various level. It might be worth noting here, that this 
+In F#, the `let` keyword is used to do such a binding and bind a name to a value in our example. We can use `let` binding at various level. It might be worth noting here that this 
 process is often referred as declaring variables, but using the term “binding” is much nicer.
 Bindings are case sensitive names and can contain letters, numbers as well as the underscore character. They cannot start with a number however and they cannot contain spaces. 
 
@@ -63,7 +63,7 @@ let MYVARIABLE = "Undefined"
 *But what is a value?*
 
 In general, computer programs manipulate data. An individual item of data is called a value. F# is a statically typed language and every value has a type that identifies the kind of value it is. 
-For example, the type of 2 `co2Oxygens` is `int`. Each value can be seen an instance of a particular type, later we will complete this point of view by recognizing that each object is an 
+For example, the type of `co2Oxygens` is `int`. Each value can be seen an instance of a particular type, later we will complete this point of view by recognizing that each object is an 
 instance of a particular class (type).
 
 ### String or character types
@@ -75,8 +75,8 @@ let buffer = "Tris"
 let hydrogenMass = "1.00794"
 let nucleotide = 'A'
 (**
-Here, single quotes are used for single character (`char`), while double quates indicate a string. Importantly, if you would like to use quotes (or other special characters) in a string, you must 
-quote the quates with a backslash `\`. 
+Here, single quotes are used for single character (`char`), while double quotes indicate a string. Importantly, if you would like to use quotes (or other special characters) in a string, you must 
+quote the quotes with a backslash `\`. 
 
 One more way to declare strings in F# that allows you to even include line breaks in the strings. It’s useful, for example, for declaring paragraphs of text as strings. To use it, you have to enclose
 the string itself in triple quotes.
@@ -106,7 +106,7 @@ The compiler infers the type based on the context. If the type is not otherwise 
 inferred type that satisfies all the uses of a value, the compiler reports an error. 
 
 We have seen this happen through all the examples so far, but how does it work and what can you do if it goes wrong?
-In that case, you can apply explicit type annotations using `: type name´, as shown in the following examples: 
+In that case, you can apply explicit type annotations using `: type name`, as shown in the following examples: 
 *)
 // Explicitly define the type of on as bool. Brackets () are not necessary
 let (on : bool) = true
@@ -138,7 +138,7 @@ If you run this code into your interactive notebook and saw the output, you just
 The F# type system makes sure that you can not mix types during calculation. While it is possible to concatenate two string using the `+` operator. However, using two different types will cause the compiler 
 to point out the error.  
 
-It is worth to notice, that because `int` and ’float’ are different types even though they are both numbers. Therefore, to calculate the example above it is necessary to explicitly cast between `int` and `float` for 
+It is worth to notice, that because `int` and `float` are different types even though they are both numbers. Therefore, to calculate the example above it is necessary to explicitly cast between `int` and `float` for 
 operations such as multiplication.
 
 ### Functions 
@@ -147,7 +147,7 @@ operations such as multiplication.
 At this point we have our first functionality, meaning a small F# program that can perform a calculation. In most cases you want to organize the functionalities your code provides into nice building blocks that 
 can be reused and applied multiple times. You can think of functions as exactly those kinds of self-contained building blocks of code that accomplish a specific task. Functions usually consume input data called 
 parameter, process it in their function body, and return a result. Once you have a function defined, it can be used over and over and over again. 
-The best way to understand a F# function is to see it in action. Let’s dive into it:
+The best way to understand an F# function is to see it in action. Let’s dive into it:
 *)
 
 // Example of indented code
@@ -195,9 +195,9 @@ Sometimes it can be necessary to go a little bit further in terms of code organi
 organize code. You can think of namespaces and modules as containers and sub containers, respectively, in which you can put function and type definitions. The hierarchy is defined that you can have multiple 
 modules in one namespace, also nested modules in a module, but no namespace in another namespace. 
 
-The most important bit is, that you can access namespaces and modules with the `.` operator. This is also how you find functionality in libraries which you can load from other sources.  This is quit need, because 
+The most important bit is, that you can access namespaces and modules with the `.` operator. This is also how you find functionality in libraries which you can load from other sources.  This is required because 
 it means you do not need to write all code and functionality by yourself.
-In the following you can see how you can profit from the amazing F# community efforts to provide you with various libraries. It seems obvious, that for our example we load BioFSharp.
+In the following you can see how you can profit from the amazing F# community efforts to provide you with various libraries. It seems obvious that for our example we load BioFSharp.
 *)
 
 #r "nuget: BioFSharp, 2.0.0-beta5"
@@ -236,7 +236,7 @@ let bufferRecipe buffer molarity =
 
 (**
 The function `bufferRecipe` takes two arguments that specify the name of the `buffer` and `molarity` of the stock solution you want to make. Based upon the buffer name that you provide; it then binds the appropriate value 
-to the name grams and returns the required weight of buffer (in grams) to make up a 1L solution.
+to the name grams and returns the required weight of buffer (in grams) to make up a 1 L solution.
 
 As with other programming languages, the equality operator in F# is just one of a bunch of comparison you can do:
 
@@ -276,6 +276,6 @@ let bufferRecipe'' buffer molarity =
         | _       -> failwith "Huh???"
     grams * molarity 
     
- (**
- Maybe we should notice, that in this function we use the function `failwith` to throw an error, if we do not know the buffer. This is not particular nice, however necessary in our example. 
- *)
+(**
+Maybe we should notice, that in this function we use the function `failwith` to throw an error, if we do not know the buffer. This is not particular nice, however necessary in our example. 
+*)
