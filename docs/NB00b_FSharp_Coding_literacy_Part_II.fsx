@@ -3,6 +3,7 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB00b_FSharp_Coding_literacy_Part_II.ipynb)
 
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB00b/NB00b_FSharp_Coding_literacy_Part_II.ipynb)
 
 1. Making sense of sequences
     1. Strings have their own module 
@@ -175,7 +176,7 @@ This is simple but leads to one of the most important concepts of functional pro
 ### Functions can consume other functions
 
 Mapping is when a function applies computation working on an inner space and then returns the outer space as a result. This sounds complicated, but let’s dive right into it 
-and see how this works. We first need a function that will later be the function working on the inner space. The function ´monoisoMass´ from the `AminoAcids` module in 
+and see how this works. We first need a function that will later be the function working on the inner space. The function `monoisoMass` from the `AminoAcids` module in 
 BioFSharp returns the monoisotopic mass of the given amino acid as the name suggests: 
 *)
 
@@ -187,7 +188,7 @@ open AminoAcids
 let peptide = [ Pro; Glu; Pro; Thr; Ile; Asp; Glu; ]
 
 (**
-Now, we want to apply the function ´monoisoMass´ to each amino acid in the peptide list. For that we can make use of the `List.map` function. This is very convenient as the 
+Now, we want to apply the function `monoisoMass` to each amino acid in the peptide list. For that we can make use of the `List.map` function. This is very convenient as the 
 recursive process that steps through the list and builds a list of the results to return. That part is captured in the mapping function. 
 *)
 
