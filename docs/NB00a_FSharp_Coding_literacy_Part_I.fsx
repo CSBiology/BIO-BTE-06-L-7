@@ -3,6 +3,7 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB00a_FSharp_Coding_literacy_Part_I.ipynb)
 
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB00a/NB00a_FSharp_Coding_literacy_Part_I.ipynb)
 
 1. Getting things done and understand values
     1. Numeric types
