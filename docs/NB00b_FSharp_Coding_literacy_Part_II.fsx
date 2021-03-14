@@ -176,12 +176,110 @@ The Pipe-forward operator lets you pass an intermediate result (value) onto the 
 
 ## More interesting types 
 
-ipso
+We already learned about type annotation that it defines the kind of the value you and the compiler have to deal with. Therefore, you can think of type annotation as a sort of 
+data modeling tool that allows you to represent a real-world domain in your code. The better the type definitions reflect the real-world domain, the better they will statically  
+encode the rules. This means you will always be warned if you violate the rules you defined. That will help you to avoid mistakes within your code. In practice, if you try to  
+sum binding x + y and x is bound to the number 5 (datatype = int) whereas y is bound to the word “PEPTIDE” (datatype = string) the compiler will not allow it, while if y is 
+bound to number 7 you will get 12 as a valid result. 
 
+However, using only literal or primitive types may be not enough. You most probably want to do something more interesting that is not based solely on numbers or letters. To do 
+so you need to be able to produce your own types.   
+
+The key to understanding the power of types in F# is that most new types are constructed from other types just combing types that already exist. You can think of your own type 
+definition as an organization or grouping of other types. To do so, every type definition is similar, even though the specific details may vary. All type definitions start with 
+a "type" keyword, followed by an name or identifier for the type, which then is followed by any existing type(s). 
+
+For example, here are some type definitions for a variety of types:
+*)
+
+type A = int * int
+
+type B = {AminoAcidName:string; Mass:float}
+
+(**
 ### Tuples are ad hoc data structures 
+Tuples have several advantages over other more complex types. They can be used on the fly because they are always available without being defined, and thus are perfect for small, 
+temporary, lightweight structures. Some people think of tuples as small list with a fixed length and different types. If you look at the way to create a list and compare it to a 
+tuple, you will see why:
+*)
+// Creating a list
+[ 1.1; 3.5; 2.0 ]
 
-ipso
+// Creating a tuple by changing the semicolon to a comma 
+(  1.1, 3.5, 2.0 )
+
+// Creating another tuple
+( 115.026943, "asp" )
+
+(**
+However, while collections can only contain elements of the same type, with tuples you can combine different types in the same tuple type. Also accessing values from a tuple is quite 
+different compared to a collection type. 
+
+*)
+// Accessing the value at position 2 of a list
+[ 1.1; 3.5; 2.0 ].[1]
+
+// Accessing the value at position 2 of a
+let monoMass, threeLetterCode = ( 115.026943, "asp" )
+threeLetterCode
+
+(**
+You notice, that accessing a value from a tuple means create a named binding that has the same structure (a process called deconstruction). After this, the individual values have their 
+own names and can be used separately. Therefore, it is easy to define functions that can access individual positions of tuple types. 
+
+Let's define a function that returns the three-letter:
+*)
+let getThreeLetterCode (monoMass, threeLetterCode) =
+    threeLetterCode
+
+getThreeLetterCode ( 115.026943, "asp" )
+
+(**
+Tuples are also very useful in the common scenario when you want to return multiple values from a function rather than just one.
+*)
+
+let returnTwoValues () =
+    ('A',100)
+
+(**
+
 ### Record types provide more organization
 
-ipso
+Tuples are useful in many cases. But they have some disadvantages too. Because all tuple types are pre-defined, you can't distinguish between a string and a float used for an 
+amino acid mass with one-letter-code say, vs. a similar tuple used for nucleotide. 
+
+And when tuples have more than a few elements, it is easy to get confused about which element is in which place. In these situations, what you would like to do is label each 
+slot in the tuple, which will both document what each element is for and force a distinction between tuples made from the same types. A record type is exactly that, a tuple 
+where each element is labeled.
 *)
+// Define a record type amino acid
+type AminoAcidMass = { OneLetterCode: char; Mass: float }
+// Define a record type nucleotide
+type NucleotideMass = { Symbol: char; Mass: float }
+
+// Bind an amino acid value to a name binding
+let asp = { OneLetterCode = 'D'; Mass = 115.026943 }
+
+(**
+A record type has the standard preamble: `type` typename = followed by curly braces. Inside the curly braces is a list of label: type pairs, separated by semicolons (notice, we 
+will see later that all lists in F# use semicolon separators -- commas are for tuples).
+
+Let's compare the "type syntax" for a record type with a tuple type:
+*)
+
+// Defintion of a record type 
+type AminoAcidMassRecord = { OneLetterCode: char; Mass: float }
+// Defintion of a tuple type 
+type AminoAcidMassTuple = char * float
+
+(**
+You see that record types have named fields that make them easily accessible. A Field of a record type can be accessed individually with the dot operator `.Fieldname`
+*)
+
+//Create cysteine  
+let cys = { OneLetterCode = 'C'; Mass = 103.0091848 }
+// Access the one-letter-code of cysteine
+cys.OneLetterCode
+// Access the monoisotopic mass of cysteine and multiply it times 3
+cys.Mass * 3.
+
