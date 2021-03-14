@@ -217,6 +217,7 @@
                 <div class="container" id="fsdocs-content">
                     <h1><a name="NB00b-FSharp-Coding-literacy-part-II" class="anchor" href="#NB00b-FSharp-Coding-literacy-part-II">NB00b FSharp Coding literacy part II</a></h1>
 <p><a href="https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB00b_FSharp_Coding_literacy_Part_II.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a></p>
+<p><a href="https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB00b/NB00b_FSharp_Coding_literacy_Part_II.ipynb">Download Notebook</a></p>
 <ol>
 <li>
 Making sense of sequences
@@ -350,7 +351,7 @@ The last two define what are known as higher-order operations or higher-order fu
 This is simple but leads to one of the most important concepts of functional programming: <em>mapping and folding</em>.</p>
 <h3><a name="Functions-can-consume-other-functions" class="anchor" href="#Functions-can-consume-other-functions">Functions can consume other functions</a></h3>
 <p>Mapping is when a function applies computation working on an inner space and then returns the outer space as a result. This sounds complicated, but let’s dive right into it
-and see how this works. We first need a function that will later be the function working on the inner space. The function ´monoisoMass´ from the <code>AminoAcids</code> module in
+and see how this works. We first need a function that will later be the function working on the inner space. The function <code>monoisoMass</code> from the <code>AminoAcids</code> module in
 BioFSharp returns the monoisotopic mass of the given amino acid as the name suggests:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Function working on the inner space </span>
 <span onmouseout="hideTip(event, 'fs9', 72)" onmouseover="showTip(event, 'fs9', 72)" class="m">AminoAcids</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs33', 73)" onmouseover="showTip(event, 'fs33', 73)" class="id">monoisoMass</span> <span onmouseout="hideTip(event, 'fs9', 74)" onmouseover="showTip(event, 'fs9', 74)" class="m">AminoAcids</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs34', 75)" onmouseover="showTip(event, 'fs34', 75)" class="id">Ser</span>
@@ -359,7 +360,7 @@ BioFSharp returns the monoisotopic mass of the given amino acid as the name sugg
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs35', 77)" onmouseover="showTip(event, 'fs35', 77)" class="id">peptide</span> <span class="o">=</span> <span class="pn">[</span> <span onmouseout="hideTip(event, 'fs36', 78)" onmouseover="showTip(event, 'fs36', 78)" class="uc">Pro</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs37', 79)" onmouseover="showTip(event, 'fs37', 79)" class="uc">Glu</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs36', 80)" onmouseover="showTip(event, 'fs36', 80)" class="uc">Pro</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs38', 81)" onmouseover="showTip(event, 'fs38', 81)" class="uc">Thr</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs39', 82)" onmouseover="showTip(event, 'fs39', 82)" class="uc">Ile</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs40', 83)" onmouseover="showTip(event, 'fs40', 83)" class="uc">Asp</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs37', 84)" onmouseover="showTip(event, 'fs37', 84)" class="uc">Glu</span><span class="pn">;</span> <span class="pn">]</span>
 </code></pre>
-<p>Now, we want to apply the function ´monoisoMass´ to each amino acid in the peptide list. For that we can make use of the <code>List.map</code> function. This is very convenient as the
+<p>Now, we want to apply the function <code>monoisoMass</code> to each amino acid in the peptide list. For that we can make use of the <code>List.map</code> function. This is very convenient as the
 recursive process that steps through the list and builds a list of the results to return. That part is captured in the mapping function.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs28', 85)" onmouseover="showTip(event, 'fs28', 85)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs41', 86)" onmouseover="showTip(event, 'fs41', 86)" class="id">map</span> <span onmouseout="hideTip(event, 'fs9', 87)" onmouseover="showTip(event, 'fs9', 87)" class="m">AminoAcids</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs42', 88)" onmouseover="showTip(event, 'fs42', 88)" class="id">monoisoMass</span> <span onmouseout="hideTip(event, 'fs35', 89)" onmouseover="showTip(event, 'fs35', 89)" class="id">peptide</span>
 </code></pre>
