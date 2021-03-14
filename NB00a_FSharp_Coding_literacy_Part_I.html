@@ -247,7 +247,7 @@ but also extremely powerful for professional use cases. Simply put, F# is a beau
 computer science study, from simple scripts to sophisticated advanced applications. Therefore, it is extremely well suited for bioinformatics programming and
 application in live science.</p>
 <h3><a name="Numeric-types" class="anchor" href="#Numeric-types">Numeric types</a></h3>
-<p>Definitely, F# can be a good friend in your daily work even when you are doing simple calculations e.g., in the lab. Let’s jump right in and some stuff done:</p>
+<p>Definitely, F# can be a good friend in your daily work even when you are doing simple calculations, e.g. in the lab. Let’s jump right in and some stuff done:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Define numerical values</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">co2Oxygens</span> <span class="o">=</span> <span class="n">2</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="id">co2Carbon</span>  <span class="o">=</span> <span class="n">1</span>
@@ -264,7 +264,7 @@ parenthesis and asterisk <code>(* … *)</code>.</p>
 <li>floating point numbers (<code>float</code>): let oxygenMass = 15.9994</li>
 </ul>
 <p>One of the most important action in programming is naming things, which is called binding. Binding is the naming process that associates an identifier (name) to a value or function.
-In F#, the <code>let</code> keyword is used to do such a binding and bind a name to a value in our example. We can use <code>let</code> binding at various level. It might be worth noting here, that this
+In F#, the <code>let</code> keyword is used to do such a binding and bind a name to a value in our example. We can use <code>let</code> binding at various level. It might be worth noting here that this
 process is often referred as declaring variables, but using the term “binding” is much nicer.
 Bindings are case sensitive names and can contain letters, numbers as well as the underscore character. They cannot start with a number however and they cannot contain spaces.</p>
 <p>This makes the following three different bindings:</p>
@@ -274,7 +274,7 @@ Bindings are case sensitive names and can contain letters, numbers as well as th
 </code></pre>
 <p><em>But what is a value?</em></p>
 <p>In general, computer programs manipulate data. An individual item of data is called a value. F# is a statically typed language and every value has a type that identifies the kind of value it is.
-For example, the type of 2 <code>co2Oxygens</code> is <code>int</code>. Each value can be seen an instance of a particular type, later we will complete this point of view by recognizing that each object is an
+For example, the type of <code>co2Oxygens</code> is <code>int</code>. Each value can be seen an instance of a particular type, later we will complete this point of view by recognizing that each object is an
 instance of a particular class (type).</p>
 <h3><a name="String-or-character-types" class="anchor" href="#String-or-character-types">String or character types</a></h3>
 <p>Similar to declaring numbers in F#, we also can bind text (aka. <code>string</code>) or characters to names just by enclosing the declared value in double or single quotes.</p>
@@ -283,8 +283,8 @@ instance of a particular class (type).</p>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 10)" onmouseover="showTip(event, 'fs10', 10)" class="id">hydrogenMass</span> <span class="o">=</span> <span class="s">&quot;1.00794&quot;</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 11)" onmouseover="showTip(event, 'fs11', 11)" class="id">nucleotide</span> <span class="o">=</span> <span class="s">&#39;A&#39;</span>
 </code></pre>
-<p>Here, single quotes are used for single character (<code>char</code>), while double quates indicate a string. Importantly, if you would like to use quotes (or other special characters) in a string, you must
-quote the quates with a backslash <code>\</code>.</p>
+<p>Here, single quotes are used for single character (<code>char</code>), while double quotes indicate a string. Importantly, if you would like to use quotes (or other special characters) in a string, you must
+quote the quotes with a backslash <code>\</code>.</p>
 <p>One more way to declare strings in F# that allows you to even include line breaks in the strings. It’s useful, for example, for declaring paragraphs of text as strings. To use it, you have to enclose
 the string itself in triple quotes.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 12)" onmouseover="showTip(event, 'fs12', 12)" class="id">poem</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
@@ -307,7 +307,7 @@ F# compiler infers the types of values, variables, parameters and return values.
 The compiler infers the type based on the context. If the type is not otherwise specified, it is inferred to be generic. If the code uses a value inconsistently, in such a way that there is no single
 inferred type that satisfies all the uses of a value, the compiler reports an error.</p>
 <p>We have seen this happen through all the examples so far, but how does it work and what can you do if it goes wrong?
-In that case, you can apply explicit type annotations using `: type name´, as shown in the following examples:</p>
+In that case, you can apply explicit type annotations using <code>: type name</code>, as shown in the following examples:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Explicitly define the type of on as bool. Brackets () are not necessary</span>
 <span class="k">let</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs15', 15)" onmouseover="showTip(event, 'fs15', 15)" class="id">on</span> <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs16', 16)" onmouseover="showTip(event, 'fs16', 16)" class="vt">bool</span><span class="pn">)</span> <span class="o">=</span> <span class="k">true</span>
 </code></pre>
@@ -328,13 +328,13 @@ If you run this code into your interactive notebook and saw the output, you just
 <h3><a name="Operations-and-types" class="anchor" href="#Operations-and-types">Operations and types</a></h3>
 <p>The F# type system makes sure that you can not mix types during calculation. While it is possible to concatenate two string using the <code>+</code> operator. However, using two different types will cause the compiler
 to point out the error.</p>
-<p>It is worth to notice, that because <code>int</code> and ’float’ are different types even though they are both numbers. Therefore, to calculate the example above it is necessary to explicitly cast between <code>int</code> and <code>float</code> for
+<p>It is worth to notice, that because <code>int</code> and <code>float</code> are different types even though they are both numbers. Therefore, to calculate the example above it is necessary to explicitly cast between <code>int</code> and <code>float</code> for
 operations such as multiplication.</p>
 <h3><a name="Functions" class="anchor" href="#Functions">Functions</a></h3>
 <p>At this point we have our first functionality, meaning a small F# program that can perform a calculation. In most cases you want to organize the functionalities your code provides into nice building blocks that
 can be reused and applied multiple times. You can think of functions as exactly those kinds of self-contained building blocks of code that accomplish a specific task. Functions usually consume input data called
 parameter, process it in their function body, and return a result. Once you have a function defined, it can be used over and over and over again.
-The best way to understand a F# function is to see it in action. Let’s dive into it:</p>
+The best way to understand an F# function is to see it in action. Let’s dive into it:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Example of indented code</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs24', 30)" onmouseover="showTip(event, 'fs24', 30)" class="fn">explainIndentedCode</span> <span class="pn">(</span><span class="pn">)</span> <span class="o">=</span>
     <span onmouseout="hideTip(event, 'fs23', 31)" onmouseover="showTip(event, 'fs23', 31)" class="fn">printfn</span> <span class="s">&quot;This indented line is part of the function&quot;</span>
@@ -367,9 +367,9 @@ This kind of functions are often used for convenience. To write 'add1' as lambda
 <p>Sometimes it can be necessary to go a little bit further in terms of code organization. For example, to ship code in a library to other users. Namespaces und Modules are top-level and low-level constructs to
 organize code. You can think of namespaces and modules as containers and sub containers, respectively, in which you can put function and type definitions. The hierarchy is defined that you can have multiple
 modules in one namespace, also nested modules in a module, but no namespace in another namespace.</p>
-<p>The most important bit is, that you can access namespaces and modules with the <code>.</code> operator. This is also how you find functionality in libraries which you can load from other sources.  This is quit need, because
+<p>The most important bit is, that you can access namespaces and modules with the <code>.</code> operator. This is also how you find functionality in libraries which you can load from other sources.  This is required because
 it means you do not need to write all code and functionality by yourself.
-In the following you can see how you can profit from the amazing F# community efforts to provide you with various libraries. It seems obvious, that for our example we load BioFSharp.</p>
+In the following you can see how you can profit from the amazing F# community efforts to provide you with various libraries. It seems obvious that for our example we load BioFSharp.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="pp">#r</span> <span class="s">&quot;nuget: BioFSharp, 2.0.0-beta5&quot;</span>
 
 <span class="c">// Access adenine without &#39;open&#39;</span>
@@ -400,7 +400,7 @@ That is where control structures come in. A control structure directs the order 
     <span onmouseout="hideTip(event, 'fs40', 68)" onmouseover="showTip(event, 'fs40', 68)" class="fn">gramsPerLiter</span>
 </code></pre>
 <p>The function <code>bufferRecipe</code> takes two arguments that specify the name of the <code>buffer</code> and <code>molarity</code> of the stock solution you want to make. Based upon the buffer name that you provide; it then binds the appropriate value
-to the name grams and returns the required weight of buffer (in grams) to make up a 1L solution.</p>
+to the name grams and returns the required weight of buffer (in grams) to make up a 1 L solution.</p>
 <p>As with other programming languages, the equality operator in F# is just one of a bunch of comparison you can do:</p>
 <ul>
 <li><code>=</code>  equals</li>
@@ -434,10 +434,8 @@ match an input against a particular value; we can add filters, or guards, to pat
         <span class="pn">|</span> <span class="id">_</span>       <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs39', 88)" onmouseover="showTip(event, 'fs39', 88)" class="fn">failwith</span> <span class="s">&quot;Huh???&quot;</span>
     <span onmouseout="hideTip(event, 'fs38', 89)" onmouseover="showTip(event, 'fs38', 89)" class="fn">grams</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs37', 90)" onmouseover="showTip(event, 'fs37', 90)" class="fn">molarity</span> 
     
- <span class="c">(**</span>
-<span class="c"> Maybe we should notice, that in this function we use the function `failwith` to throw an error, if we do not know the buffer. This is not particular nice, however necessary in our example. </span>
-<span class="c"> *)</span>
 </code></pre>
+<p>Maybe we should notice, that in this function we use the function <code>failwith</code> to throw an error, if we do not know the buffer. This is not particular nice, however necessary in our example.</p>
 
                 </div>
             </div>
