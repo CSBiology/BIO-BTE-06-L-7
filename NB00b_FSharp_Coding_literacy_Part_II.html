@@ -346,11 +346,85 @@ A full overview of all map function can be found <a href="https://fsharp.github.
 <h3><a name="Pipe-forward-operator-gt" class="anchor" href="#Pipe-forward-operator-gt">Pipe-forward operator |&gt;</a></h3>
 <p>The Pipe-forward operator lets you pass an intermediate result (value) onto the next function, it’s defined as:</p>
 <h2><a name="More-interesting-types" class="anchor" href="#More-interesting-types">More interesting types</a></h2>
-<p>ipso</p>
+<p>We already learned about type annotation that it defines the kind of the value you and the compiler have to deal with. Therefore, you can think of type annotation as a sort of
+data modeling tool that allows you to represent a real-world domain in your code. The better the type definitions reflect the real-world domain, the better they will statically<br />
+encode the rules. This means you will always be warned if you violate the rules you defined. That will help you to avoid mistakes within your code. In practice, if you try to<br />
+sum binding x + y and x is bound to the number 5 (datatype = int) whereas y is bound to the word “PEPTIDE” (datatype = string) the compiler will not allow it, while if y is
+bound to number 7 you will get 12 as a valid result.</p>
+<p>However, using only literal or primitive types may be not enough. You most probably want to do something more interesting that is not based solely on numbers or letters. To do
+so you need to be able to produce your own types.</p>
+<p>The key to understanding the power of types in F# is that most new types are constructed from other types just combing types that already exist. You can think of your own type
+definition as an organization or grouping of other types. To do so, every type definition is similar, even though the specific details may vary. All type definitions start with
+a "type" keyword, followed by an name or identifier for the type, which then is followed by any existing type(s).</p>
+<p>For example, here are some type definitions for a variety of types:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs33', 72)" onmouseover="showTip(event, 'fs33', 72)" class="rt">A</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs34', 73)" onmouseover="showTip(event, 'fs34', 73)" class="vt">int</span> <span class="pn">*</span> <span onmouseout="hideTip(event, 'fs34', 74)" onmouseover="showTip(event, 'fs34', 74)" class="vt">int</span>
+
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs35', 75)" onmouseover="showTip(event, 'fs35', 75)" class="rt">B</span> <span class="o">=</span> <span class="pn">{</span><span onmouseout="hideTip(event, 'fs36', 76)" onmouseover="showTip(event, 'fs36', 76)" class="prop">AminoAcidName</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs37', 77)" onmouseover="showTip(event, 'fs37', 77)" class="rt">string</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs38', 78)" onmouseover="showTip(event, 'fs38', 78)" class="prop">Mass</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs39', 79)" onmouseover="showTip(event, 'fs39', 79)" class="vt">float</span><span class="pn">}</span>
+</code></pre>
 <h3><a name="Tuples-are-ad-hoc-data-structures" class="anchor" href="#Tuples-are-ad-hoc-data-structures">Tuples are ad hoc data structures</a></h3>
-<p>ipso</p>
+<p>Tuples have several advantages over other more complex types. They can be used on the fly because they are always available without being defined, and thus are perfect for small,
+temporary, lightweight structures. Some people think of tuples as small list with a fixed length and different types. If you look at the way to create a list and compare it to a
+tuple, you will see why:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Creating a list</span>
+<span class="pn">[</span> <span class="n">1.1</span><span class="pn">;</span> <span class="n">3.5</span><span class="pn">;</span> <span class="n">2.0</span> <span class="pn">]</span>
+
+<span class="c">// Creating a tuple by changing the semicolon to a comma </span>
+<span class="pn">(</span>  <span class="n">1.1</span><span class="pn">,</span> <span class="n">3.5</span><span class="pn">,</span> <span class="n">2.0</span> <span class="pn">)</span>
+
+<span class="c">// Creating another tuple</span>
+<span class="pn">(</span> <span class="n">115.026943</span><span class="pn">,</span> <span class="s">&quot;asp&quot;</span> <span class="pn">)</span>
+</code></pre>
+<p>However, while collections can only contain elements of the same type, with tuples you can combine different types in the same tuple type. Also accessing values from a tuple is quite
+different compared to a collection type.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Accessing the value at position 2 of a list</span>
+<span class="pn">[</span> <span class="n">1.1</span><span class="pn">;</span> <span class="n">3.5</span><span class="pn">;</span> <span class="n">2.0</span> <span class="pn">]</span><span class="pn">.</span><span class="pn">[</span><span class="n">1</span><span class="pn">]</span>
+
+<span class="c">// Accessing the value at position 2 of a</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs40', 80)" onmouseover="showTip(event, 'fs40', 80)" class="id">monoMass</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs41', 81)" onmouseover="showTip(event, 'fs41', 81)" class="id">threeLetterCode</span> <span class="o">=</span> <span class="pn">(</span> <span class="n">115.026943</span><span class="pn">,</span> <span class="s">&quot;asp&quot;</span> <span class="pn">)</span>
+<span onmouseout="hideTip(event, 'fs41', 82)" onmouseover="showTip(event, 'fs41', 82)" class="id">threeLetterCode</span>
+</code></pre>
+<p>You notice, that accessing a value from a tuple means create a named binding that has the same structure (a process called deconstruction). After this, the individual values have their
+own names and can be used separately. Therefore, it is easy to define functions that can access individual positions of tuple types.</p>
+<p>Let's define a function that returns the three-letter:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 83)" onmouseover="showTip(event, 'fs42', 83)" class="fn">getThreeLetterCode</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs43', 84)" onmouseover="showTip(event, 'fs43', 84)" class="fn">monoMass</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs44', 85)" onmouseover="showTip(event, 'fs44', 85)" class="fn">threeLetterCode</span><span class="pn">)</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs44', 86)" onmouseover="showTip(event, 'fs44', 86)" class="fn">threeLetterCode</span>
+
+<span onmouseout="hideTip(event, 'fs42', 87)" onmouseover="showTip(event, 'fs42', 87)" class="fn">getThreeLetterCode</span> <span class="pn">(</span> <span class="n">115.026943</span><span class="pn">,</span> <span class="s">&quot;asp&quot;</span> <span class="pn">)</span>
+</code></pre>
+<p>Tuples are also very useful in the common scenario when you want to return multiple values from a function rather than just one.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs45', 88)" onmouseover="showTip(event, 'fs45', 88)" class="fn">returnTwoValues</span> <span class="pn">(</span><span class="pn">)</span> <span class="o">=</span>
+    <span class="pn">(</span><span class="s">&#39;A&#39;</span><span class="pn">,</span><span class="n">100</span><span class="pn">)</span>
+</code></pre>
 <h3><a name="Record-types-provide-more-organization" class="anchor" href="#Record-types-provide-more-organization">Record types provide more organization</a></h3>
-<p>ipso</p>
+<p>Tuples are useful in many cases. But they have some disadvantages too. Because all tuple types are pre-defined, you can't distinguish between a string and a float used for an
+amino acid mass with one-letter-code say, vs. a similar tuple used for nucleotide.</p>
+<p>And when tuples have more than a few elements, it is easy to get confused about which element is in which place. In these situations, what you would like to do is label each
+slot in the tuple, which will both document what each element is for and force a distinction between tuples made from the same types. A record type is exactly that, a tuple
+where each element is labeled.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Define a record type amino acid</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs46', 89)" onmouseover="showTip(event, 'fs46', 89)" class="rt">AminoAcidMass</span> <span class="o">=</span> <span class="pn">{</span> <span onmouseout="hideTip(event, 'fs47', 90)" onmouseover="showTip(event, 'fs47', 90)" class="prop">OneLetterCode</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs48', 91)" onmouseover="showTip(event, 'fs48', 91)" class="vt">char</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs49', 92)" onmouseover="showTip(event, 'fs49', 92)" class="prop">Mass</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs39', 93)" onmouseover="showTip(event, 'fs39', 93)" class="vt">float</span> <span class="pn">}</span>
+<span class="c">// Define a record type nucleotide</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs50', 94)" onmouseover="showTip(event, 'fs50', 94)" class="rt">NucleotideMass</span> <span class="o">=</span> <span class="pn">{</span> <span onmouseout="hideTip(event, 'fs51', 95)" onmouseover="showTip(event, 'fs51', 95)" class="prop">Symbol</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs48', 96)" onmouseover="showTip(event, 'fs48', 96)" class="vt">char</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs52', 97)" onmouseover="showTip(event, 'fs52', 97)" class="prop">Mass</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs39', 98)" onmouseover="showTip(event, 'fs39', 98)" class="vt">float</span> <span class="pn">}</span>
+
+<span class="c">// Bind an amino acid value to a name binding</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs53', 99)" onmouseover="showTip(event, 'fs53', 99)" class="id">asp</span> <span class="o">=</span> <span class="pn">{</span> <span class="prop">OneLetterCode</span> <span class="o">=</span> <span class="s">&#39;D&#39;</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs54', 100)" onmouseover="showTip(event, 'fs54', 100)" class="prop">Mass</span> <span class="o">=</span> <span class="n">115.026943</span> <span class="pn">}</span>
+</code></pre>
+<p>A record type has the standard preamble: <code>type</code> typename = followed by curly braces. Inside the curly braces is a list of label: type pairs, separated by semicolons (notice, we
+will see later that all lists in F# use semicolon separators -- commas are for tuples).</p>
+<p>Let's compare the "type syntax" for a record type with a tuple type:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Defintion of a record type </span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs55', 101)" onmouseover="showTip(event, 'fs55', 101)" class="rt">AminoAcidMassRecord</span> <span class="o">=</span> <span class="pn">{</span> <span onmouseout="hideTip(event, 'fs56', 102)" onmouseover="showTip(event, 'fs56', 102)" class="prop">OneLetterCode</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs48', 103)" onmouseover="showTip(event, 'fs48', 103)" class="vt">char</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs57', 104)" onmouseover="showTip(event, 'fs57', 104)" class="prop">Mass</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs39', 105)" onmouseover="showTip(event, 'fs39', 105)" class="vt">float</span> <span class="pn">}</span>
+<span class="c">// Defintion of a tuple type </span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs58', 106)" onmouseover="showTip(event, 'fs58', 106)" class="rt">AminoAcidMassTuple</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs48', 107)" onmouseover="showTip(event, 'fs48', 107)" class="vt">char</span> <span class="pn">*</span> <span onmouseout="hideTip(event, 'fs39', 108)" onmouseover="showTip(event, 'fs39', 108)" class="vt">float</span>
+</code></pre>
+<p>You see that record types have named fields that make them easily accessible. A Field of a record type can be accessed individually with the dot operator <code>.Fieldname</code></p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">//Create cysteine  </span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs59', 109)" onmouseover="showTip(event, 'fs59', 109)" class="id">cys</span> <span class="o">=</span> <span class="pn">{</span> <span class="prop">OneLetterCode</span> <span class="o">=</span> <span class="s">&#39;C&#39;</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs54', 110)" onmouseover="showTip(event, 'fs54', 110)" class="prop">Mass</span> <span class="o">=</span> <span class="n">103.0091848</span> <span class="pn">}</span>
+<span class="c">// Access the one-letter-code of cysteine</span>
+<span onmouseout="hideTip(event, 'fs59', 111)" onmouseover="showTip(event, 'fs59', 111)" class="id">cys</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs56', 112)" onmouseover="showTip(event, 'fs56', 112)" class="id">OneLetterCode</span>
+<span class="c">// Access the monoisotopic mass of cysteine and multiply it times 3</span>
+<span onmouseout="hideTip(event, 'fs59', 113)" onmouseover="showTip(event, 'fs59', 113)" class="id">cys</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs60', 114)" onmouseover="showTip(event, 'fs60', 114)" class="id">Mass</span> <span class="o">*</span> <span class="n">3.</span>
+</code></pre>
 
                 </div>
             </div>
@@ -387,6 +461,34 @@ A full overview of all map function can be found <a href="https://fsharp.github.
 <div class="fsdocs-tip" id="fs30">val mass : Map&lt;string,float&gt;</div>
 <div class="fsdocs-tip" id="fs31">Multiple items<br />module Map<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type Map&lt;&#39;Key,&#39;Value (requires comparison)&gt; =<br />&#160;&#160;interface IReadOnlyDictionary&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;interface IReadOnlyCollection&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IComparable<br />&#160;&#160;interface IEnumerable&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;<br />&#160;&#160;interface ICollection&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;<br />&#160;&#160;interface IDictionary&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;new : elements:seq&lt;&#39;Key * &#39;Value&gt; -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;member Add : key:&#39;Key * value:&#39;Value -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;member Change : key:&#39;Key * f:(&#39;Value option -&gt; &#39;Value option) -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;...<br /><br />--------------------<br />new : elements:seq&lt;&#39;Key * &#39;Value&gt; -&gt; Map&lt;&#39;Key,&#39;Value&gt;</div>
 <div class="fsdocs-tip" id="fs32">val find : key:&#39;Key -&gt; table:Map&lt;&#39;Key,&#39;T&gt; -&gt; &#39;T (requires comparison)</div>
+<div class="fsdocs-tip" id="fs33">type A = int * int</div>
+<div class="fsdocs-tip" id="fs34">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />--------------------<br />type int = int32<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int</div>
+<div class="fsdocs-tip" id="fs35">type B =<br />&#160;&#160;{ AminoAcidName: string<br />&#160;&#160;&#160;&#160;Mass: float }</div>
+<div class="fsdocs-tip" id="fs36">B.AminoAcidName: string</div>
+<div class="fsdocs-tip" id="fs37">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />--------------------<br />type string = System.String</div>
+<div class="fsdocs-tip" id="fs38">Multiple items<br />B.Mass: float<br /><br />--------------------<br />module Mass<br /><br />from BioFSharp</div>
+<div class="fsdocs-tip" id="fs39">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />--------------------<br />type float = System.Double<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float</div>
+<div class="fsdocs-tip" id="fs40">val monoMass : float</div>
+<div class="fsdocs-tip" id="fs41">val threeLetterCode : string</div>
+<div class="fsdocs-tip" id="fs42">val getThreeLetterCode : monoMass:&#39;a * threeLetterCode:&#39;b -&gt; &#39;b</div>
+<div class="fsdocs-tip" id="fs43">val monoMass : &#39;a</div>
+<div class="fsdocs-tip" id="fs44">val threeLetterCode : &#39;b</div>
+<div class="fsdocs-tip" id="fs45">val returnTwoValues : unit -&gt; char * int</div>
+<div class="fsdocs-tip" id="fs46">type AminoAcidMass =<br />&#160;&#160;{ OneLetterCode: char<br />&#160;&#160;&#160;&#160;Mass: float }</div>
+<div class="fsdocs-tip" id="fs47">AminoAcidMass.OneLetterCode: char</div>
+<div class="fsdocs-tip" id="fs48">Multiple items<br />val char : value:&#39;T -&gt; char (requires member op_Explicit)<br /><br />--------------------<br />type char = System.Char</div>
+<div class="fsdocs-tip" id="fs49">Multiple items<br />AminoAcidMass.Mass: float<br /><br />--------------------<br />module Mass<br /><br />from BioFSharp</div>
+<div class="fsdocs-tip" id="fs50">type NucleotideMass =<br />&#160;&#160;{ Symbol: char<br />&#160;&#160;&#160;&#160;Mass: float }</div>
+<div class="fsdocs-tip" id="fs51">NucleotideMass.Symbol: char</div>
+<div class="fsdocs-tip" id="fs52">Multiple items<br />NucleotideMass.Mass: float<br /><br />--------------------<br />module Mass<br /><br />from BioFSharp</div>
+<div class="fsdocs-tip" id="fs53">val asp : AminoAcidMass</div>
+<div class="fsdocs-tip" id="fs54">module Mass<br /><br />from BioFSharp</div>
+<div class="fsdocs-tip" id="fs55">type AminoAcidMassRecord =<br />&#160;&#160;{ OneLetterCode: char<br />&#160;&#160;&#160;&#160;Mass: float }</div>
+<div class="fsdocs-tip" id="fs56">AminoAcidMassRecord.OneLetterCode: char</div>
+<div class="fsdocs-tip" id="fs57">Multiple items<br />AminoAcidMassRecord.Mass: float<br /><br />--------------------<br />module Mass<br /><br />from BioFSharp</div>
+<div class="fsdocs-tip" id="fs58">type AminoAcidMassTuple = char * float</div>
+<div class="fsdocs-tip" id="fs59">val cys : AminoAcidMassRecord</div>
+<div class="fsdocs-tip" id="fs60">AminoAcidMassRecord.Mass: float</div>
 
     </div>
 
