@@ -152,6 +152,9 @@ let generateIsotopicDistribution (charge:int) (f:Formula.Formula) =
         
 generateIsotopicDistribution
 
+(**
+*)
+
 // Code-Block 5
 
 let peptidesAndMassesChart =
@@ -209,6 +212,9 @@ let toHydrophobicity (peptide:AminoAcids.AminoAcid[]) =
 
 toHydrophobicity
 
+(**
+*)
+
 // Code-Block 7
 
 let peptidesFirst200 = 
@@ -258,3 +264,12 @@ peptidesFirst200Chart
 (***hide***)
 peptidesFirst200Chart |> GenericChart.toChartHTML
 (***include-it-raw***)
+
+(**
+## Questions
+
+1. How does the gradient applied at a reverse phase LC influence the retention time?
+2. Try generating your own MS1 spectrum with peptides of similar hydrophobicity. Take a look at Codeblock 7 and 8 to see how to do that.
+3. To better compare retention times between runs with different gradients or instruments, the retention time of those runs must be aligned.
+What could be some ways to align the retention time of different runs?
+*)

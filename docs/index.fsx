@@ -55,7 +55,7 @@ and do some manipulations to achieve your desired outcome.
 
 * Navigate to the location of your notebook and open it.
 * Notebooks contain Text- and Codeblocks:
-    * Adding a new Text- or Codeblock can be done by hovering at the uper or lower border of an existing block:
+    * Adding a new Text- or Codeblock can be done by hovering at the upper or lower border of an existing block:
 
     ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/AddingBlock.png)
 
