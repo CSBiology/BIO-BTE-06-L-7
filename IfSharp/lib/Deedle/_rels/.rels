@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
-  <Relationship Type="http://schemas.microsoft.com/packaging/2010/07/manifest" Target="/Deedle.nuspec" Id="Rd3796c2c07a948cd" />
-  <Relationship Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="/package/services/metadata/core-properties/b8dd95b2aa604d25a940460b2619a2de.psmdcp" Id="R11155cb5c37c4fd9" />
-</Relationships>
