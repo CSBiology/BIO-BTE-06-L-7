@@ -49,6 +49,9 @@ and do some manipulations to achieve your desired outcome.
     ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/CodeExtensions.png)
 
 * Download the current notebook.
+
+    ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/DownloadNotebook.png)
+
 * In Visual Studio Code press `Strg + Shift + P` and klick on `.NET Interactive Open notebook`.
 
     ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/OpenNotebook.png)
