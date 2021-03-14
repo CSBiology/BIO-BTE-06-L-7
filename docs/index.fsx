@@ -48,7 +48,7 @@ and do some manipulations to achieve your desired outcome.
     
     ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/CodeExtensions.png)
 
-* Download the current notebook.
+* Download the current notebook from the page linked on the left.
 
     ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/DownloadNotebook.png)
 
