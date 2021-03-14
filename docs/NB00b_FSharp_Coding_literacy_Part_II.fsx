@@ -112,7 +112,7 @@ Array.findIndex (fun n -> n = C)  [| A; T; C; G; |]
 
 (**
 However, it is worth noticing that the bio-collections are normal F# collections. The Bio* modules just enhance the functionalities of the default modules. In the example, we 
-apply the `Array.findIndex` functions from the default array module on a BioArray to find the index of the first occurring cytosine. 
+apply the `Array.findIndex` functions from the default array module to a BioArray to find the index of the first occurring cytosine. 
 
 A full overview of the default collections and their respective modules can be found [here.](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/fsharp-collection-types)
 
@@ -120,7 +120,7 @@ A full overview of the default collections and their respective modules can be f
 There is one module that you might see quite often when working with collections in F#. It is more generic compared to the others previously discussed as it is able to manipulate 
 all enumerable collections. The `Seq.`  module contains functions that can take list collections as well as array collections as input
  (or others that are [enumerable).]( https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/fsharp-collection-types).
-In the following example we apply the same functions on a list and on an array. 
+In the following example we apply the same functions to a list and on an array. 
 
 ### Seq module contains the skeleton key functions
 
@@ -163,16 +163,60 @@ A full overview of all map function can be found [here]( https://fsharp.github.i
 
 
 ## Higher-order functions     
-
-A higher-order function is a function that takes another function as a parameter. This is simple, but leads to one of the most important concepts of functional programming.
+In F# as a functional programming language, you should be able to do with a function whatever you can do with values of the other types and be
+ able to do so with a comparable degree of effort. This includes the following:
+* You can bind functions to identifiers and give them names.
+* You can store functions in data structures, e.g. such as in a list.
+* You can pass a function as an argument in a function call. 
+* You can return a function from a function call.
+The last two define what are known as higher-order operations or higher-order functions. A higher-order function is a function that takes another function as a parameter. 
+This is simple but leads to one of the most important concepts of functional programming: *mapping and folding*. 
 
 ### Functions can consume other functions
 
-ipso
+Mapping is when a function applies computation working on an inner space and then returns the outer space as a result. This sounds complicated, but let’s dive right into it 
+and see how this works. We first need a function that will later be the function working on the inner space. The function ´monoisoMass´ from the `AminoAcids` module in 
+BioFSharp returns the monoisotopic mass of the given amino acid as the name suggests: 
+*)
+
+// Function working on the inner space 
+AminoAcids.monoisoMass AminoAcids.Ser
+// Outer or elevated space
+open AminoAcids
+
+let peptide = [ Pro; Glu; Pro; Thr; Ile; Asp; Glu; ]
+
+(**
+Now, we want to apply the function ´monoisoMass´ to each amino acid in the peptide list. For that we can make use of the `List.map` function. This is very convenient as the 
+recursive process that steps through the list and builds a list of the results to return. That part is captured in the mapping function. 
+*)
+
+List.map AminoAcids.monoisoMass peptide
+
+(**
+The higher-order function map applies a function working on the normal space to an elevated space. This concept is so important that all collection types (lists, arrays, ...) 
+have a build in map function.  
+If your higher-order function applies a function to the inner space and the return value is not the outer space, you are folding aka. aggregating. Just to build on the example 
+above, we can compute the sum of all amino acids being elements of the peptide list. 
+*)
+
+List.sumBy AminoAcids.monoisoMass peptide
+
+(**
+Maybe it is worth noticing that the mass of water needs to be added to calculate the correct peptide mass.
 
 ### Pipe-forward operator |> 
 
-The Pipe-forward operator lets you pass an intermediate result (value) onto the next function, it’s defined as:
+F# is all about readability. Here, pipe operators are used to pass parameters to a function in a simple and elegant way. It allows to eliminate intermediate values and 
+make function calls easier to read. It possible to chain function calls and feed the return value of each function to the next using the forward type operator which looks 
+like this: |> . We can literally read it as “pipe forward”.
+*)
+
+[ Pro; Glu; Pro; Thr; Ile; Asp; Glu; ]
+|> List.map AminoAcids.monoisoMass 
+|> List.sum
+
+(**
 
 ## More interesting types 
 
