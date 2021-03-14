@@ -30,14 +30,14 @@ and do some manipulations to achieve your desired outcome.
 |----------|---------------------------------------|------------------|
 | 15.03.21 | Getting started                       |                  |
 | 16.03.21 | Coding literacy                       | 00a; 00b         |
-| 17.03.22 | 1: Growth Model and Cell number       | 01a; 01b         |
-| 18.03.23 | 2: In-silico proteome analysis        | 02a; 02b; 02c    |
-| 19.03.24 | 3: Understanding the Data             | 03a; 03b; 03c    |
+| 17.03.21 | 1: Growth Model and Cell number       | 01a; 01b         |
+| 18.03.21 | 2: In-silico proteome analysis        | 02a; 02b; 02c    |
+| 19.03.21 | 3: Understanding the Data             | 03a; 03b; 03c    |
 | 22.03.21 | 4: Protein and Peptide identification | 04a; 04b         |
 | 23.03.21 | 5: Peptide quantification             | 05a              |
-| 24.03.22 | Analysing the course Experiment       | 06a              |
-| 25.03.22 | Analysing the course Experiment       | 06b              |
-| 26.03.23 | Analysing the course Experiment       | 06c              |
+| 24.03.21 | Analysing the course Experiment       | 06a              |
+| 25.03.21 | Analysing the course Experiment       | 06b              |
+| 26.03.21 | Analysing the course Experiment       | 06c              |
 
 ## Getting started
 
