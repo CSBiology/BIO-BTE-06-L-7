@@ -104,6 +104,7 @@ let example_Chart_1 =
     |> Chart.withY_AxisStyle ("Number of cells")
     |> Chart.withX_AxisStyle ("Time [hours]")
 
+example_Chart_1
 (***hide***)
 example_Chart_1 |> GenericChart.toChartHTML
 (***include-it-raw***)
@@ -137,7 +138,7 @@ let example_Chart_2 =
     |> Chart.withY_AxisStyle ("Number of cells [log2]")
     |> Chart.withX_AxisStyle ("Time [hours]")
 
-
+example_Chart_2
 (***hide***)
 example_Chart_2 |> GenericChart.toChartHTML
 (***include-it-raw***)  
@@ -267,7 +268,6 @@ let gompertzParams =
         exmp_y_Count_Log // The transformed count data
 
 gompertzParams
-
 (***hide***)
 gompertzParams
 (***include-it-raw***)
@@ -303,6 +303,7 @@ let fittedChartGompertz =
     ]
     |> Chart.Combine
 
+fittedChartGompertz
 (***hide***)
 fittedChartGompertz |> GenericChart.toChartHTML
 (***include-it-raw***)  
