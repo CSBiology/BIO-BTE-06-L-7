@@ -3,6 +3,7 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB01b_Plant_Systems_Biology.ipynb)
 
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB01a_NB01b/NB01b_Plant_Systems_Biology.ipynb)
 
 1. Plant Systems Biology
 2. Modeling growth
