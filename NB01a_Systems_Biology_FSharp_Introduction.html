@@ -217,6 +217,7 @@
                 <div class="container" id="fsdocs-content">
                     <h1><a name="NB01a-Systems-Biology" class="anchor" href="#NB01a-Systems-Biology">NB01a Systems Biology</a></h1>
 <p><a href="https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB01a_Systems_Biology_FSharp_Introduction.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a></p>
+<p><a href="https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB01a_NB01b/NB01a_Systems_Biology_FSharp_Introduction.ipynb">Download Notebook</a></p>
 <p>This notebook introduces the field of Systems Biology and explains why programming is a necessary skill to it. You will get a short introduction to the programming language F# and some links to resource for further studies.</p>
 <ol>
 <li>Systems Biology: A brief introduction</li>
@@ -234,8 +235,24 @@ organizational structure, functional state, robustness and dynamics of a biologi
 <li><p>(<strong>i</strong>) - system-wide quantification of transcriptome, proteome (including protein modifications) and metabolome</p></li>
 <li><p>(<strong>ii</strong>) - identification of physical interactions between these components</p></li>
 <li><p>(<strong>iii</strong>) - inference of structure, type and quantity of found interactions</p></li>
-<li><p>(<em></em>iv*</p></li>
+<li><p>(<strong>iv</strong>) - analysis and integration of the resulting large amounts of heterogeneous data. It becomes obvious that an interdisciplinary effort is needed to resolve these challenges in Systems Biology (Aderem 2006). Here Biology dictates which analytical, experimental and computational methods are required.</p></li>
 </ul>
+<p>Modern analytical methods to measure the identity and quantity of biomolecules system-wide, summarized under the term “quantitative omics”-technologies, address the first two
+mentioned challenges of Systems Biology. Among these “omics”-technologies are transcriptomics based on microarrays/next generation sequencing and proteomics/metabolomics based on mass-spectrometry.</p>
+<p>Tying in with the area of genome sequencing, the focus is set on the accurate profiling of gene/protein expression and metabolite concentrations, as well as on the determination of biological
+protein modifications and of physical interactions between proteins.</p>
+<p>Addressing the abovementioned challenges three and four of Systems Biology, the development of numerous computational approaches reaches out to unravel the
+intrinsic complexity of biological systems (Kahlem and Birney 2006). These computational approaches focus on knowledge discovery and on in silico
+simulation or modeling (Kitano 2002b). In the latter approach knowledge on a biological process is converted into a mathematical model.
+In silico simulations based on such a model can provide predictions that may subsequently be tested experimentally. Computation-based knowledge discovery
+(also known as data mining) aims to extract hidden patterns from complex and high-dimensional data to generate hypotheses. Therefore, the first step is to describe
+information on a biological system such that it is sustainably stored in a format rendering it readable and manipulable for machines and humans. The second step is
+to integrate the huge amount of differently structured data, often referred to as the “big data” challenge. In a last step, statistical or machine learning methods
+are applied to extract the information or underlying principles hidden in the data.</p>
+<p>The most flexible way of working with huge amounts of data is using a lightweight programming language with a succinct syntax. Therefore, it becomes necessary that biologist become familiar with a suitable programming language to solve real world problems in (Systems) Biology.</p>
+<p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/OmicSpace.png" alt="" /></p>
+<p><strong><em>Figure 1: A conceptual view of the omic space.</em></strong></p>
+<p>The omics space comprises of genomic, transcriptomic, proteomic, metabolomic and phenomic systems level represented as a plane. Complex biological function is the result of the interplay between molecules of one and/or different systems level.</p>
 <h2><a name="References" class="anchor" href="#References">References</a></h2>
 <ol>
 <li>Bertalanffy, L. von. Zu einer allgemeinen Systemlehre. Blätter für deutsche Philosophie 18 (1945).</li>
