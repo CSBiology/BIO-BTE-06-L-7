@@ -160,7 +160,7 @@ So all we have to know is the performed log transform and the slope of the funct
 
 *Equation 1: Calculation of the doubling time. Growth rate is the steepest slope of the log transformed count data.*
 
-![](https://latex.codecogs.com/gif.latex?doubling&space;Time&space;=&space;\frac{log_x(2)}{growthRate})
+![](https://latex.codecogs.com/png.latex?doubling&space;Time&space;=&space;\frac{log_x(2)}{growthRate})
 
 For a log2 transform the numerator is 1.
 
@@ -176,7 +176,7 @@ To derive the slope required for the doubling time calculation, the measured gro
 In order to obtain a continuous function with known coefficients, a suitable model function is fitted onto the existing data. 
 Many models exist, each one of them optimized for a specific task (Kaplan et al. 2018).
 
-Linear model function example: ![](https://latex.codecogs.com/gif.latex?f(x)&space;=&space;mx&space;&plus;&space;b)
+Linear model function example: ![](https://latex.codecogs.com/png.latex?f(x)&space;=&space;mx&space;&plus;&space;b)
  
 When a model function is fitted onto the data, there are endless possibilities to choose coefficients of the model function. 
 In the case above there are two coefficients to be identified: The slope m and the y-intercept b. But how can the best fitting coefficients be determined?
@@ -204,7 +204,7 @@ model with many coefficients, since the excessive use of coefficients leads to o
 
 A often used growth curve model is the four parameter [Gompertz model](https://en.wikipedia.org/wiki/Gompertz_function). 
 
-The function has the form: ![](https://latex.codecogs.com/gif.latex?A+Ce^{-e^{-B(t-M)}}) [Gibson et al. 1988](https://www.sciencedirect.com/science/article/pii/0168160588900517?via%3Dihub). 
+The function has the form: ![](https://latex.codecogs.com/png.latex?A+Ce^{-e^{-B(t-M)}}) [Gibson et al. 1988](https://www.sciencedirect.com/science/article/pii/0168160588900517?via%3Dihub). 
 
 where:
 

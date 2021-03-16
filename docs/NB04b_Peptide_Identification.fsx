@@ -63,7 +63,7 @@ achieved using the formula for cross-correlation in the form for discrete input 
 
 ***Equation 5***
 
-![](https://latex.codecogs.com/gif.latex?\large&space;R_{\tau}&space;=&space;\sum_{i=0}^{n-1}x_{i}\cdot y_{i&plus;\tau})
+![](https://latex.codecogs.com/png.latex?\large&space;R_{\tau}&space;=&space;\sum_{i=0}^{n-1}x_{i}\cdot y_{i&plus;\tau})
 
 where x(i) is a peak of the reconstructed spectrum at position i and y(i) is a peak of the experimental spectrum. The displacement value 𝜏 
 is the amount by which the signal is offset during the translation and is varied over a range of values. If two signals are the same, the correlation 
@@ -72,25 +72,25 @@ and needs to be subtracted from the correlation at 𝜏=0. It follows:
 
 ***Equation 6***
 
-![](https://latex.codecogs.com/gif.latex?xcorr&space;=&space;R_{0}&space;-&space;\frac{(\sum&space;\begin{matrix}&space;\tau=&plus;offeset\\&space;\tau=-offeset\end{matrix}R_{\tau})}{2*offset&plus;1})
+![](https://latex.codecogs.com/png.latex?xcorr&space;=&space;R_{0}&space;-&space;\frac{(\sum&space;\begin{matrix}&space;\tau=&plus;offeset\\&space;\tau=-offeset\end{matrix}R_{\tau})}{2*offset&plus;1})
 
 In practice many theoretical spectra have to be matched again a single experimental spectrum. Therefore, the calculation can be speed up by reformulating Equation 5 and Equation 6 and introduce a preprocessing step, which is independent of the predicted spectra.
 
 ***Equation 7***
 
-![](https://latex.codecogs.com/gif.latex?xcorr&space;=&space;x_{0}\cdot&space;y_{0}&space;-&space;\frac{(\sum&space;\begin{matrix}&space;\tau=&plus;offeset\\&space;\tau=-offeset\end{matrix}x_{0}\cdot&space;y_{\tau})}{2*offset&plus;1})
+![](https://latex.codecogs.com/png.latex?xcorr&space;=&space;x_{0}\cdot&space;y_{0}&space;-&space;\frac{(\sum&space;\begin{matrix}&space;\tau=&plus;offeset\\&space;\tau=-offeset\end{matrix}x_{0}\cdot&space;y_{\tau})}{2*offset&plus;1})
 
 For the preprocessed experimental spectrum y' it follows:
 
 ***Equation 8***
 
-![](https://latex.codecogs.com/gif.latex?xcorr&space;=&space;x_{0}\cdot&space;y`)
+![](https://latex.codecogs.com/png.latex?xcorr&space;=&space;x_{0}\cdot&space;y`)
 
 where:
 
 ***Equation 9***
 
-![](https://latex.codecogs.com/gif.latex?y'&space;=&space;y_{0}&space;-&space;\frac{(\sum&space;\begin{matrix}&space;\tau=&plus;offeset\\&space;\tau=-offeset\end{matrix}x_{0}\cdot&space;y_{\tau})}{2*offset&plus;1})
+![](https://latex.codecogs.com/png.latex?y'&space;=&space;y_{0}&space;-&space;\frac{(\sum&space;\begin{matrix}&space;\tau=&plus;offeset\\&space;\tau=-offeset\end{matrix}x_{0}\cdot&space;y_{\tau})}{2*offset&plus;1})
 
 Matching a measured spectrum against chlamy database
 *)

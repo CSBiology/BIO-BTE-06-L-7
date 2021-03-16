@@ -4,6 +4,8 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB02a_Mass_spectrometry_based_proteomics.ipynb)
 
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB02a_NB02b_NB02c/NB02a_Mass_spectrometry_based_proteomics.ipynb)
+
 1. Mass spectrometry (MS)-based proteomic
 6. References
 

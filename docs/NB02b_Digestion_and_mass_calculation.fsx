@@ -3,6 +3,8 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB02b_Digestion_and_mass_calculation.ipynb)
 
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB02a_NB02b_NB02c/NB02b_Digestion_and_mass_calculation.ipynb)
+
 1. Digestion and mass calculation
     2. Accessing the protein sequences of *Chlamydomonas reinhardtii*
     3. Amino acid distribution for *C. reinhardtii*
@@ -117,7 +119,7 @@ aaDistributionHis |> GenericChart.toChartHTML
 
 The molecular weight M of a peptide may be estimated by calculating the equation for the molecular weight of a peptide: 
 
-![](https://latex.codecogs.com/gif.latex?M&space;=&space;M_{N}&plus;M_{C}\sum_{i=0}^{n}N_{i}M_{i})
+![](https://latex.codecogs.com/png.latex?M&space;=&space;M_{N}&plus;M_{C}\sum_{i=0}^{n}N_{i}M_{i})
 
 where N(i) are the number, and M(i) the average residue molecular weights, of the amino acids. M(N) + M(C) 
 are added to the total in order to account for the termini: H at the N-terminus and OH at the C-terminus. (Remark: if the termini are modified, 
@@ -177,7 +179,7 @@ However, in mass spectrometry we are only able to detect ions. Therefore, the me
 The abbreviation m/z (m = mass; z = charge) is used to denote the dimensionless quantity formed by dividing the molecular weight 
 of an ion (M+nH(+)) by its charge number (n).
 
-![](https://latex.codecogs.com/gif.latex?M_{z}=\frac{(M&plus;nH^{&plus;})}{n})
+![](https://latex.codecogs.com/png.latex?M_{z}=\frac{(M&plus;nH^{&plus;})}{n})
 
 In the following, we will convert the uncharged peptide masses to the m/z ratio with charge two by applaying the Mass.toMZ 
 function from the BioFSharp library and displax its distribution again. Note that m/z ratio with a charge of two represents 
