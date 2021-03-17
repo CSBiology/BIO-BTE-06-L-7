@@ -3,6 +3,8 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB03b_Signal_detection_and_quantification.ipynb)
 
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB03a_NB03b_NB03c/NB03b_Signal_detection_and_quantification.ipynb)
+
 1. Signal detection and quantification
 
 *)

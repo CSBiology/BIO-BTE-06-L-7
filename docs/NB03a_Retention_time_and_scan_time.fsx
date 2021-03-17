@@ -3,6 +3,8 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB03a_Retention_time_and_scan_time.ipynb)
 
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB03a_NB03b_NB03c/NB03a_Retention_time_and_scan_time.ipynb)
+
 1. Retention time and scan time
     1. m/z calculation of the digested peptides
     2. Determination of peptide hydrophobicity
