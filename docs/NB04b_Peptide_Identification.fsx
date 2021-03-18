@@ -3,6 +3,7 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB04b_Peptide_Identification.ipynb)
 
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB04a_NB04b/NB04b_Peptide_Identification.ipynb)
 
 1. Understanding peptide identification from MS2 spectra
 2. Matching and scoring of Tandem MS peptide identification
