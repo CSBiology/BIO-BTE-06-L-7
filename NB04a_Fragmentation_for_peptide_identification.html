@@ -125,7 +125,7 @@
                                 </span>
                             </a>
                         </li>
-                        <!--<li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href="NB04a_Fragmentation_for_peptide_identification.html">
                                 <span class="text">
                                     <span>NB04a Fragmentation for peptide identification</span>
@@ -139,7 +139,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB05a_Quantification.html">
                                 <span class="text">
                                     <span>NB05a Quantification</span>
@@ -217,6 +217,7 @@
                 <div class="container" id="fsdocs-content">
                     <h1><a name="NB04a-Fragmentation-for-peptide-identification" class="anchor" href="#NB04a-Fragmentation-for-peptide-identification">NB04a Fragmentation for peptide identification</a></h1>
 <p><a href="https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB04a_Fragmentation_for_peptide_identification.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a></p>
+<p><a href="https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB04a_NB04b/NB04a_Fragmentation_for_peptide_identification.ipynb">Download Notebook</a></p>
 <ol>
 <li>Understanding MS2 spectra: From peptide to fragment</li>
 <li>Simulate MS2 Fragmentation</li>
@@ -308,29 +309,29 @@ in the mass. Notice, that we do not know the intesity of the fragment ions and j
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs22', 45)" onmouseover="showTip(event, 'fs22', 45)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 46)" onmouseover="showTip(event, 'fs24', 46)" class="id">Combine</span>
 <span onmouseout="hideTip(event, 'fs21', 47)" onmouseover="showTip(event, 'fs21', 47)" class="id">ionChart</span>
 </code></pre>
-<div id="1d678d14-a8cd-46a7-8206-cf55330051b2" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="b0ab741e-70f2-42d9-93f1-fd42961ac20c" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_1d678d14a8cd46a78206cf55330051b2 = function() {
+            var renderPlotly_b0ab741e70f242d993f1fd42961ac20c = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"bar","x":[115.02694302215,216.07462148944,331.10156451159,444.18562848816003,557.26969246473,628.3068062488801,699.3439200330301,846.4123339454602,1002.5134449685002],"y":[1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0],"marker":{},"name":"b ions"},{"type":"bar","x":[1020.52400965164,905.49706662949,804.4493881622,689.42244514005,576.33838116348,463.25431718691,392.21720340276,321.18008961861,174.11167570618],"y":[1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0],"marker":{},"name":"y ions"}];
             var layout = {};
             var config = {};
-            Plotly.newPlot('1d678d14-a8cd-46a7-8206-cf55330051b2', data, layout, config);
+            Plotly.newPlot('b0ab741e-70f2-42d9-93f1-fd42961ac20c', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_1d678d14a8cd46a78206cf55330051b2();
+                    renderPlotly_b0ab741e70f242d993f1fd42961ac20c();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_1d678d14a8cd46a78206cf55330051b2();
+                renderPlotly_b0ab741e70f242d993f1fd42961ac20c();
             }
 </script>
 
