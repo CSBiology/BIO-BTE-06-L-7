@@ -56,35 +56,40 @@ At the start we have the output file of the QconQuantifier. We want to read the 
 // Code block 1
 
 let directory = __SOURCE_DIRECTORY__
-let path = Path.Combine[|directory;"downloads/Group1/G1_1690WC1zu1_QuantifiedPeptides.txt"|]
-downloadFile path "G1_1690WC1zu1_QuantifiedPeptides.txt" "bio-bte-06-l-7/Group1"
+let path = Path.Combine[|directory;"downloads/Sample.tab"|]
+downloadFile path "Sample.tab" "bio-bte-06-l-7"
 
 let qConcatRawData =
     Frame.ReadCsv(path,separators="\t")
     // StringSequence is the peptide sequence
     |> Frame.indexRowsUsing (fun os -> 
+            os.GetAs<int>("ModSequenceID"),
+            os.GetAs<int>("PepSequenceID"),
             os.GetAs<string>("StringSequence"),
-            os.GetAs<bool>("GlobalMod"), 
+            os.GetAs<string>("Proteingroup"), 
             os.GetAs<int>("Charge")
         )
         
-qConcatRawData
+qConcatRawData.Print()
 
 (***include-fsi-merged-output***)
 
 (**
 From literature we know that there are peptides with a very bad flyability 
-(Hammel et al.). Additionally, there are extreme values only due to technical artifacts. Both should be avoided in further analysis:
+(Hammel et al.). Additionally, there are extreme values only due to technical artifacts. Both should be avoided in further analysis.
+We also only want to keep the peptides that also appear in a QProtein:
 *)
 
 // Code block 2
 
 let qConcatData =
     qConcatRawData
-    |> Frame.filterRows ( fun (sequence, gmod, charge) _ -> 
-        sequence <> "EVTLGFVDLMR" && sequence <> "AFPDAYVR" 
+    |> Frame.filterRows ( fun (modID, pepID, sequence, protGroup, charge) _ -> 
+        sequence <> "EVTLGFVDLMR" && sequence <> "AFPDAYVR" && (protGroup |> String.contains "Qprot_")
         )
-    |> Frame.mapValues (fun x ->  if x < 2000000. && x > 1. then x else nan)
+    |> Frame.mapValues (fun x ->  if x < 2000000. && x > 0. then x else nan)
+
+qConcatData.Print()
 
 (**
 Reading the sample description file provides us with a list of all measured files and additional information about the experiment (mixing ratio, strain, etc.) 
@@ -93,35 +98,34 @@ Reading the sample description file provides us with a list of all measured file
 // Code block 3
 
 //FileName Experiment Content ProteinAmount[ug] Replicate
+// This will be replaced by a ISA.NET function once it is implemented
+type experimentData = {
+    Filename: string
+    Dilution: float
+    Strain: string
+}
 
-let path2 = Path.Combine[|directory;"downloads/Group1/WC_SampleDesc.txt"|]
-downloadFile path2 "WC_SampleDesc.txt" "bio-bte-06-l-7/Group1"
+let createExperimentData filename dilution strain =
+    {
+        Filename = filename
+        Dilution = dilution
+        Strain = strain
+    }
+
+let sampleExperimentData = 
+    [|
+        createExperimentData "20170517 TM FScon3001" 1. "Test"
+        createExperimentData "20170517 TM FScon3003" 0.5 "Test"
+        createExperimentData "20170517 TM FScon3005" 0.25 "Test"
+    |]
+
+
 
 let sampleDesc = 
-    Frame.ReadCsv(path2 ,separators="\t",schema="Strain=string")
-    |> Frame.indexRowsString "RawFileName"
+    Frame.ofRecords sampleExperimentData
+    |> Frame.indexRowsString "Filename"
     
 sampleDesc.Print()
-
-(***include-fsi-merged-output***)
-
-(**
-We map the list of filenames and get the corresponding 14N and 15N column series. 
-This allows us to calculate the 14N/15N ratio per peptide ion per sample.
-*)
-
-// Code block 4
-
-let ionRatios = 
-    sampleDesc
-    |> Frame.mapRows (fun rawFileName _ -> 
-        let n14 = qConcatData.GetColumn<float>("N14Quant_" + rawFileName) 
-        let n15 = qConcatData.GetColumn<float>("N15Quant_" + rawFileName)
-        n14 / n15 
-        )
-    |> Frame.ofColumns
-    
-ionRatios.Print()
 
 (***include-fsi-merged-output***)
 
@@ -150,8 +154,10 @@ Next, we will aggregate the peptide ion ratios to obtain one ratio per peptide s
 // Code block 6
 
 let peptideRatios = 
-    ionRatios
-    |> Frame.applyLevel (fun (sequence,globalMod,charge) -> sequence) Stats.mean
+    qConcatData
+    |> Frame.applyLevel (fun (modID, pepID, sequence, protGroup, charge) -> sequence) Stats.mean
+    |> Frame.filterCols (fun ck os -> ck |> String.contains "Ratio")
+    |> Frame.mapColKeys (fun ck -> ck.Replace(".Ratio", ""))
     |> Frame.join JoinKind.Inner peptideProtMapping 
     |> Frame.groupRowsByString "Protein"
     |> Frame.getNumericCols
@@ -404,7 +410,7 @@ Here we display the chart of rbcl and rbcs for the strain 4A.
 
 // Code block 14
 
-chartRatios "rbcL" "RBCS2" "4A"
+chartRatios "rbcL" "RCA1" "Test"
 
 (***hide***)
 rbclChart |> GenericChart.toChartHTML
