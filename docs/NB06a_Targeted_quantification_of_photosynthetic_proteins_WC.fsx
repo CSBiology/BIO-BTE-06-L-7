@@ -176,22 +176,34 @@ peptideProtMapping.Print()
 (***include-fsi-merged-output***)
 
 (**
-Next, we will aggregate the peptide ion ratios to obtain one ratio per peptide sequence despite the ion charge. For convenience, we join the protein names.
+Next, we will aggregate the peptide value of choice (e.g. Ratio, Quant light, Quant heavy) to obtain one value per peptide sequence despite the ion charge. For convenience, we join the protein names.
 *)
 
 // Code block 6
 
-let peptideRatios = 
+type QuantificationValue =
+    | Ratio
+    | N14Quant
+    | N15Quant
+
+let quantificationValueToString (quantVal: QuantificationValue) =
+    match quantVal with
+    | Ratio    -> "Ratio"
+    | N14Quant -> "MeasuredApex_Light"
+    | N15Quant -> "MeasuredApex_Heavy"
+
+
+let aggregatePepValue (quantificationValue: QuantificationValue) = 
     qConcatData
     |> Frame.applyLevel (fun (modID, pepID, sequence, protGroup, charge) -> sequence) Stats.mean
-    |> Frame.filterCols (fun ck os -> ck |> String.contains "Ratio")
-    |> Frame.mapColKeys (fun ck -> ck.Replace(".Ratio", ""))
+    |> Frame.filterCols (fun ck os -> ck |> String.contains (quantificationValueToString quantificationValue))
+    |> Frame.mapColKeys (fun ck -> ck.Replace("." + (quantificationValueToString quantificationValue), ""))
     |> Frame.join JoinKind.Inner peptideProtMapping 
     |> Frame.groupRowsByString "Protein"
     |> Frame.getNumericCols
     |> Frame.ofColumns
     
-peptideRatios.Print()
+(aggregatePepValue QuantificationValue.Ratio).Print()
 
 (***include-fsi-merged-output***)
 
@@ -201,8 +213,8 @@ Now, we join the sample description with the data.
 
 // Code block 7
 
-let peptideRatiosWithDesc = 
-    peptideRatios
+let peptideValuesWithDesc (quantificationValue: QuantificationValue) = 
+    aggregatePepValue quantificationValue
     |> Frame.nest
     |> Series.map (fun k v -> 
         v
@@ -217,22 +229,22 @@ let peptideRatiosWithDesc =
         )
     |> Frame.unnest
     
-peptideRatiosWithDesc.Print()
+(peptideValuesWithDesc QuantificationValue.Ratio).Print()
 
 (***include-fsi-merged-output***)
 
 (**
-By calculating the mean value per protein, we have two final tables with peptide and protein ratios:
+By calculating the mean value per protein, we have two final tables with peptide and protein values:
 *)
 
 // Code block 8
 
-let proteinRatiosWithDesc =
+let proteinValuesWithDesc (quantificationValue: QuantificationValue) =
     //peptideRatiosWithDesc
-    peptideRatiosWithDesc
+    peptideValuesWithDesc quantificationValue
     |> Frame.applyLevel fst Stats.mean
     
-proteinRatiosWithDesc.Print()
+(proteinValuesWithDesc QuantificationValue.Ratio).Print()
 
 (***include-fsi-merged-output***)
 
@@ -255,6 +267,8 @@ It generates a chart for each strain showing the individual peptide ratios and t
 *)
 
 // Code block 10
+let peptideRatiosWithDesc = peptideValuesWithDesc QuantificationValue.Ratio
+let proteinRatiosWithDesc = proteinValuesWithDesc QuantificationValue.Ratio
 
 // create charts to compare rel quant per dilution in strains
 let createChartForPeptideComparison (protString:string) (strainStrings:string []) =
