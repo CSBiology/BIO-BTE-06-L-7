@@ -193,8 +193,8 @@ let quantificationValueToString (quantVal: QuantificationValue) =
     | N15Quant -> "MeasuredApex_Heavy"
 
 
-let aggregatePepValue (quantificationValue: QuantificationValue) = 
-    qConcatData
+let aggregatePepValue frame (quantificationValue: QuantificationValue) = 
+    frame
     |> Frame.applyLevel (fun (modID, pepID, sequence, protGroup, charge) -> sequence) Stats.mean
     |> Frame.filterCols (fun ck os -> ck |> String.contains (quantificationValueToString quantificationValue))
     |> Frame.mapColKeys (fun ck -> ck.Replace("." + (quantificationValueToString quantificationValue), ""))
@@ -203,7 +203,7 @@ let aggregatePepValue (quantificationValue: QuantificationValue) =
     |> Frame.getNumericCols
     |> Frame.ofColumns
     
-(aggregatePepValue QuantificationValue.Ratio).Print()
+(aggregatePepValue qConcatData QuantificationValue.Ratio).Print()
 
 (***include-fsi-merged-output***)
 
@@ -213,8 +213,8 @@ Now, we join the sample description with the data.
 
 // Code block 7
 
-let peptideValuesWithDesc (quantificationValue: QuantificationValue) = 
-    aggregatePepValue quantificationValue
+let peptideValuesWithDesc frame (quantificationValue: QuantificationValue) = 
+    aggregatePepValue frame quantificationValue
     |> Frame.nest
     |> Series.map (fun k v -> 
         v
@@ -229,7 +229,7 @@ let peptideValuesWithDesc (quantificationValue: QuantificationValue) =
         )
     |> Frame.unnest
     
-(peptideValuesWithDesc QuantificationValue.Ratio).Print()
+(peptideValuesWithDesc qConcatData QuantificationValue.Ratio).Print()
 
 (***include-fsi-merged-output***)
 
@@ -239,12 +239,12 @@ By calculating the mean value per protein, we have two final tables with peptide
 
 // Code block 8
 
-let proteinValuesWithDesc (quantificationValue: QuantificationValue) =
+let proteinValuesWithDesc frame (quantificationValue: QuantificationValue) =
     //peptideRatiosWithDesc
-    peptideValuesWithDesc quantificationValue
+    peptideValuesWithDesc frame quantificationValue
     |> Frame.applyLevel fst Stats.mean
     
-(proteinValuesWithDesc QuantificationValue.Ratio).Print()
+(proteinValuesWithDesc qConcatData QuantificationValue.Ratio).Print()
 
 (***include-fsi-merged-output***)
 
@@ -267,8 +267,8 @@ It generates a chart for each strain showing the individual peptide ratios and t
 *)
 
 // Code block 10
-let peptideRatiosWithDesc = peptideValuesWithDesc QuantificationValue.Ratio
-let proteinRatiosWithDesc = proteinValuesWithDesc QuantificationValue.Ratio
+let peptideRatiosWithDesc = peptideValuesWithDesc qConcatData QuantificationValue.Ratio
+let proteinRatiosWithDesc = proteinValuesWithDesc qConcatData QuantificationValue.Ratio
 
 // create charts to compare rel quant per dilution in strains
 let createChartForPeptideComparison (protString:string) (strainStrings:string []) =
@@ -455,6 +455,68 @@ Here we display the chart of rbcl and rbcs for the strain 4A.
 chartRatios "rbcL" "RCA1" "Test"
 
 (***hide***)
-rbclChart |> GenericChart.toChartHTML
+chartRatios "rbcL" "RCA1" "Test" |> GenericChart.toChartHTML
 (***include-it-raw***)
 
+(**
+## Abundance of 14N and 15N samples
+
+Here we will take a look at the 14N and 15N quantifications without calculating their ratios to see wether they are stable along the dilutions.
+We will do this once on the peptide and once on the protein level. For the 14N quantification values all measured intensities are taken. The calculation
+for the 15N quantification is done with the peptides from the QProteins only.
+*)
+
+
+let chartDilutionBoxplot (frame : Frame<'T,string*float>) (labeling: int) (proteins: bool) =
+    let protOrPep =
+        if proteins then "protein"
+        else "peptide"
+    frame.ColumnKeys
+    |> Seq.toArray
+    |> Array.groupBy fst 
+    |> Array.map (fun (strain,sd) -> 
+        sd
+        |> Array.sortBy snd
+        |> Array.map (fun (str,dil) ->         
+            frame.GetColumn<float>((str,dil))
+            |> Series.values
+            |> fun values -> Chart.BoxPlot(y = values, Name = string dil)
+        )
+        |> Chart.Combine
+        |> Chart.withX_Axis (yAxis false "Dilution Series" 20 16)
+        |> Chart.withY_Axis (xAxis false "Intensity" 20 16 )
+        |> Chart.withTitle (sprintf "%s - Whole cell extracts: <sup>%i</sup>N %s intensities over the dilution series" strain labeling protOrPep)
+        |> Chart.withConfig config
+        |> Chart.withSize (1200.,700.)
+    )
+
+
+let peptideN14QuantsWithDesc = peptideValuesWithDesc qConcatRawData QuantificationValue.N14Quant
+let proteinN14QuantsWithDesc = proteinValuesWithDesc qConcatRawData QuantificationValue.N14Quant
+
+chartDilutionBoxplot peptideN14QuantsWithDesc 14 false
+
+(***hide***)
+chartDilutionBoxplot peptideN14QuantsWithDesc 14 false |> Array.map GenericChart.toChartHTML
+(***include-it-raw***)
+
+chartDilutionBoxplot proteinN14QuantsWithDesc 14 true
+
+(***hide***)
+chartDilutionBoxplot proteinN14QuantsWithDesc 14 true |> Array.map GenericChart.toChartHTML
+(***include-it-raw***)
+
+let peptideN15QuantsWithDesc = peptideValuesWithDesc qConcatData QuantificationValue.N15Quant
+let proteinN15QuantsWithDesc = proteinValuesWithDesc qConcatData QuantificationValue.N15Quant
+
+chartDilutionBoxplot peptideN15QuantsWithDesc 15 false
+
+(***hide***)
+chartDilutionBoxplot peptideN15QuantsWithDesc 15 false |> Array.map GenericChart.toChartHTML
+(***include-it-raw***)
+
+chartDilutionBoxplot proteinN15QuantsWithDesc 15 true
+
+(***hide***)
+chartDilutionBoxplot proteinN15QuantsWithDesc 15 true |> Array.map GenericChart.toChartHTML
+(***include-it-raw***)
