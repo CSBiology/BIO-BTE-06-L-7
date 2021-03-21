@@ -30,23 +30,33 @@ It supports working with structured data frames, ordered and unordered data, as 
 #r "nuget: FSharp.Stats, 0.4.0"
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-#r "nuget: Plotly.NET, 2.0.0-beta6"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.2"
+//#r "nuget: Plotly.NET, 2.0.0-beta6"
+//#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.2"
 #r "nuget: Deedle, 2.3.0"
+#r "nuget: FSharp.Plotly"
+
+#r "nuget: DocumentFormat.OpenXml"
+#r "nuget: FSharpSpreadsheetML"
+#r "nuget: System.Text.Json"
+#r @"C:\Users\jonat\source\repos\ISADotNet\bin\ISADotNet\netstandard2.0\ISADotNet.dll"
+#r @"C:\Users\jonat\source\repos\ISADotNet\bin\ISADotNet.XLSX\netstandard2.0\ISADotNet.XLSX.dll"
+
+open ISADotNet
 
 #if IPYNB
 #r "nuget: Plotly.NET, 2.0.0-beta6"
 #r "nuget: Plotly.NET.Interactive, 2.0.0-beta6"
 #endif // IPYNB
 
+open FSharp.Plotly
 open Deedle
 open BioFSharp
 open FSharpAux
 open FSharp.Stats
-open Plotly.NET
+//open Plotly.NET
 open FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares.Linear
 open System.IO
-open BIO_BTE_06_L_7_Aux.FS3_Aux
+//open BIO_BTE_06_L_7_Aux.FS3_Aux
 
 (**
 At the start we have the output file of the QconQuantifier. We want to read the file, bind it to 
@@ -99,6 +109,23 @@ Reading the sample description file provides us with a list of all measured file
 
 //FileName Experiment Content ProteinAmount[ug] Replicate
 // This will be replaced by a ISA.NET function once it is implemented
+
+let assayFilePath = @"C:\Users\jonat\Downloads\AssayFile_Swate0.4.0ProtocolInsert.xlsx"
+
+let _,_,_,myAssayFile = ISADotNet.XLSX.AssayFile.AssayFile.fromFile assayFilePath
+
+let getOntologyName (ppv: ProcessParameterValue) =
+    match ppv.Value.Value with
+    | Ontology x -> x.Name
+
+let strain = 
+    API.Assay.getInputsWithParameterBy (fun p -> API.OntologyAnnotation.nameEqualsString "Peptidase" p.ParameterName.Value) myAssayFile
+    |> fun x ->
+        x
+        |> List.map (fun (pi,ppv) -> 
+            API.ProcessInput.getName pi, getOntologyName ppv
+        )
+
 type experimentData = {
     Filename: string
     Dilution: float
@@ -116,7 +143,8 @@ let sampleExperimentData =
     [|
         createExperimentData "20170517 TM FScon3001" 1. "Test"
         createExperimentData "20170517 TM FScon3003" 0.5 "Test"
-        createExperimentData "20170517 TM FScon3005" 0.25 "Test"
+        createExperimentData "20170517 TM FScon3005" 1. "Test2"
+        createExperimentData "20170517 TM FScon3007" 0.5 "Test2"
     |]
 
 
