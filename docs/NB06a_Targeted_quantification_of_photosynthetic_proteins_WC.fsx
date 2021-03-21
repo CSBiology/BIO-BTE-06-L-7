@@ -114,16 +114,12 @@ let assayFilePath = @"C:\Users\jonat\Downloads\AssayFile_Swate0.4.0ProtocolInser
 
 let _,_,_,myAssayFile = ISADotNet.XLSX.AssayFile.AssayFile.fromFile assayFilePath
 
-let getOntologyName (ppv: ProcessParameterValue) =
-    match ppv.Value.Value with
-    | Ontology x -> x.Name
-
 let strain = 
     API.Assay.getInputsWithParameterBy (fun p -> API.OntologyAnnotation.nameEqualsString "Peptidase" p.ParameterName.Value) myAssayFile
     |> fun x ->
         x
         |> List.map (fun (pi,ppv) -> 
-            API.ProcessInput.getName pi, getOntologyName ppv
+            (API.ProcessInput.getName pi).Value, API.ProcessParameterValue.getNameAsString ppv
         )
 
 type experimentData = {
@@ -467,13 +463,14 @@ for the 15N quantification is done with the peptides from the QProteins only.
 *)
 
 
-let chartDilutionBoxplot (frame : Frame<'T,string*float>) (labeling: int) (proteins: bool) =
+let chartDilutionBoxplot (frame : Frame<'T,string*float>) (strains: string[]) (labeling: int) (proteins: bool) =
     let protOrPep =
         if proteins then "protein"
         else "peptide"
     frame.ColumnKeys
     |> Seq.toArray
-    |> Array.groupBy fst 
+    |> Array.groupBy fst
+    |> Array.filter (fun (strain,_) -> strains |> Array.contains strain)
     |> Array.map (fun (strain,sd) -> 
         sd
         |> Array.sortBy snd
@@ -494,29 +491,29 @@ let chartDilutionBoxplot (frame : Frame<'T,string*float>) (labeling: int) (prote
 let peptideN14QuantsWithDesc = peptideValuesWithDesc qConcatRawData QuantificationValue.N14Quant
 let proteinN14QuantsWithDesc = proteinValuesWithDesc qConcatRawData QuantificationValue.N14Quant
 
-chartDilutionBoxplot peptideN14QuantsWithDesc 14 false
+chartDilutionBoxplot peptideN14QuantsWithDesc [|"Test"|] 14 false
 
 (***hide***)
-chartDilutionBoxplot peptideN14QuantsWithDesc 14 false |> Array.map GenericChart.toChartHTML
+chartDilutionBoxplot peptideN14QuantsWithDesc [|"Test"|] 14 false |> Array.map GenericChart.toChartHTML
 (***include-it-raw***)
 
-chartDilutionBoxplot proteinN14QuantsWithDesc 14 true
+chartDilutionBoxplot proteinN14QuantsWithDesc [|"Test"|] 14 true
 
 (***hide***)
-chartDilutionBoxplot proteinN14QuantsWithDesc 14 true |> Array.map GenericChart.toChartHTML
+chartDilutionBoxplot proteinN14QuantsWithDesc [|"Test"|] 14 true |> Array.map GenericChart.toChartHTML
 (***include-it-raw***)
 
 let peptideN15QuantsWithDesc = peptideValuesWithDesc qConcatData QuantificationValue.N15Quant
 let proteinN15QuantsWithDesc = proteinValuesWithDesc qConcatData QuantificationValue.N15Quant
 
-chartDilutionBoxplot peptideN15QuantsWithDesc 15 false
+chartDilutionBoxplot peptideN15QuantsWithDesc [|"Test"|] 15 false
 
 (***hide***)
-chartDilutionBoxplot peptideN15QuantsWithDesc 15 false |> Array.map GenericChart.toChartHTML
+chartDilutionBoxplot peptideN15QuantsWithDesc [|"Test"|] 15 false |> Array.map GenericChart.toChartHTML
 (***include-it-raw***)
 
-chartDilutionBoxplot proteinN15QuantsWithDesc 15 true
+chartDilutionBoxplot proteinN15QuantsWithDesc [|"Test"|] 15 true
 
 (***hide***)
-chartDilutionBoxplot proteinN15QuantsWithDesc 15 true |> Array.map GenericChart.toChartHTML
+chartDilutionBoxplot proteinN15QuantsWithDesc [|"Test"|] 15 true |> Array.map GenericChart.toChartHTML
 (***include-it-raw***)
