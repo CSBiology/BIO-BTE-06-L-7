@@ -3,6 +3,8 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB05a_Quantification.ipynb)
 
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB05a/NB05a_Quantification.ipynb)
+
 1. Quantification Theory
     1. Targeted quantification
     2. (i) Targeted acquisition at peptide
