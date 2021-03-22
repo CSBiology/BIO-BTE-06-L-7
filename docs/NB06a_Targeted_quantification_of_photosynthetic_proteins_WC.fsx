@@ -31,10 +31,10 @@ It supports working with structured data frames, ordered and unordered data, as 
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
 #r "nuget: Plotly.NET, 2.0.0-beta6"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.2"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.3"
 #r "nuget: Deedle, 2.3.0"
-#r "nuget: ISADotNet, 0.2.1"
-#r "nuget: ISADotNet.XLSX, 0.2.1"
+#r "nuget: ISADotNet, 0.2.2"
+#r "nuget: ISADotNet.XLSX, 0.2.2"
 
 #if IPYNB
 #r "nuget: Plotly.NET, 2.0.0-beta6"
@@ -42,6 +42,7 @@ It supports working with structured data frames, ordered and unordered data, as 
 #endif // IPYNB
 
 open ISADotNet
+open ISADotNet.API
 open Deedle
 open BioFSharp
 open FSharpAux
@@ -49,7 +50,7 @@ open FSharp.Stats
 open Plotly.NET
 open FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares.Linear
 open System.IO
-//open BIO_BTE_06_L_7_Aux.FS3_Aux
+open BIO_BTE_06_L_7_Aux.FS3_Aux
 
 (**
 At the start we have the output file of the QconQuantifier. We want to read the file, bind it to 
@@ -102,45 +103,46 @@ Reading the sample description file provides us with a list of all measured file
 
 //FileName Experiment Content ProteinAmount[ug] Replicate
 
-let path2 = Path.Combine[|directory;"downloads/Sample.tab"|]
-downloadFile path2 "AssayFile_Swate0.4.0ProtocolInsert.xlsx" "bio-bte-06-l-7"
+let path2 = Path.Combine[|directory;"downloads/alle_Gruppen_V2_SWATE.xlsx"|]
+downloadFile path2 "alle_Gruppen_V2_SWATE.xlsx" "bio-bte-06-l-7"
 
 let _,_,_,myAssayFile = XLSX.AssayFile.AssayFile.fromFile path2
 
-let peptidase = 
-    API.Assay.getInputsWithParameterBy (fun p -> API.OntologyAnnotation.nameEqualsString "Peptidase" p.ParameterName.Value) myAssayFile
-    |> fun x ->
-        x
-        |> List.map (fun (pi,ppv) -> 
-            (API.ProcessInput.getName pi).Value, API.ProcessParameterValue.getNameAsString ppv
+let inOutMap = BIO_BTE_06_L_7_Aux.ISA_Aux.createInOutMap myAssayFile
+
+let fileNames =
+    myAssayFile.ProcessSequence.Value
+    |> ProcessSequence.filterByProtocolName "Measurement"
+    |> List.collect (fun p -> 
+        p.Outputs.Value
+        |> List.map (fun po ->
+            ProcessOutput.getName po
+        )
+    )
+    |> List.choose id
+    |> List.filter (fun x -> x |> String.contains "WC")
+
+let characteristicsOfInterest = 
+    [
+        "Cultivation -Sample preparation","strain"
+        "Extraction","gram #2"
+    ]
+
+let sampleDesc =
+    characteristicsOfInterest
+    |> List.map (fun (prot,char) ->
+        char,
+        fileNames
+        |> List.map (fun fn ->
+            fn,       
+            BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap prot char fn myAssayFile    
+            |> Option.defaultValue ""
         )
 
-type experimentData = {
-    Filename: string
-    Dilution: float
-    Strain: string
-}
-
-let createExperimentData filename dilution strain =
-    {
-        Filename = filename
-        Dilution = dilution
-        Strain = strain
-    }
-
-let sampleExperimentData = 
-    [|
-        createExperimentData "20170517 TM FScon3001" 1. "Test"
-        createExperimentData "20170517 TM FScon3003" 0.5 "Test"
-        createExperimentData "20170517 TM FScon3005" 1. "Test2"
-        createExperimentData "20170517 TM FScon3007" 0.5 "Test2"
-    |]
-
-
-
-let sampleDesc = 
-    Frame.ofRecords sampleExperimentData
-    |> Frame.indexRowsString "Filename"
+        |> series
+    )
+    |> frame
+    |> Frame.mapRowKeys (fun r -> r |> String.replace ".wiff" "")
     
 sampleDesc.Print()
 
