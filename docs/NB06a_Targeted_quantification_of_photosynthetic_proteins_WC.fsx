@@ -30,30 +30,23 @@ It supports working with structured data frames, ordered and unordered data, as 
 #r "nuget: FSharp.Stats, 0.4.0"
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-//#r "nuget: Plotly.NET, 2.0.0-beta6"
-//#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.2"
+#r "nuget: Plotly.NET, 2.0.0-beta6"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.2"
 #r "nuget: Deedle, 2.3.0"
-#r "nuget: FSharp.Plotly"
-
-#r "nuget: DocumentFormat.OpenXml"
-#r "nuget: FSharpSpreadsheetML"
-#r "nuget: System.Text.Json"
-#r @"C:\Users\jonat\source\repos\ISADotNet\bin\ISADotNet\netstandard2.0\ISADotNet.dll"
-#r @"C:\Users\jonat\source\repos\ISADotNet\bin\ISADotNet.XLSX\netstandard2.0\ISADotNet.XLSX.dll"
-
-open ISADotNet
+#r "nuget: ISADotNet, 0.2.1"
+#r "nuget: ISADotNet.XLSX, 0.2.1"
 
 #if IPYNB
 #r "nuget: Plotly.NET, 2.0.0-beta6"
 #r "nuget: Plotly.NET.Interactive, 2.0.0-beta6"
 #endif // IPYNB
 
-open FSharp.Plotly
+open ISADotNet
 open Deedle
 open BioFSharp
 open FSharpAux
 open FSharp.Stats
-//open Plotly.NET
+open Plotly.NET
 open FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares.Linear
 open System.IO
 //open BIO_BTE_06_L_7_Aux.FS3_Aux
@@ -108,13 +101,13 @@ Reading the sample description file provides us with a list of all measured file
 // Code block 3
 
 //FileName Experiment Content ProteinAmount[ug] Replicate
-// This will be replaced by a ISA.NET function once it is implemented
 
-let assayFilePath = @"C:\Users\jonat\Downloads\AssayFile_Swate0.4.0ProtocolInsert.xlsx"
+let path2 = Path.Combine[|directory;"downloads/Sample.tab"|]
+downloadFile path2 "AssayFile_Swate0.4.0ProtocolInsert.xlsx" "bio-bte-06-l-7"
 
-let _,_,_,myAssayFile = ISADotNet.XLSX.AssayFile.AssayFile.fromFile assayFilePath
+let _,_,_,myAssayFile = XLSX.AssayFile.AssayFile.fromFile path2
 
-let strain = 
+let peptidase = 
     API.Assay.getInputsWithParameterBy (fun p -> API.OntologyAnnotation.nameEqualsString "Peptidase" p.ParameterName.Value) myAssayFile
     |> fun x ->
         x
@@ -458,8 +451,7 @@ chartRatios "rbcL" "RCA1" "Test" |> GenericChart.toChartHTML
 ## Abundance of 14N and 15N samples
 
 Here we will take a look at the 14N and 15N quantifications without calculating their ratios to see wether they are stable along the dilutions.
-We will do this once on the peptide and once on the protein level. For the 14N quantification values all measured intensities are taken. The calculation
-for the 15N quantification is done with the peptides from the QProteins only.
+We will do this once on the peptide and once on the protein level.
 *)
 
 
@@ -488,8 +480,8 @@ let chartDilutionBoxplot (frame : Frame<'T,string*float>) (strains: string[]) (l
     )
 
 
-let peptideN14QuantsWithDesc = peptideValuesWithDesc qConcatRawData QuantificationValue.N14Quant
-let proteinN14QuantsWithDesc = proteinValuesWithDesc qConcatRawData QuantificationValue.N14Quant
+let peptideN14QuantsWithDesc = peptideValuesWithDesc qConcatData QuantificationValue.N14Quant
+let proteinN14QuantsWithDesc = proteinValuesWithDesc qConcatData QuantificationValue.N14Quant
 
 chartDilutionBoxplot peptideN14QuantsWithDesc [|"Test"|] 14 false
 
