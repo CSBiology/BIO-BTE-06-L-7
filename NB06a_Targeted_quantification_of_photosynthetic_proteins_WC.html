@@ -239,10 +239,10 @@ It supports working with structured data frames, ordered and unordered data, as 
 <span class="pp">#r</span> <span class="s">&quot;nuget: BioFSharp, 2.0.0-beta5&quot;</span>
 <span class="pp">#r</span> <span class="s">&quot;nuget: BioFSharp.IO, 2.0.0-beta5&quot;</span>
 <span class="pp">#r</span> <span class="s">&quot;nuget: Plotly.NET, 2.0.0-beta6&quot;</span>
-<span class="pp">#r</span> <span class="s">&quot;nuget: BIO-BTE-06-L-7_Aux, 0.0.3&quot;</span>
+<span class="pp">#r</span> <span class="s">&quot;nuget: BIO-BTE-06-L-7_Aux, 0.0.5&quot;</span>
 <span class="pp">#r</span> <span class="s">&quot;nuget: Deedle, 2.3.0&quot;</span>
-<span class="pp">#r</span> <span class="s">&quot;nuget: ISADotNet, 0.2.2&quot;</span>
-<span class="pp">#r</span> <span class="s">&quot;nuget: ISADotNet.XLSX, 0.2.2&quot;</span>
+<span class="pp">#r</span> <span class="s">&quot;nuget: ISADotNet, 0.2.3&quot;</span>
+<span class="pp">#r</span> <span class="s">&quot;nuget: ISADotNet.XLSX, 0.2.3&quot;</span>
 
 <span class="pp">#if</span> <span class="id">IPYNB</span>
 <span class="inactive">#r</span><span class="inactive"> </span><span class="inactive">&quot;nuget:</span><span class="inactive"> </span><span class="inactive">Plotly.NET,</span><span class="inactive"> </span><span class="inactive">2.0.0-beta6&quot;</span>
@@ -313,8 +313,8 @@ We also only want to keep the peptides that also appear in a QProtein:</p>
 
 <span class="c">//FileName Experiment Content ProteinAmount[ug] Replicate</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs44', 75)" onmouseover="showTip(event, 'fs44', 75)" class="id">path2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs20', 76)" onmouseover="showTip(event, 'fs20', 76)" class="rt">Path</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs21', 77)" onmouseover="showTip(event, 'fs21', 77)" class="id">Combine</span><span class="pn">[|</span><span onmouseout="hideTip(event, 'fs18', 78)" onmouseover="showTip(event, 'fs18', 78)" class="id">directory</span><span class="pn">;</span><span class="s">&quot;downloads/alle_Gruppen_V2_SWATE.xlsx&quot;</span><span class="pn">|]</span>
-<span onmouseout="hideTip(event, 'fs22', 79)" onmouseover="showTip(event, 'fs22', 79)" class="fn">downloadFile</span> <span onmouseout="hideTip(event, 'fs44', 80)" onmouseover="showTip(event, 'fs44', 80)" class="id">path2</span> <span class="s">&quot;alle_Gruppen_V2_SWATE.xlsx&quot;</span> <span class="s">&quot;bio-bte-06-l-7&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs44', 75)" onmouseover="showTip(event, 'fs44', 75)" class="id">path2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs20', 76)" onmouseover="showTip(event, 'fs20', 76)" class="rt">Path</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs21', 77)" onmouseover="showTip(event, 'fs21', 77)" class="id">Combine</span><span class="pn">[|</span><span onmouseout="hideTip(event, 'fs18', 78)" onmouseover="showTip(event, 'fs18', 78)" class="id">directory</span><span class="pn">;</span><span class="s">&quot;downloads/alle_Gruppen_V3_SWATE.xlsx&quot;</span><span class="pn">|]</span>
+<span onmouseout="hideTip(event, 'fs22', 79)" onmouseover="showTip(event, 'fs22', 79)" class="fn">downloadFile</span> <span onmouseout="hideTip(event, 'fs44', 80)" onmouseover="showTip(event, 'fs44', 80)" class="id">path2</span> <span class="s">&quot;alle_Gruppen_V3_SWATE.xlsx&quot;</span> <span class="s">&quot;bio-bte-06-l-7&quot;</span>
 
 <span class="k">let</span> <span class="id">_</span><span class="pn">,</span><span class="id">_</span><span class="pn">,</span><span class="id">_</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs45', 81)" onmouseover="showTip(event, 'fs45', 81)" class="id">myAssayFile</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs46', 82)" onmouseover="showTip(event, 'fs46', 82)" class="id">XLSX</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs47', 83)" onmouseover="showTip(event, 'fs47', 83)" class="id">AssayFile</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs48', 84)" onmouseover="showTip(event, 'fs48', 84)" class="m">AssayFile</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs49', 85)" onmouseover="showTip(event, 'fs49', 85)" class="id">fromFile</span> <span onmouseout="hideTip(event, 'fs44', 86)" onmouseover="showTip(event, 'fs44', 86)" class="id">path2</span>
 
@@ -336,12 +336,16 @@ We also only want to keep the peptides that also appear in a QProtein:</p>
     <span class="pn">[</span>
         <span class="s">&quot;Cultivation -Sample preparation&quot;</span><span class="pn">,</span><span class="s">&quot;gene expression&quot;</span>
         <span class="s">&quot;Extraction&quot;</span><span class="pn">,</span><span class="s">&quot;gram #2&quot;</span>
+        <span class="s">&quot;Extraction&quot;</span><span class="pn">,</span><span class="s">&quot;gram&quot;</span>
         <span class="s">&quot;Cultivation -Sample preparation&quot;</span><span class="pn">,</span><span class="s">&quot;concentration #3&quot;</span>
+        <span class="s">&quot;Cultivation -Sample preparation&quot;</span><span class="pn">,</span><span class="s">&quot;concentration #2&quot;</span>
+        <span class="s">&quot;Cultivation -Sample preparation&quot;</span><span class="pn">,</span><span class="s">&quot;concentration #5&quot;</span>
     <span class="pn">]</span>
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs72', 120)" onmouseover="showTip(event, 'fs72', 120)" class="id">parametersOfInterest</span> <span class="o">=</span> 
     <span class="pn">[</span>
         <span class="s">&quot;Cultivation -Sample preparation&quot;</span><span class="pn">,</span><span class="s">&quot;concentration #4&quot;</span>
+        <span class="s">&quot;Cultivation -Sample preparation&quot;</span><span class="pn">,</span><span class="s">&quot;concentration&quot;</span>
     <span class="pn">]</span>
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs73', 121)" onmouseover="showTip(event, 'fs73', 121)" class="id">sampleDesc</span> <span class="o">=</span>
@@ -779,9 +783,9 @@ We will do this once on the peptide and once on the protein level.</p>
 <div class="fsdocs-tip" id="fs47">namespace ISADotNet.XLSX.AssayFile</div>
 <div class="fsdocs-tip" id="fs48">module AssayFile<br /><br />from ISADotNet.XLSX.AssayFile</div>
 <div class="fsdocs-tip" id="fs49">val fromFile : path:string -&gt; Factor list * Protocol list * Person list * Assay</div>
-<div class="fsdocs-tip" id="fs50">val inOutMap : Map&lt;string,(string * string) list&gt;</div>
+<div class="fsdocs-tip" id="fs50">val inOutMap : Map&lt;string,(string * string * string) list&gt;</div>
 <div class="fsdocs-tip" id="fs51">module ISA_Aux<br /><br />from BIO_BTE_06_L_7_Aux</div>
-<div class="fsdocs-tip" id="fs52">val createInOutMap : assay:Assay -&gt; Map&lt;string,(string * string) list&gt;</div>
+<div class="fsdocs-tip" id="fs52">val createInOutMap : assay:Assay -&gt; Map&lt;string,(string * string * string) list&gt;</div>
 <div class="fsdocs-tip" id="fs53">val fileNames : string list</div>
 <div class="fsdocs-tip" id="fs54">Assay.ProcessSequence: Process list option</div>
 <div class="fsdocs-tip" id="fs55">property Option.Value: Process list with get</div>
@@ -807,13 +811,13 @@ We will do this once on the peptide and once on the protein level.</p>
 <div class="fsdocs-tip" id="fs75">val prot : string</div>
 <div class="fsdocs-tip" id="fs76">Multiple items<br />val char : string<br /><br />--------------------<br />type char = System.Char</div>
 <div class="fsdocs-tip" id="fs77">val fn : string</div>
-<div class="fsdocs-tip" id="fs78">val tryGetCharacteristic : inOutMap:Map&lt;string,(string * string) list&gt; -&gt; protocolName:string -&gt; characteristicName:string -&gt; sampleName:string -&gt; assay:Assay -&gt; string option</div>
+<div class="fsdocs-tip" id="fs78">val tryGetCharacteristic : inOutMap:Map&lt;string,(string * string * string) list&gt; -&gt; protocolName:string -&gt; characteristicName:string -&gt; sampleName:string -&gt; assay:Assay -&gt; string option</div>
 <div class="fsdocs-tip" id="fs79">Multiple items<br />module Option<br /><br />from ISADotNet.API<br /><br />--------------------<br />module Option<br /><br />from Microsoft.FSharp.Core</div>
 <div class="fsdocs-tip" id="fs80">val defaultValue : value:&#39;T -&gt; option:&#39;T option -&gt; &#39;T</div>
 <div class="fsdocs-tip" id="fs81">val series : observations:seq&lt;&#39;a * &#39;b&gt; -&gt; Series&lt;&#39;a,&#39;b&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs82">val frame : columns:seq&lt;&#39;a * #ISeries&lt;&#39;c&gt;&gt; -&gt; Frame&lt;&#39;c,&#39;a&gt; (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs83">val param : Frame&lt;string,string&gt;</div>
-<div class="fsdocs-tip" id="fs84">val tryGetParameter : inOutMap:Map&lt;string,(string * string) list&gt; -&gt; protocolName:string -&gt; characteristicName:string -&gt; sampleName:string -&gt; assay:Assay -&gt; string option</div>
+<div class="fsdocs-tip" id="fs84">val tryGetParameter : inOutMap:Map&lt;string,(string * string * string) list&gt; -&gt; protocolName:string -&gt; characteristicName:string -&gt; sampleName:string -&gt; assay:Assay -&gt; string option</div>
 <div class="fsdocs-tip" id="fs85">val mergeAll : frames:seq&lt;Frame&lt;&#39;R,&#39;C&gt;&gt; -&gt; Frame&lt;&#39;R,&#39;C&gt; (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs86">val mapRowKeys : f:(&#39;R1 -&gt; &#39;R2) -&gt; frame:Frame&lt;&#39;R1,&#39;C&gt; -&gt; Frame&lt;&#39;R2,&#39;C&gt; (requires equality and equality and equality)</div>
 <div class="fsdocs-tip" id="fs87">val r : string</div>
