@@ -124,7 +124,7 @@ let fileNames =
 
 let characteristicsOfInterest = 
     [
-        "Cultivation -Sample preparation","strain"
+        "Cultivation -Sample preparation","gene expression"
         "Extraction","gram #2"
     ]
 
