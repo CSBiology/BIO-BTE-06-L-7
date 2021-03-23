@@ -32,7 +32,7 @@ open Deedle
 open FSharp.Stats
 
 (**
-As our dataset we take the FASTA with Chlamy proteins, select 10 random proteins, and digest them.
+As our dataset we take the FASTA with Chlamy proteins, select 50 random proteins, and digest them.
 The digested peptides are represented using a record type. Deedle frames can be directly constructed from
 record types with `Frame.ofRecords`. Alternatively, a character separated file could be used as source for a Frame as well.
 *)
@@ -40,40 +40,42 @@ record types with `Frame.ofRecords`. Alternatively, a character separated file c
 let path = Path.Combine[|__SOURCE_DIRECTORY__;"downloads/Chlamy_JGI5_5(Cp_Mp).fasta"|]
 downloadFile path "Chlamy_JGI5_5(Cp_Mp).fasta" "bio-bte-06-l-7"
 
-let samplePeptides () = 
+let examplePeptides = 
     path
     |> IO.FastA.fromFile BioArray.ofAminoAcidString
     |> Seq.toArray
-    |> shuffleFisherYates
-    |> Array.take 1
+    |> Array.take 50
     |> Array.mapi (fun i fastAItem ->
         Digestion.BioArray.digest Digestion.Table.Trypsin i fastAItem.Sequence
-        |> Digestion.BioArray.concernMissCleavages 0 0
+        |> Digestion.BioArray.concernMissCleavages 0 0 
+        |> Array.map (fun dp ->
+            {|
+                PeptideSequence = dp.PepSequence
+                Protein = fastAItem.Header.Split ' ' |> Array.head
+            |}
         )
+    )
     |> Array.concat
-    |> Array.distinctBy (fun x -> x.PepSequence)
-
-let peptides = samplePeptides()
+    |> Array.filter (fun x -> x.PeptideSequence.Length > 5)
 
 let peptidesFrame =
-    peptides
+    examplePeptides
     |> Frame.ofRecords
 
 peptidesFrame.Print()
 
 (**
 As you can see, our columns are named the same as the field of the record type, while our rows are indexed by numbers only. It is often helpful to use a more descriptive
-row key. In this case, we can use the peptide sequence for that. **Note** Row keys must be unique. In `peptides` we made sure every peptide occurs onyl once
-in our array, so we can take it as row key.
+row key. In this case, we can use the peptide sequence for that. **Note** Row keys must be unique. By grouping with "PeptidesSequence", we get the sequence tupled with the index as key. 
+The function `Frame.reduceLevel` aggregates the rows now based on the first part of the tuple, the peptide sequence, ignoring the second part of the tuple, the index. 
+The aggregator function given to `Frame.reduceLevel` aggregates each column separately.
 *)
 
-let pfIndexedSequenceList =
+let pfIndexedSequenceList : Frame<list<AminoAcids.AminoAcid>,string> =
     peptidesFrame
-    |> Frame.indexRowsUsing (fun os -> 
-        os.GetAs<list<AminoAcids.AminoAcid>>("PepSequence")
-    )
-    // Since our Frame is now indexed by "PepSequence", we don't need the column anymore and can drop it
-    |> Frame.dropCol "PepSequence"
+    |> Frame.groupRowsBy "PeptideSequence"
+    |> Frame.dropCol "PeptideSequence"
+    |> Frame.reduceLevel fst (fun a b -> a + "," + b)
 
 pfIndexedSequenceList.Print()
 
@@ -86,6 +88,8 @@ let pfIndexedStringSequence =
     pfIndexedSequenceList
     |> Frame.mapRowKeys (fun rc -> rc |> BioList.toString)
 
+pfIndexedStringSequence.Print()
+
 (**
 We now have a frame containing information about our peptides. To add additional information we can go back to the peptide array we started with and calculate 
 the monoisotopic mass, for example. The monoisotopic mass is tupled with the peptide sequence as string, the same as in our peptide frame. The resulting array
@@ -93,10 +97,11 @@ can then be transformed into a `series`
 *)
 
 let peptidesAndMasses =
-    peptides
+    examplePeptides
+    |> Array.distinctBy (fun x -> x.PeptideSequence)
     |> Array.map (fun peptide ->
         // calculate mass for each peptide
-        peptide.PepSequence |> BioList.toString, BioSeq.toMonoisotopicMassWith (BioItem.monoisoMass ModificationInfo.Table.H2O) peptide.PepSequence
+        peptide.PeptideSequence |> BioList.toString, BioSeq.toMonoisotopicMassWith (BioItem.monoisoMass ModificationInfo.Table.H2O) peptide.PeptideSequence
         )
 
 let peptidesAndMassesSeries =
@@ -104,7 +109,7 @@ let peptidesAndMassesSeries =
     |> series
 
 (**
-The columns in frames are called series. Since we now have a series containing our monoisotopic masses, together with the peptide sequence, we can simply add 
+The columns in frames consist of series. Since we now have a series containing our monoisotopic masses, together with the peptide sequence, we can simply add 
 it to our frame and give the column a name.
 *)
 
@@ -115,17 +120,25 @@ let pfAddedMass =
 pfAddedMass.Print()
 
 (**
-Similarily, we can take a column from our frame, apply a function to it, and add it under a new name.
+Alternatively, we can take a column from our frame, apply a function to it, and create a new frame from the series.
 *)
 
 let pfChargedMass =
     pfAddedMass
     |> Frame.getCol "Mass"
     |> Series.mapValues (fun mass -> Mass.toMZ mass 2.)
-    |> fun chargedMass ->
-        pfAddedMass
-        |> Frame.addCol "Mass Charge 2" chargedMass
+    |> fun s -> ["Mass Charge 2", s]
+    |> Frame.ofColumns
 
 pfChargedMass.Print()
 
+(**
+The new frame has the same row keys as our previous frame. The information from our new frame can be joined with our old frame by using `Frame.join`.
+`Frame.join` is similar to `Frame.addCol`, but can join whole frames at once instead of single columns.
+*)
 
+let joinedFrame =
+    pfAddedMass
+    |> Frame.join JoinKind.Left pfChargedMass
+
+joinedFrame.Print()
