@@ -142,7 +142,7 @@ let sampleDesc =
     let characteristics =
         characteristicsOfInterest
         |> List.map (fun (prot,char) ->
-            char,
+            prot+": "+char,
             fileNames
             |> List.map (fun fn ->
                 fn,       
@@ -155,7 +155,7 @@ let sampleDesc =
     let param =
         parametersOfInterest
         |> List.map (fun (prot,char) ->
-            char,
+            prot+": "+char,
             fileNames
             |> List.map (fun fn ->
                 fn,       
