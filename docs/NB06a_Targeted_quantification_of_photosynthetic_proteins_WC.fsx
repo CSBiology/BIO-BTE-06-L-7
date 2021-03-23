@@ -126,22 +126,42 @@ let characteristicsOfInterest =
     [
         "Cultivation -Sample preparation","gene expression"
         "Extraction","gram #2"
+        "Cultivation -Sample preparation","concentration #3"
+    ]
+
+let parametersOfInterest = 
+    [
+        "Cultivation -Sample preparation","concentration #4"
     ]
 
 let sampleDesc =
-    characteristicsOfInterest
-    |> List.map (fun (prot,char) ->
-        char,
-        fileNames
-        |> List.map (fun fn ->
-            fn,       
-            BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap prot char fn myAssayFile    
-            |> Option.defaultValue ""
+    let characteristics =
+        characteristicsOfInterest
+        |> List.map (fun (prot,char) ->
+            char,
+            fileNames
+            |> List.map (fun fn ->
+                fn,       
+                BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap prot char fn myAssayFile    
+                |> Option.defaultValue ""
+            )
+            |> series
         )
-
-        |> series
-    )
-    |> frame
+        |> frame
+    let param =
+        parametersOfInterest
+        |> List.map (fun (prot,char) ->
+            char,
+            fileNames
+            |> List.map (fun fn ->
+                fn,       
+                BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap prot char fn myAssayFile    
+                |> Option.defaultValue ""
+            )
+            |> series
+        )
+        |> frame
+    Frame.mergeAll [characteristics; param]
     |> Frame.mapRowKeys (fun r -> r |> String.replace ".wiff" "")
     
 sampleDesc.Print()
