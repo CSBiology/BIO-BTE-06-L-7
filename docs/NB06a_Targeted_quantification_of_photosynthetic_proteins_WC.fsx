@@ -31,10 +31,10 @@ It supports working with structured data frames, ordered and unordered data, as 
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
 #r "nuget: Plotly.NET, 2.0.0-beta6"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.3"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.5"
 #r "nuget: Deedle, 2.3.0"
-#r "nuget: ISADotNet, 0.2.2"
-#r "nuget: ISADotNet.XLSX, 0.2.2"
+#r "nuget: ISADotNet, 0.2.3"
+#r "nuget: ISADotNet.XLSX, 0.2.3"
 
 #if IPYNB
 #r "nuget: Plotly.NET, 2.0.0-beta6"
@@ -103,8 +103,8 @@ Reading the sample description file provides us with a list of all measured file
 
 //FileName Experiment Content ProteinAmount[ug] Replicate
 
-let path2 = Path.Combine[|directory;"downloads/alle_Gruppen_V2_SWATE.xlsx"|]
-downloadFile path2 "alle_Gruppen_V2_SWATE.xlsx" "bio-bte-06-l-7"
+let path2 = Path.Combine[|directory;"downloads/alle_Gruppen_V3_SWATE.xlsx"|]
+downloadFile path2 "alle_Gruppen_V3_SWATE.xlsx" "bio-bte-06-l-7"
 
 let _,_,_,myAssayFile = XLSX.AssayFile.AssayFile.fromFile path2
 
@@ -126,12 +126,16 @@ let characteristicsOfInterest =
     [
         "Cultivation -Sample preparation","gene expression"
         "Extraction","gram #2"
+        "Extraction","gram"
         "Cultivation -Sample preparation","concentration #3"
+        "Cultivation -Sample preparation","concentration #2"
+        "Cultivation -Sample preparation","concentration #5"
     ]
 
 let parametersOfInterest = 
     [
         "Cultivation -Sample preparation","concentration #4"
+        "Cultivation -Sample preparation","concentration"
     ]
 
 let sampleDesc =
