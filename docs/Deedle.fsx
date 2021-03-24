@@ -1,6 +1,6 @@
 
 (**
-## Deedle Basics
+# Deedle Basics
 
 [Deedle](http://bluemountaincapital.github.io/Deedle/index.html)  is an easy to use library for data and time series manipulation and for scientific 
 programming. It supports working with structured data frames, ordered and unordered data, as well as time series.
@@ -31,6 +31,36 @@ open BIO_BTE_06_L_7_Aux.Deedle_Aux
 open System.IO
 open Deedle
 open FSharp.Stats
+
+(**
+## Deedle Basics
+Familiarize yourself with Deedle! Below you will find the source code that was used in the lecture. Create a series yourself that you add to the frame 
+'persons' frame.
+*)
+let firstNames      = Series.ofValues ["Kevin";"Lukas";"Benedikt";"Michael"] 
+let coffeesPerWeek  = Series.ofValues [15;12;10;11] 
+let lastNames       = Series.ofValues ["Schneider";"Weil";"Venn";"Schroda"]  
+let group           = Series.ofValues ["CSB";"CSB";"CSB";"MBS"] 
+let persons = 
+    Frame.ofColumns(List.zip ["fN";"lN";"g"] [firstNames;lastNames;group])
+    |> Frame.addCol "cpw" coffeesPerWeek
+
+#if IPYNB
+persons
+|> formatAsTable 
+#endif // IPYNB
+
+(**
+Follow the above scheme and create another frame that is exactly the same, but represents different persons (the frame can be small, e.g. two persons).
+Use the function Frame.merge to combine your frame and 'persons'.
+Back to the frame 'persons'! In the following you see a series of frame/series manipulations. Write 
+comments explaining each step
+*)
+let coffeePerWeek' :Series<int,int> = Frame.getCol ("cpw") persons 
+let groupedByG :Frame<string*int,_> = persons |> Frame.groupRowsBy "g"
+let withOutG :Frame<string*int,_> = groupedByG |> Frame.sliceCols ["fN";"lN";"cpw"]
+let coffeePerWeek'' :Series<string*int,int>= groupedByG |> Frame.getCol ("cpw")
+let coffeePerWeekPerGroup = Series.applyLevel Pair.get1Of2 (Series.values >> Seq.sum) coffeePerWeek''
 
 (**
 As our dataset we take the FASTA with Chlamy proteins, select 50 random proteins, and digest them.
