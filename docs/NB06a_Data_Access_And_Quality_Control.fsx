@@ -118,8 +118,21 @@ let formatAsTable (frame:Frame<'a,'b>) =
 // 1. formatAsTable in repo
 // 2. sample sheet umbenennen.
 
-// I. Reading the sample description
-// Before we analyze our data, we will download and read the sample description provided by the experimentalist
+(**
+# NB06a Data Access and Quality Control
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06a_Data_Access_And_Quality_Control.ipynb)
+
+
+For the explorative data analysis, we are using 
+[Deedle](http://bluemountaincapital.github.io/Deedle/tutorial.html).
+Deedle is an easy to use library for data and time series manipulation and for scientific programming. 
+It supports working with structured data frames, ordered and unordered data, as well as time series. Deedle is designed to work well for exploratory programming using F#.
+
+## Reading the sample description
+
+Before we analyze our data, we will download and read the sample description provided by the experimentalist.
+*)
 let directory = __SOURCE_DIRECTORY__
 let path2 = Path.Combine[|directory;"downloads/alle_Gruppen_V7_SWATE.xlsx"|]
 downloadFile path2 "alle_Gruppen_V7_SWATE.xlsx" "bio-bte-06-l-7"
@@ -127,7 +140,10 @@ downloadFile path2 "alle_Gruppen_V7_SWATE.xlsx" "bio-bte-06-l-7"
 let _,_,_,myAssayFile = XLSX.AssayFile.AssayFile.fromFile path2
 let inOutMap = BIO_BTE_06_L_7_Aux.ISA_Aux.createInOutMap myAssayFile
 
-// Next, we will prepare functions that given a file name look up parameters which might be needed for further calculations. 
+(**
+Next, we will prepare functions that given a file name look up parameters which might be needed for further calculations. 
+*)
+
 let normalizeFileName (f:string) = if Path.HasExtension f then f else Path.ChangeExtension(f, "wiff")
 
 //        
@@ -162,34 +178,47 @@ let getGroupID (fileName:string) =
     BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Extraction" "Group name" fN myAssayFile |> Option.defaultValue ""
     |> int    
 
-// A quick exection to assure that all values can be retrieved from the isa sample table:
+(**
+A quick execution to assure that all values can be retrieved from the isa sample table:
+*)
 getStrain "WCGr2_U1.wiff"
 getExpressionLevel "WCGr2_U1.wiff"
 get15N_CBC_Amount "WCGr2_U1.wiff"
 get15N_PS_Amount "WCGr2_U1.wiff"
 getGroupID "WCGr2_U1.wiff"
 
-// Now that we have the sample sheet, all that is missing is the data to be analyzed:
+(**
+Now that we have the sample sheet, all that is missing is the data to be analyzed:
+*)
+
 let path = Path.Combine[|directory;"downloads/Quantifications_wc.txt"|]
 downloadFile path "Quantifications_wc.txt" "bio-bte-06-l-7"
 
-// II. Raw data access using Deedle:
-// As teasered in the primer, we want to work with our tabular data using Deedle. Luckily Deedle does nonly deliver data frame and series
-// manipulation, but also allows us to quickly read the recently downloaded data into the memory:
+(**
+## Raw data access using Deedle:
+As teasered in the primer, we want to work with our tabular data using Deedle. Luckily Deedle does nonly deliver data frame and series
+manipulation, but also allows us to quickly read the recently downloaded data into the memory:
+*)
+
 let rawData = Frame.ReadCsv(path,separators="\t")
 
-// To visualize the data we can call the "formatAsTable" function. The preview of visual studio code does not allow
-// for the charts to be scrollable so feel free to pipe the output into "Chart.Show", to visualize the data in your browser.
+(**
+To visualize the data we can call the "formatAsTable" function. The preview of visual studio code does not allow
+for the charts to be scrollable so feel free to pipe the output into "Chart.Show", to visualize the data in your browser.
+*)
+
 rawData
 |> Frame.take 10
 |> formatAsTable 
 |> Chart.Show
 
-// Looking at the raw data, we can see that each row contains a different quantifiction of a peptide ion, with the columns containing 
-// a single ion feature each, such as peptide ion charge, sequence or a quantification value reported for a file (e.g. light, heavy or ratio).
-// Since the columns ProteinGroup, StringSequence, PepSequenceID and Charge uniquely identify a row, we can use these to index the rows.
-// For this we use a language feature called "anonymous record type". Here we create a tuple like structure, with the additional feature
-// that each element of the tuple is named (e.g.: Proteingroup).
+(**
+Looking at the raw data, we can see that each row contains a different quantifiction of a peptide ion, with the columns containing 
+a single ion feature each, such as peptide ion charge, sequence or a quantification value reported for a file (e.g. light, heavy or ratio).
+Since the columns ProteinGroup, StringSequence, PepSequenceID and Charge uniquely identify a row, we can use these to index the rows.
+For this we use a language feature called ["anonymous record type"](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/anonymous-records). Here we create a tuple like structure, with the additional feature
+that each element of the tuple is named (e.g.: Proteingroup).
+*)
 let indexedData =
     rawData
     // StringSequence is the peptide sequence
@@ -205,7 +234,6 @@ let indexedData =
     |> Frame.dropCol "StringSequence"
     |> Frame.dropCol "PepSequenceID"
     |> Frame.dropCol "Charge"
-    // What does this line filter for? Why does this make sense for our analysis?
 
 // The effect of our frame manipulation can be observed:
 indexedData
@@ -213,9 +241,12 @@ indexedData
 |> formatAsTable 
 |> Chart.Show
 
-// III. Augmenting and filtering the data frame 
-// The data frame already contains all information needed to perform the analysis, but it could still benefit from 
-// some quality-of-life upgrades. For this we want to map the Cre-numbers to human readable synonyms.
+(**
+## Augmenting and filtering the data frame 
+The data frame already contains all information needed to perform the analysis, but it could still benefit from 
+some quality-of-life upgrades. For this we want to map the Cre-numbers to human readable synonyms.
+*)
+
 let pathSyn = Path.Combine[|directory;"downloads/CreToSynonym.txt"|]
 downloadFile pathSyn "CreToSynonym.txt" "bio-bte-06-l-7"
 
@@ -249,9 +280,12 @@ withSynonyms
 
 type Qprot = 
     | CBB
-    | PS 
+    | PS
 
-// Subsequently and finally, we will also encode the specific qConcat protein as a separate feature:
+(**
+Subsequently and finally, we will also encode the specific qConcat protein as a separate feature:
+*)
+
 let final = 
     withSynonyms
     |> Frame.mapRowKeys (fun k ->
@@ -271,14 +305,16 @@ final
 |> formatAsTable 
 |> Chart.Show
 // How many peptide ions did the filter remove? 
+(**
+## Global quality control.
 
-// IV. Global quality control. 
-// With our data frame prepared, we want to see on a global scale if our experiment worked.
-// For this we plot the overall mean of the N14 and N15 quantifications and observe if we can recover our dilution series (n15),
-// while keeping the analyte to be quantified at a constant level (n14).
+With our data frame prepared, we want to see on a global scale if our experiment worked.
+For this we plot the overall mean of the 14N and 15N quantifications and observe if we can recover our dilution series (15N),
+while keeping the analyte to be quantified at a constant level (14N).
 
-/// For it come in handy to simplify the data frame, in this code we will only keep columns that contain a specific identifier,
-/// such as, "Ratio", "Light", or "Heavy".
+Since it comes in handy to simplify the data frame, in this code we will only keep columns that contain a specific identifier, 
+such as, "Ratio", "Light", or "Heavy".
+*)
 let sliceQuantColumns quantColID frame = 
     frame
     |> Frame.filterCols (fun ck os -> ck |> String.contains ("."+quantColID))
@@ -294,7 +330,7 @@ ratios
 |> formatAsTable 
 |> Chart.Show
 
-/// The following function will plot the distribution of column valuesusing boxplots. 
+/// This function will plot the distribution of column valuesusing boxplots. 
 let createBoxPlot f = 
     f
     |> Frame.getNumericCols
@@ -312,16 +348,17 @@ let createBoxPlot f =
     |> Chart.Show
 
 // The function applied to the n14 values, what do you see?
-light 
-|> createBoxPlot 
+light
+|> createBoxPlot
 
 // The function applied to the n15 values, what do you see?
 heavy
-|> createBoxPlot 
-
-// The following function performs a normalization which accounts for a specific effect. Can you 
-// determine what the function accounts for? 
-let normalizePeptides f = 
+|> createBoxPlot
+(**
+The following function performs a normalization which accounts for a specific effect. Can you 
+determine what the function accounts for?
+*)
+let normalizePeptides f =
     f
     |> Frame.transpose
     |> Frame.getNumericCols
@@ -340,8 +377,11 @@ light
 heavy
 |> normalizePeptides
 |> createBoxPlot 
-                 
-// Finally we have a look at the ratios, does it make sense to normalize the ratios the same way?
+
+(**
+Finally we have a look at the ratios. Does it make sense to normalize the ratios the same way?
+*)
+
 ratios
 |> createBoxPlot 
 
@@ -357,12 +397,16 @@ ratios
 |> formatAsTable 
 |> Chart.Show
 
-// V. Local quality control. 
-/// Now that we know on a global scale how our experiment worked it might be time to have a look at the details.
-/// First, we want to write a function that allows us to plot all peptides of a protein vs. the dilution used. This way we can identify peptides that
-/// we want to use and those, that seem to be prone to error and should thus be discarded. 
-/// To keep things simple, we apply a filter step at the beginning, which only keeps peptides belonging to one protein and samples measured by one group
-/// in the data frame. What are sources of error? Which peptides do you think should be discarded and why? Which proteins need to be analyzed with extra care?
+(**
+## V. Local quality control. 
+
+Now that we know on a global scale how our experiment worked it might be time to have a look at the details.
+First, we want to write a function that allows us to plot all peptides of a protein vs. the dilution used. This way we can identify peptides that
+we want to use and those, that seem to be prone to error and should thus be discarded. 
+To keep things simple, we apply a filter step at the beginning, which only keeps peptides belonging to one protein and samples measured by one group
+in the data frame. What are sources of error? Which peptides do you think should be discarded and why? Which proteins need to be analyzed with extra care?
+*)
+
 let initGetQProtAmount qProt =
     match qProt with 
     | CBB -> get15N_CBC_Amount
@@ -391,7 +435,10 @@ let plotPeptidesOf (prot:string) (groupID:int) =
     |> Series.values
     |> Chart.Combine
 
-//First we get an overview of available protein ids.
+(**
+First we get an overview of available protein ids.
+*)
+
 ratios.RowKeys
 |> Array.ofSeq 
 |> Array.map (fun k -> k.Synonyms)
@@ -414,11 +461,15 @@ plotPeptidesOf "FBP2" 2
 plotPeptidesOf "SEBP1" 2
 |> Chart.Show
 
-// With the plots at hand we can manipulate the data frame and discard peptides and/or whole files which we do not want to use for 
-// a absolute protein quantification e.g.:
+(**
+With the plots at hand we can manipulate the data frame and discard peptides and/or whole files which we do not want to use for 
+a absolute protein quantification e.g.:
+*)
 
 let ratiosFiltered = 
     ratios
     |> Frame.filterCols (fun k s -> get15N_CBC_Amount k > 0.1 )
 
-// This file can then be saved and used for the next notebook, where we will have a look on the isotopic labeling efficiency and finally calculate absolute protein amounts.
+(**
+This file can then be saved and used for the next notebook, where we will have a look on the isotopic labeling efficiency and finally calculate absolute protein amounts.
+*)
