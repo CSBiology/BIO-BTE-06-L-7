@@ -1,6 +1,10 @@
 
 (**
-# Deedle Basics
+# NB06a Working with Deedle
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06a_Working_With_Deedle.ipynb)
+
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06a/NB06a_Working_With_Deedle.ipynb)
 
 [Deedle](http://bluemountaincapital.github.io/Deedle/index.html)  is an easy to use library for data and time series manipulation and for scientific 
 programming. It supports working with structured data frames, ordered and unordered data, as well as time series.
@@ -15,7 +19,7 @@ We start by loading our usual nuget packages and the Deedle package.
 #r "nuget: BioFSharp, 2.0.0-beta4"
 #r "nuget: BioFSharp.IO, 2.0.0-beta4"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.5"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.6"
 #r "nuget: FSharp.Stats"
 
 #if IPYNB
@@ -43,7 +47,7 @@ let group           = Series.ofValues ["CSB";"CSB";"CSB";"MBS"]
 let persons = 
     Frame.ofColumns(List.zip ["fN";"lN";"g"] [firstNames;lastNames;group])
     |> Frame.addCol "cpw" coffeesPerWeek
-
+(***condition:ipynb***)
 #if IPYNB
 persons
 |> formatAsTable 
