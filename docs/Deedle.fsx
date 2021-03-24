@@ -15,7 +15,7 @@ We start by loading our usual nuget packages and the Deedle package.
 #r "nuget: BioFSharp, 2.0.0-beta4"
 #r "nuget: BioFSharp.IO, 2.0.0-beta4"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.5"
 #r "nuget: FSharp.Stats"
 
 #if IPYNB
@@ -27,6 +27,7 @@ open Plotly.NET
 open BioFSharp
 open BioFSharp.Mz
 open BIO_BTE_06_L_7_Aux.FS3_Aux
+open BIO_BTE_06_L_7_Aux.Deedle_Aux
 open System.IO
 open Deedle
 open FSharp.Stats
@@ -62,7 +63,15 @@ let peptidesFrame =
     examplePeptides
     |> Frame.ofRecords
 
-peptidesFrame.Print()
+(***condition:ipynb***)
+#if IPYNB
+peptidesFrame
+|> Frame.take 10
+|> formatAsTable 
+#endif // IPYNB
+(***hide***)
+peptidesFrame |> Frame.take 10 |> fun x -> x.Print()
+(***include-fsi-merged-output***)
 
 (**
 As you can see, our columns are named the same as the field of the record type, while our rows are indexed by numbers only. It is often helpful to use a more descriptive
@@ -77,8 +86,15 @@ let pfIndexedSequenceList : Frame<list<AminoAcids.AminoAcid>,string> =
     |> Frame.dropCol "PeptideSequence"
     |> Frame.reduceLevel fst (fun a b -> a + "," + b)
 
-pfIndexedSequenceList.Print()
-
+(***condition:ipynb***)
+#if IPYNB
+pfIndexedSequenceList
+|> Frame.take 10
+|> formatAsTable 
+#endif // IPYNB
+(***hide***)
+pfIndexedSequenceList |> Frame.take 10 |> fun x -> x.Print()
+(***include-fsi-merged-output***)
 (**
 Our rows are now indexed with the peptide sequences. The peptide sequence is still an aarray of amino acids. For better visibility we can transform it to its string representation. 
 For that we can map over our row keys similar to an array and call the function `BioList.toString` on each row key.
@@ -88,8 +104,15 @@ let pfIndexedStringSequence =
     pfIndexedSequenceList
     |> Frame.mapRowKeys (fun rc -> rc |> BioList.toString)
 
-pfIndexedStringSequence.Print()
-
+(***condition:ipynb***)
+#if IPYNB
+pfIndexedStringSequence
+|> Frame.take 10
+|> formatAsTable 
+#endif // IPYNB
+(***hide***)
+pfIndexedStringSequence |> Frame.take 10 |> fun x -> x.Print()
+(***include-fsi-merged-output***)
 (**
 We now have a frame containing information about our peptides. To add additional information we can go back to the peptide array we started with and calculate 
 the monoisotopic mass, for example. The monoisotopic mass is tupled with the peptide sequence as string, the same as in our peptide frame. The resulting array
@@ -117,8 +140,15 @@ let pfAddedMass =
     pfIndexedStringSequence
     |> Frame.addCol "Mass" peptidesAndMassesSeries
 
-pfAddedMass.Print()
-
+(***condition:ipynb***)
+#if IPYNB
+pfAddedMass
+|> Frame.take 10
+|> formatAsTable 
+#endif // IPYNB
+(***hide***)
+pfAddedMass |> Frame.take 10 |> fun x -> x.Print()
+(***include-fsi-merged-output***)
 (**
 Alternatively, we can take a column from our frame, apply a function to it, and create a new frame from the series.
 *)
@@ -130,8 +160,15 @@ let pfChargedMass =
     |> fun s -> ["Mass Charge 2", s]
     |> Frame.ofColumns
 
-pfChargedMass.Print()
-
+(***condition:ipynb***)
+#if IPYNB
+pfChargedMass
+|> Frame.take 10
+|> formatAsTable 
+#endif // IPYNB
+(***hide***)
+pfChargedMass |> Frame.take 10 |> fun x -> x.Print()
+(***include-fsi-merged-output***)
 (**
 The new frame has the same row keys as our previous frame. The information from our new frame can be joined with our old frame by using `Frame.join`.
 `Frame.join` is similar to `Frame.addCol`, but can join whole frames at once instead of single columns.
@@ -141,4 +178,12 @@ let joinedFrame =
     pfAddedMass
     |> Frame.join JoinKind.Left pfChargedMass
 
-joinedFrame.Print()
+(***condition:ipynb***)
+#if IPYNB
+joinedFrame
+|> Frame.take 10
+|> formatAsTable 
+#endif // IPYNB
+(***hide***)
+joinedFrame |> Frame.take 10 |> fun x -> x.Print()
+(***include-fsi-merged-output***)
