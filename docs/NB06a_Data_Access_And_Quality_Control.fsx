@@ -215,7 +215,9 @@ rawData
 |> formatAsTable 
 |> Chart.Show
 #endif // IPYNB
-
+(***hide***)
+rawData |> Frame.take 10 |> fun x -> x.Print()
+(***include-fsi-merged-output***)
 (**
 Looking at the raw data, we can see that each row contains a different quantifiction of a peptide ion, with the columns containing 
 a single ion feature each, such as peptide ion charge, sequence or a quantification value reported for a file (e.g. light, heavy or ratio).
@@ -247,6 +249,9 @@ indexedData
 |> formatAsTable 
 |> Chart.Show
 #endif // IPYNB
+(***hide***)
+indexedData |> Frame.take 10 |> fun x -> x.Print()
+(***include-fsi-merged-output***)
 (**
 ## Augmenting and filtering the data frame 
 The data frame already contains all information needed to perform the analysis, but it could still benefit from 
@@ -286,7 +291,9 @@ withSynonyms
 |> formatAsTable 
 |> Chart.Show
 #endif // IPYNB
-
+(***hide***)
+withSynonyms |> Frame.take 10 |> fun x -> x.Print()
+(***include-fsi-merged-output***)
 type Qprot = 
     | CBB
     | PS
@@ -316,7 +323,9 @@ final
 |> formatAsTable 
 |> Chart.Show
 #endif // IPYNB
-
+(***hide***)
+final |> Frame.take 10 |> fun x -> x.Print()
+(***include-fsi-merged-output***)
 // How many peptide ions did the filter remove? 
 (**
 ## Global quality control.
@@ -345,6 +354,9 @@ ratios
 |> formatAsTable 
 |> Chart.Show
 #endif // IPYNB
+(***hide***)
+ratios |> Frame.take 10 |> fun x -> x.Print()
+(***include-fsi-merged-output***)
 
 /// This function will plot the distribution of column valuesusing boxplots. 
 let createBoxPlot f = 
@@ -428,6 +440,9 @@ ratios
 |> formatAsTable 
 |> Chart.Show
 #endif // IPYNB
+(***hide***)
+ratios |> Frame.take 10 |> fun x -> x.Print()
+(***include-fsi-merged-output***)
 (***condition:ipynb***)
 #if IPYNB
 ratios
@@ -436,6 +451,9 @@ ratios
 |> formatAsTable 
 |> Chart.Show
 #endif // IPYNB
+(***hide***)
+ratios |> Frame.transpose |> Frame.take 10 |> fun x -> x.Print()
+(***include-fsi-merged-output***)
 (**
 ## V. Local quality control. 
 
@@ -530,7 +548,9 @@ ratiosFiltered
 |> formatAsTable 
 |> Chart.Show
 #endif // IPYNB
-
+(***hide***)
+ratiosFiltered |> Frame.take 10 |> fun x -> x.Print()
+(***include-fsi-merged-output***)
 (**
 This file can then be saved and used for the next notebook, where we will have a look on the isotopic labeling efficiency and finally calculate absolute protein amounts.
 *)
