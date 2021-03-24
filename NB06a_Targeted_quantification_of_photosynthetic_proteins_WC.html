@@ -492,7 +492,15 @@ val it : unit = ()</code></pre></td></tr></table>
     
 <span class="fn">(</span><span onmouseout="hideTip(event, 'fs118', 298)" onmouseover="showTip(event, 'fs118', 298)" class="fn">peptideValuesWithDesc</span> <span onmouseout="hideTip(event, 'fs32', 299)" onmouseover="showTip(event, 'fs32', 299)" class="id">qConcatData</span> <span onmouseout="hideTip(event, 'fs92', 300)" onmouseover="showTip(event, 'fs92', 300)" class="rt">QuantificationValue</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs93', 301)" onmouseover="showTip(event, 'fs93', 301)" class="id">Ratio</span><span class="pn">)</span><span class="pn">.</span><span class="id">Print</span><span class="pn">(</span><span class="pn">)</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code></code></pre></td></tr></table>
+<table class="pre"><tr><td><pre><code>rbcL DTDILAAFR  -&gt; 
+RCA1 SLVDEQENVK -&gt; 
+
+val peptideValuesWithDesc :
+  frame:Frame&lt;('a * 'b * string * 'c * 'd),string&gt; -&gt;
+    quantificationValue:QuantificationValue -&gt;
+      Frame&lt;(string * string),(string * float)&gt;
+    when 'a : equality and 'b : equality and 'c : equality and 'd : equality
+val it : unit = ()</code></pre></td></tr></table>
 <p>By calculating the mean value per protein, we have two final tables with peptide and protein values:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code block 8</span>
 
@@ -503,7 +511,11 @@ val it : unit = ()</code></pre></td></tr></table>
     
 <span class="fn">(</span><span onmouseout="hideTip(event, 'fs132', 314)" onmouseover="showTip(event, 'fs132', 314)" class="fn">proteinValuesWithDesc</span> <span onmouseout="hideTip(event, 'fs32', 315)" onmouseover="showTip(event, 'fs32', 315)" class="id">qConcatData</span> <span onmouseout="hideTip(event, 'fs92', 316)" onmouseover="showTip(event, 'fs92', 316)" class="rt">QuantificationValue</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs93', 317)" onmouseover="showTip(event, 'fs93', 317)" class="id">Ratio</span><span class="pn">)</span><span class="pn">.</span><span class="id">Print</span><span class="pn">(</span><span class="pn">)</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code></code></pre></td></tr></table>
+<table class="pre"><tr><td><pre><code>val proteinValuesWithDesc :
+  frame:Frame&lt;('a * 'b * string * 'c * 'd),string&gt; -&gt;
+    quantificationValue:QuantificationValue -&gt; Frame&lt;string,(string * float)&gt;
+    when 'a : equality and 'b : equality and 'c : equality and 'd : equality
+val it : unit = ()</code></pre></td></tr></table>
 <p>Here are functions and parameters which are used for the styling of the graphs.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code block 9</span>
 
@@ -716,19 +728,19 @@ We will do this once on the peptide and once on the protein level.</p>
 
 <span onmouseout="hideTip(event, 'fs267', 877)" onmouseover="showTip(event, 'fs267', 877)" class="fn">chartDilutionBoxplot</span> <span onmouseout="hideTip(event, 'fs288', 878)" onmouseover="showTip(event, 'fs288', 878)" class="id">peptideN14QuantsWithDesc</span> <span class="pn">[|</span><span class="s">&quot;Test&quot;</span><span class="pn">|]</span> <span class="n">14</span> <span class="k">false</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+[||]
 <pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs267', 885)" onmouseover="showTip(event, 'fs267', 885)" class="fn">chartDilutionBoxplot</span> <span onmouseout="hideTip(event, 'fs289', 886)" onmouseover="showTip(event, 'fs289', 886)" class="id">proteinN14QuantsWithDesc</span> <span class="pn">[|</span><span class="s">&quot;Test&quot;</span><span class="pn">|]</span> <span class="n">14</span> <span class="k">true</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+[||]
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs290', 893)" onmouseover="showTip(event, 'fs290', 893)" class="id">peptideN15QuantsWithDesc</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs118', 894)" onmouseover="showTip(event, 'fs118', 894)" class="fn">peptideValuesWithDesc</span> <span onmouseout="hideTip(event, 'fs32', 895)" onmouseover="showTip(event, 'fs32', 895)" class="id">qConcatData</span> <span onmouseout="hideTip(event, 'fs92', 896)" onmouseover="showTip(event, 'fs92', 896)" class="rt">QuantificationValue</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs95', 897)" onmouseover="showTip(event, 'fs95', 897)" class="id">N15Quant</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs291', 898)" onmouseover="showTip(event, 'fs291', 898)" class="id">proteinN15QuantsWithDesc</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs132', 899)" onmouseover="showTip(event, 'fs132', 899)" class="fn">proteinValuesWithDesc</span> <span onmouseout="hideTip(event, 'fs32', 900)" onmouseover="showTip(event, 'fs32', 900)" class="id">qConcatData</span> <span onmouseout="hideTip(event, 'fs92', 901)" onmouseover="showTip(event, 'fs92', 901)" class="rt">QuantificationValue</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs95', 902)" onmouseover="showTip(event, 'fs95', 902)" class="id">N15Quant</span>
 
 <span onmouseout="hideTip(event, 'fs267', 903)" onmouseover="showTip(event, 'fs267', 903)" class="fn">chartDilutionBoxplot</span> <span onmouseout="hideTip(event, 'fs290', 904)" onmouseover="showTip(event, 'fs290', 904)" class="id">peptideN15QuantsWithDesc</span> <span class="pn">[|</span><span class="s">&quot;Test&quot;</span><span class="pn">|]</span> <span class="n">15</span> <span class="k">false</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+[||]
 <pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs267', 911)" onmouseover="showTip(event, 'fs267', 911)" class="fn">chartDilutionBoxplot</span> <span onmouseout="hideTip(event, 'fs291', 912)" onmouseover="showTip(event, 'fs291', 912)" class="id">proteinN15QuantsWithDesc</span> <span class="pn">[|</span><span class="s">&quot;Test&quot;</span><span class="pn">|]</span> <span class="n">15</span> <span class="k">true</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+[||]
 
                 </div>
             </div>

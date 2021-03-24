@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>NB06a_Data_Access_And_Quality_Control</title>
+    <title>NB06a Data Access and Quality Control
+</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="">
     <link rel="shortcut icon" type="image/x-icon" href="/BIO-BTE-06-L-7//img/favicon.ico">
@@ -333,18 +334,24 @@
 <span class="c">//Todo:</span>
 <span class="c">// 1. formatAsTable in repo</span>
 <span class="c">// 2. sample sheet umbenennen.</span>
-
-<span class="c">// I. Reading the sample description</span>
-<span class="c">// Before we analyze our data, we will download and read the sample description provided by the experimentalist</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs119', 251)" onmouseover="showTip(event, 'fs119', 251)" class="id">directory</span> <span class="o">=</span> <span class="k">__SOURCE_DIRECTORY__</span>
+</code></pre>
+<h1><a name="NB06a-Data-Access-and-Quality-Control" class="anchor" href="#NB06a-Data-Access-and-Quality-Control">NB06a Data Access and Quality Control</a></h1>
+<p><a href="https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06a_Data_Access_And_Quality_Control.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a></p>
+<p>For the explorative data analysis, we are using
+<a href="http://bluemountaincapital.github.io/Deedle/tutorial.html">Deedle</a>.
+Deedle is an easy to use library for data and time series manipulation and for scientific programming.
+It supports working with structured data frames, ordered and unordered data, as well as time series. Deedle is designed to work well for exploratory programming using F#.</p>
+<h2><a name="Reading-the-sample-description" class="anchor" href="#Reading-the-sample-description">Reading the sample description</a></h2>
+<p>Before we analyze our data, we will download and read the sample description provided by the experimentalist.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs119', 251)" onmouseover="showTip(event, 'fs119', 251)" class="id">directory</span> <span class="o">=</span> <span class="k">__SOURCE_DIRECTORY__</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs120', 252)" onmouseover="showTip(event, 'fs120', 252)" class="id">path2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs121', 253)" onmouseover="showTip(event, 'fs121', 253)" class="rt">Path</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs122', 254)" onmouseover="showTip(event, 'fs122', 254)" class="id">Combine</span><span class="pn">[|</span><span onmouseout="hideTip(event, 'fs119', 255)" onmouseover="showTip(event, 'fs119', 255)" class="id">directory</span><span class="pn">;</span><span class="s">&quot;downloads/alle_Gruppen_V7_SWATE.xlsx&quot;</span><span class="pn">|]</span>
 <span onmouseout="hideTip(event, 'fs123', 256)" onmouseover="showTip(event, 'fs123', 256)" class="fn">downloadFile</span> <span onmouseout="hideTip(event, 'fs120', 257)" onmouseover="showTip(event, 'fs120', 257)" class="id">path2</span> <span class="s">&quot;alle_Gruppen_V7_SWATE.xlsx&quot;</span> <span class="s">&quot;bio-bte-06-l-7&quot;</span>
 
 <span class="k">let</span> <span class="id">_</span><span class="pn">,</span><span class="id">_</span><span class="pn">,</span><span class="id">_</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs124', 258)" onmouseover="showTip(event, 'fs124', 258)" class="id">myAssayFile</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs125', 259)" onmouseover="showTip(event, 'fs125', 259)" class="id">XLSX</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs126', 260)" onmouseover="showTip(event, 'fs126', 260)" class="id">AssayFile</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs127', 261)" onmouseover="showTip(event, 'fs127', 261)" class="m">AssayFile</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs128', 262)" onmouseover="showTip(event, 'fs128', 262)" class="id">fromFile</span> <span onmouseout="hideTip(event, 'fs120', 263)" onmouseover="showTip(event, 'fs120', 263)" class="id">path2</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs129', 264)" onmouseover="showTip(event, 'fs129', 264)" class="id">inOutMap</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 265)" onmouseover="showTip(event, 'fs16', 265)" class="id">BIO_BTE_06_L_7_Aux</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs130', 266)" onmouseover="showTip(event, 'fs130', 266)" class="m">ISA_Aux</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs131', 267)" onmouseover="showTip(event, 'fs131', 267)" class="id">createInOutMap</span> <span onmouseout="hideTip(event, 'fs124', 268)" onmouseover="showTip(event, 'fs124', 268)" class="id">myAssayFile</span>
-
-<span class="c">// Next, we will prepare functions that given a file name look up parameters which might be needed for further calculations. </span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs132', 269)" onmouseover="showTip(event, 'fs132', 269)" class="fn">normalizeFileName</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs133', 270)" onmouseover="showTip(event, 'fs133', 270)" class="fn">f</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs55', 271)" onmouseover="showTip(event, 'fs55', 271)" class="rt">string</span><span class="pn">)</span> <span class="o">=</span> <span class="k">if</span> <span onmouseout="hideTip(event, 'fs121', 272)" onmouseover="showTip(event, 'fs121', 272)" class="rt">Path</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs134', 273)" onmouseover="showTip(event, 'fs134', 273)" class="id">HasExtension</span> <span onmouseout="hideTip(event, 'fs133', 274)" onmouseover="showTip(event, 'fs133', 274)" class="fn">f</span> <span class="k">then</span> <span onmouseout="hideTip(event, 'fs133', 275)" onmouseover="showTip(event, 'fs133', 275)" class="fn">f</span> <span class="k">else</span> <span onmouseout="hideTip(event, 'fs121', 276)" onmouseover="showTip(event, 'fs121', 276)" class="rt">Path</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs135', 277)" onmouseover="showTip(event, 'fs135', 277)" class="id">ChangeExtension</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs133', 278)" onmouseover="showTip(event, 'fs133', 278)" class="fn">f</span><span class="pn">,</span> <span class="s">&quot;wiff&quot;</span><span class="pn">)</span>
+</code></pre>
+<p>Next, we will prepare functions that given a file name look up parameters which might be needed for further calculations.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs132', 269)" onmouseover="showTip(event, 'fs132', 269)" class="fn">normalizeFileName</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs133', 270)" onmouseover="showTip(event, 'fs133', 270)" class="fn">f</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs55', 271)" onmouseover="showTip(event, 'fs55', 271)" class="rt">string</span><span class="pn">)</span> <span class="o">=</span> <span class="k">if</span> <span onmouseout="hideTip(event, 'fs121', 272)" onmouseover="showTip(event, 'fs121', 272)" class="rt">Path</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs134', 273)" onmouseover="showTip(event, 'fs134', 273)" class="id">HasExtension</span> <span onmouseout="hideTip(event, 'fs133', 274)" onmouseover="showTip(event, 'fs133', 274)" class="fn">f</span> <span class="k">then</span> <span onmouseout="hideTip(event, 'fs133', 275)" onmouseover="showTip(event, 'fs133', 275)" class="fn">f</span> <span class="k">else</span> <span onmouseout="hideTip(event, 'fs121', 276)" onmouseover="showTip(event, 'fs121', 276)" class="rt">Path</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs135', 277)" onmouseover="showTip(event, 'fs135', 277)" class="id">ChangeExtension</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs133', 278)" onmouseover="showTip(event, 'fs133', 278)" class="fn">f</span><span class="pn">,</span> <span class="s">&quot;wiff&quot;</span><span class="pn">)</span>
 
 <span class="c">//        </span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs136', 279)" onmouseover="showTip(event, 'fs136', 279)" class="fn">getStrain</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs137', 280)" onmouseover="showTip(event, 'fs137', 280)" class="fn">fileName</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs55', 281)" onmouseover="showTip(event, 'fs55', 281)" class="rt">string</span><span class="pn">)</span> <span class="o">=</span>
@@ -377,36 +384,36 @@
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs138', 348)" onmouseover="showTip(event, 'fs138', 348)" class="fn">fN</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs137', 349)" onmouseover="showTip(event, 'fs137', 349)" class="fn">fileName</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs132', 350)" onmouseover="showTip(event, 'fs132', 350)" class="fn">normalizeFileName</span>
     <span onmouseout="hideTip(event, 'fs16', 351)" onmouseover="showTip(event, 'fs16', 351)" class="id">BIO_BTE_06_L_7_Aux</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs130', 352)" onmouseover="showTip(event, 'fs130', 352)" class="m">ISA_Aux</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs148', 353)" onmouseover="showTip(event, 'fs148', 353)" class="id">tryGetParameter</span> <span onmouseout="hideTip(event, 'fs129', 354)" onmouseover="showTip(event, 'fs129', 354)" class="id">inOutMap</span> <span class="s">&quot;Extraction&quot;</span> <span class="s">&quot;Group name&quot;</span> <span onmouseout="hideTip(event, 'fs138', 355)" onmouseover="showTip(event, 'fs138', 355)" class="fn">fN</span> <span onmouseout="hideTip(event, 'fs124', 356)" onmouseover="showTip(event, 'fs124', 356)" class="id">myAssayFile</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs140', 357)" onmouseover="showTip(event, 'fs140', 357)" class="m">Option</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs141', 358)" onmouseover="showTip(event, 'fs141', 358)" class="id">defaultValue</span> <span class="s">&quot;&quot;</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs88', 359)" onmouseover="showTip(event, 'fs88', 359)" class="fn">int</span>    
-
-<span class="c">// A quick exection to assure that all values can be retrieved from the isa sample table:</span>
-<span onmouseout="hideTip(event, 'fs136', 360)" onmouseover="showTip(event, 'fs136', 360)" class="fn">getStrain</span> <span class="s">&quot;WCGr2_U1.wiff&quot;</span>
+</code></pre>
+<p>A quick execution to assure that all values can be retrieved from the isa sample table:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs136', 360)" onmouseover="showTip(event, 'fs136', 360)" class="fn">getStrain</span> <span class="s">&quot;WCGr2_U1.wiff&quot;</span>
 <span onmouseout="hideTip(event, 'fs142', 361)" onmouseover="showTip(event, 'fs142', 361)" class="fn">getExpressionLevel</span> <span class="s">&quot;WCGr2_U1.wiff&quot;</span>
 <span onmouseout="hideTip(event, 'fs143', 362)" onmouseover="showTip(event, 'fs143', 362)" class="fn">get15N_CBC_Amount</span> <span class="s">&quot;WCGr2_U1.wiff&quot;</span>
 <span onmouseout="hideTip(event, 'fs146', 363)" onmouseover="showTip(event, 'fs146', 363)" class="fn">get15N_PS_Amount</span> <span class="s">&quot;WCGr2_U1.wiff&quot;</span>
 <span onmouseout="hideTip(event, 'fs147', 364)" onmouseover="showTip(event, 'fs147', 364)" class="fn">getGroupID</span> <span class="s">&quot;WCGr2_U1.wiff&quot;</span>
-
-<span class="c">// Now that we have the sample sheet, all that is missing is the data to be analyzed:</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs149', 365)" onmouseover="showTip(event, 'fs149', 365)" class="id">path</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs121', 366)" onmouseover="showTip(event, 'fs121', 366)" class="rt">Path</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs122', 367)" onmouseover="showTip(event, 'fs122', 367)" class="id">Combine</span><span class="pn">[|</span><span onmouseout="hideTip(event, 'fs119', 368)" onmouseover="showTip(event, 'fs119', 368)" class="id">directory</span><span class="pn">;</span><span class="s">&quot;downloads/Quantifications_wc.txt&quot;</span><span class="pn">|]</span>
+</code></pre>
+<p>Now that we have the sample sheet, all that is missing is the data to be analyzed:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs149', 365)" onmouseover="showTip(event, 'fs149', 365)" class="id">path</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs121', 366)" onmouseover="showTip(event, 'fs121', 366)" class="rt">Path</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs122', 367)" onmouseover="showTip(event, 'fs122', 367)" class="id">Combine</span><span class="pn">[|</span><span onmouseout="hideTip(event, 'fs119', 368)" onmouseover="showTip(event, 'fs119', 368)" class="id">directory</span><span class="pn">;</span><span class="s">&quot;downloads/Quantifications_wc.txt&quot;</span><span class="pn">|]</span>
 <span onmouseout="hideTip(event, 'fs123', 369)" onmouseover="showTip(event, 'fs123', 369)" class="fn">downloadFile</span> <span onmouseout="hideTip(event, 'fs149', 370)" onmouseover="showTip(event, 'fs149', 370)" class="id">path</span> <span class="s">&quot;Quantifications_wc.txt&quot;</span> <span class="s">&quot;bio-bte-06-l-7&quot;</span>
-
-<span class="c">// II. Raw data access using Deedle:</span>
-<span class="c">// As teasered in the primer, we want to work with our tabular data using Deedle. Luckily Deedle does nonly deliver data frame and series</span>
-<span class="c">// manipulation, but also allows us to quickly read the recently downloaded data into the memory:</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs150', 371)" onmouseover="showTip(event, 'fs150', 371)" class="id">rawData</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs34', 372)" onmouseover="showTip(event, 'fs34', 372)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs151', 373)" onmouseover="showTip(event, 'fs151', 373)" class="id">ReadCsv</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs149', 374)" onmouseover="showTip(event, 'fs149', 374)" class="id">path</span><span class="pn">,</span><span class="fn">separators</span><span class="o">=</span><span class="s">&quot;\t&quot;</span><span class="pn">)</span>
-
-<span class="c">// To visualize the data we can call the &quot;formatAsTable&quot; function. The preview of visual studio code does not allow</span>
-<span class="c">// for the charts to be scrollable so feel free to pipe the output into &quot;Chart.Show&quot;, to visualize the data in your browser.</span>
-<span onmouseout="hideTip(event, 'fs150', 375)" onmouseover="showTip(event, 'fs150', 375)" class="id">rawData</span>
+</code></pre>
+<h2><a name="Raw-data-access-using-Deedle" class="anchor" href="#Raw-data-access-using-Deedle">Raw data access using Deedle:</a></h2>
+<p>As teasered in the primer, we want to work with our tabular data using Deedle. Luckily Deedle does nonly deliver data frame and series
+manipulation, but also allows us to quickly read the recently downloaded data into the memory:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs150', 371)" onmouseover="showTip(event, 'fs150', 371)" class="id">rawData</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs34', 372)" onmouseover="showTip(event, 'fs34', 372)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs151', 373)" onmouseover="showTip(event, 'fs151', 373)" class="id">ReadCsv</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs149', 374)" onmouseover="showTip(event, 'fs149', 374)" class="id">path</span><span class="pn">,</span><span class="fn">separators</span><span class="o">=</span><span class="s">&quot;\t&quot;</span><span class="pn">)</span>
+</code></pre>
+<p>To visualize the data we can call the "formatAsTable" function. The preview of visual studio code does not allow
+for the charts to be scrollable so feel free to pipe the output into "Chart.Show", to visualize the data in your browser.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs150', 375)" onmouseover="showTip(event, 'fs150', 375)" class="id">rawData</span>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs34', 376)" onmouseover="showTip(event, 'fs34', 376)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs152', 377)" onmouseover="showTip(event, 'fs152', 377)" class="id">take</span> <span class="n">10</span>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs32', 378)" onmouseover="showTip(event, 'fs32', 378)" class="fn">formatAsTable</span> 
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs104', 379)" onmouseover="showTip(event, 'fs104', 379)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs153', 380)" onmouseover="showTip(event, 'fs153', 380)" class="id">Show</span>
-
-<span class="c">// Looking at the raw data, we can see that each row contains a different quantifiction of a peptide ion, with the columns containing </span>
-<span class="c">// a single ion feature each, such as peptide ion charge, sequence or a quantification value reported for a file (e.g. light, heavy or ratio).</span>
-<span class="c">// Since the columns ProteinGroup, StringSequence, PepSequenceID and Charge uniquely identify a row, we can use these to index the rows.</span>
-<span class="c">// For this we use a language feature called &quot;anonymous record type&quot;. Here we create a tuple like structure, with the additional feature</span>
-<span class="c">// that each element of the tuple is named (e.g.: Proteingroup).</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs154', 381)" onmouseover="showTip(event, 'fs154', 381)" class="id">indexedData</span> <span class="o">=</span>
+</code></pre>
+<p>Looking at the raw data, we can see that each row contains a different quantifiction of a peptide ion, with the columns containing
+a single ion feature each, such as peptide ion charge, sequence or a quantification value reported for a file (e.g. light, heavy or ratio).
+Since the columns ProteinGroup, StringSequence, PepSequenceID and Charge uniquely identify a row, we can use these to index the rows.
+For this we use a language feature called <a href="https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/anonymous-records">"anonymous record type"</a>. Here we create a tuple like structure, with the additional feature
+that each element of the tuple is named (e.g.: Proteingroup).</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs154', 381)" onmouseover="showTip(event, 'fs154', 381)" class="id">indexedData</span> <span class="o">=</span>
     <span onmouseout="hideTip(event, 'fs150', 382)" onmouseover="showTip(event, 'fs150', 382)" class="id">rawData</span>
     <span class="c">// StringSequence is the peptide sequence</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs34', 383)" onmouseover="showTip(event, 'fs34', 383)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs155', 384)" onmouseover="showTip(event, 'fs155', 384)" class="id">indexRowsUsing</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs156', 385)" onmouseover="showTip(event, 'fs156', 385)" class="fn">os</span> <span class="k">-&gt;</span> 
@@ -421,18 +428,17 @@
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs34', 400)" onmouseover="showTip(event, 'fs34', 400)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs158', 401)" onmouseover="showTip(event, 'fs158', 401)" class="id">dropCol</span> <span class="s">&quot;StringSequence&quot;</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs34', 402)" onmouseover="showTip(event, 'fs34', 402)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs158', 403)" onmouseover="showTip(event, 'fs158', 403)" class="id">dropCol</span> <span class="s">&quot;PepSequenceID&quot;</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs34', 404)" onmouseover="showTip(event, 'fs34', 404)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs158', 405)" onmouseover="showTip(event, 'fs158', 405)" class="id">dropCol</span> <span class="s">&quot;Charge&quot;</span>
-    <span class="c">// What does this line filter for? Why does this make sense for our analysis?</span>
 
 <span class="c">// The effect of our frame manipulation can be observed:</span>
 <span onmouseout="hideTip(event, 'fs154', 406)" onmouseover="showTip(event, 'fs154', 406)" class="id">indexedData</span>
 <span class="c">// |&gt; Frame.take 10</span>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs32', 407)" onmouseover="showTip(event, 'fs32', 407)" class="fn">formatAsTable</span> 
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs104', 408)" onmouseover="showTip(event, 'fs104', 408)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs153', 409)" onmouseover="showTip(event, 'fs153', 409)" class="id">Show</span>
-
-<span class="c">// III. Augmenting and filtering the data frame </span>
-<span class="c">// The data frame already contains all information needed to perform the analysis, but it could still benefit from </span>
-<span class="c">// some quality-of-life upgrades. For this we want to map the Cre-numbers to human readable synonyms.</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs159', 410)" onmouseover="showTip(event, 'fs159', 410)" class="id">pathSyn</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs121', 411)" onmouseover="showTip(event, 'fs121', 411)" class="rt">Path</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs122', 412)" onmouseover="showTip(event, 'fs122', 412)" class="id">Combine</span><span class="pn">[|</span><span onmouseout="hideTip(event, 'fs119', 413)" onmouseover="showTip(event, 'fs119', 413)" class="id">directory</span><span class="pn">;</span><span class="s">&quot;downloads/CreToSynonym.txt&quot;</span><span class="pn">|]</span>
+</code></pre>
+<h2><a name="Augmenting-and-filtering-the-data-frame" class="anchor" href="#Augmenting-and-filtering-the-data-frame">Augmenting and filtering the data frame</a></h2>
+<p>The data frame already contains all information needed to perform the analysis, but it could still benefit from
+some quality-of-life upgrades. For this we want to map the Cre-numbers to human readable synonyms.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs159', 410)" onmouseover="showTip(event, 'fs159', 410)" class="id">pathSyn</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs121', 411)" onmouseover="showTip(event, 'fs121', 411)" class="rt">Path</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs122', 412)" onmouseover="showTip(event, 'fs122', 412)" class="id">Combine</span><span class="pn">[|</span><span onmouseout="hideTip(event, 'fs119', 413)" onmouseover="showTip(event, 'fs119', 413)" class="id">directory</span><span class="pn">;</span><span class="s">&quot;downloads/CreToSynonym.txt&quot;</span><span class="pn">|]</span>
 <span onmouseout="hideTip(event, 'fs123', 414)" onmouseover="showTip(event, 'fs123', 414)" class="fn">downloadFile</span> <span onmouseout="hideTip(event, 'fs159', 415)" onmouseover="showTip(event, 'fs159', 415)" class="id">pathSyn</span> <span class="s">&quot;CreToSynonym.txt&quot;</span> <span class="s">&quot;bio-bte-06-l-7&quot;</span>
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs160', 416)" onmouseover="showTip(event, 'fs160', 416)" class="id">creToSynonym</span> <span class="o">=</span> 
@@ -465,10 +471,10 @@
 
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs179', 470)" onmouseover="showTip(event, 'fs179', 470)" class="rt">Qprot</span> <span class="o">=</span> 
     <span class="pn">|</span> <span onmouseout="hideTip(event, 'fs180', 471)" onmouseover="showTip(event, 'fs180', 471)" class="uc">CBB</span>
-    <span class="pn">|</span> <span onmouseout="hideTip(event, 'fs181', 472)" onmouseover="showTip(event, 'fs181', 472)" class="uc">PS</span> 
-
-<span class="c">// Subsequently and finally, we will also encode the specific qConcat protein as a separate feature:</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs182', 473)" onmouseover="showTip(event, 'fs182', 473)" class="id">final</span> <span class="o">=</span> 
+    <span class="pn">|</span> <span onmouseout="hideTip(event, 'fs181', 472)" onmouseover="showTip(event, 'fs181', 472)" class="uc">PS</span>
+</code></pre>
+<p>Subsequently and finally, we will also encode the specific qConcat protein as a separate feature:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs182', 473)" onmouseover="showTip(event, 'fs182', 473)" class="id">final</span> <span class="o">=</span> 
     <span onmouseout="hideTip(event, 'fs164', 474)" onmouseover="showTip(event, 'fs164', 474)" class="id">withSynonyms</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs34', 475)" onmouseover="showTip(event, 'fs34', 475)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs57', 476)" onmouseover="showTip(event, 'fs57', 476)" class="id">mapRowKeys</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs183', 477)" onmouseover="showTip(event, 'fs183', 477)" class="fn">k</span> <span class="k">-&gt;</span>
         <span class="k">let</span> <span onmouseout="hideTip(event, 'fs184', 478)" onmouseover="showTip(event, 'fs184', 478)" class="fn">qprot</span> <span class="o">=</span> 
@@ -487,15 +493,14 @@
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs32', 511)" onmouseover="showTip(event, 'fs32', 511)" class="fn">formatAsTable</span> 
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs104', 512)" onmouseover="showTip(event, 'fs104', 512)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs153', 513)" onmouseover="showTip(event, 'fs153', 513)" class="id">Show</span>
 <span class="c">// How many peptide ions did the filter remove? </span>
-
-<span class="c">// IV. Global quality control. </span>
-<span class="c">// With our data frame prepared, we want to see on a global scale if our experiment worked.</span>
-<span class="c">// For this we plot the overall mean of the N14 and N15 quantifications and observe if we can recover our dilution series (n15),</span>
-<span class="c">// while keeping the analyte to be quantified at a constant level (n14).</span>
-
-<span class="c">/// For it come in handy to simplify the data frame, in this code we will only keep columns that contain a specific identifier,</span>
-<span class="c">/// such as, &quot;Ratio&quot;, &quot;Light&quot;, or &quot;Heavy&quot;.</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs191', 514)" onmouseover="showTip(event, 'fs191', 514)" class="fn">sliceQuantColumns</span> <span onmouseout="hideTip(event, 'fs192', 515)" onmouseover="showTip(event, 'fs192', 515)" class="fn">quantColID</span> <span onmouseout="hideTip(event, 'fs193', 516)" onmouseover="showTip(event, 'fs193', 516)" class="fn">frame</span> <span class="o">=</span> 
+</code></pre>
+<h2><a name="Global-quality-control" class="anchor" href="#Global-quality-control">Global quality control.</a></h2>
+<p>With our data frame prepared, we want to see on a global scale if our experiment worked.
+For this we plot the overall mean of the 14N and 15N quantifications and observe if we can recover our dilution series (15N),
+while keeping the analyte to be quantified at a constant level (14N).</p>
+<p>Since it comes in handy to simplify the data frame, in this code we will only keep columns that contain a specific identifier,
+such as, "Ratio", "Light", or "Heavy".</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs191', 514)" onmouseover="showTip(event, 'fs191', 514)" class="fn">sliceQuantColumns</span> <span onmouseout="hideTip(event, 'fs192', 515)" onmouseover="showTip(event, 'fs192', 515)" class="fn">quantColID</span> <span onmouseout="hideTip(event, 'fs193', 516)" onmouseover="showTip(event, 'fs193', 516)" class="fn">frame</span> <span class="o">=</span> 
     <span onmouseout="hideTip(event, 'fs193', 517)" onmouseover="showTip(event, 'fs193', 517)" class="fn">frame</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs34', 518)" onmouseover="showTip(event, 'fs34', 518)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs194', 519)" onmouseover="showTip(event, 'fs194', 519)" class="id">filterCols</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs72', 520)" onmouseover="showTip(event, 'fs72', 520)" class="fn">ck</span> <span onmouseout="hideTip(event, 'fs195', 521)" onmouseover="showTip(event, 'fs195', 521)" class="fn">os</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs72', 522)" onmouseover="showTip(event, 'fs72', 522)" class="fn">ck</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs84', 523)" onmouseover="showTip(event, 'fs84', 523)" class="m">String</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs185', 524)" onmouseover="showTip(event, 'fs185', 524)" class="id">contains</span> <span class="pn">(</span><span class="s">&quot;.&quot;</span><span class="o">+</span><span onmouseout="hideTip(event, 'fs192', 525)" onmouseover="showTip(event, 'fs192', 525)" class="fn">quantColID</span><span class="pn">)</span><span class="pn">)</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs34', 526)" onmouseover="showTip(event, 'fs34', 526)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs56', 527)" onmouseover="showTip(event, 'fs56', 527)" class="id">mapColKeys</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs72', 528)" onmouseover="showTip(event, 'fs72', 528)" class="fn">ck</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs72', 529)" onmouseover="showTip(event, 'fs72', 529)" class="fn">ck</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs170', 530)" onmouseover="showTip(event, 'fs170', 530)" class="id">Split</span><span class="pn">(</span><span class="s">&#39;.&#39;</span><span class="pn">)</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs25', 531)" onmouseover="showTip(event, 'fs25', 531)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs196', 532)" onmouseover="showTip(event, 'fs196', 532)" class="id">item</span> <span class="n">0</span><span class="pn">)</span>
@@ -510,7 +515,7 @@
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs32', 545)" onmouseover="showTip(event, 'fs32', 545)" class="fn">formatAsTable</span> 
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs104', 546)" onmouseover="showTip(event, 'fs104', 546)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs153', 547)" onmouseover="showTip(event, 'fs153', 547)" class="id">Show</span>
 
-<span class="c">/// The following function will plot the distribution of column valuesusing boxplots. </span>
+<span class="c">/// This function will plot the distribution of column valuesusing boxplots. </span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs200', 548)" onmouseover="showTip(event, 'fs200', 548)" class="fn">createBoxPlot</span> <span onmouseout="hideTip(event, 'fs201', 549)" onmouseover="showTip(event, 'fs201', 549)" class="fn">f</span> <span class="o">=</span> 
     <span onmouseout="hideTip(event, 'fs201', 550)" onmouseover="showTip(event, 'fs201', 550)" class="fn">f</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs34', 551)" onmouseover="showTip(event, 'fs34', 551)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs202', 552)" onmouseover="showTip(event, 'fs202', 552)" class="id">getNumericCols</span>
@@ -528,16 +533,16 @@
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs104', 582)" onmouseover="showTip(event, 'fs104', 582)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs153', 583)" onmouseover="showTip(event, 'fs153', 583)" class="id">Show</span>
 
 <span class="c">// The function applied to the n14 values, what do you see?</span>
-<span onmouseout="hideTip(event, 'fs198', 584)" onmouseover="showTip(event, 'fs198', 584)" class="id">light</span> 
-<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs200', 585)" onmouseover="showTip(event, 'fs200', 585)" class="fn">createBoxPlot</span> 
+<span onmouseout="hideTip(event, 'fs198', 584)" onmouseover="showTip(event, 'fs198', 584)" class="id">light</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs200', 585)" onmouseover="showTip(event, 'fs200', 585)" class="fn">createBoxPlot</span>
 
 <span class="c">// The function applied to the n15 values, what do you see?</span>
 <span onmouseout="hideTip(event, 'fs199', 586)" onmouseover="showTip(event, 'fs199', 586)" class="id">heavy</span>
-<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs200', 587)" onmouseover="showTip(event, 'fs200', 587)" class="fn">createBoxPlot</span> 
-
-<span class="c">// The following function performs a normalization which accounts for a specific effect. Can you </span>
-<span class="c">// determine what the function accounts for? </span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs215', 588)" onmouseover="showTip(event, 'fs215', 588)" class="fn">normalizePeptides</span> <span onmouseout="hideTip(event, 'fs201', 589)" onmouseover="showTip(event, 'fs201', 589)" class="fn">f</span> <span class="o">=</span> 
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs200', 587)" onmouseover="showTip(event, 'fs200', 587)" class="fn">createBoxPlot</span>
+</code></pre>
+<p>The following function performs a normalization which accounts for a specific effect. Can you
+determine what the function accounts for?</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs215', 588)" onmouseover="showTip(event, 'fs215', 588)" class="fn">normalizePeptides</span> <span onmouseout="hideTip(event, 'fs201', 589)" onmouseover="showTip(event, 'fs201', 589)" class="fn">f</span> <span class="o">=</span>
     <span onmouseout="hideTip(event, 'fs201', 590)" onmouseover="showTip(event, 'fs201', 590)" class="fn">f</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs34', 591)" onmouseover="showTip(event, 'fs34', 591)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs216', 592)" onmouseover="showTip(event, 'fs216', 592)" class="id">transpose</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs34', 593)" onmouseover="showTip(event, 'fs34', 593)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs202', 594)" onmouseover="showTip(event, 'fs202', 594)" class="id">getNumericCols</span>
@@ -556,9 +561,9 @@
 <span onmouseout="hideTip(event, 'fs199', 611)" onmouseover="showTip(event, 'fs199', 611)" class="id">heavy</span>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs215', 612)" onmouseover="showTip(event, 'fs215', 612)" class="fn">normalizePeptides</span>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs200', 613)" onmouseover="showTip(event, 'fs200', 613)" class="fn">createBoxPlot</span> 
-                 
-<span class="c">// Finally we have a look at the ratios, does it make sense to normalize the ratios the same way?</span>
-<span onmouseout="hideTip(event, 'fs197', 614)" onmouseover="showTip(event, 'fs197', 614)" class="id">ratios</span>
+</code></pre>
+<p>Finally we have a look at the ratios. Does it make sense to normalize the ratios the same way?</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs197', 614)" onmouseover="showTip(event, 'fs197', 614)" class="id">ratios</span>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs200', 615)" onmouseover="showTip(event, 'fs200', 615)" class="fn">createBoxPlot</span> 
 
 <span onmouseout="hideTip(event, 'fs197', 616)" onmouseover="showTip(event, 'fs197', 616)" class="id">ratios</span>
@@ -572,14 +577,14 @@
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs34', 625)" onmouseover="showTip(event, 'fs34', 625)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs152', 626)" onmouseover="showTip(event, 'fs152', 626)" class="id">take</span> <span class="n">10</span>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs32', 627)" onmouseover="showTip(event, 'fs32', 627)" class="fn">formatAsTable</span> 
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs104', 628)" onmouseover="showTip(event, 'fs104', 628)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs153', 629)" onmouseover="showTip(event, 'fs153', 629)" class="id">Show</span>
-
-<span class="c">// V. Local quality control. </span>
-<span class="c">/// Now that we know on a global scale how our experiment worked it might be time to have a look at the details.</span>
-<span class="c">/// First, we want to write a function that allows us to plot all peptides of a protein vs. the dilution used. This way we can identify peptides that</span>
-<span class="c">/// we want to use and those, that seem to be prone to error and should thus be discarded. </span>
-<span class="c">/// To keep things simple, we apply a filter step at the beginning, which only keeps peptides belonging to one protein and samples measured by one group</span>
-<span class="c">/// in the data frame. What are sources of error? Which peptides do you think should be discarded and why? Which proteins need to be analyzed with extra care?</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs222', 630)" onmouseover="showTip(event, 'fs222', 630)" class="fn">initGetQProtAmount</span> <span onmouseout="hideTip(event, 'fs223', 631)" onmouseover="showTip(event, 'fs223', 631)" class="fn">qProt</span> <span class="o">=</span>
+</code></pre>
+<h2><a name="V-Local-quality-control" class="anchor" href="#V-Local-quality-control">V. Local quality control.</a></h2>
+<p>Now that we know on a global scale how our experiment worked it might be time to have a look at the details.
+First, we want to write a function that allows us to plot all peptides of a protein vs. the dilution used. This way we can identify peptides that
+we want to use and those, that seem to be prone to error and should thus be discarded.
+To keep things simple, we apply a filter step at the beginning, which only keeps peptides belonging to one protein and samples measured by one group
+in the data frame. What are sources of error? Which peptides do you think should be discarded and why? Which proteins need to be analyzed with extra care?</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs222', 630)" onmouseover="showTip(event, 'fs222', 630)" class="fn">initGetQProtAmount</span> <span onmouseout="hideTip(event, 'fs223', 631)" onmouseover="showTip(event, 'fs223', 631)" class="fn">qProt</span> <span class="o">=</span>
     <span class="k">match</span> <span onmouseout="hideTip(event, 'fs223', 632)" onmouseover="showTip(event, 'fs223', 632)" class="fn">qProt</span> <span class="k">with</span> 
     <span class="pn">|</span> <span onmouseout="hideTip(event, 'fs180', 633)" onmouseover="showTip(event, 'fs180', 633)" class="uc">CBB</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs143', 634)" onmouseover="showTip(event, 'fs143', 634)" class="fn">get15N_CBC_Amount</span>
     <span class="pn">|</span> <span onmouseout="hideTip(event, 'fs181', 635)" onmouseover="showTip(event, 'fs181', 635)" class="uc">PS</span>  <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs146', 636)" onmouseover="showTip(event, 'fs146', 636)" class="fn">get15N_PS_Amount</span>
@@ -606,9 +611,9 @@
         <span class="pn">)</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs73', 703)" onmouseover="showTip(event, 'fs73', 703)" class="m">Series</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs81', 704)" onmouseover="showTip(event, 'fs81', 704)" class="id">values</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs104', 705)" onmouseover="showTip(event, 'fs104', 705)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs213', 706)" onmouseover="showTip(event, 'fs213', 706)" class="id">Combine</span>
-
-<span class="c">//First we get an overview of available protein ids.</span>
-<span onmouseout="hideTip(event, 'fs197', 707)" onmouseover="showTip(event, 'fs197', 707)" class="id">ratios</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs246', 708)" onmouseover="showTip(event, 'fs246', 708)" class="id">RowKeys</span>
+</code></pre>
+<p>First we get an overview of available protein ids.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs197', 707)" onmouseover="showTip(event, 'fs197', 707)" class="id">ratios</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs246', 708)" onmouseover="showTip(event, 'fs246', 708)" class="id">RowKeys</span>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs25', 709)" onmouseover="showTip(event, 'fs25', 709)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs247', 710)" onmouseover="showTip(event, 'fs247', 710)" class="id">ofSeq</span> 
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs25', 711)" onmouseover="showTip(event, 'fs25', 711)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 712)" onmouseover="showTip(event, 'fs26', 712)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs227', 713)" onmouseover="showTip(event, 'fs227', 713)" class="fn">k</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs227', 714)" onmouseover="showTip(event, 'fs227', 714)" class="fn">k</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs228', 715)" onmouseover="showTip(event, 'fs228', 715)" class="id">Synonyms</span><span class="pn">)</span>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs25', 716)" onmouseover="showTip(event, 'fs25', 716)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs248', 717)" onmouseover="showTip(event, 'fs248', 717)" class="id">distinct</span>
@@ -629,16 +634,14 @@
 
 <span onmouseout="hideTip(event, 'fs224', 730)" onmouseover="showTip(event, 'fs224', 730)" class="fn">plotPeptidesOf</span> <span class="s">&quot;SEBP1&quot;</span> <span class="n">2</span>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs104', 731)" onmouseover="showTip(event, 'fs104', 731)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs153', 732)" onmouseover="showTip(event, 'fs153', 732)" class="id">Show</span>
-
-<span class="c">// With the plots at hand we can manipulate the data frame and discard peptides and/or whole files which we do not want to use for </span>
-<span class="c">// a absolute protein quantification e.g.:</span>
-
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs249', 733)" onmouseover="showTip(event, 'fs249', 733)" class="id">ratiosFiltered</span> <span class="o">=</span> 
+</code></pre>
+<p>With the plots at hand we can manipulate the data frame and discard peptides and/or whole files which we do not want to use for
+a absolute protein quantification e.g.:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs249', 733)" onmouseover="showTip(event, 'fs249', 733)" class="id">ratiosFiltered</span> <span class="o">=</span> 
     <span onmouseout="hideTip(event, 'fs197', 734)" onmouseover="showTip(event, 'fs197', 734)" class="id">ratios</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs34', 735)" onmouseover="showTip(event, 'fs34', 735)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs194', 736)" onmouseover="showTip(event, 'fs194', 736)" class="id">filterCols</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs92', 737)" onmouseover="showTip(event, 'fs92', 737)" class="fn">k</span> <span onmouseout="hideTip(event, 'fs230', 738)" onmouseover="showTip(event, 'fs230', 738)" class="fn">s</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs143', 739)" onmouseover="showTip(event, 'fs143', 739)" class="fn">get15N_CBC_Amount</span> <span onmouseout="hideTip(event, 'fs92', 740)" onmouseover="showTip(event, 'fs92', 740)" class="fn">k</span> <span class="o">&gt;</span> <span class="n">0.1</span> <span class="pn">)</span>
-
-<span class="c">// This file can then be saved and used for the next notebook, where we will have a look on the isotopic labeling efficiency and finally calculate absolute protein amounts.</span>
 </code></pre>
+<p>This file can then be saved and used for the next notebook, where we will have a look on the isotopic labeling efficiency and finally calculate absolute protein amounts.</p>
 
                 </div>
             </div>
@@ -833,7 +836,7 @@
 <div class="fsdocs-tip" id="fs188">anonymous record field QProt: Qprot option</div>
 <div class="fsdocs-tip" id="fs189">property Option.IsSome: bool with get</div>
 <div class="fsdocs-tip" id="fs190">property Option.Value: Qprot with get</div>
-<div class="fsdocs-tip" id="fs191">val sliceQuantColumns : quantColID:string -&gt; frame:Frame&lt;&#39;a,string&gt; -&gt; Frame&lt;&#39;a,string&gt; (requires equality)<br /><em>&#160;For it come in handy to simplify the data frame, in this code we will only keep columns that contain a specific identifier,<br />&#160;such as, &quot;Ratio&quot;, &quot;Light&quot;, or &quot;Heavy&quot;.</em></div>
+<div class="fsdocs-tip" id="fs191">val sliceQuantColumns : quantColID:string -&gt; frame:Frame&lt;&#39;a,string&gt; -&gt; Frame&lt;&#39;a,string&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs192">val quantColID : string</div>
 <div class="fsdocs-tip" id="fs193">val frame : Frame&lt;&#39;a,string&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs194">val filterCols : f:(&#39;C -&gt; ObjectSeries&lt;&#39;R&gt; -&gt; bool) -&gt; frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Frame&lt;&#39;R,&#39;C&gt; (requires equality and equality)</div>
@@ -842,7 +845,7 @@
 <div class="fsdocs-tip" id="fs197">val ratios : Frame&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; QProt: Qprot; StringSequence: string; Synonyms: string |},string&gt;</div>
 <div class="fsdocs-tip" id="fs198">val light : Frame&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; QProt: Qprot; StringSequence: string; Synonyms: string |},string&gt;</div>
 <div class="fsdocs-tip" id="fs199">val heavy : Frame&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; QProt: Qprot; StringSequence: string; Synonyms: string |},string&gt;</div>
-<div class="fsdocs-tip" id="fs200">val createBoxPlot : f:Frame&lt;&#39;a,&#39;b&gt; -&gt; unit (requires equality and equality)<br /><em>&#160;How did the data frame change, how did the column headers change?<br />&#160;The following function will plot the distribution of column valuesusing boxplots. </em></div>
+<div class="fsdocs-tip" id="fs200">val createBoxPlot : f:Frame&lt;&#39;a,&#39;b&gt; -&gt; unit (requires equality and equality)<br /><em>&#160;How did the data frame change, how did the column headers change?<br />&#160;This function will plot the distribution of column valuesusing boxplots. </em></div>
 <div class="fsdocs-tip" id="fs201">val f : Frame&lt;&#39;a,&#39;b&gt; (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs202">val getNumericCols : frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Series&lt;&#39;C,Series&lt;&#39;R,float&gt;&gt; (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs203">val map : f:(&#39;K -&gt; &#39;T -&gt; &#39;R) -&gt; series:Series&lt;&#39;K,&#39;T&gt; -&gt; Series&lt;&#39;K,&#39;R&gt; (requires equality)</div>
@@ -864,7 +867,7 @@
 <div class="fsdocs-tip" id="fs219">type Stats =<br />&#160;&#160;static member count : frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Series&lt;&#39;C,int&gt; (requires equality and equality)<br />&#160;&#160;static member count : series:Series&lt;&#39;K,&#39;V&gt; -&gt; int (requires equality)<br />&#160;&#160;static member describe : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;string,float&gt; (requires equality and equality)<br />&#160;&#160;static member expandingCount : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingKurt : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingMax : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingMean : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingMin : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingSkew : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingStdDev : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;...</div>
 <div class="fsdocs-tip" id="fs220">static member Stats.median : frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Series&lt;&#39;C,float&gt; (requires equality and equality)<br />static member Stats.median : series:Series&lt;&#39;K,&#39;V&gt; -&gt; float (requires equality)</div>
 <div class="fsdocs-tip" id="fs221">static member Frame.ofColumns : cols:Series&lt;&#39;C,#ISeries&lt;&#39;R&gt;&gt; -&gt; Frame&lt;&#39;R,&#39;C&gt; (requires equality and equality)<br />static member Frame.ofColumns : cols:seq&lt;&#39;C * #ISeries&lt;&#39;R&gt;&gt; -&gt; Frame&lt;&#39;R,&#39;C&gt; (requires equality and equality)</div>
-<div class="fsdocs-tip" id="fs222">val initGetQProtAmount : qProt:Qprot -&gt; (string -&gt; float)<br /><em>&#160;Now that we know on a global scale how our experiment worked it might be time to have a look at the details.<br />&#160;First, we want to write a function that allows us to plot all peptides of a protein vs. the dilution used. This way we can identify peptides that<br />&#160;we want to use and those, that seem to be prone to error and should thus be discarded. <br />&#160;To keep things simple, we apply a filter step at the beginning, which only keeps peptides belonging to one protein and samples measured by one group<br />&#160;in the data frame. What are sources of error? Which peptides do you think should be discarded and why? Which proteins need to be analyzed with extra care?</em></div>
+<div class="fsdocs-tip" id="fs222">val initGetQProtAmount : qProt:Qprot -&gt; (string -&gt; float)</div>
 <div class="fsdocs-tip" id="fs223">val qProt : Qprot</div>
 <div class="fsdocs-tip" id="fs224">val plotPeptidesOf : prot:string -&gt; groupID:int -&gt; GenericChart.GenericChart</div>
 <div class="fsdocs-tip" id="fs225">val prot : string</div>
