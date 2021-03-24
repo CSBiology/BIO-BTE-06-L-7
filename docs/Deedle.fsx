@@ -34,8 +34,7 @@ open FSharp.Stats
 
 (**
 ## Deedle Basics
-Familiarize yourself with Deedle! Below you will find the source code that was used in the lecture. Create a series yourself that you add to the frame 
-'persons' frame.
+Familiarize yourself with Deedle! Create a series yourself that you add to the frame 'persons' frame.
 *)
 let firstNames      = Series.ofValues ["Kevin";"Lukas";"Benedikt";"Michael"] 
 let coffeesPerWeek  = Series.ofValues [15;12;10;11] 
@@ -53,8 +52,7 @@ persons
 (**
 Follow the above scheme and create another frame that is exactly the same, but represents different persons (the frame can be small, e.g. two persons).
 Use the function Frame.merge to combine your frame and 'persons'.
-Back to the frame 'persons'! In the following you see a series of frame/series manipulations. Write 
-comments explaining each step
+Back to the frame 'persons'! In the following you see a series of frame/series manipulations.
 *)
 let coffeePerWeek' :Series<int,int> = Frame.getCol ("cpw") persons 
 let groupedByG :Frame<string*int,_> = persons |> Frame.groupRowsBy "g"
@@ -63,6 +61,7 @@ let coffeePerWeek'' :Series<string*int,int>= groupedByG |> Frame.getCol ("cpw")
 let coffeePerWeekPerGroup = Series.applyLevel Pair.get1Of2 (Series.values >> Seq.sum) coffeePerWeek''
 
 (**
+Now that you got to know the object `Frame` which is a collection of `Series`, we move on to a real dataset. 
 As our dataset we take the FASTA with Chlamy proteins, select 50 random proteins, and digest them.
 The digested peptides are represented using a record type. Deedle frames can be directly constructed from
 record types with `Frame.ofRecords`. Alternatively, a character separated file could be used as source for a Frame as well.
