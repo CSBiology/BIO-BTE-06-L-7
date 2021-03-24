@@ -26,7 +26,7 @@ open BIO_BTE_06_L_7_Aux.FS3_Aux
 open BIO_BTE_06_L_7_Aux.Deedle_Aux
 
 (**
-# NB06a Data Access and Quality Control
+# NB06b Data Access and Quality Control
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b_Data_Access_And_Quality_Control.ipynb)
 
@@ -42,7 +42,7 @@ For the explorative data analysis, we are using [Deedle](http://bluemountaincapi
 Deedle is an easy to use library for data and time series manipulation and for scientific programming. 
 It supports working with structured data frames, ordered and unordered data, as well as time series. Deedle is designed to work well for exploratory programming using F#.
 
-## Reading the sample description
+## I. Reading the sample description
 
 Before we analyze our data, we will download and read the sample description provided by the experimentalist.
 *)
@@ -108,7 +108,7 @@ let path = Path.Combine[|directory;"downloads/Quantifications_wc_annotated.txt"|
 downloadFile path "Quantifications_wc_annotated.txt" "bio-bte-06-l-7"
 
 (**
-## Raw data access using Deedle:
+## II. Raw data access using Deedle:
 As teasered in the primer, we want to work with our tabular data using Deedle. Luckily, Deedle does not only deliver data frame and series
 manipulation, but also allows us to quickly read the recently downloaded data into the memory:
 *)
@@ -163,7 +163,7 @@ indexedData
 indexedData |> Frame.take 10 |> fun x -> x.Print()
 (***include-fsi-merged-output***)
 (**
-## Augmenting and filtering the data frame 
+## III. Augmenting and filtering the data frame 
 The data frame already contains all information needed to perform the analysis, but it could still benefit from 
 some quality-of-life upgrades. Say, we want to encode the specific qConcat protein as a separate feature:
 *)
@@ -206,7 +206,7 @@ finalRaw |> Frame.take 10 |> fun x -> x.Print()
 (***include-fsi-merged-output***)
 
 (**
-## Global quality control.
+## IV. Global quality control.
 
 With our data frame prepared, we want to see on a global scale if our experiment worked.
 We plot the overall mean of the 14N and 15N quantifications and observe if we can recover our dilution series (15N),
