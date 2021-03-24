@@ -207,10 +207,14 @@ To visualize the data we can call the "formatAsTable" function. The preview of v
 for the charts to be scrollable so feel free to pipe the output into "Chart.Show", to visualize the data in your browser.
 *)
 
+
+(***condition:ipynb***)
+#if IPYNB
 rawData
 |> Frame.take 10
 |> formatAsTable 
 |> Chart.Show
+#endif // IPYNB
 
 (**
 Looking at the raw data, we can see that each row contains a different quantifiction of a peptide ion, with the columns containing 
@@ -235,12 +239,14 @@ let indexedData =
     |> Frame.dropCol "PepSequenceID"
     |> Frame.dropCol "Charge"
 
+(***condition:ipynb***)
+#if IPYNB
 // The effect of our frame manipulation can be observed:
 indexedData
 // |> Frame.take 10
 |> formatAsTable 
 |> Chart.Show
-
+#endif // IPYNB
 (**
 ## Augmenting and filtering the data frame 
 The data frame already contains all information needed to perform the analysis, but it could still benefit from 
@@ -273,10 +279,13 @@ let withSynonyms =
         {|k with Synonyms=synonyms|}
         )
 
+(***condition:ipynb***)
+#if IPYNB
 withSynonyms
 |> Frame.take 10
 |> formatAsTable 
 |> Chart.Show
+#endif // IPYNB
 
 type Qprot = 
     | CBB
@@ -300,10 +309,14 @@ let final =
     |> Frame.filterRows (fun k s -> k.QProt.IsSome)
     |> Frame.mapRowKeys (fun k -> {|k with QProt = k.QProt.Value|})
 
+(***condition:ipynb***)
+#if IPYNB
 final
 |> Frame.take 10
 |> formatAsTable 
 |> Chart.Show
+#endif // IPYNB
+
 // How many peptide ions did the filter remove? 
 (**
 ## Global quality control.
@@ -325,10 +338,13 @@ let light  = sliceQuantColumns "Light" final
 let heavy  = sliceQuantColumns "Heavy" final
 
 /// How did the data frame change, how did the column headers change?
+(***condition:ipynb***)
+#if IPYNB
 ratios
 |> Frame.take 10
 |> formatAsTable 
 |> Chart.Show
+#endif // IPYNB
 
 /// This function will plot the distribution of column valuesusing boxplots. 
 let createBoxPlot f = 
@@ -345,15 +361,26 @@ let createBoxPlot f =
     |> Series.values
     |> Chart.Combine
     |> Chart.withY_AxisStyle "Ion intensity"
-    |> Chart.Show
-
+(**
+*)
 // The function applied to the n14 values, what do you see?
+
 light
 |> createBoxPlot
 
+(***hide***)
+light |> createBoxPlot |> GenericChart.toChartHTML
+(***include-it-raw***)
+(**
+*)
 // The function applied to the n15 values, what do you see?
+
 heavy
 |> createBoxPlot
+
+(***hide***)
+heavy |> createBoxPlot |> GenericChart.toChartHTML
+(***include-it-raw***)
 (**
 The following function performs a normalization which accounts for a specific effect. Can you 
 determine what the function accounts for?
@@ -368,35 +395,47 @@ let normalizePeptides f =
         )
     |> Frame.ofColumns
     |> Frame.transpose
-
+(**
+*)
 // How does the distribution of the date change, when the normalization is applied? 
 light 
 |> normalizePeptides
-|> createBoxPlot 
+|> createBoxPlot
 
+(***hide***)
+light |> normalizePeptides |> createBoxPlot |> GenericChart.toChartHTML
+(***include-it-raw***)
+(**
+*)
 heavy
 |> normalizePeptides
 |> createBoxPlot 
-
+(***hide***)
+heavy |> normalizePeptides |> createBoxPlot |> GenericChart.toChartHTML
+(***include-it-raw***)
 (**
 Finally we have a look at the ratios. Does it make sense to normalize the ratios the same way?
 *)
 
 ratios
 |> createBoxPlot 
-
+(**
+*)
+(***condition:ipynb***)
+#if IPYNB
 ratios
 |> Frame.take 10
 |> formatAsTable 
 |> Chart.Show
-
-
+#endif // IPYNB
+(***condition:ipynb***)
+#if IPYNB
 ratios
 |> Frame.transpose
 |> Frame.take 10
 |> formatAsTable 
 |> Chart.Show
-
+#endif // IPYNB
 (**
 ## V. Local quality control. 
 
@@ -444,22 +483,37 @@ ratios.RowKeys
 |> Array.map (fun k -> k.Synonyms)
 |> Array.distinct
 
-// Then we can start to visualizes our results:
-
+(**
+Then we can start to visualizes our results:
+*)
 plotPeptidesOf "rbcL" 1
-|> Chart.Show
-
+(***hide***)
+plotPeptidesOf "rbcL" 1 |> GenericChart.toChartHTML
+(***include-it-raw***)
+(**
+*)
 plotPeptidesOf "RBCS2;RBCS1" 2
-|> Chart.Show
-
+(***hide***)
+plotPeptidesOf "RBCS2;RBCS1" 2 |> GenericChart.toChartHTML
+(***include-it-raw***)
+(**
+*)
 plotPeptidesOf "FBP1" 2
-|> Chart.Show
-
+(***hide***)
+plotPeptidesOf "FBP1" 2 |> GenericChart.toChartHTML
+(***include-it-raw***)
+(**
+*)
 plotPeptidesOf "FBP2" 2
-|> Chart.Show
-
+(***hide***)
+plotPeptidesOf "FBP2" 2 |> GenericChart.toChartHTML
+(***include-it-raw***)
+(**
+*)
 plotPeptidesOf "SEBP1" 2
-|> Chart.Show
+(***hide***)
+plotPeptidesOf "SEBP1" 2 |> GenericChart.toChartHTML
+(***include-it-raw***)
 
 (**
 With the plots at hand we can manipulate the data frame and discard peptides and/or whole files which we do not want to use for 
@@ -469,6 +523,13 @@ a absolute protein quantification e.g.:
 let ratiosFiltered = 
     ratios
     |> Frame.filterCols (fun k s -> get15N_CBC_Amount k > 0.1 )
+(***condition:ipynb***)
+#if IPYNB
+ratiosFiltered
+|> Frame.take 10
+|> formatAsTable 
+|> Chart.Show
+#endif // IPYNB
 
 (**
 This file can then be saved and used for the next notebook, where we will have a look on the isotopic labeling efficiency and finally calculate absolute protein amounts.
