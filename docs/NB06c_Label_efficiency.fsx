@@ -31,9 +31,9 @@ open BIO_BTE_06_L_7_Aux.Deedle_Aux
 
 [Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b/NB06b_Data_Access_And_Quality_Control.ipynb)
 
-Stable isotopic peptide labeling is the foundation of qconcat experiments. While an excellent tool when carried out with correctly, it also exposes 
+Stable isotopic peptide labeling is the foundation of QconCAT experiments. While an excellent tool when carried out with correctly, it also exposes 
 challenges and pitfalls that have to be checked and possibly accounted for. One of these pitfalls is the efficiency with which we labeled
-our qConcat protein (Why?). In this notebook we will have a look at some high quality peptides selected in the previous notebook and
+our QconCAT protein (Why?). In this notebook we will have a look at some high quality peptides selected in the previous notebook and
 illustrate how the label efficiency can be calculated using simulations.  
 
 ## I. Reading the data
@@ -57,7 +57,7 @@ type PeptideIon =
 //VON JONNY ERGAENZEN
 let filePath = @"C:\Users\David Zimmer\source\repos\praktikum2020\testOut.txt"
 
-// How is this function different from the one known from the last notebook?
+// What is different about this function from the one known from the last notebook?
 let qConcatDataFiltered =
     Frame.ReadCsv(path = filePath,separators="\t")
     // StringSequence is the peptide sequence
@@ -100,7 +100,7 @@ Besides already familiar slices...
 let heavy = sliceQuantColumns "Heavy" qConcatDataFiltered
 
 (**
-... we can also use this function to information needed to reconstruct isotopic patterns.
+... we can also use this function for information needed to reconstruct isotopic patterns.
 
 ## II. Extraction and visualization of measured isotopic envelopes.
 *)
@@ -109,7 +109,7 @@ let heavyPatternMz = sliceQuantColumns "heavyPatternMz" qConcatDataFiltered
 let heavyPatternI  = sliceQuantColumns "heavyPatternI" qConcatDataFiltered
 
 (**
-Now, we have a challenge: the info to reconstruct an isotopic pattern is
+Now, there's a challenge: The info to reconstruct an isotopic pattern is
 separated into two columns, the x component (heavyPatternMz) and the y component (heavyPatternI).
 As always, this challenged can be solved using a function! 
 Hint: Note how we define a function 'floatArrayOf' that specifies how the string is parsed. 
@@ -248,9 +248,9 @@ plotIsotopicPattern FSharpAux.Colors.Table.Office.orange examplePep2_Sim2.SimPat
 
 As we see, there is a discrepancy between real and simulated patterns, both in peak height and in peak count. 
 But before we compare both patterns, we have to take some things into consideration.
-While both patterns are normalized in a way, that their intensities
+While both patterns are normalized in a way that their intensities
 sum to 1., they were normalized independently from each other. Since it is often not possible to 
-extract all peaks of a isotopic pattern from a MS run (e.g. due to measurement inaccuracies), we have to 
+extract all peaks of an isotopic pattern from a MS run (e.g. due to measurement inaccuracies), we have to 
 write a function which filters the simulated patterns for those peaks present in the experimentally 
 measured one. Then we normalize it again and have two spectra that can be compared.
 // How are distributions called that sum up to 1?
@@ -415,6 +415,6 @@ Chart.BoxPlot estimates
 
 (**
 Now that we know more than an educated guess of an lable efficiency estimate we can start with our main goal:
-absolute quantification of chlamydomonas proteins!
+the absolute quantification of chlamydomonas proteins!
 *)
 
