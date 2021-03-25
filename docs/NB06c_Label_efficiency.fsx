@@ -2,7 +2,7 @@
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
 #r "nuget: Plotly.NET, 2.0.0-beta6"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.6"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.8"
 #r "nuget: Deedle, 2.3.0"
 #r "nuget: ISADotNet, 0.2.4"
 #r "nuget: ISADotNet.XLSX, 0.2.4"
@@ -27,13 +27,13 @@ open BIO_BTE_06_L_7_Aux.Deedle_Aux
 (**
 # NB06c Label efficiency
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b_Data_Access_And_Quality_Control.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b_Label_efficiency.ipynb)
 
-[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b/NB06b_Data_Access_And_Quality_Control.ipynb)
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06c/NB06c_Label_efficiency.ipynb)
 
 Stable isotopic peptide labeling is the foundation of QconCAT experiments. While an excellent tool when carried out with correctly, it also exposes 
-challenges and pitfalls that have to be checked and possibly accounted for. One of these pitfalls is the efficiency with which we labeled
-our QconCAT protein (Why?). In this notebook we will have a look at some high quality peptides selected in the previous notebook and
+challenges and pitfalls that have to be checked and possibly accounted for. One of these pitfalls is the efficiency with which we labeled 
+our QconCAT protein (Why?). In this notebook we will have a look at some high quality peptides selected in the previous notebook and 
 illustrate how the label efficiency can be calculated using simulations.  
 
 ## I. Reading the data
@@ -54,8 +54,8 @@ type PeptideIon =
         QProt           : Qprot
     |}
 
-//VON JONNY ERGAENZEN
-let filePath = @"C:\Users\David Zimmer\source\repos\praktikum2020\testOut.txt"
+//This is the filepath you chose in *NB06b Data Access and Quality Control*
+let filePath = @"C:\YourPath\testOut.txt"
 
 // What is different about this function from the one known from the last notebook?
 let qConcatDataFiltered =
@@ -144,11 +144,17 @@ to the build the chart (plotIsotopicPattern), things get a little bit trickier, 
 created by 'plotIsotopicPatternOf' and write correct descriptions for the x and the y axis. (Fill: |> Chart.withX_AxisStyle "" and |> Chart.withY_AxisStyle "")
 *)
 
-let plotIsotopicPattern color mzsAndintensities = 
-    Seq.map (fun (x,y) -> Chart.Line([x;x],[0.;y])) mzsAndintensities
+let plotIsotopicPattern color mzsAndintensities =
+    let min,max =
+        mzsAndintensities |> Seq.minBy fst |> fst,
+        mzsAndintensities |> Seq.maxBy fst |> fst
+    Seq.map (fun (x,y) -> 
+        Chart.Line([x;x],[0.;y], Showlegend = false)
+        |> Chart.withLineStyle (Width = 7)
+    ) mzsAndintensities
     |> Chart.Combine
     |> Chart.withMarkerStyle(Size=0,Color = FSharpAux.Colors.toWebColor color)
-    |> Chart.withX_AxisStyle ""
+    |> Chart.withX_AxisStyle ("", MinMax = (min - 1., max + 1.))
     |> Chart.withY_AxisStyle ""
 
 type ExtractedIsoPattern = 
@@ -170,23 +176,28 @@ let getIsotopicPattern peptideSequence charge =
         Charge  = charge
         Pattern = Seq.zip mzs intensities
     |}
-
+(**
+*)
 let examplePep1 = getIsotopicPattern "DTDILAAFR" 2
 
 plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep1.Pattern
-|> Chart.Show
-
+(***hide***)
+plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep1.Pattern |> GenericChart.toChartHTML
+(***include-it-raw***)
+(**
+*)
 let examplePep2 = getIsotopicPattern "LTYYTPDYVVR" 2
 
-plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep2.Pattern  
-|> Chart.Show
-
+plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep2.Pattern
+(***hide***)
+plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep2.Pattern |> GenericChart.toChartHTML
+(***include-it-raw***)
 
 (**
 ## III. Simulation of isotopic patterns: revisited.
 
 Now that we visualized the patterns of two sample peptides, we will simulate theoretical patterns
-and compare them to the ones we measured! You will recognize a lot of the used code from 'NB02c Isotopic distribution'
+and compare them to the ones we measured! You will recognize a lot of the used code from *NB02c Isotopic distribution*
 Note: we copy the code so you can make yourself familiar with it, of course we could also reference functions defined beforehand.
 *)
 
@@ -232,17 +243,22 @@ let simulateFrom peptideSequence charge lableEfficiency =
         LableEfficiency = lableEfficiency
         SimPattern      = simPattern
     |}
-
+(**
+*)
 let examplePep2_Sim1 = simulateFrom "LTYYTPDYVVR" 2 0.95
 
 plotIsotopicPattern FSharpAux.Colors.Table.Office.orange examplePep2_Sim1.SimPattern
-|> Chart.Show
-
+(***hide***)
+plotIsotopicPattern FSharpAux.Colors.Table.Office.orange examplePep2_Sim1.SimPattern |> GenericChart.toChartHTML
+(***include-it-raw***)
+(**
+*)
 let examplePep2_Sim2 = simulateFrom "LTYYTPDYVVR" 2 0.99
 
-plotIsotopicPattern FSharpAux.Colors.Table.Office.orange examplePep2_Sim2.SimPattern 
-|> Chart.Show
-
+plotIsotopicPattern FSharpAux.Colors.Table.Office.orange examplePep2_Sim2.SimPattern
+(***hide***)
+plotIsotopicPattern FSharpAux.Colors.Table.Office.orange examplePep2_Sim2.SimPattern |> GenericChart.toChartHTML
+(***include-it-raw***)
 (**
 ## IV. Comparing measured and theoretical isotopic patterns.
 
@@ -278,15 +294,20 @@ let compareIsotopicDistributions (measured:ExtractedIsoPattern) (simulated:Simul
             ]
             |> Chart.Combine
     |}
-
+(**
+*)
 let comp1 = compareIsotopicDistributions examplePep2 examplePep2_Sim1
 comp1.Plot
-|> Chart.Show
-
+(***hide***)
+comp1.Plot |> GenericChart.toChartHTML
+(***include-it-raw***)
+(**
+*)
 let comp2 = compareIsotopicDistributions examplePep2 examplePep2_Sim2
 comp2.Plot
-|> Chart.Show
-
+(***hide***)
+comp2.Plot |> GenericChart.toChartHTML
+(***include-it-raw***)
 (**
 Comparing both simulations, we see that the simulation with a label efficiency of 0.99 fits the measured spectra better than the simulation with 0.95.
 But since we do not want to find a better fit, but the best fit to our measured pattern, this is no goal that is achievable in a feasable way 
@@ -345,11 +366,19 @@ let bestFit = comparison |> Seq.minBy (fun x -> x.KLDiv)
 Chart.Point(lableEfficiency,comparison |> Seq.map (fun x -> x.KLDiv))
 |> Chart.withX_AxisStyle ""
 |> Chart.withY_AxisStyle ""
-|> Chart.Show
+
+(***hide***)
+Chart.Point(lableEfficiency,comparison |> Seq.map (fun x -> x.KLDiv)) |> GenericChart.toChartHTML
+(***include-it-raw***)
+(**
+*)
 
 bestFit.Plot
-|> Chart.Show
-
+(***hide***)
+bestFit.Plot |> GenericChart.toChartHTML
+(***include-it-raw***)
+(**
+*)
 let lableEfficiency2,comparison2 = 
     [|0.95 .. 0.001 .. 0.999|]
     |> Array.map (fun lableEfficiency -> 
@@ -365,10 +394,15 @@ let bestFit2 = comparison2 |> Seq.minBy (fun x -> x.KLDiv)
 Chart.Point(lableEfficiency2,comparison2 |> Seq.map (fun x -> x.KLDiv))
 |> Chart.withX_AxisStyle ""
 |> Chart.withY_AxisStyle ""
-|> Chart.Show
-
+(***hide***)
+Chart.Point(lableEfficiency2,comparison2 |> Seq.map (fun x -> x.KLDiv)) |> GenericChart.toChartHTML
+(***include-it-raw***)
+(**
+*)
 bestFit2.Plot
-|> Chart.Show
+(***hide***)
+bestFit2.Plot |> GenericChart.toChartHTML
+(***include-it-raw***)
 
 (**
 Observing the output, we can make two observations: the function x(lablefficiency) = KL(measured,sim(lableeffciency)) has in both cases a local minimum
@@ -411,7 +445,9 @@ let estimates =
 
 Chart.BoxPlot estimates
 |> Chart.withX_AxisStyle ""
-|> Chart.Show 
+(***hide***)
+Chart.BoxPlot estimates |> GenericChart.toChartHTML
+(***include-it-raw***)
 
 (**
 Now that we know more than an educated guess of an lable efficiency estimate we can start with our main goal:
