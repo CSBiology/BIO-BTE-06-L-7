@@ -29,7 +29,7 @@ open BIO_BTE_06_L_7_Aux.Deedle_Aux
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b_Label_efficiency.ipynb)
 
-[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06c/NB06c_Label_efficiency.ipynb)
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06c/NB06c_Label_efficiency.html)
 
 Stable isotopic peptide labeling is the foundation of QconCAT experiments. While an excellent tool when carried out with correctly, it also exposes 
 challenges and pitfalls that have to be checked and possibly accounted for. One of these pitfalls is the efficiency with which we labeled 
