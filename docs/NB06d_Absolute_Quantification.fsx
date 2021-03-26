@@ -48,7 +48,7 @@ let inOutMap = BIO_BTE_06_L_7_Aux.ISA_Aux.createInOutMap myAssayFile
 
 (**
 Next, we will prepare functions to look up parameters which might be needed for further calculations.
-If you compare this list to the one of note book NB06d you will find additional functions. We will need these functions
+If you compare this list to the one of note book NB06b you will find additional functions. We will need these functions
 in order to calculate the absolute abundances. 
 *)
 
@@ -127,7 +127,7 @@ getGroupID "WCGr2_U1.wiff"
 
 (**
 ## II. Reading the data
-As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data is stored VON JONNY ERGAENZEN:
+As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from *NB06b Data Access and Quality Control* is stored in a .txt
 *)
 
 // Similarly to the previous notebook, we start by defining a type, modelling our qProteins. 
@@ -152,7 +152,7 @@ type PeptideIon =
         QProt           : Qprot
     |}
 
-//VON JONNY ERGAENZEN
+//This is the filepath you chose in *NB06b Data Access and Quality Control*
 let filePath = @"C:\Users\David Zimmer\source\repos\praktikum2020\testOut.txt"
 
 let qConcatDataFiltered =
@@ -181,7 +181,7 @@ let qConcatDataFiltered =
 ## III. From Ratios to mol proteins per cell.
 
 Now we can use the extensive information stored in the sample sheet and map each quantified peptide ion passing
-the quality checks to an estimator for protein abundance! First we start of by defining a function to extract ratios:
+the quality checks to an estimator for protein abundance! First we start off by defining a function to extract ratios:
 *)
 
 let sliceQuantColumns quantColID frame = 
@@ -314,7 +314,7 @@ let absoluteAbundances  =
 (**
 To see if our calculations are not off, we look at the calculated abundance for the well studied abundances of rbcL and RBCS
 and compare this to the published knowledge about these proteins.
-For this, we write a function that given a protein synonym and a list of peptide sequences returns a list of quantifications (via mean)
+For this, we write a function that, given a protein synonym and a list of peptide sequences, returns a list of quantifications (via mean)
 and the estimated uncertainty (via standard deviation). The results can then be visualized using e.g. column charts.
 *)
 
@@ -355,7 +355,7 @@ Chart.Column(rbcsQuantification |> Seq.map (fun x -> x.Synonym),rbcsQuantificati
 (**
 Comparing this to the published results (see: https://www.frontiersin.org/articles/10.3389/fpls.2020.00868/full) we see that our preliminary results are
 not only in the same order of magnitude as the published values, but in many cases really close! Of course it could be that you see systematic differences between your results
-and published results. As data analysts it is now your task to estimate if differences are of the product of biology (e.g. different growth conditions or genetic background)
+and published results. As data analysts it is now your task to estimate if the differences are the product of biology (e.g. different growth conditions or genetic background)
 or caused by technical artifacts (e.g. different amounts of spiked proteins, mistakes estimating a parameter like the cell count) which could be accounted for by developing
 normalization strategies. We look forward to read your explanations!
 *)
