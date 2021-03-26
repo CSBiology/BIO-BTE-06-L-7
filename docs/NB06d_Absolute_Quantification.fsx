@@ -2,7 +2,7 @@
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
 #r "nuget: Plotly.NET, 2.0.0-beta6"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.6"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.8"
 #r "nuget: Deedle, 2.3.0"
 #r "nuget: ISADotNet, 0.2.4"
 #r "nuget: ISADotNet.XLSX, 0.2.4"
@@ -28,9 +28,9 @@ open BIO_BTE_06_L_7_Aux.Deedle_Aux
 (**
 # NB06d Absolute Quantification
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b_Data_Access_And_Quality_Control.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06d_Absolute_Quantification.ipynb)
 
-[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b/NB06b_Data_Access_And_Quality_Control.ipynb)
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06d/NB06d_Absolute_Quantification.ipynb)
 
 Finally, after careful peptide ion selection, quality control and assuring that our label efficiency allows accurate for quantifications, we can start to
 calculate protein abundancies. Since we start again by getting access to our data and its description, this notebook will start off familiar!
@@ -48,7 +48,7 @@ let inOutMap = BIO_BTE_06_L_7_Aux.ISA_Aux.createInOutMap myAssayFile
 
 (**
 Next, we will prepare functions to look up parameters which might be needed for further calculations.
-If you compare this list to the one of note book NB06b you will find additional functions. We will need these functions
+If you compare this list to the one of note book *NB06b Data Access and Quality Control* you will find additional functions. We will need these functions
 in order to calculate the absolute abundances. 
 *)
 
@@ -153,7 +153,7 @@ type PeptideIon =
     |}
 
 //This is the filepath you chose in *NB06b Data Access and Quality Control*
-let filePath = @"C:\Users\David Zimmer\source\repos\praktikum2020\testOut.txt"
+let filePath = @"C:\YourPath\testOut.txt"
 
 let qConcatDataFiltered =
     Frame.ReadCsv(path = filePath,separators="\t")
@@ -176,6 +176,14 @@ let qConcatDataFiltered =
         )
     |> Frame.filterRows (fun k s -> k.QProt.IsSome)
     |> Frame.mapRowKeys (fun k -> {|k with QProt = k.QProt.Value|})
+
+(***condition:ipynb***)
+#if IPYNB
+qConcatDataFiltered
+|> Frame.take 10
+|> formatAsTable 1500.
+|> Chart.Show
+#endif // IPYNB
 
 (**
 ## III. From Ratios to mol proteins per cell.
@@ -283,6 +291,14 @@ needed to calculate absolute abundances: the ratio columns.
 
 let ratios = sliceQuantColumns "Ratio" withProteinWeights
 
+(***condition:ipynb***)
+#if IPYNB
+ratios
+|> Frame.take 10
+|> formatAsTable 1500.
+|> Chart.Show
+#endif // IPYNB
+
 (** 
 Finally, we can iterate the ratios and map each to a protein abundance using our well annotated experiment.
 *)
@@ -339,18 +355,22 @@ let extractAbsolutAbundancesOf prot peptidelist =
 let rbclQuantification = extractAbsolutAbundancesOf "rbcL" ["DTDILAAFR", 2;"FLFVAEAIYK",2]
 let rbcsQuantification = extractAbsolutAbundancesOf "RBCS" ["AFPDAYVR", 2;"LVAFDNQK",2]
 
-[
-Chart.Column(rbclQuantification |> Seq.map (fun x -> x.Synonym),rbclQuantification |> Seq.map (fun x -> x.MeanQuant))
-|> Chart.withYErrorStyle (rbclQuantification |> Seq.map (fun x -> x.StdevQuant))
-|> Chart.withTraceName "rbcL"
-Chart.Column(rbcsQuantification |> Seq.map (fun x -> x.Synonym),rbcsQuantification |> Seq.map (fun x -> x.MeanQuant))
-|> Chart.withYErrorStyle (rbcsQuantification |> Seq.map (fun x -> x.StdevQuant))
-|> Chart.withTraceName "RBCS"
-]
-|> Chart.Combine
-|> Chart.withY_AxisStyle "protein abundance [amol/cell]"
-|> Chart.Show
+let protAbundanceChart =
+    [
+    Chart.Column(rbclQuantification |> Seq.map (fun x -> x.Synonym),rbclQuantification |> Seq.map (fun x -> x.MeanQuant))
+    |> Chart.withYErrorStyle (rbclQuantification |> Seq.map (fun x -> x.StdevQuant))
+    |> Chart.withTraceName "rbcL"
+    Chart.Column(rbcsQuantification |> Seq.map (fun x -> x.Synonym),rbcsQuantification |> Seq.map (fun x -> x.MeanQuant))
+    |> Chart.withYErrorStyle (rbcsQuantification |> Seq.map (fun x -> x.StdevQuant))
+    |> Chart.withTraceName "RBCS"
+    ]
+    |> Chart.Combine
+    |> Chart.withY_AxisStyle "protein abundance [amol/cell]"
 
+protAbundanceChart
+(***hide***)
+protAbundanceChart |> GenericChart.toChartHTML
+(***include-it-raw***)
 
 (**
 Comparing this to the published results (see: https://www.frontiersin.org/articles/10.3389/fpls.2020.00868/full) we see that our preliminary results are
