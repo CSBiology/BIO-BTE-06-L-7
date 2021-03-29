@@ -2,7 +2,7 @@
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
 #r "nuget: Plotly.NET, 2.0.0-beta6"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.6"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.8"
 #r "nuget: Deedle, 2.3.0"
 #r "nuget: ISADotNet, 0.2.4"
 #r "nuget: ISADotNet.XLSX, 0.2.4"
@@ -408,11 +408,21 @@ plotPeptidesOf ratios "SEBP1" 2
 plotPeptidesOf ratios "SEBP1" 2 |> GenericChart.toChartHTML
 (***include-it-raw***)
 
+(**
+Since we want to save our result and use it for the next notebook, where we will have a look at the isotopic labeling efficiency and finally calculate absolute protein amounts, we 
+need to save the filtered frame. Additionally, we want to keep information which was dropped along the way: isotopic patterns. In order to do so, we perform a join operation, which keeps only those rows 
+present in both files:
+
+*)
+//  Are there redundant columns in the result frame? Why?
+let frameComplete = 
+    Frame.join JoinKind.Inner finalRaw ratios
 
 (**
 With the plots at hand, we can use the following functions to manipulate the data frame and discard peptides and/or whole files which we do not want to use for 
 an absolute protein quantification e.g.:
 *)
+
 let discardPeptideIonInFile stringsequence charge filename (ratios:Frame<PeptideIon,string>) = 
     ratios
     |> Frame.map (fun r c value -> if r.StringSequence = stringsequence && r.Charge = charge && c=filename then nan else value)
@@ -424,36 +434,28 @@ let discardPeptideIon stringsequence charge (ratios:Frame<PeptideIon,string>) =
 These functions can then be used to create an updated version of the frame, containing only the values we want to use for quantification e.g.:
 *)
 let filtered = 
-    ratios 
+    frameComplete 
     |> discardPeptideIonInFile "IYSFNEGNYGLWDDSVK" 3 "WCGr2_UF_1" 
     |> discardPeptideIon "IYSFNEGNYGLWDDSVK" 2
-
-// Plotting the updated frame again, we see that the exemplary filtering worked just fine.
-plotPeptidesOf filtered "FBP2" 2
-(***hide***)
-plotPeptidesOf filtered "FBP2" 2 |> GenericChart.toChartHTML
-(***include-it-raw***)
 
 (**
 Of course, it is possible to apply very strict additional filters onto the previously filtered frame:
 *)
 let ratiosFiltered = 
     filtered
-    |> Frame.filterCols (fun k s -> get15N_CBC_Amount k > 0.1 )
-
-(**
-Since we want to save our result and use it for the next notebook, where we will have a look at the isotopic labeling efficiency and finally calculate absolute protein amounts, we 
-need to save the filtered frame. Additionally, we want to keep information which was dropped along the way: isotopic patterns. In order to do so, we perform a join operation, which keeps only those rows 
-present in both files:
-
-*)
-//  Are there redundant columns in the result frame? Why?
-let frameToSave = 
-    Frame.join JoinKind.Inner finalRaw ratiosFiltered 
-    |> Frame.indexRowsOrdinally
+    |> Frame.filterCols (fun k s -> 
+        try
+            get15N_CBC_Amount k > 0.1 
+        with
+        | _ -> false
+        )
 
 (**
 This frame can then be saved locally using the following pattern:    
 *)    
+
+let frameToSave = 
+    ratiosFiltered
+    |> Frame.indexRowsOrdinally
 
 frameToSave.SaveCsv(@"C:\YourPath\testOut.txt",separator='\t',includeRowKeys=false)
