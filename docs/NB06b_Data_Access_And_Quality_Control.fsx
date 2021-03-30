@@ -425,7 +425,10 @@ an absolute protein quantification e.g.:
 
 let discardPeptideIonInFile stringsequence charge filename (ratios:Frame<PeptideIon,string>) = 
     ratios
-    |> Frame.map (fun r c value -> if r.StringSequence = stringsequence && r.Charge = charge && c=filename then nan else value)
+    |> Frame.map (fun r c value -> 
+        let cFileName = String.split '.' c |> Array.head
+        if r.StringSequence = stringsequence && r.Charge = charge && cFileName = filename then nan else value
+    )
 
 let discardPeptideIon stringsequence charge (ratios:Frame<PeptideIon,string>) = 
     ratios
@@ -444,11 +447,12 @@ Of course, it is possible to apply very strict additional filters onto the previ
 let ratiosFiltered = 
     filtered
     |> Frame.filterCols (fun k s -> 
+        let kFileName = String.split '.' k |> Array.head
         try
-            get15N_CBC_Amount k > 0.1 
+            get15N_CBC_Amount kFileName > 0.1 
         with
         | _ -> false
-        )
+    )
 
 (**
 This frame can then be saved locally using the following pattern:    
