@@ -47,8 +47,8 @@ It supports working with structured data frames, ordered and unordered data, as 
 Before we analyze our data, we will download and read the sample description provided by the experimentalist.
 *)
 let directory = __SOURCE_DIRECTORY__
-let path2 = Path.Combine[|directory;"downloads/alle_Gruppen_V8_SWATE.xlsx"|]
-downloadFile path2 "alle_Gruppen_V8_SWATE.xlsx" "bio-bte-06-l-7"
+let path2 = Path.Combine[|directory;"downloads/alle_Gruppen_V10_SWATE.xlsx"|]
+downloadFile path2 "alle_Gruppen_V10_SWATE.xlsx" "bio-bte-06-l-7"
 
 let _,_,_,myAssayFile = XLSX.AssayFile.AssayFile.fromFile path2
 let inOutMap = BIO_BTE_06_L_7_Aux.ISA_Aux.createInOutMap myAssayFile
@@ -91,23 +91,30 @@ let getGroupID (fileName:string) =
     BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Extraction" "Group name" fN myAssayFile |> Option.defaultValue ""
     |> int
 
+let getLoadAmount (fileName : string) =
+    let fN = fileName |> normalizeFileName
+    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "PAGE - Sample preparation" "soluble protein content" fN myAssayFile |> Option.defaultValue ""
+    |> float
+
+let getCutoutBand (fileName : string) =
+    0
+
 (**
 A quick execution to test the retrieval of data from the isa sample table:
 *)
-getStrain "WCGr2_U1.wiff"
-getExpressionLevel "WCGr2_U1.wiff"
-get15N_CBC_Amount "WCGr2_U1.wiff"
-get15N_PS_Amount "WCGr2_U1.wiff"
-getGroupID "WCGr2_U1.wiff"
+getStrain "Gr2rbcL2_5.wiff"
+getExpressionLevel "Gr2rbcL2_5.wiff"
+get15N_CBC_Amount "Gr2rbcL2_5.wiff"
+get15N_PS_Amount "Gr2rbcL2_5.wiff"
+getGroupID "Gr2rbcL2_5.wiff"
+getLoadAmount "Gr2rbcL2_5.wiff"
 
 (**
 Now that we have the sample sheet, all that is missing is the data to be analyzed:
 *)
 
-let pathSDS = Path.Combine[|directory;"downloads/Quantifications_sds_annotated_replaced.txt"|]
-downloadFile pathSDS "Quantifications_sds_annotated.txt" "bio-bte-06-l-7"
-let pathBN = Path.Combine[|directory;"downloads/Quantifications_bn_annotated_replaced.txt"|]
-downloadFile pathBN "Quantifications_bn_annotated.txt" "bio-bte-06-l-7"
+let path = Path.Combine[|directory; "downloads/Quantifications_sds_annotated_replaced.txt"|]
+downloadFile path "Quantifications_sds_annotated.txt" "bio-bte-06-l-7"
 
 (**
 ## II. Raw data access using Deedle:
@@ -115,8 +122,7 @@ As teasered in the primer, we want to work with our tabular data using Deedle. L
 manipulation, but also allows us to quickly read the recently downloaded data into the memory:
 *)
 
-let rawDataSDS = Frame.ReadCsv(pathSDS,separators="\t")
-let rawDataBN = Frame.ReadCsv(pathBN,separators="\t")
+let rawData = Frame.ReadCsv(path, separators = "\t")
 
 (**
 To visualize the data, we can call the "formatAsTable" function. The preview of visual studio code does not allow
@@ -125,22 +131,14 @@ for the charts to be scrollable, so we pipe the output into "Chart.Show", to vis
 
 (***condition:ipynb***)
 #if IPYNB
-rawDataSDS
+rawData
 |> Frame.take 10
 |> formatAsTable 
 |> Chart.Show
 
-rawDataBN
-|> Frame.take 10
-|> formatAsTable 
-|> Chart.Show
 #endif // IPYNB
 (***hide***)
-printfn "SDS:"
-rawDataSDS |> Frame.take 10 |> fun x -> x.Print()
-
-printfn "\nBN:"
-rawDataBN |> Frame.take 10 |> fun x -> x.Print()
+rawData |> Frame.take 10 |> fun x -> x.Print()
 
 (***include-fsi-merged-output***)
 (**
@@ -150,42 +148,32 @@ Since the columns ProteinGroup, StringSequence, PepSequenceID and Charge uniquel
 For this, we use a language feature called ["anonymous record type"](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/anonymous-records). 
 Here we create a tuple like structure, with the additional feature that each element of the tuple is named (e.g.: Proteingroup).
 *)
-let (indexedDataSDS,indexedDataBN) =
-    let getIndexedData data =
-        data
-        // StringSequence is the peptide sequence
-        |> Frame.indexRowsUsing (fun os -> 
-            {|
-                ProteinGroup    = os.GetAs<string>("ProteinGroup"); 
-                Synonyms        = os.GetAs<string>("Synonyms")
-                StringSequence  = os.GetAs<string>("StringSequence");
-                PepSequenceID   = os.GetAs<int>("PepSequenceID");
-                Charge          = os.GetAs<int>("Charge")
-            |}
-        )
-    (getIndexedData rawDataSDS, getIndexedData rawDataBN)
+let indexedData =
+    rawData
+    // StringSequence is the peptide sequence
+    |> Frame.indexRowsUsing (fun os -> 
+        {|
+            ProteinGroup    = os.GetAs<string>("ProteinGroup"); 
+            Synonyms        = os.GetAs<string>("Synonyms")
+            StringSequence  = os.GetAs<string>("StringSequence");
+            PepSequenceID   = os.GetAs<int>("PepSequenceID");
+            Charge          = os.GetAs<int>("Charge")
+        |}
+    )
     
-
 
 (***condition:ipynb***)
 #if IPYNB
 // The effect of our frame manipulation can be observed:
-indexedDataSDS
+indexedData
 |> Frame.take 10
 |> formatAsTable 
 |> Chart.Show
 
-indexedDataBN
-|> Frame.take 10
-|> formatAsTable 
-|> Chart.Show
 #endif // IPYNB
 (***hide***)
-printfn "SDS:"
-indexedDataSDS |> Frame.take 10 |> fun x -> x.Print()
+indexedData |> Frame.take 10 |> fun x -> x.Print()
 
-printfn "\nBN:"
-indexedDataBN |> Frame.take 10 |> fun x -> x.Print()
 (***include-fsi-merged-output***)
 (**
 ## III. Augmenting and filtering the data frame 
@@ -193,52 +181,29 @@ The data frame already contains all information needed to perform the analysis, 
 some quality-of-life upgrades. Say, we want to encode the specific qConcat protein as a separate feature:
 *)
 // Why does it make sense to model Qprots using this type, why do we not simply use a string?
-type Qprot = 
-    | CBB
-    | PS 
 
-let (finalRawSDS,finalRawBN) = 
-    let getFinalRaw (data : Frame<{| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},string>) =
-        data
-        |> Frame.mapRowKeys (fun k ->
-            let qprot = 
-                match k.ProteinGroup |> String.contains "QProt_newCBB", k.ProteinGroup |> String.contains "QProt_newPS" with 
-                | true, false  -> Some CBB
-                | false, true  -> Some PS 
-                | _ -> None  
-            {|k with QProt = qprot|}
-            )
-        // What does this line filter for? Why does this make sense for our analysis?
-        // How many peptide ions did the filter remove? 
-        |> Frame.filterRows (fun k s -> k.QProt.IsSome && k.Synonyms <> "")
-        |> Frame.mapRowKeys (fun k -> {|k with QProt = k.QProt.Value|})
-    (getFinalRaw indexedDataSDS, getFinalRaw indexedDataBN)
+let finalRaw = 
+    indexedData
+    // What does this line filter for? Why does this make sense for our analysis?
+    // How many peptide ions did the filter remove? 
+    |> Frame.filterRows (fun k s -> k.Synonyms <> "" && k.ProteinGroup |> String.contains "QProt_newPS")
 
-// Finally we want to define a function that given a distinct Qprot,
-// returns the correct ISA lookup. (See: 'Reading the sample description')
-let initGetQProtAmount qProt =
-    match qProt with 
-    | CBB -> get15N_CBC_Amount
-    | PS  -> get15N_PS_Amount
+finalRaw
+|> Frame.filterRows (fun x s -> x.StringSequence = "DTDILAAFR")
+|> Frame.getCol "Gr3rbcL2_5.Ratio"
+|> Series.mapValues string
 
 (***condition:ipynb***)
 #if IPYNB
-finalRawSDS
+finalRaw
 |> Frame.take 10
 |> formatAsTable 
 |> Chart.Show
 
-finalRawBN
-|> Frame.take 10
-|> formatAsTable 
-|> Chart.Show
 #endif // IPYNB
 (***hide***)
-printfn "SDS:"
-finalRawSDS |> Frame.take 10 |> fun x -> x.Print()
+finalRaw |> Frame.take 10 |> fun x -> x.Print()
 
-printfn "\nBN:"
-finalRawBN |> Frame.take 10 |> fun x -> x.Print()
 (***include-fsi-merged-output***)
 
 (**
@@ -257,28 +222,26 @@ let sliceQuantColumns quantColID frame =
     |> Frame.mapColKeys (fun ck -> ck.Split('.') |> Array.item 0)
 
 // How did the data frame change, how did the column headers change?
-let (ratiosSDS, ratiosBN) = sliceQuantColumns "Ratio" finalRawSDS, sliceQuantColumns "Ratio" finalRawBN
-let (lightSDS, lightBN)  = sliceQuantColumns "Light" finalRawSDS, sliceQuantColumns "Light" finalRawBN
-let (heavySDS, heavyBN)  = sliceQuantColumns "Heavy" finalRawSDS, sliceQuantColumns "Heavy" finalRawBN
+let ratios = sliceQuantColumns "Ratio" finalRaw
+let light = sliceQuantColumns "Light" finalRaw
+let heavy = sliceQuantColumns "Heavy" finalRaw
+
+ratios
+|> Frame.filterRows (fun x s -> x.StringSequence = "DTDILAAFR")
+|> Frame.getCol "Gr3rbcL2_5"
+|> Series.mapValues string
 
 (***condition:ipynb***)
 #if IPYNB
-ratiosSDS
+ratios
 |> Frame.take 10
 |> formatAsTable 
 |> Chart.Show
 
-ratiosBN
-|> Frame.take 10
-|> formatAsTable 
-|> Chart.Show
 #endif // IPYNB
 (***hide***)
-printfn "SDS:"
-ratiosSDS |> Frame.take 10 |> fun x -> x.Print()
+ratios |> Frame.take 10 |> fun x -> x.Print()
 
-printfn "\nBN:"
-ratiosBN |> Frame.take 10 |> fun x -> x.Print()
 (***include-fsi-merged-output***)
 
 (**
@@ -294,7 +257,7 @@ let createBoxPlot f =
             |> Series.values 
             |> Seq.map (fun values -> k,values)
             |> Seq.unzip
-         Chart.BoxPlot(x,y,Orientation=StyleParam.Orientation.Vertical)         
+         Chart.BoxPlot(x, y, Orientation = StyleParam.Orientation.Vertical)         
          )
     |> Series.values
     |> Chart.Combine
@@ -304,30 +267,22 @@ let createBoxPlot f =
 The function applied to the n14 values: 
 *)
 // How is the data distributed?
-lightSDS
-|> createBoxPlot
-
-lightBN
+light
 |> createBoxPlot
 
 (***hide***)
-lightSDS |> createBoxPlot |> GenericChart.toChartHTML
-lightBN |> createBoxPlot |> GenericChart.toChartHTML
+light |> createBoxPlot |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 The function applied to the n15 values:
 *)
 
 // Can you recover the dilution series?
-heavySDS
-|> createBoxPlot
-
-heavyBN
+heavy
 |> createBoxPlot
 
 (***hide***)
-heavySDS |> createBoxPlot |> GenericChart.toChartHTML
-heavyBN |> createBoxPlot |> GenericChart.toChartHTML
+heavy |> createBoxPlot |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 The following function performs a normalization which accounts for a specific effect. Can you 
@@ -346,40 +301,28 @@ let normalizePeptides f =
 (**
 *)
 // How does the distribution of the date change, when the normalization is applied? 
-lightSDS
-|> normalizePeptides
-|> createBoxPlot
-
-lightBN
+light
 |> normalizePeptides
 |> createBoxPlot
 
 (***hide***)
-lightSDS |> normalizePeptides |> createBoxPlot |> GenericChart.toChartHTML
-lightBN |> normalizePeptides |> createBoxPlot |> GenericChart.toChartHTML
+light |> normalizePeptides |> createBoxPlot |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
-heavySDS
+heavy
 |> normalizePeptides
 |> createBoxPlot 
 
-heavyBN
-|> normalizePeptides
-|> createBoxPlot 
 (***hide***)
-heavySDS |> normalizePeptides |> createBoxPlot |> GenericChart.toChartHTML
-heavySDS |> normalizePeptides |> createBoxPlot |> GenericChart.toChartHTML
+heavy |> normalizePeptides |> createBoxPlot |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 Finally we have a look at the ratios. 
 *)
 
 // Does it make sense to normalize the ratios the same way?
-ratiosSDS
-|> createBoxPlot 
-
-ratiosBN
+ratios
 |> createBoxPlot 
 
 (**
@@ -401,49 +344,45 @@ type PeptideIon =
         StringSequence  : string
         PepSequenceID   : int
         Charge          : int
-        QProt           : Qprot
     |}
 
 
 // Given a frame, a prot-ID and a group-ID this function creates an xy plot for every peptide ion belonging to the protein/proteingroup.
 // The parameter 'prot' can either be given a valid Cre-ID or a synonym.
 // What is the unit of the x-Axis? How is the ratio calculated? 
-let plotPeptidesOf (ratios:Frame<PeptideIon,string>) (prot:string) (groupID:int) extractionType = 
-    ratios
-    |> Frame.filterRows (fun k s -> k.Synonyms.Contains prot || k.ProteinGroup.Contains prot)
-    |> Frame.filterCols (fun k s -> getGroupID k = groupID)   
-    |> Frame.transpose
-    |> Frame.getNumericCols
-    |> Series.map (fun pep (values) -> 
-        let getQProtAmount = initGetQProtAmount pep.QProt
-        let qprotAmounts,ratios,fileLabel =
-            values
-            |> Series.map (fun fileName (ratio) -> 
-                    let qProtAmount =  getQProtAmount fileName
-                    let expressionLevel = getExpressionLevel fileName
-                    qProtAmount, ratio, (sprintf "%s %s" fileName expressionLevel)         
-                )
-            |> Series.values
-            |> Seq.unzip3
-        Chart.Point(qprotAmounts,ratios,Labels=fileLabel)
-        |> Chart.withTraceName (sprintf "S:%s_C:%i" pep.StringSequence pep.Charge)
-        |> Chart.withX_AxisStyle("qProt Amount")
-        |> Chart.withY_AxisStyle("Ratio")
-        )
-    |> Series.values
-    |> Chart.Combine
-    |> Chart.withTitle extractionType
+let plotPeptidesOf (ratios:Frame<PeptideIon,string>) (prot:string) (groupID:int) = 
+    try 
+        ratios
+        |> Frame.filterRows (fun k s -> k.Synonyms.Contains prot || k.ProteinGroup.Contains prot)
+        |> Frame.filterCols (fun k s -> getGroupID k = groupID)   
+        |> Frame.transpose
+        |> Frame.getNumericCols
+        |> Series.map (fun pep (values) -> 
+            let qprotAmounts,ratios,fileLabel =
+                values
+                |> Series.map (fun fileName (ratio) -> 
+                        // let qProtAmount =  get15N_PS_Amount fileName
+                        let loadAmount = getLoadAmount fileName
+                        let expressionLevel = getExpressionLevel fileName
+                        loadAmount, ratio, (sprintf "%s %s" fileName expressionLevel)         
+                    )
+                |> Series.values
+                |> Seq.unzip3
+            Chart.Point(qprotAmounts,ratios,Labels=fileLabel)
+            |> Chart.withTraceName (sprintf "S:%s_C:%i" pep.StringSequence pep.Charge)
+            |> Chart.withX_AxisStyle("Loaded protein amount")
+            |> Chart.withY_AxisStyle("Ratio")
+            )
+        |> Series.values
+        |> Chart.Combine
+        |> Chart.withTitle "SDS-PAGE extraction"
+    with :? System.ArgumentException -> failwith "ERROR: Input protein was not found."
 
 (**
 First we get an overview of available protein ids.
 *)
 
-ratiosSDS.RowKeys
-|> Array.ofSeq 
-|> Array.map (fun k -> k.Synonyms)
-|> Array.distinct
-
-ratiosBN.RowKeys
+ratios.RowKeys
 |> Array.ofSeq 
 |> Array.map (fun k -> k.Synonyms)
 |> Array.distinct
@@ -451,38 +390,34 @@ ratiosBN.RowKeys
 (**
 Then we can start to visualizes our results:
 *)
-plotPeptidesOf ratiosSDS "rbcL" 1 "Extraction via SDS-PAGE" |> Chart.Show
-plotPeptidesOf ratiosBN "rbcL" 1 "Extraction via BN-PAGE"
+plotPeptidesOf ratios "rbcL" 1 |> Chart.Show
 (***hide***)
-plotPeptidesOf ratiosSDS "rbcL" 1 "Extraction via SDS-PAGE" |> GenericChart.toChartHTML
-plotPeptidesOf ratiosBN "rbcL" 1 "Extraction via BN-PAGE" |> GenericChart.toChartHTML
+plotPeptidesOf ratios "rbcL" 1 |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
-plotPeptidesOf ratiosSDS "RBCS2;RBCS1" 2 "Extraction via SDS-PAGE"
-plotPeptidesOf ratiosBN "RBCS2;RBCS1" 2 "Extraction via BN-PAGE"
+plotPeptidesOf ratios "RBCS2;RBCS1" 2 |> Chart.Show
 (***hide***)
-plotPeptidesOf ratiosSDS "RBCS2;RBCS1" 2 "Extraction via SDS-PAGE" |> GenericChart.toChartHTML
-plotPeptidesOf ratiosBN "RBCS2;RBCS1" 2 "Extraction via BN-PAGE" |> GenericChart.toChartHTML
+plotPeptidesOf ratios "RBCS2;RBCS1" 2 |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
-plotPeptidesOf ratiosSDS "SEBP1" 1 "Extraction via SDS-PAGE"
+plotPeptidesOf ratios "SEBP1" 4 |> Chart.Show
 (***hide***)
-plotPeptidesOf ratiosSDS "SEBP1" 1 "Extraction via SDS-PAGE" |> GenericChart.toChartHTML
+plotPeptidesOf ratios "SEBP1" 1 |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
-plotPeptidesOf ratiosSDS "TRK1" 1 "Extraction via SDS-PAGE"
+plotPeptidesOf ratios "TRK1" 1 
 (***hide***)
-plotPeptidesOf ratiosSDS "TRK1" 1 "Extraction via SDS-PAGE" |> GenericChart.toChartHTML
+plotPeptidesOf ratios "TRK1" 1 |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
 // Describe the results of the last 3 plots.
-plotPeptidesOf ratiosSDS "PRK1" 1 "Extraction via SDS-PAGE"
+plotPeptidesOf ratios "PRK1" 1
 (***hide***)
-plotPeptidesOf ratiosSDS "PRK1" 1 "Extraction via SDS-PAGE" |> GenericChart.toChartHTML
+plotPeptidesOf ratios "PRK1" 1 |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 
@@ -500,29 +435,25 @@ let discardPeptideIon stringsequence charge (ratios:Frame<PeptideIon,string>) =
 (**
 These functions can then be used to create an updated version of the frame, containing only the values we want to use for quantification e.g.:
 *)
-let (filteredSDS,filteredBN) = 
-    let getFilteredData data =
-        data
-        |> discardPeptideIonInFile "IYSFNEGNYGLWDDSVK" 3 "WCGr2_UF_1" 
-        |> discardPeptideIon "IYSFNEGNYGLWDDSVK" 2
-    getFilteredData ratiosSDS, getFilteredData ratiosBN
+let filtered = 
+    ratios
+    |> discardPeptideIonInFile "IYSFNEGNYGLWDDSVK" 3 "Gr2rbcL2_5" 
+    |> discardPeptideIon "IYSFNEGNYGLWDDSVK" 2
+
 
 // Plotting the updated frame again, we see that the exemplary filtering worked just fine.
-plotPeptidesOf filteredSDS "rbcL" 1 "Extraction via SDS"
+plotPeptidesOf filtered "rbcL" 1 |> Chart.Show
 (***hide***)
-plotPeptidesOf filteredSDS "rbcL" 1 "Extraction via SDS" |> GenericChart.toChartHTML
+plotPeptidesOf filtered "rbcL" 1 |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
 Of course, it is possible to apply very strict additional filters onto the previously filtered frame:
 *)
-let ratiosFilteredSDS = 
-    filteredSDS
+let ratiosFiltered = 
+    filtered
     |> Frame.filterCols (fun k s -> get15N_PS_Amount k > 0.1 )
 
-let ratiosFilteredBN =
-    filteredBN
-    |> Frame.filterCols (fun k s -> get15N_PS_Amount k > 0.1 )
 
 (**
 Since we want to save our result and use it for the next notebook, where we will have a look at the isotopic labeling efficiency and finally calculate absolute protein amounts, we 
@@ -531,17 +462,14 @@ present in both files:
 
 *)
 //  Are there redundant columns in the result frame? Why?
-let frameToSaveSDS = 
-    Frame.join JoinKind.Inner finalRawSDS ratiosFilteredSDS
+let frameToSave = 
+    Frame.join JoinKind.Inner finalRaw ratiosFiltered
     |> Frame.indexRowsOrdinally
 
-let frameToSaveBN = 
-    Frame.join JoinKind.Inner finalRawBN ratiosFilteredBN
-    |> Frame.indexRowsOrdinally
 
 (**
 This frame can then be saved locally using the following pattern:    
 *)    
 
-frameToSaveSDS.SaveCsv(@"C:\YourPath\testOut.txt",separator='\t',includeRowKeys=false)
-frameToSaveBN.SaveCsv(@"C:\YourPath\testOut.txt",separator='\t',includeRowKeys=false)
+// frameToSave.SaveCsv(@"C:\YourPath\testOut.txt", separator = '\t', includeRowKeys = false)
+frameToSave.SaveCsv(System.IO.Path.Combine [|__SOURCE_DIRECTORY__; "downloads"; "qualityControlResult.txt"|], separator = '\t', includeRowKeys = false)
