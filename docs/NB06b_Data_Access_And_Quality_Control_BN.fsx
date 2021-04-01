@@ -422,9 +422,20 @@ plotPeptidesOf ratios "PRK1" 1 |> GenericChart.toChartHTML
 
 
 (**
+Since we want to save our result and use it for the next notebook, where we will have a look at the isotopic labeling efficiency and finally calculate absolute protein amounts, we 
+need to save the filtered frame. Additionally, we want to keep information which was dropped along the way: isotopic patterns. In order to do so, we perform a join operation, which keeps only those rows 
+present in both files:
+
+*)
+//  Are there redundant columns in the result frame? Why?
+let frameComplete = 
+    Frame.join JoinKind.Inner finalRaw ratios
+
+(**
 With the plots at hand, we can use the following functions to manipulate the data frame and discard peptides and/or whole files which we do not want to use for 
 an absolute protein quantification e.g.:
 *)
+
 let discardPeptideIonInFile stringsequence charge filename (ratios:Frame<PeptideIon,string>) = 
     ratios
     |> Frame.map (fun r c value -> 
@@ -438,20 +449,11 @@ let discardPeptideIon stringsequence charge (ratios:Frame<PeptideIon,string>) =
 (**
 These functions can then be used to create an updated version of the frame, containing only the values we want to use for quantification e.g.:
 *)
+
 let filtered = 
     ratios
     |> discardPeptideIonInFile "IYSFNEGNYGLWDDSVK" 3 "Gr2rbcL2_5" 
     |> discardPeptideIon "IYSFNEGNYGLWDDSVK" 2
-
-
-// Plotting the updated frame again, we see that the exemplary filtering worked just fine.
-(***condition:ipynb***)
-#if IPYNB
-plotPeptidesOf filtered "rbcL" 1
-#endif // IPYNB
-(***hide***)
-plotPeptidesOf filtered "rbcL" 1 |> GenericChart.toChartHTML
-(***include-it-raw***)
 
 (**
 Of course, it is possible to apply very strict additional filters onto the previously filtered frame:
@@ -461,27 +463,18 @@ let ratiosFiltered =
     |> Frame.filterCols (fun k s -> 
         let kFileName = String.split '.' k |> Array.head
         try
-            get15N_PS_Amount kFileName > 0.1 
+            get15N_CBC_Amount kFileName > 0.1 
         with
         | _ -> false
     )
 
-
-(**
-Since we want to save our result and use it for the next notebook, where we will have a look at the isotopic labeling efficiency and finally calculate absolute protein amounts, we 
-need to save the filtered frame. Additionally, we want to keep information which was dropped along the way: isotopic patterns. In order to do so, we perform a join operation, which keeps only those rows 
-present in both files:
-
-*)
-//  Are there redundant columns in the result frame? Why?
-let frameToSave = 
-    Frame.join JoinKind.Inner finalRaw ratiosFiltered
-    |> Frame.indexRowsOrdinally
-
-
 (**
 This frame can then be saved locally using the following pattern:    
 *)    
+
+let frameToSave = 
+    ratiosFiltered
+    |> Frame.indexRowsOrdinally
 
 // frameToSave.SaveCsv(@"C:\YourPath\testOut.txt", separator = '\t', includeRowKeys = false)
 frameToSave.SaveCsv(System.IO.Path.Combine [|__SOURCE_DIRECTORY__; "downloads"; "qualityControlResult_BN.txt"|], separator = '\t', includeRowKeys = false)
