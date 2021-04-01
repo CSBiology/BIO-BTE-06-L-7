@@ -475,15 +475,6 @@ let filtered =
     |> discardPeptideIon "IYSFNEGNYGLWDDSVK" 2
 
 
-// Plotting the updated frame again, we see that the exemplary filtering worked just fine.
-(***condition:ipynb***)
-#if IPYNB
-plotPeptidesOf filtered "rbcL" RbcL 1
-#endif // IPYNB
-(***hide***)
-plotPeptidesOf filtered "rbcL" RbcL 1 |> GenericChart.toChartHTML
-(***include-it-raw***)
-
 (**
 Of course, it is possible to apply very strict additional filters onto the previously filtered frame:
 *)
