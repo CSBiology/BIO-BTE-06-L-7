@@ -298,7 +298,7 @@ let absoluteAbundances =
 
 (***condition:ipynb***)
 #if IPYNB
-formatAsTable absoluteAbundances 1500. |> Chart.Show
+formatAsTable 1500. absoluteAbundances |> Chart.Show
 #endif // IPYNB
 
 // Why don't we see results for the SDS experiments with CBB-QProt?
