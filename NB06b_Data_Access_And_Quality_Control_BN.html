@@ -570,7 +570,7 @@ an absolute protein quantification e.g.:</p>
 </code></pre>
 <p>These functions can then be used to create an updated version of the frame, containing only the values we want to use for quantification e.g.:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs165', 500)" onmouseover="showTip(event, 'fs165', 500)" class="id">filtered</span> <span class="o">=</span> 
-    <span onmouseout="hideTip(event, 'fs86', 501)" onmouseover="showTip(event, 'fs86', 501)" class="id">ratios</span>
+    <span onmouseout="hideTip(event, 'fs149', 501)" onmouseover="showTip(event, 'fs149', 501)" class="id">frameComplete</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs153', 502)" onmouseover="showTip(event, 'fs153', 502)" class="fn">discardPeptideIonInFile</span> <span class="s">&quot;IYSFNEGNYGLWDDSVK&quot;</span> <span class="n">3</span> <span class="s">&quot;Gr2rbcL2_5&quot;</span> 
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs163', 503)" onmouseover="showTip(event, 'fs163', 503)" class="fn">discardPeptideIon</span> <span class="s">&quot;IYSFNEGNYGLWDDSVK&quot;</span> <span class="n">2</span>
 </code></pre>
@@ -582,7 +582,7 @@ an absolute protein quantification e.g.:</p>
         <span class="k">try</span>
             <span onmouseout="hideTip(event, 'fs44', 516)" onmouseover="showTip(event, 'fs44', 516)" class="fn">get15N_PS_Amount</span> <span onmouseout="hideTip(event, 'fs167', 517)" onmouseover="showTip(event, 'fs167', 517)" class="fn">kFileName</span> <span class="o">&gt;</span> <span class="n">0.1</span> 
         <span class="k">with</span>
-        <span class="pn">|</span> <span class="id">_</span> <span class="k">-&gt;</span> <span class="k">false</span>
+        <span class="pn">|</span> <span class="id">_</span> <span class="k">-&gt;</span> <span class="k">true</span>
     <span class="pn">)</span>
 </code></pre>
 <p>This frame can then be saved locally using the following pattern:</p>
