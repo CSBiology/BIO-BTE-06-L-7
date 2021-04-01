@@ -28,9 +28,9 @@ open BIO_BTE_06_L_7_Aux.Deedle_Aux
 (**
 # NB06b Data Access and Quality Control
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b''_Data_Access_And_Quality_Control_BN.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b_Data_Access_And_Quality_Control_BN.ipynb)
 
-[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b'_NB06b''_NB06c'_NB06c''_NB06d'_NB06d''/NB06b''_Data_Access_And_Quality_Control_BN.ipynb)
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b_NB06b_NB06c_NB06c_NB06d_NB06d/NB06b_Data_Access_And_Quality_Control_BN.ipynb)
 
 With this notebook, we want to converge the threads of computational and experimental proteomics by analyzing the data measured by you during the practical course.
 Behind the scenes there was already a lot going on! While you were going through the hands-on tutorials addressing single steps of the computation proteomics pipeline, we executed
