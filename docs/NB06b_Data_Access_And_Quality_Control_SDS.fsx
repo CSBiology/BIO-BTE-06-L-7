@@ -2,7 +2,7 @@
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
 #r "nuget: Plotly.NET, 2.0.0-beta8"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.6"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.8"
 #r "nuget: Deedle, 2.3.0"
 #r "nuget: ISADotNet, 0.2.4"
 #r "nuget: ISADotNet.XLSX, 0.2.4"
@@ -135,7 +135,7 @@ for the charts to be scrollable, so we pipe the output into "Chart.Show", to vis
 #if IPYNB
 rawData
 |> Frame.take 10
-|> formatAsTable 
+|> formatAsTable 1500.
 |> Chart.Show
 
 #endif // IPYNB
@@ -169,7 +169,7 @@ let indexedData =
 // The effect of our frame manipulation can be observed:
 indexedData
 |> Frame.take 10
-|> formatAsTable 
+|> formatAsTable 1500.
 |> Chart.Show
 
 #endif // IPYNB
@@ -199,7 +199,7 @@ finalRaw
 #if IPYNB
 finalRaw
 |> Frame.take 10
-|> formatAsTable 
+|> formatAsTable 1500.
 |> Chart.Show
 
 #endif // IPYNB
@@ -237,7 +237,7 @@ ratios
 #if IPYNB
 ratios
 |> Frame.take 10
-|> formatAsTable 
+|> formatAsTable 1500.
 |> Chart.Show
 
 #endif // IPYNB

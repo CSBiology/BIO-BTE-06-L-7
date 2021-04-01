@@ -2,7 +2,7 @@
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
 #r "nuget: Plotly.NET, 2.0.0-beta8"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.6"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.8"
 #r "nuget: Deedle, 2.3.0"
 #r "nuget: ISADotNet, 0.2.4"
 #r "nuget: ISADotNet.XLSX, 0.2.4"
@@ -298,7 +298,7 @@ let absoluteAbundances =
 
 (***condition:ipynb***)
 #if IPYNB
-formatAsTable absoluteAbundances |> Chart.Show
+formatAsTable absoluteAbundances 1500. |> Chart.Show
 #endif // IPYNB
 
 // Why don't we see results for the SDS experiments with CBB-QProt?
