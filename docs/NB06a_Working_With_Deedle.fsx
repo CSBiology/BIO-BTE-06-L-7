@@ -23,8 +23,8 @@ We start by loading our usual nuget packages and the Deedle package.
 #r "nuget: FSharp.Stats"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta7"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta7"
+#r "nuget: Plotly.NET, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
 #endif // IPYNB
 
 open Plotly.NET

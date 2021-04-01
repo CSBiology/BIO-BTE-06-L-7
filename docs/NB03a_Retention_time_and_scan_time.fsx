@@ -33,8 +33,8 @@ As always, we start by loading our famous libraries.
 #r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta7"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta7"
+#r "nuget: Plotly.NET, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
 #endif // IPYNB
 
 open BioFSharp
