@@ -8,8 +8,8 @@
 #r "nuget: ISADotNet.XLSX, 0.2.4"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta6"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta6"
+#r "nuget: Plotly.NET, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
 #endif // IPYNB
 
 open System.IO
@@ -462,4 +462,4 @@ let frameToSave =
     ratiosFiltered
     |> Frame.indexRowsOrdinally
 
-frameToSave.SaveCsv(@"C:\YourPath\testOut.txt",separator='\t',includeRowKeys=false)
+frameToSave.SaveCsv(@"C:\YourPath\testOut.txt", separator = '\t', includeRowKeys = false)

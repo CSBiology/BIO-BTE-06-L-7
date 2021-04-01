@@ -8,8 +8,8 @@
 #r "nuget: ISADotNet.XLSX, 0.2.4"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta6"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta6"
+#r "nuget: Plotly.NET, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
 #endif // IPYNB
 
 open System.IO
@@ -344,10 +344,9 @@ let extractAbsolutAbundancesOf prot peptidelist =
     |> Series.filter (fun k s -> getExpressionLevel k = "")
     |> Series.map (fun k v -> 
         {|
-            Synonym    = k 
+            Filename   = k 
             MeanQuant  = Stats.mean v
             StdevQuant = Stats.stdDev v
- 
         |}
         )
     |> Series.values
@@ -357,10 +356,10 @@ let rbcsQuantification = extractAbsolutAbundancesOf "RBCS" ["AFPDAYVR", 2;"LVAFD
 
 let protAbundanceChart =
     [
-    Chart.Column(rbclQuantification |> Seq.map (fun x -> x.Synonym),rbclQuantification |> Seq.map (fun x -> x.MeanQuant))
+    Chart.Column(rbclQuantification |> Seq.map (fun x -> x.Filename),rbclQuantification |> Seq.map (fun x -> x.MeanQuant))
     |> Chart.withYErrorStyle (rbclQuantification |> Seq.map (fun x -> x.StdevQuant))
     |> Chart.withTraceName "rbcL"
-    Chart.Column(rbcsQuantification |> Seq.map (fun x -> x.Synonym),rbcsQuantification |> Seq.map (fun x -> x.MeanQuant))
+    Chart.Column(rbcsQuantification |> Seq.map (fun x -> x.Filename),rbcsQuantification |> Seq.map (fun x -> x.MeanQuant))
     |> Chart.withYErrorStyle (rbcsQuantification |> Seq.map (fun x -> x.StdevQuant))
     |> Chart.withTraceName "RBCS"
     ]

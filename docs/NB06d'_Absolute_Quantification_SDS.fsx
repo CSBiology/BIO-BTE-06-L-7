@@ -8,8 +8,8 @@
 #r "nuget: ISADotNet.XLSX, 0.2.4"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta6"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta6"
+#r "nuget: Plotly.NET, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
 #endif // IPYNB
 
 open System.IO
@@ -28,9 +28,9 @@ open BIO_BTE_06_L_7_Aux.Deedle_Aux
 (**
 # NB06d Absolute Quantification
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b_Data_Access_And_Quality_Control.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06d'_Absolute_Quantification_SDS.ipynb)
 
-[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b/NB06b_Data_Access_And_Quality_Control.ipynb)
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b'_NB06b''_NB06c'_NB06c''_NB06d'_NB06d''/NB06d'_Absolute_Quantification_SDS.ipynb)
 
 Finally, after careful peptide ion selection, quality control and assuring that our label efficiency allows accurate for quantifications, we can start to
 calculate protein abundancies. Since we start again by getting access to our data and its description, this notebook will start off familiar!
@@ -40,8 +40,8 @@ calculate protein abundancies. Since we start again by getting access to our dat
 As always: before we analyze our data, we will download and read the sample description provided by the experimentalist.
 *)
 let directory = __SOURCE_DIRECTORY__
-let path2 = Path.Combine[|directory;"downloads/alle_Gruppen_V9_SWATE.xlsx"|]
-downloadFile path2 "alle_Gruppen_V9_SWATE.xlsx" "bio-bte-06-l-7"
+let path2 = Path.Combine[|directory;"downloads/alle_Gruppen_V11_SWATE.xlsx"|]
+downloadFile path2 "alle_Gruppen_V11_SWATE.xlsx" "bio-bte-06-l-7"
 
 let _,_,_,myAssayFile = XLSX.AssayFile.AssayFile.fromFile path2
 let inOutMap = BIO_BTE_06_L_7_Aux.ISA_Aux.createInOutMap myAssayFile
@@ -51,6 +51,10 @@ Next, we will prepare functions to look up parameters which might be needed for 
 If you compare this list to the one of note book NB06b you will find additional functions. We will need these functions
 in order to calculate the absolute abundances. 
 *)
+
+type CutoutBand =
+    | RbcL
+    | RbcS
 
 let normalizeFileName (f:string) = if Path.HasExtension f then f else Path.ChangeExtension(f, "wiff")
 
@@ -91,13 +95,6 @@ let getμgProtPerμlSample (fileName:string) =
     BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation -Sample preparation" "concentration #3" fN myAssayFile |> Option.defaultValue ""
     |> float 
 
-//  
-let get15N_CBC_Amount (fileName:string) =
-    let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Extraction" "gram" fN myAssayFile |> Option.defaultValue ""
-    |> String.split ' '
-    |> Array.head
-    |> float 
 //
 let get15N_PS_Amount (fileName:string) =
     let fN = fileName |> normalizeFileName
@@ -111,36 +108,40 @@ let getGroupID (fileName:string) =
     BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Extraction" "Group name" fN myAssayFile |> Option.defaultValue ""
     |> int    
 
+let getLoadAmount (fileName : string) =
+    let fN = fileName |> normalizeFileName
+    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "PAGE - Sample preparation" "soluble protein content" fN myAssayFile |> Option.defaultValue ""
+    |> float
+
+
+let getCutoutBand (fileName : string) =
+    let fN = fileName |> normalizeFileName
+    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "PAGE - Sample preparation" "Cutout band" fN myAssayFile |> Option.defaultValue ""
+    |> fun str ->
+        match str with
+        | "rbcL" -> RbcL
+        | "rbcS" -> RbcS
+        | _ -> failwith (sprintf "rbcL or rbcS not cut out in file %s" fN)
+
 (**
 A quick execution to test the retrieval of data from the isa sample table:
 *)
 
-getStrain "WCGr2_U1.wiff"
-getExpressionLevel "WCGr2_U1.wiff"
-getμgChlorophPerMlCult "WCGr2_U1.wiff"
-getCellCountPerMlCult "WCGr2_U1.wiff"
-getμgChlorophPerμlSample "WCGr2_U1.wiff"
-getμgProtPerμlSample "WCGr2_U1.wiff"
-get15N_CBC_Amount "WCGr2_U1.wiff"
-get15N_PS_Amount "WCGr2_U1.wiff"
-getGroupID "WCGr2_U1.wiff"
+getStrain "Gr2rbcL2_5.wiff"
+getExpressionLevel "Gr2rbcL2_5.wiff"
+getμgChlorophPerMlCult "Gr2rbcL2_5.wiff"
+getCellCountPerMlCult "Gr2rbcL2_5.wiff"
+getμgChlorophPerμlSample "Gr2rbcL2_5.wiff"
+getμgProtPerμlSample "Gr2rbcL2_5.wiff"
+get15N_PS_Amount "Gr2rbcL2_5.wiff"
+getGroupID "Gr2rbcL2_5.wiff"
+getLoadAmount "Gr2rbcL2_5.wiff"
 
 (**
 ## II. Reading the data
 As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from *NB06b Data Access and Quality Control* is stored in a .txt
 *)
 
-// Similarly to the previous notebook, we start by defining a type, modelling our qProteins. 
-type Qprot = 
-    | CBB
-    | PS 
-
-// Finally we want to define a function that given a distinct Qprot,
-// returns the correct ISA lookup. (See: 'Reading the sample description')
-let initGetQProtAmount qProt =
-    match qProt with 
-    | CBB -> get15N_CBC_Amount
-    | PS  -> get15N_PS_Amount
 
 type PeptideIon = 
     {|
@@ -149,38 +150,25 @@ type PeptideIon =
         StringSequence  : string
         PepSequenceID   : int
         Charge          : int
-        QProt           : Qprot
     |}
 
 //This is the filepath you chose in *NB06b Data Access and Quality Control*
-// let filePathSDS = @"C:\yourPath\testOut.txt"
-// let filePathBN = @"C:\yourPath\testOut.txt"
-let filePathSDS = @"C:\Users\Mauso\OneDrive\CSB-Stuff\BioTech-VP\resultsLE_SDS.txt"
-let filePathBN = @"C:\Users\Mauso\OneDrive\CSB-Stuff\BioTech-VP\resultsLE_BN.txt"
+// let filePath = @"C:\yourPath\testOut.txt"
+let filePath = System.IO.Path.Combine [|__SOURCE_DIRECTORY__ + "/downloads/qualityControlResult_SDS.txt"|]
 
-let qConcatDataFilteredSDS, qConcatDataFilteredBN =
-    let getData filePath =
-        Frame.ReadCsv(path = filePath,separators="\t")
-        // StringSequence is the peptide sequence
-        |> Frame.indexRowsUsing (fun os -> 
-                let proteinGroup = os.GetAs<string>("ProteinGroup")
-                let qprot = 
-                    match proteinGroup |> String.contains "QProt_newCBB", proteinGroup |> String.contains "QProt_newPS" with 
-                    | true, false  -> Some CBB
-                    | false, true  -> Some PS 
-                    | _ -> None  
-                {|
-                    ProteinGroup    = os.GetAs<string>("ProteinGroup"); 
-                    Synonyms        = os.GetAs<string>("Synonyms")
-                    StringSequence  = os.GetAs<string>("StringSequence");
-                    PepSequenceID   = os.GetAs<int>("PepSequenceID");
-                    Charge          = os.GetAs<int>("Charge");
-                    QProt           = qprot;
-                |}
-            )
-        |> Frame.filterRows (fun k s -> k.QProt.IsSome)
-        |> Frame.mapRowKeys (fun k -> {|k with QProt = k.QProt.Value|})
-    getData filePathSDS, getData filePathBN
+let qConcatDataFiltered =
+    Frame.ReadCsv(path = filePath, separators = "\t")
+    // StringSequence is the peptide sequence
+    |> Frame.indexRowsUsing (fun os -> 
+        {|
+            ProteinGroup    = os.GetAs<string>("ProteinGroup"); 
+            Synonyms        = os.GetAs<string>("Synonyms")
+            StringSequence  = os.GetAs<string>("StringSequence");
+            PepSequenceID   = os.GetAs<int>("PepSequenceID");
+            Charge          = os.GetAs<int>("Charge");
+        |}
+    )
+    |> Frame.filterRows (fun k s -> String.contains "QProt_newPS" k.ProteinGroup)
 
 (**
 ## III. From Ratios to mol proteins per cell.
@@ -191,7 +179,7 @@ the quality checks to an estimator for protein abundance! First we start off by 
 
 let sliceQuantColumns quantColID frame = 
     frame
-    |> Frame.filterCols (fun ck os -> ck |> String.contains ("."+quantColID))
+    |> Frame.filterCols (fun ck os -> ck |> String.contains ("." + quantColID))
     |> Frame.mapColKeys (fun ck -> ck.Split('.') |> Array.item 0)
 
 
@@ -200,21 +188,21 @@ Next up, we have to define a function, which maps the measured ratio and measure
 *)
 
 /// 
-let calcAbsoluteAbundance μgChlorophPerMlCult cellCountPerMlCult μgChlorophPerμlSample μgProtPerμlSample μgQProtSpike molWeightQProt molWeightTargetProt ratio1415N =
-    let chlorophPerCell :float = μgChlorophPerMlCult / cellCountPerMlCult
+let calcAbsoluteAbundance μgChlorophPerMlCult cellCountPerMlCult μgChlorophPerμlSample μgProtPerμlSample μgQProtSpike μgloadedProtein molWeightQProt molWeightTargetProt ratio1415N =
+    let chlorophPerCell : float = μgChlorophPerMlCult / cellCountPerMlCult
     let cellsPerμlSample = μgChlorophPerμlSample / chlorophPerCell
     let μgProteinPerCell = μgProtPerμlSample / cellsPerμlSample
     let molQProtSpike = μgQProtSpike * 10. ** -6. / molWeightQProt
-    let molProtIn50μgWCProt = ratio1415N * molQProtSpike
-    let molProtIn1μgWCProt = molProtIn50μgWCProt / 50.
-    let gTargetProtIn1μgWCProt = molWeightTargetProt * molProtIn1μgWCProt
-    let molProteinPerCell = molProtIn1μgWCProt * μgProteinPerCell
+    let molProtPerBand = ratio1415N * molQProtSpike
+    let molProtIn1μgLoadedProt = molProtPerBand / μgloadedProtein
+    let gTargetProtIn1μgLoadedProt = molWeightTargetProt * molProtIn1μgLoadedProt
+    let molProteinPerCell = molProtIn1μgLoadedProt * μgProteinPerCell
     let proteinsPerCell = molProteinPerCell * 6.022 * 10. ** 23.
-    let attoMolProteinPerCell = molProteinPerCell * (10.**18.)
+    let attoMolProteinPerCell = molProteinPerCell * (10. ** 18.)
     {|
-        MassTargetProteinInWCProtein    = gTargetProtIn1μgWCProt
-        ProteinsPerCell                 = proteinsPerCell
-        AttoMolProteinPerCell           = attoMolProteinPerCell
+        MassTargetProteinInLoadedProtein    = gTargetProtIn1μgLoadedProt
+        ProteinsPerCell                     = proteinsPerCell
+        AttoMolProteinPerCell               = attoMolProteinPerCell
     |}
 
 (** 
@@ -234,13 +222,6 @@ let examplePeptides =
 First we find the sequences of the qProteins, calculate their masses and define a function to retrieve the calculated mass.
 *)
 
-let CBB = 
-    examplePeptides 
-    |> Seq.find (fun prot -> prot.Header |> String.contains "QProt_newCBB2")
-
-let CBBMass = 
-    BioFSharp.BioSeq.toMonoisotopicMassWith (Formula.monoisoMass Formula.Table.H2O) CBB.Sequence
-
 let PS = 
     examplePeptides 
     |> Seq.find (fun prot -> prot.Header |> String.contains "QProt_newPS")
@@ -248,86 +229,78 @@ let PS =
 let PSMass = 
     BioFSharp.BioSeq.toMonoisotopicMassWith (Formula.monoisoMass Formula.Table.H2O) PS.Sequence
 
-let getQProtMass qProt =
-    match qProt with 
-    | CBB -> CBBMass
-    | PS  -> PSMass
 
 (** 
 Then we repeat the process and assign the calculated masses to each protein.
 *)
 
-let withProteinWeightsSDS, withProteinWeightsBN = 
-    let getProteinWeights (qConcatDataFiltered : Frame<{| Charge: int; PepSequenceID: int; ProteinGroup: string; QProt: Qprot; StringSequence: string; Synonyms: string |},string>) =
-        qConcatDataFiltered
-        /// For each row (peptide) in the frame...
-        |> Frame.mapRowKeys (fun k -> 
-            let proteinsOfInterest = 
-                k.ProteinGroup 
-                |> String.split ';' 
-                |> Array.filter (fun x -> x.Contains "Cre")
-            let masses = 
-                proteinsOfInterest
-                /// ...we look up the matching protein sequence
-                |> Seq.choose (fun creID -> 
-                    examplePeptides 
-                    |> Seq.tryFind (fun prot -> prot.Header |> String.contains creID)
-                    )
-                /// ... and calculate the protein masses        
-                |> Seq.map (fun prot -> 
-                    BioFSharp.BioSeq.toMonoisotopicMassWith (Formula.monoisoMass Formula.Table.H2O) prot.Sequence 
-                    )
-            let avgMass = if Seq.isEmpty masses then 0. else masses |> Seq.average
-            /// ... and add the average to the peptide.   
-            {|k with AverageProtGroupMass = avgMass|}
-            )
-    getProteinWeights qConcatDataFilteredSDS, getProteinWeights qConcatDataFilteredBN
+let withProteinWeights = 
+    qConcatDataFiltered
+    /// For each row (peptide) in the frame...
+    |> Frame.mapRowKeys (fun k -> 
+        let proteinsOfInterest = 
+            k.ProteinGroup 
+            |> String.split ';' 
+            |> Array.filter (fun x -> x.Contains "Cre")
+        let masses = 
+            proteinsOfInterest
+            /// ...we look up the matching protein sequence
+            |> Seq.choose (fun creID -> 
+                examplePeptides 
+                |> Seq.tryFind (fun prot -> prot.Header |> String.contains creID)
+                )
+            /// ... and calculate the protein masses        
+            |> Seq.map (fun prot -> 
+                BioFSharp.BioSeq.toMonoisotopicMassWith (Formula.monoisoMass Formula.Table.H2O) prot.Sequence 
+                )
+        let avgMass = if Seq.isEmpty masses then 0. else masses |> Seq.average
+        /// ... and add the average to the peptide.   
+        {|k with AverageProtGroupMass = avgMass|}
+    )
 
 (** 
 With our newest update to our meta data (adding the masses to the rowkey), we can slice out the columns
 needed to calculate absolute abundances: the ratio columns.
 *)
 
-let ratiosSDS = sliceQuantColumns "Ratio" withProteinWeightsSDS
-let ratiosBN = sliceQuantColumns "Ratio" withProteinWeightsBN
+let ratios = sliceQuantColumns "Ratio" withProteinWeights
 
 (** 
 Finally, we can iterate the ratios and map each to a protein abundance using our well annotated experiment.
 *)
 
 //
-let absoluteAbundancesSDS, absoluteAbundancesBN  = 
-    let getAbsoluteAbundances (ratios : Frame<{| AverageProtGroupMass: float; Charge: int; PepSequenceID: int; ProteinGroup: string; QProt: Qprot; StringSequence: string; Synonyms: string |},string>) =
-        ratios
-        |> Frame.map (fun peptide filenName ratio -> 
-            try 
-                match peptide.QProt with
-                | CBB -> nan
-                | PS -> 
-                    let μgChlorophPerMlCult     = getμgChlorophPerMlCult filenName
-                    let cellCountPerMlCult      = getCellCountPerMlCult filenName
-                    let μgChlorophPerμlSample   = getμgChlorophPerμlSample filenName
-                    let μgProtPerμlSample       = getμgProtPerμlSample filenName
-                    let μgQProtSpike            = initGetQProtAmount peptide.QProt filenName
-                    let molWeightQProt          = getQProtMass peptide.QProt
-                    let molWeightTargetProt     = peptide.AverageProtGroupMass
-                    let result = 
-                        calcAbsoluteAbundance
-                            μgChlorophPerMlCult  
-                            cellCountPerMlCult   
-                            μgChlorophPerμlSample
-                            μgProtPerμlSample    
-                            μgQProtSpike         
-                            molWeightQProt       
-                            molWeightTargetProt
-                            ratio
-                    result.AttoMolProteinPerCell 
-                with :? System.FormatException -> nan
-            )
-    getAbsoluteAbundances ratiosSDS, getAbsoluteAbundances ratiosBN
+let absoluteAbundances = 
+    ratios
+    |> Frame.map (fun peptide fileName ratio -> 
+        try 
+            let μgChlorophPerMlCult     = getμgChlorophPerMlCult fileName
+            let cellCountPerMlCult      = getCellCountPerMlCult fileName
+            let μgChlorophPerμlSample   = getμgChlorophPerμlSample fileName
+            let μgProtPerμlSample       = getμgProtPerμlSample fileName
+            let μgQProtSpike            = get15N_PS_Amount fileName
+            let μgloadedProtein         = getLoadAmount fileName
+            let molWeightQProt          = PSMass
+            let molWeightTargetProt     = peptide.AverageProtGroupMass
+            let result = 
+                calcAbsoluteAbundance
+                    μgChlorophPerMlCult  
+                    cellCountPerMlCult   
+                    μgChlorophPerμlSample
+                    μgProtPerμlSample    
+                    μgQProtSpike         
+                    μgloadedProtein
+                    molWeightQProt       
+                    molWeightTargetProt
+                    ratio
+            result.AttoMolProteinPerCell
+        with :? System.FormatException -> nan
+    )
 
-formatAsTable absoluteAbundancesSDS |> Chart.Show
-formatAsTable absoluteAbundancesBN |> Chart.Show
+(***condition:ipynb***)
+#if IPYNB
+formatAsTable absoluteAbundances |> Chart.Show
+#endif // IPYNB
 
 // Why don't we see results for the SDS experiments with CBB-QProt?
 // Why don't we see any results in the BN experiment?
@@ -340,41 +313,181 @@ For this, we write a function that, given a protein synonym and a list of peptid
 and the estimated uncertainty (via standard deviation). The results can then be visualized using e.g. column charts.
 *)
 
-let extractAbsoluteAbundancesOf prot peptidelist = 
-    absoluteAbundancesSDS
+let extractAbsoluteAbundancesOf filterCutoutProtein groupID prot peptidelist = 
+    absoluteAbundances
     |> Frame.filterRows (fun k s -> k.Synonyms |> String.contains prot)
     |> Frame.filterRows (fun k s -> 
         peptidelist |> List.exists (fun (sequence,charge) -> sequence = k.StringSequence && charge = k.Charge)
     )
     |> Frame.getNumericCols 
-    // |> Series.filter (fun k s -> getExpressionLevel k = "")
-    |> Series.map (fun k v -> 
+    |> Series.observationsAll
+    |> Seq.sortBy (fun (k, x) -> getLoadAmount k)
+    |> Seq.filter (fun (k, x) -> getGroupID k = groupID)
+    // why do we filter out the protein which is not cut out here?
+    |> fun res ->
+        if filterCutoutProtein then
+            res
+            |> Seq.filter (fun (k, x) -> 
+                match getCutoutBand k with
+                | RbcL -> String.contains (prot.ToLower()) (k.ToLower())
+                | RbcS -> String.contains (prot.ToLower()) (k.ToLower())
+            )
+        else res
+    |> Seq.choose (fun (k,x) -> 
+        match x with
+        | Some x -> Some (k, x)
+        | _ -> None
+    )
+    |> Seq.map (fun (k, v) -> 
         {|
-            Synonym    = k 
+            Filename   = k 
             MeanQuant  = Stats.mean v
             StdevQuant = Stats.stdDev v
- 
         |}
     )
-    |> Series.values
 
-let rbclQuantificationSDS = extractAbsoluteAbundancesOf "rbcL" ["DTDILAAFR", 2;"FLFVAEAIYK", 2] |> Array.ofSeq
-let rbcsQuantificationSDS = extractAbsoluteAbundancesOf "RBCS" ["AFPDAYVR", 2;"LVAFDNQK", 2] |> Array.ofSeq
+// with filtering
+let rbclQuantification = 
+    extractAbsoluteAbundancesOf true 2 "rbcL" ["DTDILAAFR", 2;"FLFVAEAIYK", 2] 
+    |> Array.ofSeq
+let rbcsQuantification = 
+    extractAbsoluteAbundancesOf true 2 "RBCS" ["AFPDAYVR", 2;"LVAFDNQK", 2] 
+    |> Array.ofSeq
 
 let protAbundanceChart =
     [
-    Chart.Column(rbclQuantificationSDS |> Seq.map (fun x -> x.Synonym),rbclQuantificationSDS |> Seq.map (fun x -> x.MeanQuant))
-    |> Chart.withYErrorStyle (rbclQuantificationSDS |> Seq.map (fun x -> x.StdevQuant))
-    |> Chart.withTraceName "rbcL"
-    Chart.Column(rbcsQuantificationSDS |> Seq.map (fun x -> x.Synonym),rbcsQuantificationSDS |> Seq.map (fun x -> x.MeanQuant))
-    |> Chart.withYErrorStyle (rbcsQuantificationSDS |> Seq.map (fun x -> x.StdevQuant))
-    |> Chart.withTraceName "RBCS"
+        Chart.Column(rbclQuantification |> Seq.map (fun x -> x.Filename + "_rbcL"),rbclQuantification |> Seq.map (fun x -> x.MeanQuant))
+        |> Chart.withYErrorStyle (rbclQuantification |> Seq.map (fun x -> x.StdevQuant))
+        |> Chart.withTraceName "rbcL"
+        Chart.Column(rbcsQuantification |> Seq.map (fun x -> x.Filename + "_rbcS"),rbcsQuantification |> Seq.map (fun x -> x.MeanQuant))
+        |> Chart.withYErrorStyle (rbcsQuantification |> Seq.map (fun x -> x.StdevQuant))
+        |> Chart.withTraceName "RBCS"
     ]
     |> Chart.Combine
     |> Chart.withY_AxisStyle "protein abundance [amol/cell]"
 
-protAbundanceChart |> Chart.Show
+(***condition:ipynb***)
+#if IPYNB
+protAbundanceChart
+#endif // IPYNB
 
+// without filtering. Compare both Charts.
+let rbclQuantification' = 
+    extractAbsoluteAbundancesOf false 2 "rbcL" ["DTDILAAFR", 2;"FLFVAEAIYK", 2] 
+    |> Array.ofSeq
+let rbcsQuantification' = 
+    extractAbsoluteAbundancesOf false 2 "RBCS" ["AFPDAYVR", 2;"LVAFDNQK", 2] 
+    |> Array.ofSeq
+
+let protAbundanceChart' =
+    [
+        Chart.Column(rbclQuantification' |> Seq.map (fun x -> x.Filename + "_rbcL"),rbclQuantification' |> Seq.map (fun x -> x.MeanQuant))
+        |> Chart.withYErrorStyle (rbclQuantification' |> Seq.map (fun x -> x.StdevQuant))
+        |> Chart.withTraceName "rbcL"
+        Chart.Column(rbcsQuantification' |> Seq.map (fun x -> x.Filename + "_rbcS"),rbcsQuantification' |> Seq.map (fun x -> x.MeanQuant))
+        |> Chart.withYErrorStyle (rbcsQuantification' |> Seq.map (fun x -> x.StdevQuant))
+        |> Chart.withTraceName "RBCS"
+    ]
+    |> Chart.Combine
+    |> Chart.withY_AxisStyle "protein abundance [amol/cell]"
+
+(***condition:ipynb***)
+#if IPYNB
+protAbundanceChart'
+#endif // IPYNB
+
+(**
+Since we didn't change the amount of QProt given to the sample but the amount of protein loaded into our SDS-PAGE, we check the reliability of our experiments via comparing 
+the chart above with a chart of the protein quantification per band. We remember that the bands were loaded with different amounts of the proteins seperated by the SDS-PAGE.
+
+Uncomment everything below.
+This is the formula from above. Now that we want to get the protein per band in mol, just add a respective calculation to get the protein band in mol and define it in the 
+anonymous record type.
+*)
+
+// let calcAbsoluteAbundance μgChlorophPerMlCult cellCountPerMlCult μgChlorophPerμlSample μgProtPerμlSample μgQProtSpike μgloadedProtein molWeightQProt molWeightTargetProt ratio1415N =
+//     let chlorophPerCell : float = μgChlorophPerMlCult / cellCountPerMlCult
+//     let cellsPerμlSample = μgChlorophPerμlSample / chlorophPerCell
+//     let μgProteinPerCell = μgProtPerμlSample / cellsPerμlSample
+//     let molQProtSpike = μgQProtSpike * 10. ** -6. / molWeightQProt
+//     let molProtPerBand = ratio1415N * molQProtSpike
+//     let molProtIn1μgLoadedProt = molProtPerBand / μgloadedProtein
+//     let gTargetProtIn1μgLoadedProt = molWeightTargetProt * molProtIn1μgLoadedProt
+//     let molProteinPerCell = molProtIn1μgLoadedProt * μgProteinPerCell
+//     let proteinsPerCell = molProteinPerCell * 6.022 * 10. ** 23.
+//     let attoMolProteinPerCell = molProteinPerCell * (10. ** 18.)
+//     let attoMolProteinPerBand = ??? // <--- write your calculation here
+//     {|
+//         MassTargetProteinInLoadedProtein    = gTargetProtIn1μgLoadedProt
+//         ProteinsPerCell                     = proteinsPerCell
+//         AttoMolProteinPerCell               = attoMolProteinPerCell
+//         AttoMolProteinPerBand               = attoMolProteinPerBand
+//     |}
+
+// let absoluteBandAbundances = 
+//     ratios
+//     |> Frame.map (fun peptide fileName ratio -> 
+//         try 
+//             let μgChlorophPerMlCult     = getμgChlorophPerMlCult fileName
+//             let cellCountPerMlCult      = getCellCountPerMlCult fileName
+//             let μgChlorophPerμlSample   = getμgChlorophPerμlSample fileName
+//             let μgProtPerμlSample       = getμgProtPerμlSample fileName
+//             let μgQProtSpike            = get15N_PS_Amount fileName
+//             let μgloadedProtein         = getLoadAmount fileName
+//             let molWeightQProt          = PSMass
+//             let molWeightTargetProt     = peptide.AverageProtGroupMass
+//             let result = 
+//                 calcAbsoluteAbundance
+//                     μgChlorophPerMlCult  
+//                     cellCountPerMlCult   
+//                     μgChlorophPerμlSample
+//                     μgProtPerμlSample    
+//                     μgQProtSpike         
+//                     μgloadedProtein
+//                     molWeightQProt       
+//                     molWeightTargetProt
+//                     ratio
+//             result.AttoMolProteinPerBand
+//         with :? System.FormatException -> nan
+//     )
+
+// let extractAbsoluteBandAbundancesOf prot peptidelist = 
+//     absoluteBandAbundances
+//     |> Frame.filterRows (fun k s -> k.Synonyms |> String.contains prot)
+//     |> Frame.filterRows (fun k s -> 
+//         peptidelist |> List.exists (fun (sequence,charge) -> sequence = k.StringSequence && charge = k.Charge)
+//     )
+//     |> Frame.getNumericCols 
+//     // |> Series.filter (fun k s -> getExpressionLevel k = "")
+//     |> Series.map (fun k v -> 
+//         {|
+//             Synonym    = k 
+//             MeanQuant  = Stats.mean v
+//             StdevQuant = Stats.stdDev v
+//         |}
+//     )
+//     |> Series.values
+
+// let rbclBandQuantification = 
+//     extractAbsoluteBandAbundancesOf "rbcL" ["DTDILAAFR", 2;"FLFVAEAIYK", 2] 
+//     |> Array.ofSeq
+// let rbcsBandQuantification = 
+//     extractAbsoluteBandAbundancesOf "RBCS" ["AFPDAYVR", 2;"LVAFDNQK", 2] 
+//     |> Array.ofSeq
+
+// let protAbundanceBandChart =
+//     [
+//         Chart.Column(rbclBandQuantification |> Seq.map (fun x -> x.Synonym),rbclBandQuantification |> Seq.map (fun x -> x.MeanQuant))
+//         |> Chart.withYErrorStyle (rbclBandQuantification |> Seq.map (fun x -> x.StdevQuant))
+//         |> Chart.withTraceName "rbcL"
+//         Chart.Column(rbcsBandQuantification |> Seq.map (fun x -> x.Synonym),rbcsBandQuantification |> Seq.map (fun x -> x.MeanQuant))
+//         |> Chart.withYErrorStyle (rbcsBandQuantification |> Seq.map (fun x -> x.StdevQuant))
+//         |> Chart.withTraceName "RBCS"
+//     ]
+//     |> Chart.Combine
+//     |> Chart.withY_AxisStyle "protein abundance per band [amol/band]"
+
+// protAbundanceBandChart |> Chart.Show
 
 (**
 Comparing this to the published results (see: https://www.frontiersin.org/articles/10.3389/fpls.2020.00868/full) we see that our preliminary results are

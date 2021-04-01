@@ -8,8 +8,8 @@
 #r "nuget: ISADotNet.XLSX, 0.2.4"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta6"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta6"
+#r "nuget: Plotly.NET, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
 #endif // IPYNB
 
 open System.IO
@@ -27,9 +27,9 @@ open BIO_BTE_06_L_7_Aux.Deedle_Aux
 (**
 # NB06c' Label efficiency for SDS
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b_Label_efficiency.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06c'_Label_efficiency_SDS.ipynb)
 
-[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06c/NB06c_Label_efficiency.ipynb)
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b'_NB06b''_NB06c'_NB06c''_NB06d'_NB06d''/NB06c'_Label_efficiency_SDS.ipynb)
 
 Stable isotopic peptide labeling is the foundation of QconCAT experiments. While an excellent tool when carried out with correctly, it also exposes 
 challenges and pitfalls that have to be checked and possibly accounted for. One of these pitfalls is the efficiency with which we labeled 
@@ -51,7 +51,7 @@ type PeptideIon =
 
 //This is the filepath you chose in *NB06b Data Access and Quality Control*
 // let filePath = @"C:\YourPath\testOut.txt"
-let filePath = @
+let filePath = System.IO.Path.Combine [|__SOURCE_DIRECTORY__; "downloads"; "qualityControlResult_SDS.txt"|]
 
 // What is different about this function from the one known from the last notebook?
 let qConcatDataFiltered =
@@ -67,13 +67,11 @@ let qConcatDataFiltered =
                 Charge          = os.GetAs<int>("Charge");
             |}
         )
-    |> Frame.filterRows (fun k s -> k.ProteinGroup |> String.contains "QProt_newCBB")
+    |> Frame.filterRows (fun k s -> k.ProteinGroup |> String.contains "QProt_newPS")
 
 qConcatDataFiltered.ColumnKeys
 |> Array.ofSeq
 
-qConcatDataFilteredBN.ColumnKeys
-|> Array.ofSeq
 (***include-it***)
 
 (**
@@ -89,8 +87,7 @@ let sliceQuantColumns quantColID frame =
 Besides already familiar slices...
 *)
 
-let heavySDS = sliceQuantColumns "Heavy" qConcatDataFilteredSDS
-let heavyBN = sliceQuantColumns "Heavy" qConcatDataFilteredBN
+let heavy = sliceQuantColumns "Heavy" qConcatDataFiltered
 
 (**
 ... we can also use this function for information needed to reconstruct isotopic patterns.
@@ -98,11 +95,9 @@ let heavyBN = sliceQuantColumns "Heavy" qConcatDataFilteredBN
 ## II. Extraction and visualization of measured isotopic envelopes.
 *)
 
-let heavyPatternMzSDS = sliceQuantColumns "heavyPatternMz" qConcatDataFilteredSDS
-let heavyPatternISDS  = sliceQuantColumns "heavyPatternI" qConcatDataFilteredSDS
+let heavyPatternMz = sliceQuantColumns "heavyPatternMz" qConcatDataFiltered
+let heavyPatternI  = sliceQuantColumns "heavyPatternI" qConcatDataFiltered
 
-let heavyPatternMzBN = sliceQuantColumns "heavyPatternMz" qConcatDataFilteredBN
-let heavyPatternIBN  = sliceQuantColumns "heavyPatternI" qConcatDataFilteredBN
 
 (**
 Now, there's a challenge: The info to reconstruct an isotopic pattern is
@@ -111,7 +106,7 @@ As always, this challenged can be solved using a function!
 Hint: Note how we define a function 'floatArrayOf' that specifies how the string is parsed. 
 *)
 
-let getHeavyPatternsInFile extractionType fileName = 
+let getHeavyPatternsInFile fileName = 
     let floatArrayOf s = 
         if String.isNullOrEmpty s then 
             [||]
@@ -120,27 +115,16 @@ let getHeavyPatternsInFile extractionType fileName =
             |> String.split (';') 
             |> Array.map float
     let mz, intensities =
-        match extractionType with
-        | "SDS" ->
-            heavyPatternMzSDS 
-            |> Frame.getCol fileName 
-            |> Series.mapValues floatArrayOf,
-            heavyPatternISDS 
-            |> Frame.getCol fileName 
-            |> Series.mapValues floatArrayOf
-        | "BN" -> 
-            heavyPatternMzBN
-            |> Frame.getCol fileName 
-            |> Series.mapValues floatArrayOf,
-            heavyPatternIBN 
-            |> Frame.getCol fileName 
-            |> Series.mapValues floatArrayOf
-        | _ -> failwith "ERROR: Accepted extractionType input is either \"SDS\" or \"BN\""
+        heavyPatternMz
+        |> Frame.getCol fileName 
+        |> Series.mapValues floatArrayOf,
+        heavyPatternI
+        |> Frame.getCol fileName 
+        |> Series.mapValues floatArrayOf
     let zipped = Series.zipInner mz intensities
     zipped
 
-let extractedPatternsSDS = getHeavyPatternsInFile "SDS" "Gr2rbcL2_5"
-let extractedPatternsBN = getHeavyPatternsInFile "BN" "20210312BN2_U1"
+let extractedPatterns = getHeavyPatternsInFile "Gr2rbcL2_5"
 
 (***include-it***)
 
@@ -170,22 +154,13 @@ type ExtractedIsoPattern =
         Pattern         : seq<(float*float)>
     |}
 
-let getIsotopicPattern extractionType peptideSequence charge =
+let getIsotopicPattern peptideSequence charge =
     let (k,(mzs,intensities)) = 
-        match extractionType with
-        | "SDS" ->
-            extractedPatternsSDS
-            |> Series.observations
-            |> Seq.find (fun (k,(mzs,intensities)) -> 
-                    k.StringSequence = peptideSequence && k.Charge = charge
-                )
-        | "BN" ->
-        extractedPatternsSDS
-            |> Series.observations
-            |> Seq.find (fun (k,(mzs,intensities)) -> 
-                    k.StringSequence = peptideSequence && k.Charge = charge
-                ) 
-        | _ -> failwith "ERROR: Accepted extractionType input is either \"SDS\" or \"BN\""
+        extractedPatterns
+        |> Series.observations
+        |> Seq.find (fun (k,(mzs,intensities)) -> 
+                k.StringSequence = peptideSequence && k.Charge = charge
+            )
     {|
         PeptideSequence=k
         Charge  = charge
@@ -193,25 +168,25 @@ let getIsotopicPattern extractionType peptideSequence charge =
     |}
 (**
 *)
-let examplePep1SDS = getIsotopicPattern "SDS" "DTDILAAFR" 2
-let examplePep1BN = getIsotopicPattern "BN" "DTDILAAFR" 2
+let examplePep1 = getIsotopicPattern "DTDILAAFR" 2
 
-plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep1SDS.Pattern
-plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep1BN.Pattern
+(***condition:ipynb***)
+#if IPYNB
+plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep1.Pattern
+#endif // IPYNB
 (***hide***)
-plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep1SDS.Pattern |> GenericChart.toChartHTML
-plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep1BN.Pattern |> GenericChart.toChartHTML
+plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep1.Pattern |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
-let examplePep2SDS = getIsotopicPattern "SDS" "LTYYTPDYVVR" 2
-let examplePep2BN = getIsotopicPattern "BN" "LTYYTPDYVVR" 2
+let examplePep2 = getIsotopicPattern "LTYYTPDYVVR" 2
 
-plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep2SDS.Pattern
-plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep2BN.Pattern
+(***condition:ipynb***)
+#if IPYNB
+plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep2.Pattern
+#endif // IPYNB
 (***hide***)
-plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep2SDS.Pattern |> GenericChart.toChartHTML
-plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep2BN.Pattern |> GenericChart.toChartHTML
+plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep2.Pattern |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
@@ -317,23 +292,17 @@ let compareIsotopicDistributions (measured:ExtractedIsoPattern) (simulated:Simul
     |}
 (**
 *)
-let comp1SDS = compareIsotopicDistributions examplePep2SDS examplePep2_Sim1
-let comp1BN = compareIsotopicDistributions examplePep2BN examplePep2_Sim1
-comp1SDS.Plot
-comp1BN.Plot
+let comp1 = compareIsotopicDistributions examplePep2 examplePep2_Sim1
+comp1.Plot
 (***hide***)
-comp1SDS.Plot |> GenericChart.toChartHTML
-comp1BN.Plot |> GenericChart.toChartHTML
+comp1.Plot |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
-let comp2SDS = compareIsotopicDistributions examplePep2SDS examplePep2_Sim2
-let comp2BN = compareIsotopicDistributions examplePep2SDS examplePep2_Sim2
-comp2SDS.Plot
-comp2BN.Plot
+let comp2 = compareIsotopicDistributions examplePep2 examplePep2_Sim2
+comp2.Plot
 (***hide***)
-comp2SDS.Plot |> GenericChart.toChartHTML
-comp2BN.Plot |> GenericChart.toChartHTML
+comp2.Plot |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 Comparing both simulations, we see that the simulation with a label efficiency of 0.99 fits the measured spectra better than the simulation with 0.95.
@@ -379,94 +348,59 @@ also visualize the pattern with the best fit. Please inspect the Chart created b
 and write correct descriptions for the x and the y axis. (Fill: |> Chart.withX_AxisStyle "" and |> Chart.withY_AxisStyle "")
 *)
 
-let lableEfficiencySDS,comparisonSDS,lableEfficiencyBN,comparisonBN = 
-    (
-        [|0.95 .. 0.001 .. 0.999|]
-        |> Array.map (fun lableEfficiency -> 
-                let sim = simulateFrom "DTDILAAFR" 2 lableEfficiency
-                let comp = compareIsotopicDistributions' examplePep1SDS sim
-                lableEfficiency,
-                comp
-            )
-        |> Seq.unzip,
-        [|0.95 .. 0.001 .. 0.999|]
-        |> Array.map (fun lableEfficiency -> 
-                let sim = simulateFrom "DTDILAAFR" 2 lableEfficiency
-                let comp = compareIsotopicDistributions' examplePep1BN sim
-                lableEfficiency,
-                comp
-            )
-        |> Seq.unzip
-    )
-    |> fun (x,y) -> fst x, snd x, fst y, snd y
-let bestFitSDS = comparisonSDS |> Seq.minBy (fun x -> x.KLDiv) 
-let bestFitBN = comparisonBN |> Seq.minBy (fun x -> x.KLDiv) 
+let lableEfficiency, comparison = 
+    [|0.95 .. 0.001 .. 0.999|]
+    |> Array.map (fun lableEfficiency -> 
+            let sim = simulateFrom "DTDILAAFR" 2 lableEfficiency
+            let comp = compareIsotopicDistributions' examplePep1 sim
+            lableEfficiency,
+            comp
+        )
+    |> Seq.unzip
+let bestFit = comparison |> Seq.minBy (fun x -> x.KLDiv) 
 
-Chart.Point(lableEfficiencySDS,comparisonSDS |> Seq.map (fun x -> x.KLDiv))
+Chart.Point(lableEfficiency,comparison |> Seq.map (fun x -> x.KLDiv))
 |> Chart.withX_AxisStyle ""
 |> Chart.withY_AxisStyle ""
 
-Chart.Point(lableEfficiencyBN,comparisonBN |> Seq.map (fun x -> x.KLDiv))
-|> Chart.withX_AxisStyle ""
-|> Chart.withY_AxisStyle ""
 
 (***hide***)
-Chart.Point(lableEfficiencySDS,comparisonSDS |> Seq.map (fun x -> x.KLDiv)) |> GenericChart.toChartHTML
-Chart.Point(lableEfficiencyBN,comparisonBN |> Seq.map (fun x -> x.KLDiv)) |> GenericChart.toChartHTML
+Chart.Point(lableEfficiency,comparison |> Seq.map (fun x -> x.KLDiv)) |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
 
-bestFitSDS.Plot
-bestFitBN.Plot
+bestFit.Plot
 (***hide***)
-bestFitSDS.Plot |> GenericChart.toChartHTML
-bestFitBN.Plot |> GenericChart.toChartHTML
+bestFit.Plot |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
-let lableEfficiency2SDS,comparison2SDS,lableEfficiency2BN,comparison2BN = 
-    (
-        [|0.95 .. 0.001 .. 0.999|]
-        |> Array.map (fun lableEfficiency -> 
-                let sim = simulateFrom "LTYYTPDYVVR" 2 lableEfficiency
-                let comp = compareIsotopicDistributions' examplePep2SDS sim
-                lableEfficiency,
-                comp
-            )
-        |> Seq.unzip,
-        [|0.95 .. 0.001 .. 0.999|]
-        |> Array.map (fun lableEfficiency -> 
-                let sim = simulateFrom "LTYYTPDYVVR" 2 lableEfficiency
-                let comp = compareIsotopicDistributions' examplePep2BN sim
-                lableEfficiency,
-                comp
-            )
-        |> Seq.unzip
-    )
-    |> fun ((a,b),(c,d)) -> a,b,c,d
+let lableEfficiency2, comparison2 = 
+    [|0.95 .. 0.001 .. 0.999|]
+    |> Array.map (fun lableEfficiency -> 
+            let sim = simulateFrom "LTYYTPDYVVR" 2 lableEfficiency
+            let comp = compareIsotopicDistributions' examplePep2 sim
+            lableEfficiency,
+            comp
+        )
+    |> Seq.unzip
 
-let bestFit2SDS = comparison2SDS |> Seq.minBy (fun x -> x.KLDiv) 
-let bestFit2BN = comparison2BN |> Seq.minBy (fun x -> x.KLDiv) 
+let bestFit2 = comparison2 |> Seq.minBy (fun x -> x.KLDiv) 
 
-Chart.Point(lableEfficiency2SDS,comparison2SDS |> Seq.map (fun x -> x.KLDiv))
+Chart.Point(lableEfficiency2,comparison2 |> Seq.map (fun x -> x.KLDiv))
 |> Chart.withX_AxisStyle ""
 |> Chart.withY_AxisStyle ""
 
-Chart.Point(lableEfficiency2BN,comparison2BN |> Seq.map (fun x -> x.KLDiv))
-|> Chart.withX_AxisStyle ""
-|> Chart.withY_AxisStyle ""
+
 (***hide***)
-Chart.Point(lableEfficiency2SDS,comparison2SDS |> Seq.map (fun x -> x.KLDiv)) |> GenericChart.toChartHTML
-Chart.Point(lableEfficiency2BN,comparison2BN |> Seq.map (fun x -> x.KLDiv)) |> GenericChart.toChartHTML
+Chart.Point(lableEfficiency2,comparison2 |> Seq.map (fun x -> x.KLDiv)) |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
-bestFit2SDS.Plot
-bestFit2BN.Plot
+bestFit2.Plot
 (***hide***)
-bestFit2SDS.Plot |> GenericChart.toChartHTML
-bestFit2BN.Plot |> GenericChart.toChartHTML
+bestFit2.Plot |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
@@ -480,59 +414,43 @@ How close are the estimates?
 *)
 
 let calcKL peptideSequence charge lableEfficiency = 
-    let measuredSDS, measuredBN = 
-        getIsotopicPattern "SDS" peptideSequence charge, 
-        getIsotopicPattern "BN" peptideSequence charge
+    let measured = 
+        getIsotopicPattern peptideSequence charge
     let sim = simulateFrom peptideSequence charge lableEfficiency
-    let compSDS, compBN = 
-        compareIsotopicDistributions' measuredSDS sim,
-        compareIsotopicDistributions' measuredBN sim
-    compSDS.KLDiv, compBN.KLDiv
+    let comp = 
+        compareIsotopicDistributions' measured sim
+    comp.KLDiv
 
-let est1SDS = Optimization.Brent.minimize (calcKL "DTDILAAFR" 2 >> fst) 0.98 0.999
-let est1BN = Optimization.Brent.minimize (calcKL "DTDILAAFR" 2 >> snd) 0.98 0.999
-let est2SDS = Optimization.Brent.minimize (calcKL "LTYYTPDYVVR" 2 >> fst) 0.98 0.999
-let est2BN = Optimization.Brent.minimize (calcKL "LTYYTPDYVVR" 2 >> snd) 0.98 0.999
+let est1 = Optimization.Brent.minimize (calcKL "DTDILAAFR" 2) 0.98 0.999
+let est2 = Optimization.Brent.minimize (calcKL "LTYYTPDYVVR" 2) 0.98 0.999
 
 (**
 Since the estimates have a certain level of uncertainty we will repeat the estimation for 
 some high intensity peptides and visualize the results. Please fill the x axis description (|> Chart.withX_AxisStyle "")
 *)
 
-let highIntensityPeptidesSDS = 
-    heavySDS
-    |> Frame.getCol "WCGr1_U1" 
+let highIntensityPeptides = 
+    heavy
+    |> Frame.getCol "Gr2rbcL2_5" 
     |> Series.sortBy (fun (x:float) -> - x)
     |> Series.filter (fun k v -> k.StringSequence |> String.exists (fun x -> x='[') |> not)
 
-let highIntensityPeptidesBN = 
-    heavyBN
-    |> Frame.getCol "WCGr1_U1" 
-    |> Series.sortBy (fun (x:float) -> - x)
-    |> Series.filter (fun k v -> k.StringSequence |> String.exists (fun x -> x='[') |> not)
-
-let estimatesSDS = 
-    highIntensityPeptidesSDS
+let estimates = 
+    highIntensityPeptides
     |> Series.take 20 
     |> Series.map (fun k v -> 
-        FSharp.Stats.Optimization.Brent.minimize (calcKL k.StringSequence k.Charge >> fst) 0.98 0.999
+        FSharp.Stats.Optimization.Brent.minimize (calcKL k.StringSequence k.Charge) 0.98 0.999
         )
     |> Series.values
     |> Seq.choose id
 
-let estimatesBN = 
-    highIntensityPeptidesBN
-    |> Series.take 20 
-    |> Series.map (fun k v -> 
-        FSharp.Stats.Optimization.Brent.minimize (calcKL k.StringSequence k.Charge >> snd) 0.98 0.999
-        )
-    |> Series.values
-    |> Seq.choose id
-
-Chart.BoxPlot estimatesSDS
+(***condition:ipynb***)
+#if IPYNB
+Chart.BoxPlot estimates
 |> Chart.withX_AxisStyle ""
+#endif // IPYNB
 (***hide***)
-Chart.BoxPlot estimatesBN |> GenericChart.toChartHTML
+Chart.BoxPlot estimates |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**

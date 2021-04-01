@@ -25,11 +25,11 @@ open BIO_BTE_06_L_7_Aux.FS3_Aux
 open BIO_BTE_06_L_7_Aux.Deedle_Aux
 
 (**
-# NB06c Label efficiency
+# NB06c' Label efficiency for SDS
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06c_Label_efficiency.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06c''_Label_efficiency_BN.ipynb)
 
-[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06c/NB06c_Label_efficiency.ipynb)
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b'_NB06b''_NB06c'_NB06c''_NB06d'_NB06d''/NB06c''_Label_efficiency_BN.ipynb)
 
 Stable isotopic peptide labeling is the foundation of QconCAT experiments. While an excellent tool when carried out with correctly, it also exposes 
 challenges and pitfalls that have to be checked and possibly accounted for. One of these pitfalls is the efficiency with which we labeled 
@@ -40,10 +40,6 @@ illustrate how the label efficiency can be calculated using simulations.
 As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from *NB06b Data Access and Quality Control* is stored in a .txt
 *)
 
-type Qprot = 
-    | CBB
-    | PS 
-
 type PeptideIon = 
     {|
         ProteinGroup    : string  
@@ -51,37 +47,31 @@ type PeptideIon =
         StringSequence  : string
         PepSequenceID   : int
         Charge          : int
-        QProt           : Qprot
     |}
 
 //This is the filepath you chose in *NB06b Data Access and Quality Control*
-let filePath = @"C:\YourPath\testOut.txt"
+// let filePath = @"C:\YourPath\testOut.txt"
+let filePath = System.IO.Path.Combine [|__SOURCE_DIRECTORY__; "downloads"; "qualityControlResult_BN.txt"|]
 
 // What is different about this function from the one known from the last notebook?
 let qConcatDataFiltered =
-    Frame.ReadCsv(path = filePath,separators="\t")
+    Frame.ReadCsv(path = filePath, separators = "\t")
     // StringSequence is the peptide sequence
     |> Frame.indexRowsUsing (fun os -> 
             let proteinGroup = os.GetAs<string>("ProteinGroup")
-            let qprot = 
-                match proteinGroup |> String.contains "QProt_newCBB", proteinGroup |> String.contains "QProt_newPS" with 
-                | true, false  -> Some CBB
-                | false, true  -> Some PS 
-                | _ -> None  
             {|
                 ProteinGroup    = os.GetAs<string>("ProteinGroup"); 
                 Synonyms        = os.GetAs<string>("Synonyms")
                 StringSequence  = os.GetAs<string>("StringSequence");
                 PepSequenceID   = os.GetAs<int>("PepSequenceID");
                 Charge          = os.GetAs<int>("Charge");
-                QProt           = qprot;
             |}
         )
-    |> Frame.filterRows (fun k s -> k.QProt.IsSome)
-    |> Frame.mapRowKeys (fun k -> {|k with QProt = k.QProt.Value|})
+    |> Frame.filterRows (fun k s -> k.ProteinGroup |> String.contains "QProt_newPS")
 
 qConcatDataFiltered.ColumnKeys
 |> Array.ofSeq
+
 (***include-it***)
 
 (**
@@ -108,6 +98,7 @@ let heavy = sliceQuantColumns "Heavy" qConcatDataFiltered
 let heavyPatternMz = sliceQuantColumns "heavyPatternMz" qConcatDataFiltered
 let heavyPatternI  = sliceQuantColumns "heavyPatternI" qConcatDataFiltered
 
+
 (**
 Now, there's a challenge: The info to reconstruct an isotopic pattern is
 separated into two columns, the x component (heavyPatternMz) and the y component (heavyPatternI).
@@ -123,18 +114,17 @@ let getHeavyPatternsInFile fileName =
             s
             |> String.split (';') 
             |> Array.map float
-    let mz = 
-        heavyPatternMz 
+    let mz, intensities =
+        heavyPatternMz
         |> Frame.getCol fileName 
-        |> Series.mapValues floatArrayOf
-    let intensities = 
-        heavyPatternI 
+        |> Series.mapValues floatArrayOf,
+        heavyPatternI
         |> Frame.getCol fileName 
         |> Series.mapValues floatArrayOf
     let zipped = Series.zipInner mz intensities
     zipped
 
-let extractedPatterns = getHeavyPatternsInFile "WCGr1_U1"
+let extractedPatterns = getHeavyPatternsInFile "20210312BN2_U1"
 
 (***include-it***)
 
@@ -180,7 +170,10 @@ let getIsotopicPattern peptideSequence charge =
 *)
 let examplePep1 = getIsotopicPattern "DTDILAAFR" 2
 
+(***condition:ipynb***)
+#if IPYNB
 plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep1.Pattern
+#endif // IPYNB
 (***hide***)
 plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep1.Pattern |> GenericChart.toChartHTML
 (***include-it-raw***)
@@ -188,7 +181,10 @@ plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep1.Pattern |> Ge
 *)
 let examplePep2 = getIsotopicPattern "LTYYTPDYVVR" 2
 
+(***condition:ipynb***)
+#if IPYNB
 plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep2.Pattern
+#endif // IPYNB
 (***hide***)
 plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep2.Pattern |> GenericChart.toChartHTML
 (***include-it-raw***)
@@ -352,7 +348,7 @@ also visualize the pattern with the best fit. Please inspect the Chart created b
 and write correct descriptions for the x and the y axis. (Fill: |> Chart.withX_AxisStyle "" and |> Chart.withY_AxisStyle "")
 *)
 
-let lableEfficiency,comparison = 
+let lableEfficiency, comparison = 
     [|0.95 .. 0.001 .. 0.999|]
     |> Array.map (fun lableEfficiency -> 
             let sim = simulateFrom "DTDILAAFR" 2 lableEfficiency
@@ -360,12 +356,13 @@ let lableEfficiency,comparison =
             lableEfficiency,
             comp
         )
-    |> Seq.unzip 
+    |> Seq.unzip
 let bestFit = comparison |> Seq.minBy (fun x -> x.KLDiv) 
 
 Chart.Point(lableEfficiency,comparison |> Seq.map (fun x -> x.KLDiv))
 |> Chart.withX_AxisStyle ""
 |> Chart.withY_AxisStyle ""
+
 
 (***hide***)
 Chart.Point(lableEfficiency,comparison |> Seq.map (fun x -> x.KLDiv)) |> GenericChart.toChartHTML
@@ -379,7 +376,7 @@ bestFit.Plot |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
-let lableEfficiency2,comparison2 = 
+let lableEfficiency2, comparison2 = 
     [|0.95 .. 0.001 .. 0.999|]
     |> Array.map (fun lableEfficiency -> 
             let sim = simulateFrom "LTYYTPDYVVR" 2 lableEfficiency
@@ -387,13 +384,15 @@ let lableEfficiency2,comparison2 =
             lableEfficiency,
             comp
         )
-    |> Seq.unzip 
+    |> Seq.unzip
 
 let bestFit2 = comparison2 |> Seq.minBy (fun x -> x.KLDiv) 
 
 Chart.Point(lableEfficiency2,comparison2 |> Seq.map (fun x -> x.KLDiv))
 |> Chart.withX_AxisStyle ""
 |> Chart.withY_AxisStyle ""
+
+
 (***hide***)
 Chart.Point(lableEfficiency2,comparison2 |> Seq.map (fun x -> x.KLDiv)) |> GenericChart.toChartHTML
 (***include-it-raw***)
@@ -415,9 +414,11 @@ How close are the estimates?
 *)
 
 let calcKL peptideSequence charge lableEfficiency = 
-    let measured = getIsotopicPattern peptideSequence charge
+    let measured = 
+        getIsotopicPattern peptideSequence charge
     let sim = simulateFrom peptideSequence charge lableEfficiency
-    let comp = compareIsotopicDistributions' measured sim
+    let comp = 
+        compareIsotopicDistributions' measured sim
     comp.KLDiv
 
 let est1 = Optimization.Brent.minimize (calcKL "DTDILAAFR" 2) 0.98 0.999
@@ -430,7 +431,7 @@ some high intensity peptides and visualize the results. Please fill the x axis d
 
 let highIntensityPeptides = 
     heavy
-    |> Frame.getCol "WCGr1_U1" 
+    |> Frame.getCol "20210312BN2_U1" 
     |> Series.sortBy (fun (x:float) -> - x)
     |> Series.filter (fun k v -> k.StringSequence |> String.exists (fun x -> x='[') |> not)
 
@@ -443,8 +444,11 @@ let estimates =
     |> Series.values
     |> Seq.choose id
 
+(***condition:ipynb***)
+#if IPYNB
 Chart.BoxPlot estimates
 |> Chart.withX_AxisStyle ""
+#endif // IPYNB
 (***hide***)
 Chart.BoxPlot estimates |> GenericChart.toChartHTML
 (***include-it-raw***)

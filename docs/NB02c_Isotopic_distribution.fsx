@@ -39,8 +39,8 @@ individual elements (Rockwood et al. 1995), or rely on dynamic programming (Snid
 #r "nuget: Plotly.NET, 2.0.0-beta6"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta6"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta6"
+#r "nuget: Plotly.NET, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
 #endif // IPYNB
 
 open Plotly.NET

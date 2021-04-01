@@ -8,8 +8,8 @@
 #r "nuget: ISADotNet.XLSX, 0.2.4"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta6"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta6"
+#r "nuget: Plotly.NET, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
 #endif // IPYNB
 
 open System.IO
@@ -28,9 +28,9 @@ open BIO_BTE_06_L_7_Aux.Deedle_Aux
 (**
 # NB06b Data Access and Quality Control
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b_Data_Access_And_Quality_Control.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b'_Data_Access_And_Quality_Control_SDS.ipynb)
 
-[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b/NB06b_Data_Access_And_Quality_Control.ipynb)
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b'_NB06b''_NB06c'_NB06c''_NB06d'_NB06d''/NB06b'_Data_Access_And_Quality_Control_SDS.ipynb)
 
 With this notebook, we want to converge the threads of computational and experimental proteomics by analyzing the data measured by you during the practical course.
 Behind the scenes there was already a lot going on! While you were going through the hands-on tutorials addressing single steps of the computation proteomics pipeline, we executed
@@ -47,8 +47,8 @@ It supports working with structured data frames, ordered and unordered data, as 
 Before we analyze our data, we will download and read the sample description provided by the experimentalist.
 *)
 let directory = __SOURCE_DIRECTORY__
-let path2 = Path.Combine[|directory;"downloads/alle_Gruppen_V10_SWATE.xlsx"|]
-downloadFile path2 "alle_Gruppen_V10_SWATE.xlsx" "bio-bte-06-l-7"
+let path2 = Path.Combine[|directory;"downloads/alle_Gruppen_V11_SWATE.xlsx"|]
+downloadFile path2 "alle_Gruppen_V11_SWATE.xlsx" "bio-bte-06-l-7"
 
 let _,_,_,myAssayFile = XLSX.AssayFile.AssayFile.fromFile path2
 let inOutMap = BIO_BTE_06_L_7_Aux.ISA_Aux.createInOutMap myAssayFile
@@ -58,6 +58,10 @@ Next, we will prepare functions to look up parameters, which might be needed for
 *)
 
 let normalizeFileName (f:string) = if Path.HasExtension f then f else Path.ChangeExtension(f, "wiff")
+
+type CutoutBand =
+    | RbcL
+    | RbcS
 
 //        
 let getStrain (fileName:string) =
@@ -71,13 +75,6 @@ let getExpressionLevel (fileName:string) =
     BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation -Sample preparation" "gene expression" fN myAssayFile 
     |> Option.defaultValue "Wt-Like"
 
-//  
-let get15N_CBC_Amount (fileName:string) =
-    let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Extraction" "gram" fN myAssayFile |> Option.defaultValue ""
-    |> String.split ' '
-    |> Array.head
-    |> float 
 //
 let get15N_PS_Amount (fileName:string) =
     let fN = fileName |> normalizeFileName
@@ -97,17 +94,23 @@ let getLoadAmount (fileName : string) =
     |> float
 
 let getCutoutBand (fileName : string) =
-    0
+    let fN = fileName |> normalizeFileName
+    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "PAGE - Sample preparation" "Cutout band" fN myAssayFile |> Option.defaultValue ""
+    |> fun str ->
+        match str with
+        | "rbcL" -> RbcL
+        | "rbcS" -> RbcS
+        | _ -> failwith (sprintf "rbcL or rbcS not cut out in file %s" fN)
 
 (**
 A quick execution to test the retrieval of data from the isa sample table:
 *)
 getStrain "Gr2rbcL2_5.wiff"
 getExpressionLevel "Gr2rbcL2_5.wiff"
-get15N_CBC_Amount "Gr2rbcL2_5.wiff"
 get15N_PS_Amount "Gr2rbcL2_5.wiff"
 getGroupID "Gr2rbcL2_5.wiff"
 getLoadAmount "Gr2rbcL2_5.wiff"
+getCutoutBand "Gr2rbcL2_5.wiff"
 
 (**
 Now that we have the sample sheet, all that is missing is the data to be analyzed:
@@ -218,7 +221,7 @@ such as, "Ratio", "Light" or "Heavy".
 *)
 let sliceQuantColumns quantColID frame = 
     frame
-    |> Frame.filterCols (fun ck os -> ck |> String.contains ("."+quantColID))
+    |> Frame.filterCols (fun ck os -> ck |> String.contains ("." + quantColID))
     |> Frame.mapColKeys (fun ck -> ck.Split('.') |> Array.item 0)
 
 // How did the data frame change, how did the column headers change?
@@ -347,28 +350,28 @@ type PeptideIon =
     |}
 
 
+
 // Given a frame, a prot-ID and a group-ID this function creates an xy plot for every peptide ion belonging to the protein/proteingroup.
 // The parameter 'prot' can either be given a valid Cre-ID or a synonym.
 // What is the unit of the x-Axis? How is the ratio calculated? 
-let plotPeptidesOf (ratios:Frame<PeptideIon,string>) (prot:string) (groupID:int) = 
+let plotPeptidesOf (ratios : Frame<PeptideIon,string>) (prot : string) (cutoutBand : CutoutBand) (groupID : int) = 
     try 
         ratios
         |> Frame.filterRows (fun k s -> k.Synonyms.Contains prot || k.ProteinGroup.Contains prot)
-        |> Frame.filterCols (fun k s -> getGroupID k = groupID)   
+        |> Frame.filterCols (fun k s -> getCutoutBand k = cutoutBand && getGroupID k = groupID)   
         |> Frame.transpose
         |> Frame.getNumericCols
         |> Series.map (fun pep (values) -> 
-            let qprotAmounts,ratios,fileLabel =
+            let loadAmounts,ratios,fileLabel =
                 values
                 |> Series.map (fun fileName (ratio) -> 
-                        // let qProtAmount =  get15N_PS_Amount fileName
                         let loadAmount = getLoadAmount fileName
                         let expressionLevel = getExpressionLevel fileName
                         loadAmount, ratio, (sprintf "%s %s" fileName expressionLevel)         
                     )
                 |> Series.values
                 |> Seq.unzip3
-            Chart.Point(qprotAmounts,ratios,Labels=fileLabel)
+            Chart.Point(loadAmounts, ratios, Labels = fileLabel)
             |> Chart.withTraceName (sprintf "S:%s_C:%i" pep.StringSequence pep.Charge)
             |> Chart.withX_AxisStyle("Loaded protein amount")
             |> Chart.withY_AxisStyle("Ratio")
@@ -376,7 +379,7 @@ let plotPeptidesOf (ratios:Frame<PeptideIon,string>) (prot:string) (groupID:int)
         |> Series.values
         |> Chart.Combine
         |> Chart.withTitle "SDS-PAGE extraction"
-    with :? System.ArgumentException -> failwith "ERROR: Input protein was not found."
+    with :? System.ArgumentException ->  failwith (sprintf "Input protein %s was not found" prot)
 
 (**
 First we get an overview of available protein ids.
@@ -390,35 +393,52 @@ ratios.RowKeys
 (**
 Then we can start to visualizes our results:
 *)
-plotPeptidesOf ratios "rbcL" 1 |> Chart.Show
+(***condition:ipynb***)
+#if IPYNB
+plotPeptidesOf ratios "rbcL" RbcL 1
+#endif // IPYNB
 (***hide***)
-plotPeptidesOf ratios "rbcL" 1 |> GenericChart.toChartHTML
+plotPeptidesOf ratios "rbcL" RbcL 1 |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
-plotPeptidesOf ratios "RBCS2;RBCS1" 2 |> Chart.Show
+(***condition:ipynb***)
+#if IPYNB
+plotPeptidesOf ratios "RBCS2;RBCS1" RbcS 2
+#endif // IPYNB
 (***hide***)
-plotPeptidesOf ratios "RBCS2;RBCS1" 2 |> GenericChart.toChartHTML
+plotPeptidesOf ratios "RBCS2;RBCS1" RbcS 2 |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
-plotPeptidesOf ratios "SEBP1" 4 |> Chart.Show
+(***condition:ipynb***)
+#if IPYNB
+plotPeptidesOf ratios "SEBP1" RbcL 4
+#endif // IPYNB
 (***hide***)
-plotPeptidesOf ratios "SEBP1" 1 |> GenericChart.toChartHTML
+plotPeptidesOf ratios "SEBP1" RbcL 4 |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
-plotPeptidesOf ratios "TRK1" 1 
+(***condition:ipynb***)
+#if IPYNB
+plotPeptidesOf ratios "TRK1" RbcL 1 
+#endif // IPYNB
 (***hide***)
-plotPeptidesOf ratios "TRK1" 1 |> GenericChart.toChartHTML
+plotPeptidesOf ratios "TRK1" RbcL 1 |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
-// Describe the results of the last 3 plots.
-plotPeptidesOf ratios "PRK1" 1
+
+(***condition:ipynb***)
+#if IPYNB
+plotPeptidesOf ratios "PRK1" RbcL 1
+#endif // IPYNB
 (***hide***)
-plotPeptidesOf ratios "PRK1" 1 |> GenericChart.toChartHTML
+plotPeptidesOf ratios "PRK1" RbcL 1 |> GenericChart.toChartHTML
 (***include-it-raw***)
+
+// Describe what happened with the last 3 plots.
 
 
 (**
@@ -427,7 +447,10 @@ an absolute protein quantification e.g.:
 *)
 let discardPeptideIonInFile stringsequence charge filename (ratios:Frame<PeptideIon,string>) = 
     ratios
-    |> Frame.map (fun r c value -> if r.StringSequence = stringsequence && r.Charge = charge && c=filename then nan else value)
+    |> Frame.map (fun r c value -> 
+        let cFileName = String.split '.' c |> Array.head
+        if r.StringSequence = stringsequence && r.Charge = charge && cFileName = filename then nan else value
+    )
 
 let discardPeptideIon stringsequence charge (ratios:Frame<PeptideIon,string>) = 
     ratios
@@ -442,9 +465,12 @@ let filtered =
 
 
 // Plotting the updated frame again, we see that the exemplary filtering worked just fine.
-plotPeptidesOf filtered "rbcL" 1 |> Chart.Show
+(***condition:ipynb***)
+#if IPYNB
+plotPeptidesOf filtered "rbcL" RbcL 1
+#endif // IPYNB
 (***hide***)
-plotPeptidesOf filtered "rbcL" 1 |> GenericChart.toChartHTML
+plotPeptidesOf filtered "rbcL" RbcL 1 |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
@@ -452,7 +478,13 @@ Of course, it is possible to apply very strict additional filters onto the previ
 *)
 let ratiosFiltered = 
     filtered
-    |> Frame.filterCols (fun k s -> get15N_PS_Amount k > 0.1 )
+    |> Frame.filterCols (fun k s -> 
+        let kFileName = String.split '.' k |> Array.head
+        try
+            get15N_PS_Amount kFileName > 0.1 
+        with
+        | _ -> false
+    )
 
 
 (**
@@ -472,4 +504,4 @@ This frame can then be saved locally using the following pattern:
 *)    
 
 // frameToSave.SaveCsv(@"C:\YourPath\testOut.txt", separator = '\t', includeRowKeys = false)
-frameToSave.SaveCsv(System.IO.Path.Combine [|__SOURCE_DIRECTORY__; "downloads"; "qualityControlResult.txt"|], separator = '\t', includeRowKeys = false)
+frameToSave.SaveCsv(System.IO.Path.Combine [|__SOURCE_DIRECTORY__; "downloads"; "qualityControlResult_SDS.txt"|], separator = '\t', includeRowKeys = false)
