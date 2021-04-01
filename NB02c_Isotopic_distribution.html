@@ -161,6 +161,20 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="NB06b'_Data_Access_And_Quality_Control_SDS.html">
+                                <span class="text">
+                                    <span>NB06b' Data Access and Quality Control (SDS)</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06b''_Data_Access_And_Quality_Control_BN.html">
+                                <span class="text">
+                                    <span>NB06b'' Data Access and Quality Control (BN)</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="NB06c_Label_efficiency.html">
                                 <span class="text">
                                     <span>NB06c Label Efficiency</span>
@@ -168,9 +182,37 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="NB06c'_Label_efficiency_SDS.html">
+                                <span class="text">
+                                    <span>NB06c' Label Efficiency (SDS)</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06c''_Label_efficiency_BN.html">
+                                <span class="text">
+                                    <span>NB06c''' Label Efficiency (BN)</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="NB06d_Absolute_Quantification.html">
                                 <span class="text">
                                     <span>NB06d Absolute Quantification</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06d'_Absolute_Quantification_SDS.html">
+                                <span class="text">
+                                    <span>NB06d' Absolute Quantification (SDS)</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06d''_Absolute_Quantification_BN.html">
+                                <span class="text">
+                                    <span>NB06d'' Absolute Quantification (BN)</span>
                                 </span>
                             </a>
                         </li>
@@ -257,8 +299,8 @@ Simulate the isotopic cluster of the peptide sequence ‘PEPTIDES’ and ‘PEPT
 <span class="pp">#r</span> <span class="s">&quot;nuget: Plotly.NET, 2.0.0-beta6&quot;</span>
 
 <span class="pp">#if</span> <span class="id">IPYNB</span>
-<span class="inactive">#r</span><span class="inactive"> </span><span class="inactive">&quot;nuget:</span><span class="inactive"> </span><span class="inactive">Plotly.NET,</span><span class="inactive"> </span><span class="inactive">2.0.0-beta6&quot;</span>
-<span class="inactive">#r</span><span class="inactive"> </span><span class="inactive">&quot;nuget:</span><span class="inactive"> </span><span class="inactive">Plotly.NET.Interactive,</span><span class="inactive"> </span><span class="inactive">2.0.0-beta6&quot;</span>
+<span class="inactive">#r</span><span class="inactive"> </span><span class="inactive">&quot;nuget:</span><span class="inactive"> </span><span class="inactive">Plotly.NET,</span><span class="inactive"> </span><span class="inactive">2.0.0-beta8&quot;</span>
+<span class="inactive">#r</span><span class="inactive"> </span><span class="inactive">&quot;nuget:</span><span class="inactive"> </span><span class="inactive">Plotly.NET.Interactive,</span><span class="inactive"> </span><span class="inactive">2.0.0-beta8&quot;</span>
 <span class="pp">#endif</span> <span class="c">// IPYNB</span>
 
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">Plotly</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="id">NET</span>
@@ -345,29 +387,29 @@ can use <code>IsotopicDistribution.MIDA.ofFormula</code> from the BioFSharp libr
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 67)" onmouseover="showTip(event, 'fs30', 67)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs35', 68)" onmouseover="showTip(event, 'fs35', 68)" class="id">withY_AxisStyle</span> <span class="s">&quot;intensity&quot;</span>
 <span onmouseout="hideTip(event, 'fs29', 69)" onmouseover="showTip(event, 'fs29', 69)" class="id">isoPatternChart</span>
 </code></pre>
-<div id="179637f1-b415-4f3e-964e-38e7ce8d58b3" style="width: 900px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="d3705b4b-6532-4d2f-87f9-c1a766b0fd18" style="width: 900px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_179637f1b4154f3e964e38e7ce8d58b3 = function() {
+            var renderPlotly_d3705b4b65324d2f87f9c1a766b0fd18 = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"bar","x":[887.399558199034,888.4024872665019,889.4049942776403,890.4081884772683],"y":[1.0,0.43236774529511174,0.12578247843311785,0.024134205673036688],"marker":{},"name":"peptide_short","xaxis":"x","yaxis":"y"},{"type":"bar","x":[3231.4470647196554,3232.4500572584698,3233.452986075872,3234.4559191540584,3235.4583946426615,3236.4625915315855],"y":[0.6079646485424579,1.0,0.9085467193387605,0.5658743566632869,0.26182515682174157,0.08134469002336972],"marker":{},"name":"peptide_long","xaxis":"x2","yaxis":"y2"}];
             var layout = {"xaxis":{"title":"m/z","range":[885.0,895.0],"anchor":"y","domain":[0.0,0.45]},"yaxis":{"anchor":"x","domain":[0.050000000000000044,1.0],"title":"intensity"},"xaxis2":{"title":"m/z","range":[3230.0,3240.0],"anchor":"y2","domain":[0.5,0.95]},"yaxis2":{"anchor":"x2","domain":[0.050000000000000044,1.0]},"width":900.0,"height":600.0,"title":"Isotopeclusters"};
             var config = {};
-            Plotly.newPlot('179637f1-b415-4f3e-964e-38e7ce8d58b3', data, layout, config);
+            Plotly.newPlot('d3705b4b-6532-4d2f-87f9-c1a766b0fd18', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_179637f1b4154f3e964e38e7ce8d58b3();
+                    renderPlotly_d3705b4b65324d2f87f9c1a766b0fd18();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_179637f1b4154f3e964e38e7ce8d58b3();
+                renderPlotly_d3705b4b65324d2f87f9c1a766b0fd18();
             }
 </script>
 
@@ -598,29 +640,29 @@ of the peptide sequence ‘PEPTIDES’ and ‘PEPTIDEPEPTIDEPEPTIDEPEPTIDES’ w
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 127)" onmouseover="showTip(event, 'fs30', 127)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs35', 128)" onmouseover="showTip(event, 'fs35', 128)" class="id">withY_AxisStyle</span> <span class="s">&quot;intensity&quot;</span>
 <span onmouseout="hideTip(event, 'fs50', 129)" onmouseover="showTip(event, 'fs50', 129)" class="id">isoPatternChart2</span>
 </code></pre>
-<div id="5f750867-a148-4805-88c2-d0f72a27c583" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="ed10971c-438b-4133-8722-7ed7ba5e9573" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_5f750867a148480588c2d0f72a27c583 = function() {
+            var renderPlotly_ed10971c438b413387227ed7ba5e9573 = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"bar","x":[887.399558199034,888.4024872665019,889.4049942776403,890.4081884772683],"y":[1.0,0.43236774529511174,0.12578247843311785,0.024134205673036688],"marker":{},"name":"peptide_short","xaxis":"x","yaxis":"y"},{"type":"bar","x":[894.3788365975154,895.3759499224518,896.3792323902378,897.3818499569743,898.3845066469612],"y":[0.0288860382140478,1.0,0.3984467169061343,0.11307938727778763,0.023853159064528624],"marker":{},"name":"N15_peptide_short","xaxis":"x","yaxis":"y"},{"type":"bar","x":[3231.4470647196554,3232.4500572584698,3233.452986075872,3234.4559191540584,3235.4583946426615,3236.4625915315855],"y":[0.6079646485424579,1.0,0.9085467193387605,0.5658743566632869,0.26182515682174157,0.08134469002336972],"marker":{},"name":"peptide_long","xaxis":"x2","yaxis":"y2"},{"type":"bar","x":[3259.3641783135813,3260.362110012513,3261.365076207296,3262.3681072195172,3263.370812501318,3264.3737877709027,3265.3767448967224],"y":[0.06384122646754022,0.7008291559420009,1.0,0.8402034738792131,0.4705485682431846,0.21695377275354297,0.08062486597973496],"marker":{},"name":"N15_peptide_long","xaxis":"x2","yaxis":"y2"}];
             var layout = {"xaxis":{"title":"m/z","range":[885.0,905.0],"anchor":"y","domain":[0.0,0.45]},"yaxis":{"anchor":"x","domain":[0.050000000000000044,1.0],"title":"intensity"},"xaxis2":{"title":"m/z","range":[3230.0,3270.0],"anchor":"y2","domain":[0.5,0.95]},"yaxis2":{"anchor":"x2","domain":[0.050000000000000044,1.0]},"title":"Isotopeclusters"};
             var config = {};
-            Plotly.newPlot('5f750867-a148-4805-88c2-d0f72a27c583', data, layout, config);
+            Plotly.newPlot('ed10971c-438b-4133-8722-7ed7ba5e9573', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_5f750867a148480588c2d0f72a27c583();
+                    renderPlotly_ed10971c438b413387227ed7ba5e9573();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_5f750867a148480588c2d0f72a27c583();
+                renderPlotly_ed10971c438b413387227ed7ba5e9573();
             }
 </script>
 
