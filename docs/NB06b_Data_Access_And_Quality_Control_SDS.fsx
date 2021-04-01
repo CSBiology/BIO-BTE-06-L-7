@@ -1,14 +1,13 @@
 #r "nuget: FSharp.Stats, 0.4.0"
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-#r "nuget: Plotly.NET, 2.0.0-beta6"
+#r "nuget: Plotly.NET, 2.0.0-beta8"
 #r "nuget: BIO-BTE-06-L-7_Aux, 0.0.6"
 #r "nuget: Deedle, 2.3.0"
 #r "nuget: ISADotNet, 0.2.4"
 #r "nuget: ISADotNet.XLSX, 0.2.4"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta8"
 #r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
 #endif // IPYNB
 
