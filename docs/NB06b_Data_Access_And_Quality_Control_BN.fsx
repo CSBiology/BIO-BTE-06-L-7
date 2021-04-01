@@ -451,7 +451,7 @@ These functions can then be used to create an updated version of the frame, cont
 *)
 
 let filtered = 
-    ratios
+    frameComplete
     |> discardPeptideIonInFile "IYSFNEGNYGLWDDSVK" 3 "Gr2rbcL2_5" 
     |> discardPeptideIon "IYSFNEGNYGLWDDSVK" 2
 
@@ -465,7 +465,7 @@ let ratiosFiltered =
         try
             get15N_PS_Amount kFileName > 0.1 
         with
-        | _ -> false
+        | _ -> true
     )
 
 (**
