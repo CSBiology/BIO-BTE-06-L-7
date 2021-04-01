@@ -463,7 +463,7 @@ let ratiosFiltered =
     |> Frame.filterCols (fun k s -> 
         let kFileName = String.split '.' k |> Array.head
         try
-            get15N_CBC_Amount kFileName > 0.1 
+            get15N_PS_Amount kFileName > 0.1 
         with
         | _ -> false
     )
