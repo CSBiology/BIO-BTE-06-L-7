@@ -116,7 +116,7 @@ Now that we have the sample sheet, all that is missing is the data to be analyze
 *)
 
 let path = Path.Combine[|directory; "downloads/Quantifications_sds_annotated_replaced.txt"|]
-downloadFile path "Quantifications_sds_annotated.txt" "bio-bte-06-l-7"
+downloadFile path "Quantifications_sds_annotated_replaced.txt" "bio-bte-06-l-7"
 
 (**
 ## II. Raw data access using Deedle:
