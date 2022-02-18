@@ -28,16 +28,16 @@ and do some manipulations to achieve your desired outcome.
 
 | Day      | Topic                                 | Notebooks        |
 |----------|---------------------------------------|------------------|
-| 15.03.21 | Getting started                       |                  |
-| 16.03.21 | Coding literacy                       | 00a; 00b         |
-| 17.03.21 | 1: Growth Model and Cell number       | 01a; 01b         |
-| 18.03.21 | 2: In-silico proteome analysis        | 02a; 02b; 02c    |
-| 19.03.21 | 3: Understanding the Data             | 03a; 03b; 03c    |
-| 22.03.21 | 4: Protein and Peptide identification | 04a; 04b         |
-| 23.03.21 | 5: Peptide quantification             | 05a              |
-| 24.03.21 | Analysing the course Experiment       | 06a              |
-| 25.03.21 | Analysing the course Experiment       | 06b              |
-| 26.03.21 | Analysing the course Experiment       | 06c              |
+| 21.02.21 | Getting started; Coding literacy      | 00a; 00b         |
+| 22.02.21 | 1: Growth Model and Cell number       | 01a; 01b         |
+| 23.02.21 | 2: In-silico proteome analysis        | 02a; 02b; 02c    |
+| 24.02.21 | 3: Understanding the Data             | 03a; 03b; 03c    |
+| 25.02.21 | 4: Protein and Peptide identification | 04a; 04b         |
+| 28.02.21 | 5: Peptide quantification             | 05a              |
+| 01.03.21 | Research Data Management              | 06a              |
+| 02.03.21 | Analysing the course Experiment       | 07a              |
+| 03.03.21 | Analysing the course Experiment       | 07b              |
+| 04.03.21 | Analysing the course Experiment       | 07c              |
 
 ## Getting started
 
@@ -72,4 +72,3 @@ and do some manipulations to achieve your desired outcome.
 
     ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/ExecuteAll.png)
 *)
-
