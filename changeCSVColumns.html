@@ -68,7 +68,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB01a_Systems_Biology_FSharp_Introduction.html">
                                 <span class="text">
                                     <span>NB01a Systems Biology</span>
@@ -214,7 +214,7 @@
                                     <span>NB06d'' Absolute Quantification (BN)</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-header">Links</li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://csb.bio.uni-kl.de/teaching/">
@@ -296,17 +296,51 @@
 <div class="fsdocs-tip" id="fs3">val myPathSDS : string</div>
 <div class="fsdocs-tip" id="fs4">val myPathBN : string</div>
 <div class="fsdocs-tip" id="fs5">val framSDS : Frame&lt;int,string&gt;</div>
-<div class="fsdocs-tip" id="fs6">Multiple items<br />module Frame<br /><br />from Deedle<br /><br />--------------------<br />type Frame =<br />&#160;&#160;static member ReadCsv : stream:Stream * hasHeaders:Nullable&lt;bool&gt; * inferTypes:Nullable&lt;bool&gt; * inferRows:Nullable&lt;int&gt; * schema:string * separators:string * culture:string * maxRows:Nullable&lt;int&gt; * missingValues:string [] * preferOptions:Nullable&lt;bool&gt; -&gt; Frame&lt;int,string&gt;<br />&#160;&#160;static member ReadCsv : location:string * hasHeaders:Nullable&lt;bool&gt; * inferTypes:Nullable&lt;bool&gt; * inferRows:Nullable&lt;int&gt; * schema:string * separators:string * culture:string * maxRows:Nullable&lt;int&gt; * missingValues:string [] * preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />&#160;&#160;static member ReadReader : reader:IDataReader -&gt; Frame&lt;int,string&gt;<br />&#160;&#160;static member CustomExpanders : Dictionary&lt;Type,Func&lt;obj,seq&lt;string * Type * obj&gt;&gt;&gt;<br />&#160;&#160;static member NonExpandableInterfaces : ResizeArray&lt;Type&gt;<br />&#160;&#160;static member NonExpandableTypes : HashSet&lt;Type&gt;<br /><br />--------------------<br />type Frame&lt;&#39;TRowKey,&#39;TColumnKey (requires equality and equality)&gt; =<br />&#160;&#160;interface IDynamicMetaObjectProvider<br />&#160;&#160;interface INotifyCollectionChanged<br />&#160;&#160;interface IFsiFormattable<br />&#160;&#160;interface IFrame<br />&#160;&#160;new : names:seq&lt;&#39;TColumnKey&gt; * columns:seq&lt;ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;<br />&#160;&#160;new : rowIndex:IIndex&lt;&#39;TRowKey&gt; * columnIndex:IIndex&lt;&#39;TColumnKey&gt; * data:IVector&lt;IVector&gt; * indexBuilder:IIndexBuilder * vectorBuilder:IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;<br />&#160;&#160;member AddColumn : column:&#39;TColumnKey * series:ISeries&lt;&#39;TRowKey&gt; -&gt; unit<br />&#160;&#160;member AddColumn : column:&#39;TColumnKey * series:seq&lt;&#39;V&gt; -&gt; unit<br />&#160;&#160;member AddColumn : column:&#39;TColumnKey * series:ISeries&lt;&#39;TRowKey&gt; * lookup:Lookup -&gt; unit<br />&#160;&#160;member AddColumn : column:&#39;TColumnKey * series:seq&lt;&#39;V&gt; * lookup:Lookup -&gt; unit<br />&#160;&#160;...<br /><br />--------------------<br />new : names:seq&lt;&#39;TColumnKey&gt; * columns:seq&lt;ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;<br />new : rowIndex:Indices.IIndex&lt;&#39;TRowKey&gt; * columnIndex:Indices.IIndex&lt;&#39;TColumnKey&gt; * data:IVector&lt;IVector&gt; * indexBuilder:Indices.IIndexBuilder * vectorBuilder:Vectors.IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;</div>
+<div class="fsdocs-tip" id="fs6">Multiple items<br />module Frame
+
+from Deedle<br /><br />--------------------<br />type Frame =
+  static member ReadCsv : location:string * hasHeaders:Nullable&lt;bool&gt; * inferTypes:Nullable&lt;bool&gt; * inferRows:Nullable&lt;int&gt; * schema:string * separators:string * culture:string * maxRows:Nullable&lt;int&gt; * missingValues:string [] * preferOptions:bool -&gt; Frame&lt;int,string&gt; + 1 overload
+  static member ReadReader : reader:IDataReader -&gt; Frame&lt;int,string&gt;
+  static member CustomExpanders : Dictionary&lt;Type,Func&lt;obj,seq&lt;string * Type * obj&gt;&gt;&gt;
+  static member NonExpandableInterfaces : ResizeArray&lt;Type&gt;
+  static member NonExpandableTypes : HashSet&lt;Type&gt;<br /><br />--------------------<br />type Frame&lt;&#39;TRowKey,&#39;TColumnKey (requires equality and equality)&gt; =
+  interface IDynamicMetaObjectProvider
+  interface INotifyCollectionChanged
+  interface IFsiFormattable
+  interface IFrame
+  new : rowIndex:IIndex&lt;&#39;TRowKey&gt; * columnIndex:IIndex&lt;&#39;TColumnKey&gt; * data:IVector&lt;IVector&gt; * indexBuilder:IIndexBuilder * vectorBuilder:IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt; + 1 overload
+  member AddColumn : column:&#39;TColumnKey * series:seq&lt;&#39;V&gt; -&gt; unit + 3 overloads
+  member AggregateRowsBy : groupBy:seq&lt;&#39;TColumnKey&gt; * aggBy:seq&lt;&#39;TColumnKey&gt; * aggFunc:Func&lt;Series&lt;&#39;TRowKey,&#39;a&gt;,&#39;b&gt; -&gt; Frame&lt;int,&#39;TColumnKey&gt;
+  member Clone : unit -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;
+  member ColumnApply : f:Func&lt;Series&lt;&#39;TRowKey,&#39;T&gt;,ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt; + 1 overload
+  member DropColumn : column:&#39;TColumnKey -&gt; unit
+  ...<br /><br />--------------------<br />new : names:seq&lt;&#39;TColumnKey&gt; * columns:seq&lt;ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;<br />new : rowIndex:Indices.IIndex&lt;&#39;TRowKey&gt; * columnIndex:Indices.IIndex&lt;&#39;TColumnKey&gt; * data:IVector&lt;IVector&gt; * indexBuilder:Indices.IIndexBuilder * vectorBuilder:Vectors.IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;</div>
 <div class="fsdocs-tip" id="fs7">static member Frame.ReadCsv : path:string * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : stream:System.IO.Stream * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : reader:System.IO.TextReader * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : stream:System.IO.Stream * hasHeaders:System.Nullable&lt;bool&gt; * inferTypes:System.Nullable&lt;bool&gt; * inferRows:System.Nullable&lt;int&gt; * schema:string * separators:string * culture:string * maxRows:System.Nullable&lt;int&gt; * missingValues:string [] * preferOptions:System.Nullable&lt;bool&gt; -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : location:string * hasHeaders:System.Nullable&lt;bool&gt; * inferTypes:System.Nullable&lt;bool&gt; * inferRows:System.Nullable&lt;int&gt; * schema:string * separators:string * culture:string * maxRows:System.Nullable&lt;int&gt; * missingValues:string [] * preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : path:string * indexCol:string * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;&#39;R,string&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs8">val framBN : Frame&lt;int,string&gt;</div>
 <div class="fsdocs-tip" id="fs9">property Frame.ColumnKeys: seq&lt;string&gt; with get</div>
-<div class="fsdocs-tip" id="fs10">Multiple items<br />module Array<br /><br />from FSharpAux<br /><br />--------------------<br />module Array<br /><br />from Microsoft.FSharp.Collections</div>
-<div class="fsdocs-tip" id="fs11">val ofSeq : source:seq&lt;&#39;T&gt; -&gt; &#39;T []</div>
+<div class="fsdocs-tip" id="fs10">Multiple items<br />module Array
+
+from FSharpAux<br /><br />--------------------<br />module Array
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with arrays.&lt;/summary&gt;<br />&lt;remarks&gt;
+  See also &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/arrays&quot;&gt;F# Language Guide - Arrays&lt;/a&gt;.
+ &lt;/remarks&gt;</em></div>
+<div class="fsdocs-tip" id="fs11">val ofSeq : source:seq&lt;&#39;T&gt; -&gt; &#39;T []<br /><em>&lt;summary&gt;Builds a new array from the given enumerable object.&lt;/summary&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The array of elements from the sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
 <div class="fsdocs-tip" id="fs12">val framSDS&#39; : Frame&lt;int,string&gt;</div>
 <div class="fsdocs-tip" id="fs13">val mapColKeys : f:(&#39;C -&gt; &#39;a) -&gt; frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Frame&lt;&#39;R,&#39;a&gt; (requires equality and equality and equality)</div>
 <div class="fsdocs-tip" id="fs14">val cK : string</div>
-<div class="fsdocs-tip" id="fs15">Multiple items<br />module String<br /><br />from FSharpAux<br /><br />--------------------<br />module String<br /><br />from Microsoft.FSharp.Core</div>
-<div class="fsdocs-tip" id="fs16">val replace : pattern:string -&gt; replacement:string -&gt; text:string -&gt; string</div>
+<div class="fsdocs-tip" id="fs15">Multiple items<br />module String
+
+from FSharpAux<br /><br />--------------------<br />module String
+
+from Microsoft.FSharp.Core<br /><em>&lt;summary&gt;Functional programming operators for string processing.  Further string operations
+ are available via the member functions on strings and other functionality in
+  &lt;a href=&quot;http://msdn2.microsoft.com/en-us/library/system.string.aspx&quot;&gt;System.String&lt;/a&gt; 
+ and &lt;a href=&quot;http://msdn2.microsoft.com/library/system.text.regularexpressions.aspx&quot;&gt;System.Text.RegularExpressions&lt;/a&gt; types.
+ &lt;/summary&gt;<br />&lt;category&gt;Strings and Text&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs16">val replace : pattern:string -&gt; replacement:string -&gt; text:string -&gt; string<br /><em>&lt;summary&gt;
+ Replaces the given &quot;replacement&quot; for every occurence of the pattern in the given text 
+&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs17">val framBN&#39; : Frame&lt;int,string&gt;</div>
 <div class="fsdocs-tip" id="fs18">member Frame.SaveCsv : path:string * keyNames:seq&lt;string&gt; -&gt; unit<br />static member FrameExtensions.SaveCsv : frame:Frame&lt;&#39;R,&#39;C&gt; * path:string * keyNames:seq&lt;string&gt; * separator:char * culture:System.Globalization.CultureInfo -&gt; unit (requires equality and equality)<br />static member FrameExtensions.SaveCsv : frame:Frame&lt;&#39;R,&#39;C&gt; * writer:System.IO.TextWriter * includeRowKeys:bool * keyNames:seq&lt;string&gt; * separator:char * culture:System.Globalization.CultureInfo -&gt; unit (requires equality and equality)<br />static member FrameExtensions.SaveCsv : frame:Frame&lt;&#39;R,&#39;C&gt; * path:string * includeRowKeys:bool * keyNames:seq&lt;string&gt; * separator:char * culture:System.Globalization.CultureInfo -&gt; unit (requires equality and equality)<br />member Frame.SaveCsv : writer:System.IO.TextWriter * ?includeRowKeys:bool * ?keyNames:seq&lt;string&gt; * ?separator:char * ?culture:System.Globalization.CultureInfo -&gt; unit<br />member Frame.SaveCsv : path:string * ?includeRowKeys:bool * ?keyNames:seq&lt;string&gt; * ?separator:char * ?culture:System.Globalization.CultureInfo -&gt; unit</div>
 

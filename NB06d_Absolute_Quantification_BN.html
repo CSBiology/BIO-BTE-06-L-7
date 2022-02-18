@@ -69,7 +69,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB01a_Systems_Biology_FSharp_Introduction.html">
                                 <span class="text">
                                     <span>NB01a Systems Biology</span>
@@ -215,7 +215,7 @@
                                     <span>NB06d'' Absolute Quantification (BN)</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-header">Links</li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://csb.bio.uni-kl.de/teaching/">
@@ -375,20 +375,66 @@ calculate protein abundancies. Since we start again by getting access to our dat
 <div class="fsdocs-tip" id="fs10">namespace Plotly</div>
 <div class="fsdocs-tip" id="fs11">namespace Plotly.NET</div>
 <div class="fsdocs-tip" id="fs12">namespace FSharp.Stats.Fitting</div>
-<div class="fsdocs-tip" id="fs13">module LinearRegression<br /><br />from FSharp.Stats.Fitting</div>
-<div class="fsdocs-tip" id="fs14">module OrdinaryLeastSquares<br /><br />from FSharp.Stats.Fitting.LinearRegression</div>
-<div class="fsdocs-tip" id="fs15">module Linear<br /><br />from FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares</div>
+<div class="fsdocs-tip" id="fs13">module LinearRegression
+
+from FSharp.Stats.Fitting</div>
+<div class="fsdocs-tip" id="fs14">module OrdinaryLeastSquares
+
+from FSharp.Stats.Fitting.LinearRegression</div>
+<div class="fsdocs-tip" id="fs15">module Linear
+
+from FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares<br /><em>&lt;summary&gt;
+ Simple linear regression y : x -&amp;gt; a + bx
+&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs16">namespace BIO_BTE_06_L_7_Aux</div>
-<div class="fsdocs-tip" id="fs17">module FS3_Aux<br /><br />from BIO_BTE_06_L_7_Aux</div>
-<div class="fsdocs-tip" id="fs18">module Deedle_Aux<br /><br />from BIO_BTE_06_L_7_Aux</div>
+<div class="fsdocs-tip" id="fs17">module FS3_Aux
+
+from BIO_BTE_06_L_7_Aux</div>
+<div class="fsdocs-tip" id="fs18">module Deedle_Aux
+
+from BIO_BTE_06_L_7_Aux</div>
 <div class="fsdocs-tip" id="fs19">type PeptideIon = {| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |}</div>
-<div class="fsdocs-tip" id="fs20">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />--------------------<br />type string = System.String</div>
-<div class="fsdocs-tip" id="fs21">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />--------------------<br />type int = int32<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int</div>
+<div class="fsdocs-tip" id="fs20">Multiple items<br />val string : value:&#39;T -&gt; string<br /><em>&lt;summary&gt;Converts the argument to a string using &lt;c&gt;ToString&lt;/c&gt;.&lt;/summary&gt;<br />&lt;remarks&gt;For standard integer and floating point values the and any type that implements &lt;c&gt;IFormattable&lt;/c&gt;&lt;c&gt;ToString&lt;/c&gt; conversion uses &lt;c&gt;CultureInfo.InvariantCulture&lt;/c&gt;. &lt;/remarks&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted string.&lt;/returns&gt;</em><br /><br />--------------------<br />type string = System.String<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.String&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs21">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to signed 32-bit integer. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Int32.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted int&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type int = int32<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type int&lt;&#39;Measure&gt; =
+  int<br /><em>&lt;summary&gt;The type of 32-bit signed integer numbers, annotated with a unit of measure. The unit
+ of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to 
+ &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
 <div class="fsdocs-tip" id="fs22">val filePath : string</div>
-<div class="fsdocs-tip" id="fs23">type Path =<br />&#160;&#160;static val AltDirectorySeparatorChar : char<br />&#160;&#160;static val DirectorySeparatorChar : char<br />&#160;&#160;static val InvalidPathChars : char[]<br />&#160;&#160;static val PathSeparator : char<br />&#160;&#160;static val VolumeSeparatorChar : char<br />&#160;&#160;static member ChangeExtension : path:string * extension:string -&gt; string<br />&#160;&#160;static member Combine : [&lt;ParamArray&gt;] paths:string[] -&gt; string + 3 overloads<br />&#160;&#160;static member EndsInDirectorySeparator : path:ReadOnlySpan&lt;char&gt; -&gt; bool + 1 overload<br />&#160;&#160;static member GetDirectoryName : path:ReadOnlySpan&lt;char&gt; -&gt; ReadOnlySpan&lt;char&gt; + 1 overload<br />&#160;&#160;static member GetExtension : path:ReadOnlySpan&lt;char&gt; -&gt; ReadOnlySpan&lt;char&gt; + 1 overload<br />&#160;&#160;...</div>
+<div class="fsdocs-tip" id="fs23">type Path =
+  static member ChangeExtension : path: string * extension: string -&gt; string
+  static member Combine : path1: string * path2: string -&gt; string + 3 overloads
+  static member EndsInDirectorySeparator : path: ReadOnlySpan&lt;char&gt; -&gt; bool + 1 overload
+  static member GetDirectoryName : path: ReadOnlySpan&lt;char&gt; -&gt; ReadOnlySpan&lt;char&gt; + 1 overload
+  static member GetExtension : path: ReadOnlySpan&lt;char&gt; -&gt; ReadOnlySpan&lt;char&gt; + 1 overload
+  static member GetFileName : path: ReadOnlySpan&lt;char&gt; -&gt; ReadOnlySpan&lt;char&gt; + 1 overload
+  static member GetFileNameWithoutExtension : path: ReadOnlySpan&lt;char&gt; -&gt; ReadOnlySpan&lt;char&gt; + 1 overload
+  static member GetFullPath : path: string -&gt; string + 1 overload
+  static member GetInvalidFileNameChars : unit -&gt; char []
+  static member GetInvalidPathChars : unit -&gt; char []
+  ...<br /><em>&lt;summary&gt;Performs operations on &lt;see cref=&quot;T:System.String&quot; /&gt; instances that contain file or directory path information. These operations are performed in a cross-platform manner.&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs24">Path.Combine([&lt;System.ParamArray&gt;] paths: string []) : string<br />Path.Combine(path1: string, path2: string) : string<br />Path.Combine(path1: string, path2: string, path3: string) : string<br />Path.Combine(path1: string, path2: string, path3: string, path4: string) : string</div>
 <div class="fsdocs-tip" id="fs25">val qConcatDataFiltered : Frame&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},string&gt;</div>
-<div class="fsdocs-tip" id="fs26">Multiple items<br />module Frame<br /><br />from Deedle<br /><br />--------------------<br />type Frame =<br />&#160;&#160;inherit DynamicObj<br />&#160;&#160;new : unit -&gt; Frame<br /><br />--------------------<br />type Frame&lt;&#39;TRowKey,&#39;TColumnKey (requires equality and equality)&gt; =<br />&#160;&#160;interface IDynamicMetaObjectProvider<br />&#160;&#160;interface INotifyCollectionChanged<br />&#160;&#160;interface IFsiFormattable<br />&#160;&#160;interface IFrame<br />&#160;&#160;new : names:seq&lt;&#39;TColumnKey&gt; * columns:seq&lt;ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;<br />&#160;&#160;new : rowIndex:IIndex&lt;&#39;TRowKey&gt; * columnIndex:IIndex&lt;&#39;TColumnKey&gt; * data:IVector&lt;IVector&gt; * indexBuilder:IIndexBuilder * vectorBuilder:IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;<br />&#160;&#160;member AddColumn : column:&#39;TColumnKey * series:ISeries&lt;&#39;TRowKey&gt; -&gt; unit<br />&#160;&#160;member AddColumn : column:&#39;TColumnKey * series:seq&lt;&#39;V&gt; -&gt; unit<br />&#160;&#160;member AddColumn : column:&#39;TColumnKey * series:ISeries&lt;&#39;TRowKey&gt; * lookup:Lookup -&gt; unit<br />&#160;&#160;member AddColumn : column:&#39;TColumnKey * series:seq&lt;&#39;V&gt; * lookup:Lookup -&gt; unit<br />&#160;&#160;...<br /><br />--------------------<br />new : unit -&gt; Frame<br /><br />--------------------<br />new : names:seq&lt;&#39;TColumnKey&gt; * columns:seq&lt;ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;<br />new : rowIndex:Indices.IIndex&lt;&#39;TRowKey&gt; * columnIndex:Indices.IIndex&lt;&#39;TColumnKey&gt; * data:IVector&lt;IVector&gt; * indexBuilder:Indices.IIndexBuilder * vectorBuilder:Vectors.IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;</div>
+<div class="fsdocs-tip" id="fs26">Multiple items<br />module Frame
+
+from Deedle<br /><br />--------------------<br />type Frame =
+  inherit DynamicObj
+  new : unit -&gt; Frame<br /><br />--------------------<br />type Frame&lt;&#39;TRowKey,&#39;TColumnKey (requires equality and equality)&gt; =
+  interface IDynamicMetaObjectProvider
+  interface INotifyCollectionChanged
+  interface IFsiFormattable
+  interface IFrame
+  new : rowIndex:IIndex&lt;&#39;TRowKey&gt; * columnIndex:IIndex&lt;&#39;TColumnKey&gt; * data:IVector&lt;IVector&gt; * indexBuilder:IIndexBuilder * vectorBuilder:IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt; + 1 overload
+  member AddColumn : column:&#39;TColumnKey * series:seq&lt;&#39;V&gt; -&gt; unit + 3 overloads
+  member AggregateRowsBy : groupBy:seq&lt;&#39;TColumnKey&gt; * aggBy:seq&lt;&#39;TColumnKey&gt; * aggFunc:Func&lt;Series&lt;&#39;TRowKey,&#39;a&gt;,&#39;b&gt; -&gt; Frame&lt;int,&#39;TColumnKey&gt;
+  member Clone : unit -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;
+  member ColumnApply : f:Func&lt;Series&lt;&#39;TRowKey,&#39;T&gt;,ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt; + 1 overload
+  member DropColumn : column:&#39;TColumnKey -&gt; unit
+  ...<br /><br />--------------------<br />new : unit -&gt; Frame<br /><br />--------------------<br />new : names:seq&lt;&#39;TColumnKey&gt; * columns:seq&lt;ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;<br />new : rowIndex:Indices.IIndex&lt;&#39;TRowKey&gt; * columnIndex:Indices.IIndex&lt;&#39;TColumnKey&gt; * data:IVector&lt;IVector&gt; * indexBuilder:Indices.IIndexBuilder * vectorBuilder:Vectors.IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;</div>
 <div class="fsdocs-tip" id="fs27">static member Frame.ReadCsv : path:string * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : stream:Stream * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : reader:TextReader * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : stream:Stream * hasHeaders:System.Nullable&lt;bool&gt; * inferTypes:System.Nullable&lt;bool&gt; * inferRows:System.Nullable&lt;int&gt; * schema:string * separators:string * culture:string * maxRows:System.Nullable&lt;int&gt; * missingValues:string [] * preferOptions:System.Nullable&lt;bool&gt; -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : location:string * hasHeaders:System.Nullable&lt;bool&gt; * inferTypes:System.Nullable&lt;bool&gt; * inferRows:System.Nullable&lt;int&gt; * schema:string * separators:string * culture:string * maxRows:System.Nullable&lt;int&gt; * missingValues:string [] * preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : path:string * indexCol:string * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;&#39;R,string&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs28">val indexRowsUsing : f:(ObjectSeries&lt;&#39;C&gt; -&gt; &#39;R2) -&gt; frame:Frame&lt;&#39;R1,&#39;C&gt; -&gt; Frame&lt;&#39;R2,&#39;C&gt; (requires equality and equality and equality)</div>
 <div class="fsdocs-tip" id="fs29">val os : ObjectSeries&lt;string&gt;</div>
@@ -396,8 +442,18 @@ calculate protein abundancies. Since we start again by getting access to our dat
 <div class="fsdocs-tip" id="fs31">val filterRows : f:(&#39;R -&gt; ObjectSeries&lt;&#39;C&gt; -&gt; bool) -&gt; frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Frame&lt;&#39;R,&#39;C&gt; (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs32">val k : {| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |}</div>
 <div class="fsdocs-tip" id="fs33">val s : ObjectSeries&lt;string&gt;</div>
-<div class="fsdocs-tip" id="fs34">Multiple items<br />module String<br /><br />from FSharpAux<br /><br />--------------------<br />module String<br /><br />from Microsoft.FSharp.Core</div>
-<div class="fsdocs-tip" id="fs35">val contains : substr:string -&gt; t:string -&gt; bool</div>
+<div class="fsdocs-tip" id="fs34">Multiple items<br />module String
+
+from FSharpAux<br /><br />--------------------<br />module String
+
+from Microsoft.FSharp.Core<br /><em>&lt;summary&gt;Functional programming operators for string processing.  Further string operations
+ are available via the member functions on strings and other functionality in
+  &lt;a href=&quot;http://msdn2.microsoft.com/en-us/library/system.string.aspx&quot;&gt;System.String&lt;/a&gt; 
+ and &lt;a href=&quot;http://msdn2.microsoft.com/library/system.text.regularexpressions.aspx&quot;&gt;System.Text.RegularExpressions&lt;/a&gt; types.
+ &lt;/summary&gt;<br />&lt;category&gt;Strings and Text&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs35">val contains : substr:string -&gt; t:string -&gt; bool<br /><em>&lt;summary&gt;
+ Returns a value indicating whether the specified substring occurs within this string
+&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs36">anonymous record field ProteinGroup: string</div>
 <div class="fsdocs-tip" id="fs37">val sliceQuantColumns : quantColID:string -&gt; frame:Frame&lt;&#39;a,string&gt; -&gt; Frame&lt;&#39;a,string&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs38">val quantColID : string</div>
@@ -407,8 +463,18 @@ calculate protein abundancies. Since we start again by getting access to our dat
 <div class="fsdocs-tip" id="fs42">val os : ObjectSeries&lt;&#39;a&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs43">val mapColKeys : f:(&#39;C -&gt; &#39;b) -&gt; frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Frame&lt;&#39;R,&#39;b&gt; (requires equality and equality and equality)</div>
 <div class="fsdocs-tip" id="fs44">System.String.Split([&lt;System.ParamArray&gt;] separator: char []) : string []<br />System.String.Split(separator: string [], options: System.StringSplitOptions) : string []<br />System.String.Split(separator: string,?options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char [], options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char [], count: int) : string []<br />System.String.Split(separator: char,?options: System.StringSplitOptions) : string []<br />System.String.Split(separator: string [], count: int, options: System.StringSplitOptions) : string []<br />System.String.Split(separator: string, count: int,?options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char [], count: int, options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char, count: int,?options: System.StringSplitOptions) : string []</div>
-<div class="fsdocs-tip" id="fs45">Multiple items<br />module Array<br /><br />from FSharp.Stats<br /><br />--------------------<br />module Array<br /><br />from FSharpAux<br /><br />--------------------<br />module Array<br /><br />from Microsoft.FSharp.Collections</div>
-<div class="fsdocs-tip" id="fs46">val item : index:int -&gt; array:&#39;T [] -&gt; &#39;T</div>
+<div class="fsdocs-tip" id="fs45">Multiple items<br />module Array
+
+from FSharp.Stats<br /><em>&lt;summary&gt;
+ Module to compute common statistical measure on array
+&lt;/summary&gt;</em><br /><br />--------------------<br />module Array
+
+from FSharpAux<br /><br />--------------------<br />module Array
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with arrays.&lt;/summary&gt;<br />&lt;remarks&gt;
+  See also &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/arrays&quot;&gt;F# Language Guide - Arrays&lt;/a&gt;.
+ &lt;/remarks&gt;</em></div>
+<div class="fsdocs-tip" id="fs46">val item : index:int -&gt; array:&#39;T [] -&gt; &#39;T<br /><em>&lt;summary&gt;Gets an element from an array.&lt;/summary&gt;<br />&lt;param name=&quot;index&quot;&gt;The input index.&lt;/param&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The value of the array at the given index.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.NullReferenceException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.IndexOutOfRangeException&quot;&gt;Thrown when the index is negative or the input array does not contain enough elements.&lt;/exception&gt;</em></div>
 <div class="fsdocs-tip" id="fs47">val ratios : Frame&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},string&gt;</div>
 <div class="fsdocs-tip" id="fs48">val getRow : row:&#39;R -&gt; frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Series&lt;&#39;C,&#39;a&gt; (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs49">val ratiosRbcL : Frame&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},string&gt;</div>
@@ -417,9 +483,37 @@ calculate protein abundancies. Since we start again by getting access to our dat
 <div class="fsdocs-tip" id="fs52">val ratiosRbcS : Frame&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},string&gt;</div>
 <div class="fsdocs-tip" id="fs53">val medianRbcL : seq&lt;string * float&gt;</div>
 <div class="fsdocs-tip" id="fs54">val getNumericCols : frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Series&lt;&#39;C,Series&lt;&#39;R,float&gt;&gt; (requires equality and equality)</div>
-<div class="fsdocs-tip" id="fs55">Multiple items<br />module Series<br /><br />from Deedle<br /><br />--------------------<br />type Series =<br />&#160;&#160;static member ofNullables : values:seq&lt;Nullable&lt;&#39;a0&gt;&gt; -&gt; Series&lt;int,&#39;a0&gt; (requires default constructor and value type and &#39;a0 :&gt; ValueType)<br />&#160;&#160;static member ofObservations : observations:seq&lt;&#39;c * &#39;d&gt; -&gt; Series&lt;&#39;c,&#39;d&gt; (requires equality)<br />&#160;&#160;static member ofOptionalObservations : observations:seq&lt;&#39;K * &#39;a1 option&gt; -&gt; Series&lt;&#39;K,&#39;a1&gt; (requires equality)<br />&#160;&#160;static member ofValues : values:seq&lt;&#39;a&gt; -&gt; Series&lt;int,&#39;a&gt;<br /><br />--------------------<br />type Series&lt;&#39;K,&#39;V (requires equality)&gt; =<br />&#160;&#160;interface IFsiFormattable<br />&#160;&#160;interface ISeries&lt;&#39;K&gt;<br />&#160;&#160;new : pairs:seq&lt;KeyValuePair&lt;&#39;K,&#39;V&gt;&gt; -&gt; Series&lt;&#39;K,&#39;V&gt;<br />&#160;&#160;new : keys:&#39;K [] * values:&#39;V [] -&gt; Series&lt;&#39;K,&#39;V&gt;<br />&#160;&#160;new : keys:seq&lt;&#39;K&gt; * values:seq&lt;&#39;V&gt; -&gt; Series&lt;&#39;K,&#39;V&gt;<br />&#160;&#160;new : index:IIndex&lt;&#39;K&gt; * vector:IVector&lt;&#39;V&gt; * vectorBuilder:IVectorBuilder * indexBuilder:IIndexBuilder -&gt; Series&lt;&#39;K,&#39;V&gt;<br />&#160;&#160;member After : lowerExclusive:&#39;K -&gt; Series&lt;&#39;K,&#39;V&gt;<br />&#160;&#160;member Aggregate : aggregation:Aggregation&lt;&#39;K&gt; * observationSelector:Func&lt;DataSegment&lt;Series&lt;&#39;K,&#39;V&gt;&gt;,KeyValuePair&lt;&#39;TNewKey,OptionalValue&lt;&#39;R&gt;&gt;&gt; -&gt; Series&lt;&#39;TNewKey,&#39;R&gt; (requires equality)<br />&#160;&#160;member Aggregate : aggregation:Aggregation&lt;&#39;K&gt; * keySelector:Func&lt;DataSegment&lt;Series&lt;&#39;K,&#39;V&gt;&gt;,&#39;TNewKey&gt; * valueSelector:Func&lt;DataSegment&lt;Series&lt;&#39;K,&#39;V&gt;&gt;,OptionalValue&lt;&#39;R&gt;&gt; -&gt; Series&lt;&#39;TNewKey,&#39;R&gt; (requires equality)<br />&#160;&#160;member AsyncMaterialize : unit -&gt; Async&lt;Series&lt;&#39;K,&#39;V&gt;&gt;<br />&#160;&#160;...<br /><br />--------------------<br />new : pairs:seq&lt;System.Collections.Generic.KeyValuePair&lt;&#39;K,&#39;V&gt;&gt; -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new : keys:seq&lt;&#39;K&gt; * values:seq&lt;&#39;V&gt; -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new : keys:&#39;K [] * values:&#39;V [] -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new : index:Indices.IIndex&lt;&#39;K&gt; * vector:IVector&lt;&#39;V&gt; * vectorBuilder:Vectors.IVectorBuilder * indexBuilder:Indices.IIndexBuilder -&gt; Series&lt;&#39;K,&#39;V&gt;</div>
+<div class="fsdocs-tip" id="fs55">Multiple items<br />module Series
+
+from Deedle<br /><br />--------------------<br />type Series =
+  static member ofNullables : values:seq&lt;Nullable&lt;&#39;a0&gt;&gt; -&gt; Series&lt;int,&#39;a0&gt; (requires default constructor and value type and &#39;a0 :&gt; ValueType)
+  static member ofObservations : observations:seq&lt;&#39;c * &#39;d&gt; -&gt; Series&lt;&#39;c,&#39;d&gt; (requires equality)
+  static member ofOptionalObservations : observations:seq&lt;&#39;K * &#39;a1 option&gt; -&gt; Series&lt;&#39;K,&#39;a1&gt; (requires equality)
+  static member ofValues : values:seq&lt;&#39;a&gt; -&gt; Series&lt;int,&#39;a&gt;<br /><br />--------------------<br />type Series&lt;&#39;K,&#39;V (requires equality)&gt; =
+  interface IFsiFormattable
+  interface ISeries&lt;&#39;K&gt;
+  new : index:IIndex&lt;&#39;K&gt; * vector:IVector&lt;&#39;V&gt; * vectorBuilder:IVectorBuilder * indexBuilder:IIndexBuilder -&gt; Series&lt;&#39;K,&#39;V&gt; + 3 overloads
+  member After : lowerExclusive:&#39;K -&gt; Series&lt;&#39;K,&#39;V&gt;
+  member Aggregate : aggregation:Aggregation&lt;&#39;K&gt; * keySelector:Func&lt;DataSegment&lt;Series&lt;&#39;K,&#39;V&gt;&gt;,&#39;TNewKey&gt; * valueSelector:Func&lt;DataSegment&lt;Series&lt;&#39;K,&#39;V&gt;&gt;,OptionalValue&lt;&#39;R&gt;&gt; -&gt; Series&lt;&#39;TNewKey,&#39;R&gt; (requires equality) + 1 overload
+  member AsyncMaterialize : unit -&gt; Async&lt;Series&lt;&#39;K,&#39;V&gt;&gt;
+  member Before : upperExclusive:&#39;K -&gt; Series&lt;&#39;K,&#39;V&gt;
+  member Between : lowerInclusive:&#39;K * upperInclusive:&#39;K -&gt; Series&lt;&#39;K,&#39;V&gt;
+  member Compare : another:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,Diff&lt;&#39;V&gt;&gt;
+  member Convert : forward:Func&lt;&#39;V,&#39;R&gt; * backward:Func&lt;&#39;R,&#39;V&gt; -&gt; Series&lt;&#39;K,&#39;R&gt;
+  ...<br /><br />--------------------<br />new : pairs:seq&lt;System.Collections.Generic.KeyValuePair&lt;&#39;K,&#39;V&gt;&gt; -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new : keys:seq&lt;&#39;K&gt; * values:seq&lt;&#39;V&gt; -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new : keys:&#39;K [] * values:&#39;V [] -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new : index:Indices.IIndex&lt;&#39;K&gt; * vector:IVector&lt;&#39;V&gt; * vectorBuilder:Vectors.IVectorBuilder * indexBuilder:Indices.IIndexBuilder -&gt; Series&lt;&#39;K,&#39;V&gt;</div>
 <div class="fsdocs-tip" id="fs56">val mapValues : f:(&#39;T -&gt; &#39;R) -&gt; series:Series&lt;&#39;K,&#39;T&gt; -&gt; Series&lt;&#39;K,&#39;R&gt; (requires equality)</div>
-<div class="fsdocs-tip" id="fs57">type Stats =<br />&#160;&#160;static member count : frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Series&lt;&#39;C,int&gt; (requires equality and equality)<br />&#160;&#160;static member count : series:Series&lt;&#39;K,&#39;V&gt; -&gt; int (requires equality)<br />&#160;&#160;static member describe : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;string,float&gt; (requires equality and equality)<br />&#160;&#160;static member expandingCount : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingKurt : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingMax : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingMean : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingMin : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingSkew : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingStdDev : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;...</div>
+<div class="fsdocs-tip" id="fs57">type Stats =
+  static member count : series:Series&lt;&#39;K,&#39;V&gt; -&gt; int (requires equality) + 1 overload
+  static member describe : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;string,float&gt; (requires equality and equality)
+  static member expandingCount : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)
+  static member expandingKurt : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)
+  static member expandingMax : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)
+  static member expandingMean : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)
+  static member expandingMin : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)
+  static member expandingSkew : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)
+  static member expandingStdDev : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)
+  static member expandingSum : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)
+  ...</div>
 <div class="fsdocs-tip" id="fs58">static member Stats.median : frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Series&lt;&#39;C,float&gt; (requires equality and equality)<br />static member Stats.median : series:Series&lt;&#39;K,&#39;V&gt; -&gt; float (requires equality)</div>
 <div class="fsdocs-tip" id="fs59">val observations : series:Series&lt;&#39;K,&#39;T&gt; -&gt; seq&lt;&#39;K * &#39;T&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs60">val medianRbcS : seq&lt;string * float&gt;</div>

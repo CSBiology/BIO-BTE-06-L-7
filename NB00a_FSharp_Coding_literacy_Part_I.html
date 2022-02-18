@@ -69,7 +69,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB01a_Systems_Biology_FSharp_Introduction.html">
                                 <span class="text">
                                     <span>NB01a Systems Biology</span>
@@ -215,7 +215,7 @@
                                     <span>NB06d'' Absolute Quantification (BN)</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-header">Links</li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://csb.bio.uni-kl.de/teaching/">
@@ -296,7 +296,7 @@ but also extremely powerful for professional use cases. Simply put, F# is a beau
 computer science study, from simple scripts to sophisticated advanced applications. Therefore, it is extremely well suited for bioinformatics programming and
 application in live science.</p>
 <h3><a name="Numeric-types" class="anchor" href="#Numeric-types">Numeric types</a></h3>
-<p>Definitely, F# can be a good friend in your daily work even when you are doing simple calculations, e.g. in the lab. Let’s jump right in and some stuff done:</p>
+<p>Definitely, F# can be a good friend in your daily work even when you are doing simple calculations, e.g. in the lab. Let's jump right in and some stuff done:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Define numerical values</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">co2Oxygens</span> <span class="o">=</span> <span class="n">2</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="id">co2Carbon</span>  <span class="o">=</span> <span class="n">1</span>
@@ -304,7 +304,7 @@ application in live science.</p>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="id">carbonMass</span> <span class="o">=</span> <span class="n">12.0107</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="id">avogadro</span> <span class="o">=</span> <span class="n">6.023e23</span>
 </code></pre>
-<p>First things first: Any text on a line that follows <code>//</code> is handled as a comment and is ignored by the F# interpreter. Comments help to write organized code with documentation
+<p>First things first: Any text on a line that follows <code>//</code> is handled as a comment and is ignored by the F# compiler. Comments help to write organized code with documentation
 and are therefore not executed as part of your program or script. Additionally, there is also the possibility to write comments that span multiple lines by putting text between
 parenthesis and asterisk <code>(* … *)</code>.</p>
 <p>The example shows the two most common types of numbers used in F#:</p>
@@ -334,7 +334,7 @@ instance of a particular class (type).</p>
 </code></pre>
 <p>Here, single quotes are used for single character (<code>char</code>), while double quotes indicate a string. Importantly, if you would like to use quotes (or other special characters) in a string, you must
 quote the quotes with a backslash <code>\</code>.</p>
-<p>One more way to declare strings in F# that allows you to even include line breaks in the strings. It’s useful, for example, for declaring paragraphs of text as strings. To use it, you have to enclose
+<p>One more way to declare strings in F# that allows you to even include line breaks in the strings. It's useful, for example, for declaring paragraphs of text as strings. To use it, you have to enclose
 the string itself in triple quotes.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 12)" onmouseover="showTip(event, 'fs12', 12)" class="id">poem</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
 <span class="s">    Nature&#39;s first green is gold,</span>
@@ -351,7 +351,7 @@ Boolean (<code>bool</code>) values in the following, we now covered the most com
 <p>Very often, in programming, you will need a data type that can only have one of two values, like: <em>Yes/No, On/Off or TRUE/FALSE</em>. A boolean type is declared with the bool keyword and can only take the values
 <code>true</code> or <code>false</code>.</p>
 <h3><a name="F-handles-your-types" class="anchor" href="#F-handles-your-types">F# handles your types.</a></h3>
-<p>The F# interpreter needs to always know the type of your value. Luckily, this does not mean, that you need to specify the type all the time explicitly by yourself. In the process of type inference, the
+<p>The F# compiler needs to always know the type of your value. Luckily, this does not mean that you need to specify the type all the time explicitly by yourself. In the process of type inference, the
 F# compiler infers the types of values, variables, parameters and return values.
 The compiler infers the type based on the context. If the type is not otherwise specified, it is inferred to be generic. If the code uses a value inconsistently, in such a way that there is no single
 inferred type that satisfies all the uses of a value, the compiler reports an error.</p>
@@ -471,8 +471,8 @@ to the name grams and returns the required weight of buffer (in grams) to make u
     <span onmouseout="hideTip(event, 'fs38', 75)" onmouseover="showTip(event, 'fs38', 75)" class="fn">grams</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs37', 76)" onmouseover="showTip(event, 'fs37', 76)" class="fn">molarity</span> 
     
 </code></pre>
-<p>Each <code>|</code>defines a condition, the <code>-&gt;</code> means "if the condition is true, follow this path...". The <code>_</code> is the default pattern, meaning that it matches anything, sort of like a wildcard. Occasionally, it's not enough to
-match an input against a particular value; we can add filters, or guards, to patterns using the <code>when</code> keyword. We can rewrite out <code>bufferRecipe</code> function once again.</p>
+<p>Each <code>|</code> defines a condition, the <code>-&gt;</code> means "if the condition is true, follow this path...". The <code>_</code> is the default pattern, meaning that it matches anything, sort of like a wildcard. Occasionally, it's not enough to
+match an input against a particular value; we can add filters, or guards, to patterns using the <code>when</code> keyword. We can rewrite our <code>bufferRecipe</code> function once again.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">//Function for calculating buffer recipes that uses match-conditions with guards</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 77)" onmouseover="showTip(event, 'fs42', 77)" class="fn">bufferRecipe&#39;&#39;</span> <span onmouseout="hideTip(event, 'fs9', 78)" onmouseover="showTip(event, 'fs9', 78)" class="fn">buffer</span> <span onmouseout="hideTip(event, 'fs37', 79)" onmouseover="showTip(event, 'fs37', 79)" class="fn">molarity</span> <span class="o">=</span>
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 80)" onmouseover="showTip(event, 'fs38', 80)" class="fn">grams</span> <span class="o">=</span>
@@ -484,7 +484,7 @@ match an input against a particular value; we can add filters, or guards, to pat
     <span onmouseout="hideTip(event, 'fs38', 89)" onmouseover="showTip(event, 'fs38', 89)" class="fn">grams</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs37', 90)" onmouseover="showTip(event, 'fs37', 90)" class="fn">molarity</span> 
     
 </code></pre>
-<p>Maybe we should notice, that in this function we use the function <code>failwith</code> to throw an error, if we do not know the buffer. This is not particular nice, however necessary in our example.</p>
+<p>Maybe we should notice that in this function we use the function <code>failwith</code> to throw an error, if we do not know the buffer. This is not particular nice, however necessary in our example.</p>
 
                 </div>
             </div>
@@ -504,14 +504,23 @@ match an input against a particular value; we can add filters, or guards, to pat
 <div class="fsdocs-tip" id="fs13">val yes : bool</div>
 <div class="fsdocs-tip" id="fs14">val no : bool</div>
 <div class="fsdocs-tip" id="fs15">val on : bool</div>
-<div class="fsdocs-tip" id="fs16">type bool = System.Boolean</div>
+<div class="fsdocs-tip" id="fs16">[&lt;Struct&gt;]
+type bool = System.Boolean<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Boolean&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em></div>
 <div class="fsdocs-tip" id="fs17">val co2Oxygens&#39; : int</div>
 <div class="fsdocs-tip" id="fs18">val co2Carbon&#39; : int</div>
 <div class="fsdocs-tip" id="fs19">val oxygenMass&#39; : float</div>
 <div class="fsdocs-tip" id="fs20">val carbonMass&#39; : float</div>
 <div class="fsdocs-tip" id="fs21">val co2Mass : float</div>
-<div class="fsdocs-tip" id="fs22">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />--------------------<br />type float = System.Double<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float</div>
-<div class="fsdocs-tip" id="fs23">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T</div>
+<div class="fsdocs-tip" id="fs22">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to 64-bit float. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Double.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted float&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type float = System.Double<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type float&lt;&#39;Measure&gt; =
+  float<br /><em>&lt;summary&gt;The type of double-precision floating point numbers, annotated with a unit of measure. 
+ The unit of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to 
+ &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category index=&quot;6&quot;&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs23">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><em>&lt;summary&gt;Print to &lt;c&gt;stdout&lt;/c&gt; using the given format, and add a newline.&lt;/summary&gt;<br />&lt;param name=&quot;format&quot;&gt;The formatter.&lt;/param&gt;<br />&lt;returns&gt;The formatted result.&lt;/returns&gt;</em></div>
 <div class="fsdocs-tip" id="fs24">val explainIndentedCode : unit -&gt; unit</div>
 <div class="fsdocs-tip" id="fs25">val calculateGasDensity : molarMass:float -&gt; pressure:float -&gt; temperatureK:float -&gt; float</div>
 <div class="fsdocs-tip" id="fs26">val molarMass : float</div>
@@ -521,13 +530,21 @@ match an input against a particular value; we can add filters, or guards, to pat
 <div class="fsdocs-tip" id="fs30">val density : float</div>
 <div class="fsdocs-tip" id="fs31">val co2MolarVolume : float</div>
 <div class="fsdocs-tip" id="fs32">namespace BioFSharp</div>
-<div class="fsdocs-tip" id="fs33">module Nucleotides<br /><br />from BioFSharp</div>
-<div class="fsdocs-tip" id="fs34">union case BioFSharp.Nucleotides.Nucleotide.A: BioFSharp.Nucleotides.Nucleotide</div>
-<div class="fsdocs-tip" id="fs35">union case Nucleotides.Nucleotide.A: Nucleotides.Nucleotide</div>
+<div class="fsdocs-tip" id="fs33">module Nucleotides
+
+from BioFSharp<br /><em>&lt;summary&gt;
+Contains the Nucleotide type and its according functions.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs34">union case BioFSharp.Nucleotides.Nucleotide.A: BioFSharp.Nucleotides.Nucleotide<br /><em>&lt;summary&gt;
+ A : Adenine
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs35">union case Nucleotides.Nucleotide.A: Nucleotides.Nucleotide<br /><em>&lt;summary&gt;
+ A : Adenine
+&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs36">val bufferRecipe : buffer:string -&gt; molarity:float -&gt; float</div>
 <div class="fsdocs-tip" id="fs37">val molarity : float</div>
 <div class="fsdocs-tip" id="fs38">val grams : float</div>
-<div class="fsdocs-tip" id="fs39">val failwith : message:string -&gt; &#39;T</div>
+<div class="fsdocs-tip" id="fs39">val failwith : message:string -&gt; &#39;T<br /><em>&lt;summary&gt;Throw a &lt;see cref=&quot;T:System.Exception&quot; /&gt; exception.&lt;/summary&gt;<br />&lt;param name=&quot;message&quot;&gt;The exception message.&lt;/param&gt;<br />&lt;returns&gt;The result value.&lt;/returns&gt;</em></div>
 <div class="fsdocs-tip" id="fs40">val gramsPerLiter : float</div>
 <div class="fsdocs-tip" id="fs41">val bufferRecipe&#39; : buffer:string -&gt; molarity:float -&gt; float</div>
 <div class="fsdocs-tip" id="fs42">val bufferRecipe&#39;&#39; : buffer:string -&gt; molarity:float -&gt; float</div>

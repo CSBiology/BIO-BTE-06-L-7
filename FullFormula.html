@@ -68,7 +68,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB01a_Systems_Biology_FSharp_Introduction.html">
                                 <span class="text">
                                     <span>NB01a Systems Biology</span>
@@ -214,7 +214,7 @@
                                     <span>NB06d'' Absolute Quantification (BN)</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-header">Links</li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://csb.bio.uni-kl.de/teaching/">
@@ -297,7 +297,15 @@
 <div class="fsdocs-tip" id="fs9">val molWeightTargetProt : float</div>
 <div class="fsdocs-tip" id="fs10">val ratio1415N : float</div>
 <div class="fsdocs-tip" id="fs11">val chlorophPerCell : float</div>
-<div class="fsdocs-tip" id="fs12">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />--------------------<br />type float = System.Double<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float</div>
+<div class="fsdocs-tip" id="fs12">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to 64-bit float. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Double.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted float&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type float = System.Double<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type float&lt;&#39;Measure&gt; =
+  float<br /><em>&lt;summary&gt;The type of double-precision floating point numbers, annotated with a unit of measure. 
+ The unit of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to 
+ &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category index=&quot;6&quot;&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
 <div class="fsdocs-tip" id="fs13">val cellsPerμlSample : float</div>
 <div class="fsdocs-tip" id="fs14">val μgProteinPerCell : float</div>
 <div class="fsdocs-tip" id="fs15">val molQProtSpike : float</div>

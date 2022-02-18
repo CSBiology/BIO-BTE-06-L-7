@@ -69,7 +69,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB01a_Systems_Biology_FSharp_Introduction.html">
                                 <span class="text">
                                     <span>NB01a Systems Biology</span>
@@ -215,7 +215,7 @@
                                     <span>NB06d'' Absolute Quantification (BN)</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-header">Links</li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://csb.bio.uni-kl.de/teaching/">
@@ -688,62 +688,159 @@ normalization strategies. We look forward to read your explanations!</p>
 <div class="fsdocs-tip" id="fs10">namespace Plotly</div>
 <div class="fsdocs-tip" id="fs11">namespace Plotly.NET</div>
 <div class="fsdocs-tip" id="fs12">namespace FSharp.Stats.Fitting</div>
-<div class="fsdocs-tip" id="fs13">module LinearRegression<br /><br />from FSharp.Stats.Fitting</div>
-<div class="fsdocs-tip" id="fs14">module OrdinaryLeastSquares<br /><br />from FSharp.Stats.Fitting.LinearRegression</div>
-<div class="fsdocs-tip" id="fs15">module Linear<br /><br />from FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares</div>
+<div class="fsdocs-tip" id="fs13">module LinearRegression
+
+from FSharp.Stats.Fitting</div>
+<div class="fsdocs-tip" id="fs14">module OrdinaryLeastSquares
+
+from FSharp.Stats.Fitting.LinearRegression</div>
+<div class="fsdocs-tip" id="fs15">module Linear
+
+from FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares<br /><em>&lt;summary&gt;
+ Simple linear regression y : x -&amp;gt; a + bx
+&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs16">namespace BIO_BTE_06_L_7_Aux</div>
-<div class="fsdocs-tip" id="fs17">module FS3_Aux<br /><br />from BIO_BTE_06_L_7_Aux</div>
-<div class="fsdocs-tip" id="fs18">module Deedle_Aux<br /><br />from BIO_BTE_06_L_7_Aux</div>
+<div class="fsdocs-tip" id="fs17">module FS3_Aux
+
+from BIO_BTE_06_L_7_Aux</div>
+<div class="fsdocs-tip" id="fs18">module Deedle_Aux
+
+from BIO_BTE_06_L_7_Aux</div>
 <div class="fsdocs-tip" id="fs19">val directory : string</div>
 <div class="fsdocs-tip" id="fs20">val path2 : string</div>
-<div class="fsdocs-tip" id="fs21">type Path =<br />&#160;&#160;static val AltDirectorySeparatorChar : char<br />&#160;&#160;static val DirectorySeparatorChar : char<br />&#160;&#160;static val InvalidPathChars : char[]<br />&#160;&#160;static val PathSeparator : char<br />&#160;&#160;static val VolumeSeparatorChar : char<br />&#160;&#160;static member ChangeExtension : path:string * extension:string -&gt; string<br />&#160;&#160;static member Combine : [&lt;ParamArray&gt;] paths:string[] -&gt; string + 3 overloads<br />&#160;&#160;static member EndsInDirectorySeparator : path:ReadOnlySpan&lt;char&gt; -&gt; bool + 1 overload<br />&#160;&#160;static member GetDirectoryName : path:ReadOnlySpan&lt;char&gt; -&gt; ReadOnlySpan&lt;char&gt; + 1 overload<br />&#160;&#160;static member GetExtension : path:ReadOnlySpan&lt;char&gt; -&gt; ReadOnlySpan&lt;char&gt; + 1 overload<br />&#160;&#160;...</div>
+<div class="fsdocs-tip" id="fs21">type Path =
+  static member ChangeExtension : path: string * extension: string -&gt; string
+  static member Combine : path1: string * path2: string -&gt; string + 3 overloads
+  static member EndsInDirectorySeparator : path: ReadOnlySpan&lt;char&gt; -&gt; bool + 1 overload
+  static member GetDirectoryName : path: ReadOnlySpan&lt;char&gt; -&gt; ReadOnlySpan&lt;char&gt; + 1 overload
+  static member GetExtension : path: ReadOnlySpan&lt;char&gt; -&gt; ReadOnlySpan&lt;char&gt; + 1 overload
+  static member GetFileName : path: ReadOnlySpan&lt;char&gt; -&gt; ReadOnlySpan&lt;char&gt; + 1 overload
+  static member GetFileNameWithoutExtension : path: ReadOnlySpan&lt;char&gt; -&gt; ReadOnlySpan&lt;char&gt; + 1 overload
+  static member GetFullPath : path: string -&gt; string + 1 overload
+  static member GetInvalidFileNameChars : unit -&gt; char []
+  static member GetInvalidPathChars : unit -&gt; char []
+  ...<br /><em>&lt;summary&gt;Performs operations on &lt;see cref=&quot;T:System.String&quot; /&gt; instances that contain file or directory path information. These operations are performed in a cross-platform manner.&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs22">Path.Combine([&lt;System.ParamArray&gt;] paths: string []) : string<br />Path.Combine(path1: string, path2: string) : string<br />Path.Combine(path1: string, path2: string, path3: string) : string<br />Path.Combine(path1: string, path2: string, path3: string, path4: string) : string</div>
 <div class="fsdocs-tip" id="fs23">val downloadFile : filePath:string -&gt; objectName:string -&gt; folder:string -&gt; unit</div>
 <div class="fsdocs-tip" id="fs24">val myAssayFile : Assay</div>
 <div class="fsdocs-tip" id="fs25">namespace ISADotNet.XLSX</div>
 <div class="fsdocs-tip" id="fs26">namespace ISADotNet.XLSX.AssayFile</div>
-<div class="fsdocs-tip" id="fs27">module AssayFile<br /><br />from ISADotNet.XLSX.AssayFile</div>
-<div class="fsdocs-tip" id="fs28">val fromFile : path:string -&gt; Factor list * Protocol list * Person list * Assay</div>
+<div class="fsdocs-tip" id="fs27">module AssayFile
+
+from ISADotNet.XLSX.AssayFile<br /><em>&lt;summary&gt;
+ Functions for parsing an ISAXLSX Assay File
+
+ This is based on the ISA.Tab Format: https://isa-specs.readthedocs.io/en/latest/isatab.html#assay-table-file
+
+ But with the table being modified according to the SWATE tool: https://github.com/nfdi4plants/Swate
+
+ Additionally, the file can contain several sheets containing parameter tables and a sheet containing additional assay metadata
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs28">val fromFile : path:string -&gt; Factor list * Protocol list * Person list * Assay<br /><em>&lt;summary&gt;
+ Parses the assay file
+&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs29">val inOutMap : Map&lt;string,(string * string * string) list&gt;</div>
-<div class="fsdocs-tip" id="fs30">module ISA_Aux<br /><br />from BIO_BTE_06_L_7_Aux</div>
+<div class="fsdocs-tip" id="fs30">module ISA_Aux
+
+from BIO_BTE_06_L_7_Aux</div>
 <div class="fsdocs-tip" id="fs31">val createInOutMap : assay:Assay -&gt; Map&lt;string,(string * string * string) list&gt;</div>
-<div class="fsdocs-tip" id="fs32">type CutoutBand =<br />&#160;&#160;| RbcL<br />&#160;&#160;| RbcS</div>
+<div class="fsdocs-tip" id="fs32">type CutoutBand =
+  | RbcL
+  | RbcS</div>
 <div class="fsdocs-tip" id="fs33">union case CutoutBand.RbcL: CutoutBand</div>
 <div class="fsdocs-tip" id="fs34">union case CutoutBand.RbcS: CutoutBand</div>
 <div class="fsdocs-tip" id="fs35">val normalizeFileName : f:string -&gt; string</div>
 <div class="fsdocs-tip" id="fs36">val f : string</div>
-<div class="fsdocs-tip" id="fs37">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />--------------------<br />type string = System.String</div>
+<div class="fsdocs-tip" id="fs37">Multiple items<br />val string : value:&#39;T -&gt; string<br /><em>&lt;summary&gt;Converts the argument to a string using &lt;c&gt;ToString&lt;/c&gt;.&lt;/summary&gt;<br />&lt;remarks&gt;For standard integer and floating point values the and any type that implements &lt;c&gt;IFormattable&lt;/c&gt;&lt;c&gt;ToString&lt;/c&gt; conversion uses &lt;c&gt;CultureInfo.InvariantCulture&lt;/c&gt;. &lt;/remarks&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted string.&lt;/returns&gt;</em><br /><br />--------------------<br />type string = System.String<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.String&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em></div>
 <div class="fsdocs-tip" id="fs38">Path.HasExtension(path: string) : bool<br />Path.HasExtension(path: System.ReadOnlySpan&lt;char&gt;) : bool</div>
 <div class="fsdocs-tip" id="fs39">Path.ChangeExtension(path: string, extension: string) : string</div>
 <div class="fsdocs-tip" id="fs40">val getStrain : fileName:string -&gt; string</div>
 <div class="fsdocs-tip" id="fs41">val fileName : string</div>
 <div class="fsdocs-tip" id="fs42">val fN : string</div>
 <div class="fsdocs-tip" id="fs43">val tryGetCharacteristic : inOutMap:Map&lt;string,(string * string * string) list&gt; -&gt; protocolName:string -&gt; characteristicName:string -&gt; sampleName:string -&gt; assay:Assay -&gt; string option</div>
-<div class="fsdocs-tip" id="fs44">Multiple items<br />module Option<br /><br />from ISADotNet.API<br /><br />--------------------<br />module Option<br /><br />from Microsoft.FSharp.Core</div>
-<div class="fsdocs-tip" id="fs45">val defaultValue : value:&#39;T -&gt; option:&#39;T option -&gt; &#39;T</div>
+<div class="fsdocs-tip" id="fs44">Multiple items<br />module Option
+
+from ISADotNet.API<br /><br />--------------------<br />module Option
+
+from Microsoft.FSharp.Core<br /><em>&lt;summary&gt;Contains operations for working with options.&lt;/summary&gt;<br />&lt;category&gt;Options&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs45">val defaultValue : value:&#39;T -&gt; option:&#39;T option -&gt; &#39;T<br /><em>&lt;summary&gt;Gets the value of the option if the option is &lt;c&gt;Some&lt;/c&gt;, otherwise returns the specified default value.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The specified default value.&lt;/param&gt;<br />&lt;param name=&quot;option&quot;&gt;The input option.&lt;/param&gt;<br />&lt;returns&gt;The option if the option is Some, else the default value.&lt;/returns&gt;<br />&lt;remarks&gt;Identical to the built-in &lt;see cref=&quot;defaultArg&quot; /&gt; operator, except with the arguments swapped.&lt;/remarks&gt;<br />&lt;example&gt;&lt;code&gt;
+     (99, None) ||&amp;gt; Option.defaultValue // evaluates to 99
+     (99, Some 42) ||&amp;gt; Option.defaultValue // evaluates to 42
+ &lt;/code&gt;&lt;/example&gt;</em></div>
 <div class="fsdocs-tip" id="fs46">val getExpressionLevel : fileName:string -&gt; string</div>
 <div class="fsdocs-tip" id="fs47">val getμgChlorophPerMlCult : fileName:string -&gt; float</div>
-<div class="fsdocs-tip" id="fs48">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />--------------------<br />type float = System.Double<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float</div>
+<div class="fsdocs-tip" id="fs48">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to 64-bit float. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Double.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted float&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type float = System.Double<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type float&lt;&#39;Measure&gt; =
+  float<br /><em>&lt;summary&gt;The type of double-precision floating point numbers, annotated with a unit of measure. 
+ The unit of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to 
+ &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category index=&quot;6&quot;&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
 <div class="fsdocs-tip" id="fs49">val getCellCountPerMlCult : fileName:string -&gt; float</div>
 <div class="fsdocs-tip" id="fs50">val tryGetParameter : inOutMap:Map&lt;string,(string * string * string) list&gt; -&gt; protocolName:string -&gt; characteristicName:string -&gt; sampleName:string -&gt; assay:Assay -&gt; string option</div>
 <div class="fsdocs-tip" id="fs51">val getμgChlorophPerμlSample : fileName:string -&gt; float</div>
 <div class="fsdocs-tip" id="fs52">val getμgProtPerμlSample : fileName:string -&gt; float</div>
 <div class="fsdocs-tip" id="fs53">val get15N_PS_Amount : fileName:string -&gt; float</div>
-<div class="fsdocs-tip" id="fs54">Multiple items<br />module String<br /><br />from FSharpAux<br /><br />--------------------<br />module String<br /><br />from Microsoft.FSharp.Core</div>
-<div class="fsdocs-tip" id="fs55">val split : delimiter:char -&gt; text:string -&gt; string []</div>
-<div class="fsdocs-tip" id="fs56">Multiple items<br />module Array<br /><br />from FSharp.Stats<br /><br />--------------------<br />module Array<br /><br />from FSharpAux<br /><br />--------------------<br />module Array<br /><br />from Microsoft.FSharp.Collections</div>
-<div class="fsdocs-tip" id="fs57">val head : array:&#39;T [] -&gt; &#39;T</div>
+<div class="fsdocs-tip" id="fs54">Multiple items<br />module String
+
+from FSharpAux<br /><br />--------------------<br />module String
+
+from Microsoft.FSharp.Core<br /><em>&lt;summary&gt;Functional programming operators for string processing.  Further string operations
+ are available via the member functions on strings and other functionality in
+  &lt;a href=&quot;http://msdn2.microsoft.com/en-us/library/system.string.aspx&quot;&gt;System.String&lt;/a&gt; 
+ and &lt;a href=&quot;http://msdn2.microsoft.com/library/system.text.regularexpressions.aspx&quot;&gt;System.Text.RegularExpressions&lt;/a&gt; types.
+ &lt;/summary&gt;<br />&lt;category&gt;Strings and Text&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs55">val split : delimiter:char -&gt; text:string -&gt; string []<br /><em>&lt;summary&gt;
+ Splits the given string at the given delimiter
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs56">Multiple items<br />module Array
+
+from FSharp.Stats<br /><em>&lt;summary&gt;
+ Module to compute common statistical measure on array
+&lt;/summary&gt;</em><br /><br />--------------------<br />module Array
+
+from FSharpAux<br /><br />--------------------<br />module Array
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with arrays.&lt;/summary&gt;<br />&lt;remarks&gt;
+  See also &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/arrays&quot;&gt;F# Language Guide - Arrays&lt;/a&gt;.
+ &lt;/remarks&gt;</em></div>
+<div class="fsdocs-tip" id="fs57">val head : array:&#39;T [] -&gt; &#39;T<br /><em>&lt;summary&gt;Returns the first element of the array.&lt;/summary&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The first element of the array.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.ArgumentException&quot;&gt;Thrown when the input array is empty.&lt;/exception&gt;</em></div>
 <div class="fsdocs-tip" id="fs58">val getGroupID : fileName:string -&gt; int</div>
-<div class="fsdocs-tip" id="fs59">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />--------------------<br />type int = int32<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int</div>
+<div class="fsdocs-tip" id="fs59">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to signed 32-bit integer. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Int32.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted int&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type int = int32<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type int&lt;&#39;Measure&gt; =
+  int<br /><em>&lt;summary&gt;The type of 32-bit signed integer numbers, annotated with a unit of measure. The unit
+ of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to 
+ &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
 <div class="fsdocs-tip" id="fs60">val getLoadAmount : fileName:string -&gt; float</div>
 <div class="fsdocs-tip" id="fs61">val getCutoutBand : fileName:string -&gt; CutoutBand</div>
 <div class="fsdocs-tip" id="fs62">val str : string</div>
-<div class="fsdocs-tip" id="fs63">val failwith : message:string -&gt; &#39;T</div>
-<div class="fsdocs-tip" id="fs64">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T</div>
+<div class="fsdocs-tip" id="fs63">val failwith : message:string -&gt; &#39;T<br /><em>&lt;summary&gt;Throw a &lt;see cref=&quot;T:System.Exception&quot; /&gt; exception.&lt;/summary&gt;<br />&lt;param name=&quot;message&quot;&gt;The exception message.&lt;/param&gt;<br />&lt;returns&gt;The result value.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs64">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><em>&lt;summary&gt;Print to a string using the given format.&lt;/summary&gt;<br />&lt;param name=&quot;format&quot;&gt;The formatter.&lt;/param&gt;<br />&lt;returns&gt;The formatted result.&lt;/returns&gt;</em></div>
 <div class="fsdocs-tip" id="fs65">type PeptideIon = {| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |}</div>
 <div class="fsdocs-tip" id="fs66">val filePath : string</div>
 <div class="fsdocs-tip" id="fs67">val qConcatDataFiltered : Frame&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},string&gt;</div>
-<div class="fsdocs-tip" id="fs68">Multiple items<br />module Frame<br /><br />from Deedle<br /><br />--------------------<br />type Frame =<br />&#160;&#160;inherit DynamicObj<br />&#160;&#160;new : unit -&gt; Frame<br /><br />--------------------<br />type Frame&lt;&#39;TRowKey,&#39;TColumnKey (requires equality and equality)&gt; =<br />&#160;&#160;interface IDynamicMetaObjectProvider<br />&#160;&#160;interface INotifyCollectionChanged<br />&#160;&#160;interface IFsiFormattable<br />&#160;&#160;interface IFrame<br />&#160;&#160;new : names:seq&lt;&#39;TColumnKey&gt; * columns:seq&lt;ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;<br />&#160;&#160;new : rowIndex:IIndex&lt;&#39;TRowKey&gt; * columnIndex:IIndex&lt;&#39;TColumnKey&gt; * data:IVector&lt;IVector&gt; * indexBuilder:IIndexBuilder * vectorBuilder:IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;<br />&#160;&#160;member AddColumn : column:&#39;TColumnKey * series:ISeries&lt;&#39;TRowKey&gt; -&gt; unit<br />&#160;&#160;member AddColumn : column:&#39;TColumnKey * series:seq&lt;&#39;V&gt; -&gt; unit<br />&#160;&#160;member AddColumn : column:&#39;TColumnKey * series:ISeries&lt;&#39;TRowKey&gt; * lookup:Lookup -&gt; unit<br />&#160;&#160;member AddColumn : column:&#39;TColumnKey * series:seq&lt;&#39;V&gt; * lookup:Lookup -&gt; unit<br />&#160;&#160;...<br /><br />--------------------<br />new : unit -&gt; Frame<br /><br />--------------------<br />new : names:seq&lt;&#39;TColumnKey&gt; * columns:seq&lt;ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;<br />new : rowIndex:Indices.IIndex&lt;&#39;TRowKey&gt; * columnIndex:Indices.IIndex&lt;&#39;TColumnKey&gt; * data:IVector&lt;IVector&gt; * indexBuilder:Indices.IIndexBuilder * vectorBuilder:Vectors.IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;</div>
+<div class="fsdocs-tip" id="fs68">Multiple items<br />module Frame
+
+from Deedle<br /><br />--------------------<br />type Frame =
+  inherit DynamicObj
+  new : unit -&gt; Frame<br /><br />--------------------<br />type Frame&lt;&#39;TRowKey,&#39;TColumnKey (requires equality and equality)&gt; =
+  interface IDynamicMetaObjectProvider
+  interface INotifyCollectionChanged
+  interface IFsiFormattable
+  interface IFrame
+  new : rowIndex:IIndex&lt;&#39;TRowKey&gt; * columnIndex:IIndex&lt;&#39;TColumnKey&gt; * data:IVector&lt;IVector&gt; * indexBuilder:IIndexBuilder * vectorBuilder:IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt; + 1 overload
+  member AddColumn : column:&#39;TColumnKey * series:seq&lt;&#39;V&gt; -&gt; unit + 3 overloads
+  member AggregateRowsBy : groupBy:seq&lt;&#39;TColumnKey&gt; * aggBy:seq&lt;&#39;TColumnKey&gt; * aggFunc:Func&lt;Series&lt;&#39;TRowKey,&#39;a&gt;,&#39;b&gt; -&gt; Frame&lt;int,&#39;TColumnKey&gt;
+  member Clone : unit -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;
+  member ColumnApply : f:Func&lt;Series&lt;&#39;TRowKey,&#39;T&gt;,ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt; + 1 overload
+  member DropColumn : column:&#39;TColumnKey -&gt; unit
+  ...<br /><br />--------------------<br />new : unit -&gt; Frame<br /><br />--------------------<br />new : names:seq&lt;&#39;TColumnKey&gt; * columns:seq&lt;ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;<br />new : rowIndex:Indices.IIndex&lt;&#39;TRowKey&gt; * columnIndex:Indices.IIndex&lt;&#39;TColumnKey&gt; * data:IVector&lt;IVector&gt; * indexBuilder:Indices.IIndexBuilder * vectorBuilder:Vectors.IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;</div>
 <div class="fsdocs-tip" id="fs69">static member Frame.ReadCsv : path:string * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : stream:Stream * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : reader:TextReader * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : stream:Stream * hasHeaders:System.Nullable&lt;bool&gt; * inferTypes:System.Nullable&lt;bool&gt; * inferRows:System.Nullable&lt;int&gt; * schema:string * separators:string * culture:string * maxRows:System.Nullable&lt;int&gt; * missingValues:string [] * preferOptions:System.Nullable&lt;bool&gt; -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : location:string * hasHeaders:System.Nullable&lt;bool&gt; * inferTypes:System.Nullable&lt;bool&gt; * inferRows:System.Nullable&lt;int&gt; * schema:string * separators:string * culture:string * maxRows:System.Nullable&lt;int&gt; * missingValues:string [] * preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : path:string * indexCol:string * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;&#39;R,string&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs70">val indexRowsUsing : f:(ObjectSeries&lt;&#39;C&gt; -&gt; &#39;R2) -&gt; frame:Frame&lt;&#39;R1,&#39;C&gt; -&gt; Frame&lt;&#39;R2,&#39;C&gt; (requires equality and equality and equality)</div>
 <div class="fsdocs-tip" id="fs71">val os : ObjectSeries&lt;string&gt;</div>
@@ -751,7 +848,9 @@ normalization strategies. We look forward to read your explanations!</p>
 <div class="fsdocs-tip" id="fs73">val filterRows : f:(&#39;R -&gt; ObjectSeries&lt;&#39;C&gt; -&gt; bool) -&gt; frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Frame&lt;&#39;R,&#39;C&gt; (requires equality and equality)</div>
 <div class="fsdocs-tip" id="fs74">val k : {| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |}</div>
 <div class="fsdocs-tip" id="fs75">val s : ObjectSeries&lt;string&gt;</div>
-<div class="fsdocs-tip" id="fs76">val contains : substr:string -&gt; t:string -&gt; bool</div>
+<div class="fsdocs-tip" id="fs76">val contains : substr:string -&gt; t:string -&gt; bool<br /><em>&lt;summary&gt;
+ Returns a value indicating whether the specified substring occurs within this string
+&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs77">anonymous record field ProteinGroup: string</div>
 <div class="fsdocs-tip" id="fs78">val sliceQuantColumns : quantColID:string -&gt; frame:Frame&lt;&#39;a,string&gt; -&gt; Frame&lt;&#39;a,string&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs79">val quantColID : string</div>
@@ -761,7 +860,7 @@ normalization strategies. We look forward to read your explanations!</p>
 <div class="fsdocs-tip" id="fs83">val os : ObjectSeries&lt;&#39;a&gt; (requires equality)</div>
 <div class="fsdocs-tip" id="fs84">val mapColKeys : f:(&#39;C -&gt; &#39;b) -&gt; frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Frame&lt;&#39;R,&#39;b&gt; (requires equality and equality and equality)</div>
 <div class="fsdocs-tip" id="fs85">System.String.Split([&lt;System.ParamArray&gt;] separator: char []) : string []<br />System.String.Split(separator: string [], options: System.StringSplitOptions) : string []<br />System.String.Split(separator: string,?options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char [], options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char [], count: int) : string []<br />System.String.Split(separator: char,?options: System.StringSplitOptions) : string []<br />System.String.Split(separator: string [], count: int, options: System.StringSplitOptions) : string []<br />System.String.Split(separator: string, count: int,?options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char [], count: int, options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char, count: int,?options: System.StringSplitOptions) : string []</div>
-<div class="fsdocs-tip" id="fs86">val item : index:int -&gt; array:&#39;T [] -&gt; &#39;T</div>
+<div class="fsdocs-tip" id="fs86">val item : index:int -&gt; array:&#39;T [] -&gt; &#39;T<br /><em>&lt;summary&gt;Gets an element from an array.&lt;/summary&gt;<br />&lt;param name=&quot;index&quot;&gt;The input index.&lt;/param&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The value of the array at the given index.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.NullReferenceException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.IndexOutOfRangeException&quot;&gt;Thrown when the index is negative or the input array does not contain enough elements.&lt;/exception&gt;</em></div>
 <div class="fsdocs-tip" id="fs87">val calcAbsoluteAbundance : μgChlorophPerMlCult:float -&gt; cellCountPerMlCult:float -&gt; μgChlorophPerμlSample:float -&gt; μgProtPerμlSample:float -&gt; μgQProtSpike:float -&gt; μgloadedProtein:float -&gt; molWeightQProt:float -&gt; molWeightTargetProt:float -&gt; ratio1415N:float -&gt; {| AttoMolProteinPerCell: float; MassTargetProteinInLoadedProtein: float; ProteinsPerCell: float |}</div>
 <div class="fsdocs-tip" id="fs88">val μgChlorophPerMlCult : float</div>
 <div class="fsdocs-tip" id="fs89">val cellCountPerMlCult : float</div>
@@ -785,38 +884,88 @@ normalization strategies. We look forward to read your explanations!</p>
 <div class="fsdocs-tip" id="fs107">val path : string</div>
 <div class="fsdocs-tip" id="fs108">val examplePeptides : IO.FastA.FastaItem&lt;BioArray.BioArray&lt;AminoAcids.AminoAcid&gt;&gt; []</div>
 <div class="fsdocs-tip" id="fs109">Multiple items<br />namespace FSharpAux.IO<br /><br />--------------------<br />namespace BioFSharp.IO</div>
-<div class="fsdocs-tip" id="fs110">module FastA<br /><br />from BioFSharp.IO</div>
-<div class="fsdocs-tip" id="fs111">val fromFile : converter:(seq&lt;char&gt; -&gt; &#39;a) -&gt; filePath:string -&gt; seq&lt;IO.FastA.FastaItem&lt;&#39;a&gt;&gt;</div>
-<div class="fsdocs-tip" id="fs112">Multiple items<br />module BioArray<br /><br />from BioFSharp.BioCollectionsExtensions<br /><br />--------------------<br />module BioArray<br /><br />from BioFSharp</div>
-<div class="fsdocs-tip" id="fs113">val ofAminoAcidString : s:#seq&lt;char&gt; -&gt; BioArray.BioArray&lt;AminoAcids.AminoAcid&gt;</div>
-<div class="fsdocs-tip" id="fs114">val ofSeq : source:seq&lt;&#39;T&gt; -&gt; &#39;T []</div>
+<div class="fsdocs-tip" id="fs110">module FastA
+
+from BioFSharp.IO</div>
+<div class="fsdocs-tip" id="fs111">val fromFile : converter:(seq&lt;char&gt; -&gt; &#39;a) -&gt; filePath:string -&gt; seq&lt;IO.FastA.FastaItem&lt;&#39;a&gt;&gt;<br /><em>&lt;summary&gt;
+ Reads FastaItem from file. Converter determines type of sequence by converting seq&amp;lt;char&amp;gt; -&amp;gt; type
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs112">Multiple items<br />module BioArray
+
+from BioFSharp.BioCollectionsExtensions<br /><br />--------------------<br />module BioArray
+
+from BioFSharp<br /><em>&lt;summary&gt;
+This module contains the BioArray type and its according functions. The BioArray type is an array of objects using the IBioItem interface
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs113">val ofAminoAcidString : s:#seq&lt;char&gt; -&gt; BioArray.BioArray&lt;AminoAcids.AminoAcid&gt;<br /><em>&lt;summary&gt;
+ Generates amino acid sequence of one-letter-code raw string
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs114">val ofSeq : source:seq&lt;&#39;T&gt; -&gt; &#39;T []<br /><em>&lt;summary&gt;Builds a new array from the given enumerable object.&lt;/summary&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The array of elements from the sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
 <div class="fsdocs-tip" id="fs115">val PS : IO.FastA.FastaItem&lt;BioArray.BioArray&lt;AminoAcids.AminoAcid&gt;&gt;</div>
-<div class="fsdocs-tip" id="fs116">Multiple items<br />module Seq<br /><br />from Plotly.NET<br /><br />--------------------<br />module Seq<br /><br />from FSharp.Stats<br /><br />--------------------<br />module Seq<br /><br />from FSharpAux<br /><br />--------------------<br />module Seq<br /><br />from Microsoft.FSharp.Collections</div>
-<div class="fsdocs-tip" id="fs117">val find : predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; &#39;T</div>
+<div class="fsdocs-tip" id="fs116">Multiple items<br />module Seq
+
+from Plotly.NET<br /><br />--------------------<br />module Seq
+
+from FSharp.Stats<br /><em>&lt;summary&gt;
+ Module to compute common statistical measure
+&lt;/summary&gt;</em><br /><br />--------------------<br />module Seq
+
+from FSharpAux<br /><br />--------------------<br />module Seq
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with values of type &lt;see cref=&quot;T:Microsoft.FSharp.Collections.seq`1&quot; /&gt;.&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs117">val find : predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; &#39;T<br /><em>&lt;summary&gt;Returns the first element for which the given function returns True.&lt;/summary&gt;<br />&lt;param name=&quot;predicate&quot;&gt;A function to test whether an item in the sequence should be returned.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The first element for which the predicate returns True.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.Collections.Generic.KeyNotFoundException&quot;&gt;Thrown if no element returns true when
+ evaluated by the predicate&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null&lt;/exception&gt;</em></div>
 <div class="fsdocs-tip" id="fs118">val prot : IO.FastA.FastaItem&lt;BioArray.BioArray&lt;AminoAcids.AminoAcid&gt;&gt;</div>
 <div class="fsdocs-tip" id="fs119">IO.FastA.FastaItem.Header: string</div>
 <div class="fsdocs-tip" id="fs120">val PSMass : float</div>
-<div class="fsdocs-tip" id="fs121">module BioSeq<br /><br />from BioFSharp</div>
-<div class="fsdocs-tip" id="fs122">val toMonoisotopicMassWith : state:float -&gt; bs:seq&lt;#IBioItem&gt; -&gt; float</div>
-<div class="fsdocs-tip" id="fs123">module Formula<br /><br />from BioFSharp</div>
-<div class="fsdocs-tip" id="fs124">val monoisoMass : f:Formula.Formula -&gt; float</div>
-<div class="fsdocs-tip" id="fs125">module Table<br /><br />from BioFSharp.Formula</div>
+<div class="fsdocs-tip" id="fs121">module BioSeq
+
+from BioFSharp<br /><em>&lt;summary&gt;
+This module contains the BioSeq type and its according functions. The BioSeq type is a sequence of objects using the IBioItem interface
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs122">val toMonoisotopicMassWith : state:float -&gt; bs:seq&lt;#IBioItem&gt; -&gt; float<br /><em>&lt;summary&gt;
+ Returns monoisotopic mass of the given sequence and initial value (e.g. H2O) 
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs123">module Formula
+
+from BioFSharp<br /><em>&lt;summary&gt;
+Contains functionality for working with molecules as a formula of their elements and formulas of biologically relevant molecules
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs124">val monoisoMass : f:Formula.Formula -&gt; float<br /><em>&lt;summary&gt;
+ Returns monoisotopic mass of sum formula
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs125">module Table
+
+from BioFSharp.Formula<br /><em>&lt;summary&gt;
+Contains formulas for amino acids, nucleotides and biologically relevant anorganic molecules
+&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs126">val H2O : Formula.Formula</div>
 <div class="fsdocs-tip" id="fs127">IO.FastA.FastaItem.Sequence: BioArray.BioArray&lt;AminoAcids.AminoAcid&gt;</div>
 <div class="fsdocs-tip" id="fs128">val withProteinWeights : Frame&lt;{| AverageProtGroupMass: float; Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},string&gt;</div>
 <div class="fsdocs-tip" id="fs129">val mapRowKeys : f:(&#39;R1 -&gt; &#39;R2) -&gt; frame:Frame&lt;&#39;R1,&#39;C&gt; -&gt; Frame&lt;&#39;R2,&#39;C&gt; (requires equality and equality and equality)</div>
 <div class="fsdocs-tip" id="fs130">val proteinsOfInterest : string []<br /><em>&#160;For each row (peptide) in the frame...</em></div>
-<div class="fsdocs-tip" id="fs131">val filter : predicate:(&#39;T -&gt; bool) -&gt; array:&#39;T [] -&gt; &#39;T []</div>
+<div class="fsdocs-tip" id="fs131">val filter : predicate:(&#39;T -&gt; bool) -&gt; array:&#39;T [] -&gt; &#39;T []<br /><em>&lt;summary&gt;Returns a new collection containing only the elements of the collection
+ for which the given predicate returns &quot;true&quot;.&lt;/summary&gt;<br />&lt;param name=&quot;predicate&quot;&gt;The function to test the input elements.&lt;/param&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;An array containing the elements for which the given predicate returns true.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;</em></div>
 <div class="fsdocs-tip" id="fs132">val x : string</div>
 <div class="fsdocs-tip" id="fs133">System.String.Contains(value: string) : bool<br />System.String.Contains(value: char) : bool<br />System.String.Contains(value: string, comparisonType: System.StringComparison) : bool<br />System.String.Contains(value: char, comparisonType: System.StringComparison) : bool</div>
 <div class="fsdocs-tip" id="fs134">val masses : seq&lt;float&gt;</div>
-<div class="fsdocs-tip" id="fs135">val choose : chooser:(&#39;T -&gt; &#39;U option) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;</div>
+<div class="fsdocs-tip" id="fs135">val choose : chooser:(&#39;T -&gt; &#39;U option) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><em>&lt;summary&gt;Applies the given function to each element of the list. Return
+ the list comprised of the results &quot;x&quot; for each element where
+ the function returns Some(x).&lt;/summary&gt;<br />&lt;remarks&gt;The returned sequence may be passed between threads safely. However, 
+ individual IEnumerator values generated from the returned sequence should not
+ be accessed concurrently.&lt;/remarks&gt;<br />&lt;param name=&quot;chooser&quot;&gt;A function to transform items of type T into options of type U.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence of type T.&lt;/param&gt;<br />&lt;returns&gt;The result sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
 <div class="fsdocs-tip" id="fs136">val creID : string</div>
-<div class="fsdocs-tip" id="fs137">val tryFind : predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; &#39;T option</div>
-<div class="fsdocs-tip" id="fs138">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;</div>
+<div class="fsdocs-tip" id="fs137">val tryFind : predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; &#39;T option<br /><em>&lt;summary&gt;Returns the first element for which the given function returns True.
+ Return None if no such element exists.&lt;/summary&gt;<br />&lt;param name=&quot;predicate&quot;&gt;A function that evaluates to a Boolean when given an item in the sequence.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The found element or None.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs138">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><em>&lt;summary&gt;Builds a new collection whose elements are the results of applying the given function
+ to each of the elements of the collection.  The given function will be applied
+ as elements are demanded using the &lt;c&gt;MoveNext&lt;/c&gt; method on enumerators retrieved from the
+ object.&lt;/summary&gt;<br />&lt;remarks&gt;The returned sequence may be passed between threads safely. However, 
+ individual IEnumerator values generated from the returned sequence should not be accessed concurrently.&lt;/remarks&gt;<br />&lt;param name=&quot;mapping&quot;&gt;A function to transform items from the input sequence.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The result sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
 <div class="fsdocs-tip" id="fs139">val avgMass : float<br /><em>&#160;...we look up the matching protein sequence<br />&#160;... and calculate the protein masses        </em></div>
-<div class="fsdocs-tip" id="fs140">val isEmpty : source:seq&lt;&#39;T&gt; -&gt; bool</div>
-<div class="fsdocs-tip" id="fs141">val average : source:seq&lt;&#39;T&gt; -&gt; &#39;T (requires member ( + ) and member DivideByInt and member get_Zero)</div>
+<div class="fsdocs-tip" id="fs140">val isEmpty : source:seq&lt;&#39;T&gt; -&gt; bool<br /><em>&lt;summary&gt;Returns true if the sequence contains no elements, false otherwise.&lt;/summary&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;True if the sequence is empty; false otherwise.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs141">val average : source:seq&lt;&#39;T&gt; -&gt; &#39;T (requires member ( + ) and member DivideByInt and member get_Zero)<br /><em>&lt;summary&gt;Returns the average of the elements in the sequence.&lt;/summary&gt;<br />&lt;remarks&gt;The elements are averaged using the &lt;c&gt;+&lt;/c&gt; operator, &lt;c&gt;DivideByInt&lt;/c&gt; method and &lt;c&gt;Zero&lt;/c&gt; property 
+ associated with the element type.&lt;/remarks&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The average.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.ArgumentException&quot;&gt;Thrown when the input sequence has zero elements.&lt;/exception&gt;</em></div>
 <div class="fsdocs-tip" id="fs142">val ratios : Frame&lt;{| AverageProtGroupMass: float; Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},string&gt;<br /><em>&#160;... and add the average to the peptide.   </em></div>
 <div class="fsdocs-tip" id="fs143">val absoluteAbundances : Frame&lt;{| AverageProtGroupMass: float; Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},string&gt;</div>
 <div class="fsdocs-tip" id="fs144">val map : f:(&#39;R -&gt; &#39;C -&gt; &#39;a -&gt; &#39;b) -&gt; frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Frame&lt;&#39;R,&#39;C&gt; (requires equality and equality)</div>
@@ -825,8 +974,10 @@ normalization strategies. We look forward to read your explanations!</p>
 <div class="fsdocs-tip" id="fs147">anonymous record field AverageProtGroupMass: float</div>
 <div class="fsdocs-tip" id="fs148">val result : {| AttoMolProteinPerCell: float; MassTargetProteinInLoadedProtein: float; ProteinsPerCell: float |}</div>
 <div class="fsdocs-tip" id="fs149">anonymous record field AttoMolProteinPerCell: float</div>
-<div class="fsdocs-tip" id="fs150">Multiple items<br />type FormatException =<br />&#160;&#160;inherit SystemException<br />&#160;&#160;new : unit -&gt; FormatException + 2 overloads<br /><br />--------------------<br />System.FormatException() : System.FormatException<br />System.FormatException(message: string) : System.FormatException<br />System.FormatException(message: string, innerException: exn) : System.FormatException</div>
-<div class="fsdocs-tip" id="fs151">val nan : float</div>
+<div class="fsdocs-tip" id="fs150">Multiple items<br />type FormatException =
+  inherit SystemException
+  new : unit -&gt; unit + 3 overloads<br /><em>&lt;summary&gt;The exception that is thrown when the format of an argument is invalid, or when a composite format string is not well formed.&lt;/summary&gt;</em><br /><br />--------------------<br />System.FormatException() : System.FormatException<br />System.FormatException(message: string) : System.FormatException<br />System.FormatException(message: string, innerException: exn) : System.FormatException</div>
+<div class="fsdocs-tip" id="fs151">val nan : float<br /><em>&lt;summary&gt;Equivalent to &lt;see cref=&quot;P:System.Double.NaN&quot; /&gt;&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs152">val extractAbsoluteAbundancesOf : filterCutoutProtein:bool -&gt; groupID:int -&gt; prot:string -&gt; peptidelist:(string * int) list -&gt; seq&lt;{| Filename: string; MeanQuant: float; StdevQuant: float |}&gt;</div>
 <div class="fsdocs-tip" id="fs153">val filterCutoutProtein : bool</div>
 <div class="fsdocs-tip" id="fs154">val groupID : int</div>
@@ -834,32 +985,111 @@ normalization strategies. We look forward to read your explanations!</p>
 <div class="fsdocs-tip" id="fs156">val peptidelist : (string * int) list</div>
 <div class="fsdocs-tip" id="fs157">val k : {| AverageProtGroupMass: float; Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |}</div>
 <div class="fsdocs-tip" id="fs158">anonymous record field Synonyms: string</div>
-<div class="fsdocs-tip" id="fs159">Multiple items<br />module List<br /><br />from FSharp.Stats<br /><br />--------------------<br />module List<br /><br />from FSharpAux<br /><br />--------------------<br />module List<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type List&lt;&#39;T&gt; =<br />&#160;&#160;| ( [] )<br />&#160;&#160;| ( :: ) of Head: &#39;T * Tail: &#39;T list<br />&#160;&#160;&#160;&#160;interface IReadOnlyList&lt;&#39;T&gt;<br />&#160;&#160;&#160;&#160;interface IReadOnlyCollection&lt;&#39;T&gt;<br />&#160;&#160;&#160;&#160;interface IEnumerable<br />&#160;&#160;&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;&#160;&#160;member GetReverseIndex : rank:int * offset:int -&gt; int<br />&#160;&#160;&#160;&#160;member GetSlice : startIndex:int option * endIndex:int option -&gt; &#39;T list<br />&#160;&#160;&#160;&#160;member Head : &#39;T<br />&#160;&#160;&#160;&#160;member IsEmpty : bool<br />&#160;&#160;&#160;&#160;member Item : index:int -&gt; &#39;T with get<br />&#160;&#160;&#160;&#160;member Length : int<br />&#160;&#160;&#160;&#160;...</div>
-<div class="fsdocs-tip" id="fs160">val exists : predicate:(&#39;T -&gt; bool) -&gt; list:&#39;T list -&gt; bool</div>
+<div class="fsdocs-tip" id="fs159">Multiple items<br />module List
+
+from FSharp.Stats<br /><em>&lt;summary&gt;
+ Module to compute common statistical measure on list
+&lt;/summary&gt;</em><br /><br />--------------------<br />module List
+
+from FSharpAux<br /><br />--------------------<br />module List
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with values of type &lt;see cref=&quot;T:Microsoft.FSharp.Collections.list`1&quot; /&gt;.&lt;/summary&gt;<br />&lt;namespacedoc&gt;&lt;summary&gt;Operations for collections such as lists, arrays, sets, maps and sequences. See also 
+    &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/fsharp-collection-types&quot;&gt;F# Collection Types&lt;/a&gt; in the F# Language Guide.
+ &lt;/summary&gt;&lt;/namespacedoc&gt;</em><br /><br />--------------------<br />type List&lt;&#39;T&gt; =
+  | ( [] )
+  | ( :: ) of Head: &#39;T * Tail: &#39;T list
+    interface IReadOnlyList&lt;&#39;T&gt;
+    interface IReadOnlyCollection&lt;&#39;T&gt;
+    interface IEnumerable
+    interface IEnumerable&lt;&#39;T&gt;
+    member GetReverseIndex : rank:int * offset:int -&gt; int
+    member GetSlice : startIndex:int option * endIndex:int option -&gt; &#39;T list
+    static member Cons : head:&#39;T * tail:&#39;T list -&gt; &#39;T list
+    member Head : &#39;T
+    member IsEmpty : bool
+    member Item : index:int -&gt; &#39;T with get
+    ...<br /><em>&lt;summary&gt;The type of immutable singly-linked lists.&lt;/summary&gt;<br />&lt;remarks&gt;Use the constructors &lt;c&gt;[]&lt;/c&gt; and &lt;c&gt;::&lt;/c&gt; (infix) to create values of this type, or
+ the notation &lt;c&gt;[1;2;3]&lt;/c&gt;. Use the values in the &lt;c&gt;List&lt;/c&gt; module to manipulate 
+ values of this type, or pattern match against the values directly.
+ &lt;/remarks&gt;<br />&lt;exclude /&gt;</em></div>
+<div class="fsdocs-tip" id="fs160">val exists : predicate:(&#39;T -&gt; bool) -&gt; list:&#39;T list -&gt; bool<br /><em>&lt;summary&gt;Tests if any element of the list satisfies the given predicate.&lt;/summary&gt;<br />&lt;remarks&gt;The predicate is applied to the elements of the input list. If any application 
+ returns true then the overall result is true and no further elements are tested. 
+ Otherwise, false is returned.&lt;/remarks&gt;<br />&lt;param name=&quot;predicate&quot;&gt;The function to test the input elements.&lt;/param&gt;<br />&lt;param name=&quot;list&quot;&gt;The input list.&lt;/param&gt;<br />&lt;returns&gt;True if any element satisfies the predicate.&lt;/returns&gt;</em></div>
 <div class="fsdocs-tip" id="fs161">val sequence : string</div>
 <div class="fsdocs-tip" id="fs162">val charge : int</div>
 <div class="fsdocs-tip" id="fs163">anonymous record field StringSequence: string</div>
 <div class="fsdocs-tip" id="fs164">anonymous record field Charge: int</div>
 <div class="fsdocs-tip" id="fs165">val getNumericCols : frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Series&lt;&#39;C,Series&lt;&#39;R,float&gt;&gt; (requires equality and equality)</div>
-<div class="fsdocs-tip" id="fs166">Multiple items<br />module Series<br /><br />from Deedle<br /><br />--------------------<br />type Series =<br />&#160;&#160;static member ofNullables : values:seq&lt;Nullable&lt;&#39;a0&gt;&gt; -&gt; Series&lt;int,&#39;a0&gt; (requires default constructor and value type and &#39;a0 :&gt; ValueType)<br />&#160;&#160;static member ofObservations : observations:seq&lt;&#39;c * &#39;d&gt; -&gt; Series&lt;&#39;c,&#39;d&gt; (requires equality)<br />&#160;&#160;static member ofOptionalObservations : observations:seq&lt;&#39;K * &#39;a1 option&gt; -&gt; Series&lt;&#39;K,&#39;a1&gt; (requires equality)<br />&#160;&#160;static member ofValues : values:seq&lt;&#39;a&gt; -&gt; Series&lt;int,&#39;a&gt;<br /><br />--------------------<br />type Series&lt;&#39;K,&#39;V (requires equality)&gt; =<br />&#160;&#160;interface IFsiFormattable<br />&#160;&#160;interface ISeries&lt;&#39;K&gt;<br />&#160;&#160;new : pairs:seq&lt;KeyValuePair&lt;&#39;K,&#39;V&gt;&gt; -&gt; Series&lt;&#39;K,&#39;V&gt;<br />&#160;&#160;new : keys:&#39;K [] * values:&#39;V [] -&gt; Series&lt;&#39;K,&#39;V&gt;<br />&#160;&#160;new : keys:seq&lt;&#39;K&gt; * values:seq&lt;&#39;V&gt; -&gt; Series&lt;&#39;K,&#39;V&gt;<br />&#160;&#160;new : index:IIndex&lt;&#39;K&gt; * vector:IVector&lt;&#39;V&gt; * vectorBuilder:IVectorBuilder * indexBuilder:IIndexBuilder -&gt; Series&lt;&#39;K,&#39;V&gt;<br />&#160;&#160;member After : lowerExclusive:&#39;K -&gt; Series&lt;&#39;K,&#39;V&gt;<br />&#160;&#160;member Aggregate : aggregation:Aggregation&lt;&#39;K&gt; * observationSelector:Func&lt;DataSegment&lt;Series&lt;&#39;K,&#39;V&gt;&gt;,KeyValuePair&lt;&#39;TNewKey,OptionalValue&lt;&#39;R&gt;&gt;&gt; -&gt; Series&lt;&#39;TNewKey,&#39;R&gt; (requires equality)<br />&#160;&#160;member Aggregate : aggregation:Aggregation&lt;&#39;K&gt; * keySelector:Func&lt;DataSegment&lt;Series&lt;&#39;K,&#39;V&gt;&gt;,&#39;TNewKey&gt; * valueSelector:Func&lt;DataSegment&lt;Series&lt;&#39;K,&#39;V&gt;&gt;,OptionalValue&lt;&#39;R&gt;&gt; -&gt; Series&lt;&#39;TNewKey,&#39;R&gt; (requires equality)<br />&#160;&#160;member AsyncMaterialize : unit -&gt; Async&lt;Series&lt;&#39;K,&#39;V&gt;&gt;<br />&#160;&#160;...<br /><br />--------------------<br />new : pairs:seq&lt;System.Collections.Generic.KeyValuePair&lt;&#39;K,&#39;V&gt;&gt; -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new : keys:seq&lt;&#39;K&gt; * values:seq&lt;&#39;V&gt; -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new : keys:&#39;K [] * values:&#39;V [] -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new : index:Indices.IIndex&lt;&#39;K&gt; * vector:IVector&lt;&#39;V&gt; * vectorBuilder:Vectors.IVectorBuilder * indexBuilder:Indices.IIndexBuilder -&gt; Series&lt;&#39;K,&#39;V&gt;</div>
+<div class="fsdocs-tip" id="fs166">Multiple items<br />module Series
+
+from Deedle<br /><br />--------------------<br />type Series =
+  static member ofNullables : values:seq&lt;Nullable&lt;&#39;a0&gt;&gt; -&gt; Series&lt;int,&#39;a0&gt; (requires default constructor and value type and &#39;a0 :&gt; ValueType)
+  static member ofObservations : observations:seq&lt;&#39;c * &#39;d&gt; -&gt; Series&lt;&#39;c,&#39;d&gt; (requires equality)
+  static member ofOptionalObservations : observations:seq&lt;&#39;K * &#39;a1 option&gt; -&gt; Series&lt;&#39;K,&#39;a1&gt; (requires equality)
+  static member ofValues : values:seq&lt;&#39;a&gt; -&gt; Series&lt;int,&#39;a&gt;<br /><br />--------------------<br />type Series&lt;&#39;K,&#39;V (requires equality)&gt; =
+  interface IFsiFormattable
+  interface ISeries&lt;&#39;K&gt;
+  new : index:IIndex&lt;&#39;K&gt; * vector:IVector&lt;&#39;V&gt; * vectorBuilder:IVectorBuilder * indexBuilder:IIndexBuilder -&gt; Series&lt;&#39;K,&#39;V&gt; + 3 overloads
+  member After : lowerExclusive:&#39;K -&gt; Series&lt;&#39;K,&#39;V&gt;
+  member Aggregate : aggregation:Aggregation&lt;&#39;K&gt; * keySelector:Func&lt;DataSegment&lt;Series&lt;&#39;K,&#39;V&gt;&gt;,&#39;TNewKey&gt; * valueSelector:Func&lt;DataSegment&lt;Series&lt;&#39;K,&#39;V&gt;&gt;,OptionalValue&lt;&#39;R&gt;&gt; -&gt; Series&lt;&#39;TNewKey,&#39;R&gt; (requires equality) + 1 overload
+  member AsyncMaterialize : unit -&gt; Async&lt;Series&lt;&#39;K,&#39;V&gt;&gt;
+  member Before : upperExclusive:&#39;K -&gt; Series&lt;&#39;K,&#39;V&gt;
+  member Between : lowerInclusive:&#39;K * upperInclusive:&#39;K -&gt; Series&lt;&#39;K,&#39;V&gt;
+  member Compare : another:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,Diff&lt;&#39;V&gt;&gt;
+  member Convert : forward:Func&lt;&#39;V,&#39;R&gt; * backward:Func&lt;&#39;R,&#39;V&gt; -&gt; Series&lt;&#39;K,&#39;R&gt;
+  ...<br /><br />--------------------<br />new : pairs:seq&lt;System.Collections.Generic.KeyValuePair&lt;&#39;K,&#39;V&gt;&gt; -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new : keys:seq&lt;&#39;K&gt; * values:seq&lt;&#39;V&gt; -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new : keys:&#39;K [] * values:&#39;V [] -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new : index:Indices.IIndex&lt;&#39;K&gt; * vector:IVector&lt;&#39;V&gt; * vectorBuilder:Vectors.IVectorBuilder * indexBuilder:Indices.IIndexBuilder -&gt; Series&lt;&#39;K,&#39;V&gt;</div>
 <div class="fsdocs-tip" id="fs167">val observationsAll : series:Series&lt;&#39;K,&#39;T&gt; -&gt; seq&lt;&#39;K * &#39;T option&gt; (requires equality)</div>
-<div class="fsdocs-tip" id="fs168">val sortBy : projection:(&#39;T -&gt; &#39;Key) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs168">val sortBy : projection:(&#39;T -&gt; &#39;Key) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt; (requires comparison)<br /><em>&lt;summary&gt;Applies a key-generating function to each element of a sequence and yield a sequence ordered
+ by keys.  The keys are compared using generic comparison as implemented by &lt;see cref=&quot;M:Microsoft.FSharp.Core.Operators.compare&quot; /&gt;.&lt;/summary&gt;<br />&lt;remarks&gt;This function returns a sequence that digests the whole initial sequence as soon as 
+ that sequence is iterated. As a result this function should not be used with 
+ large or infinite sequences. 
+
+ The function makes no assumption on the ordering of the original 
+ sequence and uses a stable sort, that is the original order of equal elements is preserved.&lt;/remarks&gt;<br />&lt;param name=&quot;projection&quot;&gt;A function to transform items of the input sequence into comparable keys.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The result sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
 <div class="fsdocs-tip" id="fs169">val k : string</div>
 <div class="fsdocs-tip" id="fs170">val x : Series&lt;{| AverageProtGroupMass: float; Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},float&gt; option</div>
-<div class="fsdocs-tip" id="fs171">val filter : predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;</div>
+<div class="fsdocs-tip" id="fs171">val filter : predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><em>&lt;summary&gt;Returns a new collection containing only the elements of the collection
+ for which the given predicate returns &quot;true&quot;. This is a synonym for Seq.where.&lt;/summary&gt;<br />&lt;remarks&gt;The returned sequence may be passed between threads safely. However, 
+ individual IEnumerator values generated from the returned sequence should not be accessed concurrently.
+
+ Remember sequence is lazy, effects are delayed until it is enumerated.&lt;/remarks&gt;<br />&lt;param name=&quot;predicate&quot;&gt;A function to test whether each item in the input sequence should be included in the output.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The result sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
 <div class="fsdocs-tip" id="fs172">val res : seq&lt;string * Series&lt;{| AverageProtGroupMass: float; Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},float&gt; option&gt;</div>
 <div class="fsdocs-tip" id="fs173">System.String.ToLower() : string<br />System.String.ToLower(culture: System.Globalization.CultureInfo) : string</div>
-<div class="fsdocs-tip" id="fs174">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
+<div class="fsdocs-tip" id="fs174">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;<br /><em>&lt;summary&gt;The representation of &quot;Value of type &#39;T&quot;&lt;/summary&gt;<br />&lt;param name=&quot;Value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;An option representing the value.&lt;/returns&gt;</em></div>
 <div class="fsdocs-tip" id="fs175">val x : Series&lt;{| AverageProtGroupMass: float; Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},float&gt;</div>
-<div class="fsdocs-tip" id="fs176">union case Option.None: Option&lt;&#39;T&gt;</div>
+<div class="fsdocs-tip" id="fs176">union case Option.None: Option&lt;&#39;T&gt;<br /><em>&lt;summary&gt;The representation of &quot;No value&quot;&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs177">val v : Series&lt;{| AverageProtGroupMass: float; Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},float&gt;</div>
-<div class="fsdocs-tip" id="fs178">type Stats =<br />&#160;&#160;static member count : frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Series&lt;&#39;C,int&gt; (requires equality and equality)<br />&#160;&#160;static member count : series:Series&lt;&#39;K,&#39;V&gt; -&gt; int (requires equality)<br />&#160;&#160;static member describe : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;string,float&gt; (requires equality and equality)<br />&#160;&#160;static member expandingCount : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingKurt : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingMax : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingMean : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingMin : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingSkew : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;static member expandingStdDev : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)<br />&#160;&#160;...</div>
+<div class="fsdocs-tip" id="fs178">type Stats =
+  static member count : series:Series&lt;&#39;K,&#39;V&gt; -&gt; int (requires equality) + 1 overload
+  static member describe : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;string,float&gt; (requires equality and equality)
+  static member expandingCount : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)
+  static member expandingKurt : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)
+  static member expandingMax : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)
+  static member expandingMean : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)
+  static member expandingMin : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)
+  static member expandingSkew : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)
+  static member expandingStdDev : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)
+  static member expandingSum : series:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,float&gt; (requires equality)
+  ...</div>
 <div class="fsdocs-tip" id="fs179">static member Stats.mean : frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Series&lt;&#39;C,float&gt; (requires equality and equality)<br />static member Stats.mean : series:Series&lt;&#39;K,&#39;V&gt; -&gt; float (requires equality)</div>
 <div class="fsdocs-tip" id="fs180">static member Stats.stdDev : frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Series&lt;&#39;C,float&gt; (requires equality and equality)<br />static member Stats.stdDev : series:Series&lt;&#39;K,&#39;V&gt; -&gt; float (requires equality)</div>
 <div class="fsdocs-tip" id="fs181">val rbclQuantification : {| Filename: string; MeanQuant: float; StdevQuant: float |} []</div>
 <div class="fsdocs-tip" id="fs182">val rbcsQuantification : {| Filename: string; MeanQuant: float; StdevQuant: float |} []</div>
 <div class="fsdocs-tip" id="fs183">val protAbundanceChart : GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs184">type Chart =<br />&#160;&#160;static member Area : xy:seq&lt;#IConvertible * #IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:&#39;a2 -&gt; GenericChart<br />&#160;&#160;static member Area : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:&#39;a2 -&gt; GenericChart<br />&#160;&#160;static member Bar : keysvalues:seq&lt;#IConvertible * #IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?Color:&#39;a2 * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Marker:Marker -&gt; GenericChart<br />&#160;&#160;static member Bar : keys:seq&lt;#IConvertible&gt; * values:seq&lt;#IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?Color:&#39;a2 * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Marker:Marker -&gt; GenericChart<br />&#160;&#160;static member BoxPlot : xy:seq&lt;&#39;a0 * &#39;a1&gt; * ?Name:string * ?Showlegend:bool * ?Color:string * ?Fillcolor:&#39;a2 * ?Opacity:float * ?Whiskerwidth:&#39;a3 * ?Boxpoints:Boxpoints * ?Boxmean:BoxMean * ?Jitter:&#39;a4 * ?Pointpos:&#39;a5 * ?Orientation:Orientation * ?Marker:Marker * ?Line:Line * ?Alignmentgroup:&#39;a6 * ?Offsetgroup:&#39;a7 * ?Notched:bool * ?NotchWidth:float * ?QuartileMethod:QuartileMethod -&gt; GenericChart<br />&#160;&#160;static member BoxPlot : ?x:&#39;a0 * ?y:&#39;a1 * ?Name:string * ?Showlegend:bool * ?Color:string * ?Fillcolor:&#39;a2 * ?Opacity:float * ?Whiskerwidth:&#39;a3 * ?Boxpoints:Boxpoints * ?Boxmean:BoxMean * ?Jitter:&#39;a4 * ?Pointpos:&#39;a5 * ?Orientation:Orientation * ?Marker:Marker * ?Line:Line * ?Alignmentgroup:&#39;a6 * ?Offsetgroup:&#39;a7 * ?Notched:bool * ?NotchWidth:float * ?QuartileMethod:QuartileMethod -&gt; GenericChart<br />&#160;&#160;static member Bubble : xysizes:seq&lt;#IConvertible * #IConvertible * #IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?MarkerSymbol:Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool -&gt; GenericChart<br />&#160;&#160;static member Bubble : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * sizes:seq&lt;#IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?MarkerSymbol:Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool -&gt; GenericChart<br />&#160;&#160;static member Candlestick : stockTimeSeries:seq&lt;DateTime * StockData&gt; * ?Increasing:Line * ?Decreasing:Line * ?WhiskerWidth:float * ?Line:Line * ?XCalendar:Calendar -&gt; GenericChart<br />&#160;&#160;static member Candlestick : open:seq&lt;#IConvertible&gt; * high:seq&lt;#IConvertible&gt; * low:seq&lt;#IConvertible&gt; * close:seq&lt;#IConvertible&gt; * x:seq&lt;#IConvertible&gt; * ?Increasing:Line * ?Decreasing:Line * ?WhiskerWidth:float * ?Line:Line * ?XCalendar:Calendar -&gt; GenericChart<br />&#160;&#160;...</div>
+<div class="fsdocs-tip" id="fs184">type Chart =
+  static member Area : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:&#39;a2 -&gt; GenericChart + 1 overload
+  static member Bar : keys:seq&lt;#IConvertible&gt; * values:seq&lt;#IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?Color:&#39;a2 * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Marker:Marker -&gt; GenericChart + 1 overload
+  static member BoxPlot : ?x:&#39;a0 * ?y:&#39;a1 * ?Name:string * ?Showlegend:bool * ?Color:string * ?Fillcolor:&#39;a2 * ?Opacity:float * ?Whiskerwidth:&#39;a3 * ?Boxpoints:Boxpoints * ?Boxmean:BoxMean * ?Jitter:&#39;a4 * ?Pointpos:&#39;a5 * ?Orientation:Orientation * ?Marker:Marker * ?Line:Line * ?Alignmentgroup:&#39;a6 * ?Offsetgroup:&#39;a7 * ?Notched:bool * ?NotchWidth:float * ?QuartileMethod:QuartileMethod -&gt; GenericChart + 1 overload
+  static member Bubble : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * sizes:seq&lt;#IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?MarkerSymbol:Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool -&gt; GenericChart + 1 overload
+  static member Candlestick : open:seq&lt;#IConvertible&gt; * high:seq&lt;#IConvertible&gt; * low:seq&lt;#IConvertible&gt; * close:seq&lt;#IConvertible&gt; * x:seq&lt;#IConvertible&gt; * ?Increasing:Line * ?Decreasing:Line * ?WhiskerWidth:float * ?Line:Line * ?XCalendar:Calendar -&gt; GenericChart + 1 overload
+  static member ChoroplethMap : locations:seq&lt;string&gt; * z:seq&lt;#IConvertible&gt; * ?Text:seq&lt;#IConvertible&gt; * ?Locationmode:LocationFormat * ?Autocolorscale:bool * ?Colorscale:Colorscale * ?Colorbar:&#39;a2 * ?Marker:Marker * ?Zmin:&#39;a3 * ?Zmax:&#39;a4 -&gt; GenericChart
+  static member Column : keys:seq&lt;#IConvertible&gt; * values:seq&lt;#IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?Color:&#39;c * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Marker:Marker -&gt; GenericChart + 1 overload
+  static member Contour : data:seq&lt;#seq&lt;&#39;a1&gt;&gt; * ?X:seq&lt;#IConvertible&gt; * ?Y:seq&lt;#IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?Opacity:float * ?Colorscale:Colorscale * ?Showscale:&#39;a4 * ?zSmooth:SmoothAlg * ?Colorbar:&#39;a5 -&gt; GenericChart (requires &#39;a1 :&gt; IConvertible)
+  static member Doughnut : values:&#39;a0 * ?Labels:seq&lt;string&gt; * ?Name:string * ?Showlegend:bool * ?Colors:&#39;a1 * ?Hole:float * ?TextPosition:TextPosition * ?TextFont:Font * ?Hoverinfo:string * ?Textinfo:&#39;a2 * ?Opacity:float -&gt; GenericChart + 1 overload
+  static member Heatmap : data:seq&lt;#seq&lt;&#39;a1&gt;&gt; * ?ColNames:seq&lt;#IConvertible&gt; * ?RowNames:seq&lt;#IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?Opacity:float * ?Colorscale:Colorscale * ?Showscale:&#39;a4 * ?Xgap:&#39;a5 * ?Ygap:&#39;a6 * ?zSmooth:SmoothAlg * ?Colorbar:&#39;a7 -&gt; GenericChart (requires &#39;a1 :&gt; IConvertible)
+  ...<br /><em>&lt;summary&gt;
+ Provides a set of static methods for creating charts.
+&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs185">static member Chart.Column : keysvalues:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?Color:&#39;a2 * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?Marker:Marker -&gt; GenericChart.GenericChart<br />static member Chart.Column : keys:seq&lt;#System.IConvertible&gt; * values:seq&lt;#System.IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?Color:&#39;c * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?Marker:Marker -&gt; GenericChart.GenericChart</div>
 <div class="fsdocs-tip" id="fs186">val x : {| Filename: string; MeanQuant: float; StdevQuant: float |}</div>
 <div class="fsdocs-tip" id="fs187">anonymous record field Filename: string</div>

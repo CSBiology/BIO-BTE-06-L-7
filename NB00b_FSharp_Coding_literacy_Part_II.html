@@ -69,7 +69,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB01a_Systems_Biology_FSharp_Introduction.html">
                                 <span class="text">
                                     <span>NB01a Systems Biology</span>
@@ -215,7 +215,7 @@
                                     <span>NB06d'' Absolute Quantification (BN)</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-header">Links</li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://csb.bio.uni-kl.de/teaching/">
@@ -311,7 +311,7 @@ explore the functionality provided within a module by pressing <code>Strg + Spac
 <p>Another interesting feature of strings is that their characters can also be accessed according to their numerical position, starting from 0 up to 1 minus the length of the
 string. You can also slice strings up using a [from .. to] syntax:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="s">&quot;atcg&quot;</span><span class="id">.</span><span class="pn">[</span><span class="n">2</span><span class="pn">]</span>
-<span class="s">&quot;atcg&quot;</span><span class="id">.</span><span class="pn">[</span><span class="n">1..</span><span class="n">2</span><span class="pn">]</span>
+<span class="s">&quot;atcg&quot;</span><span class="id">.</span><span class="pn">[</span><span class="n">1</span> <span class="o">..</span> <span class="n">2</span><span class="pn">]</span>
 </code></pre>
 <p>Technically, strings are specialized collection of characters and we have seen how to represent a nucleotide sequence.</p>
 <h3><a name="Bio-collections-are-F-collections" class="anchor" href="#Bio-collections-are-F-collections">Bio-collections are F# collections</a></h3>
@@ -385,7 +385,7 @@ way to associate values with a key. A map is built from a list of key-value pair
 <p>Extracting a value from a Map work similar to accessing an array using the key instead of the index.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs30', 68)" onmouseover="showTip(event, 'fs30', 68)" class="id">mass</span><span class="pn">.</span><span class="pn">[</span><span class="s">&quot;Carbon&quot;</span><span class="pn">]</span>
 
-<span onmouseout="hideTip(event, 'fs31', 69)" onmouseover="showTip(event, 'fs31', 69)" class="m">Map</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs32', 70)" onmouseover="showTip(event, 'fs32', 70)" class="id">find</span> <span class="s">&quot;Cabon&quot;</span> <span onmouseout="hideTip(event, 'fs30', 71)" onmouseover="showTip(event, 'fs30', 71)" class="id">mass</span>
+<span onmouseout="hideTip(event, 'fs31', 69)" onmouseover="showTip(event, 'fs31', 69)" class="m">Map</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs32', 70)" onmouseover="showTip(event, 'fs32', 70)" class="id">find</span> <span class="s">&quot;Carbon&quot;</span> <span onmouseout="hideTip(event, 'fs30', 71)" onmouseover="showTip(event, 'fs30', 71)" class="id">mass</span>
 </code></pre>
 <p>Analogously to the List and Array module there is a Map module.
 A full overview of all map function can be found <a href="https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-fsharpmap-2.html">here</a>.</p>
@@ -442,7 +442,7 @@ a "type" keyword, followed by an name or identifier for the type, which then is 
 <p>For example, here are some type definitions for a variety of types:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs45', 108)" onmouseover="showTip(event, 'fs45', 108)" class="rt">A</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs46', 109)" onmouseover="showTip(event, 'fs46', 109)" class="vt">int</span> <span class="pn">*</span> <span onmouseout="hideTip(event, 'fs46', 110)" onmouseover="showTip(event, 'fs46', 110)" class="vt">int</span>
 
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs47', 111)" onmouseover="showTip(event, 'fs47', 111)" class="rt">B</span> <span class="o">=</span> <span class="pn">{</span><span onmouseout="hideTip(event, 'fs48', 112)" onmouseover="showTip(event, 'fs48', 112)" class="prop">AminoAcidName</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs49', 113)" onmouseover="showTip(event, 'fs49', 113)" class="rt">string</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs50', 114)" onmouseover="showTip(event, 'fs50', 114)" class="prop">Mass</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs51', 115)" onmouseover="showTip(event, 'fs51', 115)" class="vt">float</span><span class="pn">}</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs47', 111)" onmouseover="showTip(event, 'fs47', 111)" class="rt">B</span> <span class="o">=</span> <span class="pn">{</span><span onmouseout="hideTip(event, 'fs48', 112)" onmouseover="showTip(event, 'fs48', 112)" class="prop">AminoAcidName</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs49', 113)" onmouseover="showTip(event, 'fs49', 113)" class="rt">string</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs50', 114)" onmouseover="showTip(event, 'fs50', 114)" class="prop">Mass</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs51', 115)" onmouseover="showTip(event, 'fs51', 115)" class="vt">float</span><span class="pn">}</span>
 </code></pre>
 <h3><a name="Tuples-are-ad-hoc-data-structures" class="anchor" href="#Tuples-are-ad-hoc-data-structures">Tuples are ad hoc data structures</a></h3>
 <p>Tuples have several advantages over other more complex types. They can be used on the fly because they are always available without being defined, and thus are perfect for small,
@@ -513,74 +513,242 @@ will see later that all lists in F# use semicolon separators -- commas are for t
             </div>
         </div>
         <div class="fsdocs-tip" id="fs1">val mySequence : string</div>
-<div class="fsdocs-tip" id="fs2">module String<br /><br />from Microsoft.FSharp.Core</div>
-<div class="fsdocs-tip" id="fs3">val length : str:string -&gt; int</div>
+<div class="fsdocs-tip" id="fs2">module String
+
+from Microsoft.FSharp.Core<br /><em>&lt;summary&gt;Functional programming operators for string processing.  Further string operations
+ are available via the member functions on strings and other functionality in
+  &lt;a href=&quot;http://msdn2.microsoft.com/en-us/library/system.string.aspx&quot;&gt;System.String&lt;/a&gt; 
+ and &lt;a href=&quot;http://msdn2.microsoft.com/library/system.text.regularexpressions.aspx&quot;&gt;System.Text.RegularExpressions&lt;/a&gt; types.
+ &lt;/summary&gt;<br />&lt;category&gt;Strings and Text&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs3">val length : str:string -&gt; int<br /><em>&lt;summary&gt;Returns the length of the string.&lt;/summary&gt;<br />&lt;param name=&quot;str&quot;&gt;The input string.&lt;/param&gt;<br />&lt;returns&gt;The number of characters in the string.&lt;/returns&gt;</em></div>
 <div class="fsdocs-tip" id="fs4">namespace BioFSharp</div>
 <div class="fsdocs-tip" id="fs5">val adenine : Nucleotides.Nucleotide</div>
-<div class="fsdocs-tip" id="fs6">module Nucleotides<br /><br />from BioFSharp</div>
-<div class="fsdocs-tip" id="fs7">union case Nucleotides.Nucleotide.A: Nucleotides.Nucleotide</div>
+<div class="fsdocs-tip" id="fs6">module Nucleotides
+
+from BioFSharp<br /><em>&lt;summary&gt;
+Contains the Nucleotide type and its according functions.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs7">union case Nucleotides.Nucleotide.A: Nucleotides.Nucleotide<br /><em>&lt;summary&gt;
+ A : Adenine
+&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs8">val alanine : AminoAcids.AminoAcid</div>
-<div class="fsdocs-tip" id="fs9">module AminoAcids<br /><br />from BioFSharp</div>
-<div class="fsdocs-tip" id="fs10">union case AminoAcids.AminoAcid.Ala: AminoAcids.AminoAcid</div>
+<div class="fsdocs-tip" id="fs9">module AminoAcids
+
+from BioFSharp<br /><em>&lt;summary&gt;
+Contains the AminoAcid type and its according functions. The AminoAcid type is a complex presentation of amino acids, allowing modifications
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs10">union case AminoAcids.AminoAcid.Ala: AminoAcids.AminoAcid<br /><em>&lt;summary&gt;
+ &#39;A&#39; - Ala - Alanine
+
+ Very abundant and very versatile, it is more stiff than glycine, but small enough to pose only small steric limits for the protein conformation. It behaves fairly neutrally, and can be located in both hydrophilic regions on the protein outside and the hydrophobic areas inside.
+&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs11">val nucs : Nucleotide list</div>
-<div class="fsdocs-tip" id="fs12">union case Nucleotide.A: Nucleotide</div>
-<div class="fsdocs-tip" id="fs13">union case Nucleotide.T: Nucleotide</div>
-<div class="fsdocs-tip" id="fs14">union case Nucleotide.C: Nucleotide</div>
-<div class="fsdocs-tip" id="fs15">union case Nucleotide.G: Nucleotide</div>
+<div class="fsdocs-tip" id="fs12">union case Nucleotide.A: Nucleotide<br /><em>&lt;summary&gt;
+ A : Adenine
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs13">union case Nucleotide.T: Nucleotide<br /><em>&lt;summary&gt;
+ T : Thymidine (only DNA)
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs14">union case Nucleotide.C: Nucleotide<br /><em>&lt;summary&gt;
+ C : Cytosine
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs15">union case Nucleotide.G: Nucleotide<br /><em>&lt;summary&gt;
+ G : Guanine
+&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs16">val nucs&#39; : Nucleotide list</div>
 <div class="fsdocs-tip" id="fs17">val nucsArr : Nucleotide []</div>
-<div class="fsdocs-tip" id="fs18">Multiple items<br />module BioArray<br /><br />from BioFSharp.BioCollectionsExtensions<br /><br />--------------------<br />module BioArray<br /><br />from BioFSharp</div>
-<div class="fsdocs-tip" id="fs19">val reverseComplement : nucs:BioArray.BioArray&lt;Nucleotide&gt; -&gt; BioArray.BioArray&lt;Nucleotide&gt;</div>
-<div class="fsdocs-tip" id="fs20">Multiple items<br />module BioList<br /><br />from BioFSharp.BioCollectionsExtensions<br /><br />--------------------<br />module BioList<br /><br />from BioFSharp</div>
-<div class="fsdocs-tip" id="fs21">val translate : nucleotideOffset:int -&gt; rnaSeq:BioList.BioList&lt;Nucleotide&gt; -&gt; BioList.BioList&lt;AminoAcids.AminoAcid&gt;</div>
-<div class="fsdocs-tip" id="fs22">union case Nucleotide.U: Nucleotide</div>
-<div class="fsdocs-tip" id="fs23">module Array<br /><br />from Microsoft.FSharp.Collections</div>
-<div class="fsdocs-tip" id="fs24">val findIndex : predicate:(&#39;T -&gt; bool) -&gt; array:&#39;T [] -&gt; int</div>
+<div class="fsdocs-tip" id="fs18">Multiple items<br />module BioArray
+
+from BioFSharp.BioCollectionsExtensions<br /><br />--------------------<br />module BioArray
+
+from BioFSharp<br /><em>&lt;summary&gt;
+This module contains the BioArray type and its according functions. The BioArray type is an array of objects using the IBioItem interface
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs19">val reverseComplement : nucs:BioArray.BioArray&lt;Nucleotide&gt; -&gt; BioArray.BioArray&lt;Nucleotide&gt;<br /><em>&lt;summary&gt;
+ Create the reverse complement strand meaning antiparallel DNA strand or the cDNA (from RNA) respectivly. For example, the sequence &quot;ATGC&quot; is converted to &quot;GCAT&quot;. &quot;Antiparallel&quot; combines the two functions &quot;Complement&quot; and &quot;Inverse&quot;.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs20">Multiple items<br />module BioList
+
+from BioFSharp.BioCollectionsExtensions<br /><br />--------------------<br />module BioList
+
+from BioFSharp<br /><em>&lt;summary&gt;
+This module contains the BioList type and its according functions. The BioList type is a List of objects using the IBioItem interface
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs21">val translate : nucleotideOffset:int -&gt; rnaSeq:BioList.BioList&lt;Nucleotide&gt; -&gt; BioList.BioList&lt;AminoAcids.AminoAcid&gt;<br /><em>&lt;summary&gt;
+ translates nucleotide sequence to aminoacid sequence    
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs22">union case Nucleotide.U: Nucleotide<br /><em>&lt;summary&gt;
+ U : Uracil    (only RNA)
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs23">module Array
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with arrays.&lt;/summary&gt;<br />&lt;remarks&gt;
+  See also &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/arrays&quot;&gt;F# Language Guide - Arrays&lt;/a&gt;.
+ &lt;/remarks&gt;</em></div>
+<div class="fsdocs-tip" id="fs24">val findIndex : predicate:(&#39;T -&gt; bool) -&gt; array:&#39;T [] -&gt; int<br /><em>&lt;summary&gt;Returns the index of the first element in the array
+ that satisfies the given predicate. Raise &lt;see cref=&quot;T:System.Collections.Generic.KeyNotFoundException&quot; /&gt; if 
+ none of the elements satisfy the predicate.&lt;/summary&gt;<br />&lt;param name=&quot;predicate&quot;&gt;The function to test the input elements.&lt;/param&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;exception cref=&quot;T:System.Collections.Generic.KeyNotFoundException&quot;&gt;Thrown if &lt;c&gt;predicate&lt;/c&gt;
+ never returns true.&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;<br />&lt;returns&gt;The index of the first element in the array that satisfies the given predicate.&lt;/returns&gt;</em></div>
 <div class="fsdocs-tip" id="fs25">val n : Nucleotide</div>
-<div class="fsdocs-tip" id="fs26">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
-<div class="fsdocs-tip" id="fs27">val length : source:seq&lt;&#39;T&gt; -&gt; int</div>
-<div class="fsdocs-tip" id="fs28">Multiple items<br />module List<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type List&lt;&#39;T&gt; =<br />&#160;&#160;| ( [] )<br />&#160;&#160;| ( :: ) of Head: &#39;T * Tail: &#39;T list<br />&#160;&#160;&#160;&#160;interface IReadOnlyList&lt;&#39;T&gt;<br />&#160;&#160;&#160;&#160;interface IReadOnlyCollection&lt;&#39;T&gt;<br />&#160;&#160;&#160;&#160;interface IEnumerable<br />&#160;&#160;&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;&#160;&#160;member GetReverseIndex : rank:int * offset:int -&gt; int<br />&#160;&#160;&#160;&#160;member GetSlice : startIndex:int option * endIndex:int option -&gt; &#39;T list<br />&#160;&#160;&#160;&#160;member Head : &#39;T<br />&#160;&#160;&#160;&#160;member IsEmpty : bool<br />&#160;&#160;&#160;&#160;member Item : index:int -&gt; &#39;T with get<br />&#160;&#160;&#160;&#160;member Length : int<br />&#160;&#160;&#160;&#160;...</div>
-<div class="fsdocs-tip" id="fs29">val toArray : list:&#39;T list -&gt; &#39;T []</div>
+<div class="fsdocs-tip" id="fs26">module Seq
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with values of type &lt;see cref=&quot;T:Microsoft.FSharp.Collections.seq`1&quot; /&gt;.&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs27">val length : source:seq&lt;&#39;T&gt; -&gt; int<br /><em>&lt;summary&gt;Returns the length of the sequence&lt;/summary&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The length of the sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs28">Multiple items<br />module List
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with values of type &lt;see cref=&quot;T:Microsoft.FSharp.Collections.list`1&quot; /&gt;.&lt;/summary&gt;<br />&lt;namespacedoc&gt;&lt;summary&gt;Operations for collections such as lists, arrays, sets, maps and sequences. See also 
+    &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/fsharp-collection-types&quot;&gt;F# Collection Types&lt;/a&gt; in the F# Language Guide.
+ &lt;/summary&gt;&lt;/namespacedoc&gt;</em><br /><br />--------------------<br />type List&lt;&#39;T&gt; =
+  | ( [] )
+  | ( :: ) of Head: &#39;T * Tail: &#39;T list
+    interface IReadOnlyList&lt;&#39;T&gt;
+    interface IReadOnlyCollection&lt;&#39;T&gt;
+    interface IEnumerable
+    interface IEnumerable&lt;&#39;T&gt;
+    member GetReverseIndex : rank:int * offset:int -&gt; int
+    member GetSlice : startIndex:int option * endIndex:int option -&gt; &#39;T list
+    static member Cons : head:&#39;T * tail:&#39;T list -&gt; &#39;T list
+    member Head : &#39;T
+    member IsEmpty : bool
+    member Item : index:int -&gt; &#39;T with get
+    ...<br /><em>&lt;summary&gt;The type of immutable singly-linked lists.&lt;/summary&gt;<br />&lt;remarks&gt;Use the constructors &lt;c&gt;[]&lt;/c&gt; and &lt;c&gt;::&lt;/c&gt; (infix) to create values of this type, or
+ the notation &lt;c&gt;[1;2;3]&lt;/c&gt;. Use the values in the &lt;c&gt;List&lt;/c&gt; module to manipulate 
+ values of this type, or pattern match against the values directly.
+ &lt;/remarks&gt;<br />&lt;exclude /&gt;</em></div>
+<div class="fsdocs-tip" id="fs29">val toArray : list:&#39;T list -&gt; &#39;T []<br /><em>&lt;summary&gt;Builds an array from the given list.&lt;/summary&gt;<br />&lt;param name=&quot;list&quot;&gt;The input list.&lt;/param&gt;<br />&lt;returns&gt;The array containing the elements of the list.&lt;/returns&gt;</em></div>
 <div class="fsdocs-tip" id="fs30">val mass : Map&lt;string,float&gt;</div>
-<div class="fsdocs-tip" id="fs31">Multiple items<br />module Map<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type Map&lt;&#39;Key,&#39;Value (requires comparison)&gt; =<br />&#160;&#160;interface IReadOnlyDictionary&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;interface IReadOnlyCollection&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IComparable<br />&#160;&#160;interface IEnumerable&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;<br />&#160;&#160;interface ICollection&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;<br />&#160;&#160;interface IDictionary&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;new : elements:seq&lt;&#39;Key * &#39;Value&gt; -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;member Add : key:&#39;Key * value:&#39;Value -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;member Change : key:&#39;Key * f:(&#39;Value option -&gt; &#39;Value option) -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;...<br /><br />--------------------<br />new : elements:seq&lt;&#39;Key * &#39;Value&gt; -&gt; Map&lt;&#39;Key,&#39;Value&gt;</div>
-<div class="fsdocs-tip" id="fs32">val find : key:&#39;Key -&gt; table:Map&lt;&#39;Key,&#39;T&gt; -&gt; &#39;T (requires comparison)</div>
-<div class="fsdocs-tip" id="fs33">val monoisoMass : aa:AminoAcids.AminoAcid -&gt; float</div>
-<div class="fsdocs-tip" id="fs34">union case AminoAcids.AminoAcid.Ser: AminoAcids.AminoAcid</div>
+<div class="fsdocs-tip" id="fs31">Multiple items<br />module Map
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with values of type &lt;see cref=&quot;T:Microsoft.FSharp.Collections.Map`2&quot; /&gt;.&lt;/summary&gt;</em><br /><br />--------------------<br />type Map&lt;&#39;Key,&#39;Value (requires comparison)&gt; =
+  interface IReadOnlyDictionary&lt;&#39;Key,&#39;Value&gt;
+  interface IReadOnlyCollection&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;
+  interface IEnumerable
+  interface IComparable
+  interface IEnumerable&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;
+  interface ICollection&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;
+  interface IDictionary&lt;&#39;Key,&#39;Value&gt;
+  new : elements:seq&lt;&#39;Key * &#39;Value&gt; -&gt; Map&lt;&#39;Key,&#39;Value&gt;
+  member Add : key:&#39;Key * value:&#39;Value -&gt; Map&lt;&#39;Key,&#39;Value&gt;
+  member Change : key:&#39;Key * f:(&#39;Value option -&gt; &#39;Value option) -&gt; Map&lt;&#39;Key,&#39;Value&gt;
+  ...<br /><em>&lt;summary&gt;Immutable maps based on binary trees, where keys are ordered by F# generic comparison. By default
+ comparison is the F# structural comparison function or uses implementations of the IComparable interface on key values.&lt;/summary&gt;<br />&lt;remarks&gt;See the &lt;see cref=&quot;T:Microsoft.FSharp.Collections.MapModule&quot; /&gt; module for further operations on maps.
+
+ All members of this class are thread-safe and may be used concurrently from multiple threads.&lt;/remarks&gt;</em><br /><br />--------------------<br />new : elements:seq&lt;&#39;Key * &#39;Value&gt; -&gt; Map&lt;&#39;Key,&#39;Value&gt;</div>
+<div class="fsdocs-tip" id="fs32">val find : key:&#39;Key -&gt; table:Map&lt;&#39;Key,&#39;T&gt; -&gt; &#39;T (requires comparison)<br /><em>&lt;summary&gt;Lookup an element in the map, raising &lt;c&gt;KeyNotFoundException&lt;/c&gt; if no binding
+ exists in the map.&lt;/summary&gt;<br />&lt;param name=&quot;key&quot;&gt;The input key.&lt;/param&gt;<br />&lt;param name=&quot;table&quot;&gt;The input map.&lt;/param&gt;<br />&lt;exception cref=&quot;T:System.Collections.Generic.KeyNotFoundException&quot;&gt;Thrown when the key does not exist in the map.&lt;/exception&gt;<br />&lt;returns&gt;The value mapped to the given key.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs33">val monoisoMass : aa:AminoAcids.AminoAcid -&gt; float<br /><em>&lt;summary&gt;
+ Returns the monoisotopic mass of AminoAcid (without H20)
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs34">union case AminoAcids.AminoAcid.Ser: AminoAcids.AminoAcid<br /><em>&lt;summary&gt;
+ &#39;S&#39; - Ser - Serine
+
+ Serine and threonine have a short group ended with a hydroxyl group. Its hydrogen is easy to remove, so serine and threonine often act as hydrogen donors in enzymes. Both are very hydrophilic, so the outer regions of soluble proteins tend to be rich with them.
+&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs35">val peptide : AminoAcid list</div>
-<div class="fsdocs-tip" id="fs36">union case AminoAcid.Pro: AminoAcid</div>
-<div class="fsdocs-tip" id="fs37">union case AminoAcid.Glu: AminoAcid</div>
-<div class="fsdocs-tip" id="fs38">union case AminoAcid.Thr: AminoAcid</div>
-<div class="fsdocs-tip" id="fs39">union case AminoAcid.Ile: AminoAcid</div>
-<div class="fsdocs-tip" id="fs40">union case AminoAcid.Asp: AminoAcid</div>
-<div class="fsdocs-tip" id="fs41">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; list:&#39;T list -&gt; &#39;U list</div>
-<div class="fsdocs-tip" id="fs42">val monoisoMass : aa:AminoAcid -&gt; float</div>
-<div class="fsdocs-tip" id="fs43">val sumBy : projection:(&#39;T -&gt; &#39;U) -&gt; list:&#39;T list -&gt; &#39;U (requires member ( + ) and member get_Zero)</div>
-<div class="fsdocs-tip" id="fs44">val sum : list:&#39;T list -&gt; &#39;T (requires member ( + ) and member get_Zero)</div>
+<div class="fsdocs-tip" id="fs36">union case AminoAcid.Pro: AminoAcid<br /><em>&lt;summary&gt;
+ &#39;P&#39; - Pro - Proline
+
+ Pro contains an unusual ring to the N-end amine group, which forces the CO-NH amide sequence into a fixed conformation. It can disrupt protein folding structures like α helix or β sheet, forcing the desired kink in the protein chain. Common in collagen, it often undergoes a post-translational modification to hydroxyproline.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs37">union case AminoAcid.Glu: AminoAcid<br /><em>&lt;summary&gt;
+ &#39;E&#39; - Glu - Glutamic Acid
+
+ Glu behaves similarly to aspartic acid, and has a longer, slightly more flexible side chain.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs38">union case AminoAcid.Thr: AminoAcid<br /><em>&lt;summary&gt;
+ &#39;T&#39; - Thr - Threonine
+
+ Essential for humans, Thr behaves similarly to serine.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs39">union case AminoAcid.Ile: AminoAcid<br /><em>&lt;summary&gt;
+ &#39;I&#39; - Ile - Isoleucine
+
+ Ile is essential for humans. Isoleucine, leucine, and valine have large aliphatic hydrophobic side chains. Their molecules are rigid, and their mutual hydrophobic interactions are important for the correct folding of proteins, as these chains tend to be located inside of the protein molecule.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs40">union case AminoAcid.Asp: AminoAcid<br /><em>&lt;summary&gt;
+ &#39;D&#39; - Asp - Aspartic Acid
+
+ Asp behaves similarly to glutamic acid, and carries a hydrophilic acidic group with strong negative charge. Usually, it is located on the outer surface of the protein, making it water-soluble. It binds to positively charged molecules and ions, and is often used in enzymes to fix the metal ion. When located inside of the protein, aspartate and glutamate are usually paired with arginine and lysine.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs41">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; list:&#39;T list -&gt; &#39;U list<br /><em>&lt;summary&gt;Builds a new collection whose elements are the results of applying the given function
+ to each of the elements of the collection.&lt;/summary&gt;<br />&lt;param name=&quot;mapping&quot;&gt;The function to transform elements from the input list.&lt;/param&gt;<br />&lt;param name=&quot;list&quot;&gt;The input list.&lt;/param&gt;<br />&lt;returns&gt;The list of transformed elements.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs42">val monoisoMass : aa:AminoAcid -&gt; float<br /><em>&lt;summary&gt;
+ Returns the monoisotopic mass of AminoAcid (without H20)
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs43">val sumBy : projection:(&#39;T -&gt; &#39;U) -&gt; list:&#39;T list -&gt; &#39;U (requires member ( + ) and member get_Zero)<br /><em>&lt;summary&gt;Returns the sum of the results generated by applying the function to each element of the list.&lt;/summary&gt;<br />&lt;param name=&quot;projection&quot;&gt;The function to transform the list elements into the type to be summed.&lt;/param&gt;<br />&lt;param name=&quot;list&quot;&gt;The input list.&lt;/param&gt;<br />&lt;returns&gt;The resulting sum.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs44">val sum : list:&#39;T list -&gt; &#39;T (requires member ( + ) and member get_Zero)<br /><em>&lt;summary&gt;Returns the sum of the elements in the list.&lt;/summary&gt;<br />&lt;param name=&quot;list&quot;&gt;The input list.&lt;/param&gt;<br />&lt;returns&gt;The resulting sum.&lt;/returns&gt;</em></div>
 <div class="fsdocs-tip" id="fs45">type A = int * int</div>
-<div class="fsdocs-tip" id="fs46">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />--------------------<br />type int = int32<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int</div>
-<div class="fsdocs-tip" id="fs47">type B =<br />&#160;&#160;{ AminoAcidName: string<br />&#160;&#160;&#160;&#160;Mass: float }</div>
+<div class="fsdocs-tip" id="fs46">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to signed 32-bit integer. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Int32.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted int&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type int = int32<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type int&lt;&#39;Measure&gt; =
+  int<br /><em>&lt;summary&gt;The type of 32-bit signed integer numbers, annotated with a unit of measure. The unit
+ of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to 
+ &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs47">type B =
+  { AminoAcidName: string
+    Mass: float }</div>
 <div class="fsdocs-tip" id="fs48">B.AminoAcidName: string</div>
-<div class="fsdocs-tip" id="fs49">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />--------------------<br />type string = System.String</div>
-<div class="fsdocs-tip" id="fs50">Multiple items<br />B.Mass: float<br /><br />--------------------<br />module Mass<br /><br />from BioFSharp</div>
-<div class="fsdocs-tip" id="fs51">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />--------------------<br />type float = System.Double<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float</div>
+<div class="fsdocs-tip" id="fs49">Multiple items<br />val string : value:&#39;T -&gt; string<br /><em>&lt;summary&gt;Converts the argument to a string using &lt;c&gt;ToString&lt;/c&gt;.&lt;/summary&gt;<br />&lt;remarks&gt;For standard integer and floating point values the and any type that implements &lt;c&gt;IFormattable&lt;/c&gt;&lt;c&gt;ToString&lt;/c&gt; conversion uses &lt;c&gt;CultureInfo.InvariantCulture&lt;/c&gt;. &lt;/remarks&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted string.&lt;/returns&gt;</em><br /><br />--------------------<br />type string = System.String<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.String&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs50">Multiple items<br />B.Mass: float<br /><br />--------------------<br />module Mass
+
+from BioFSharp<br /><em>&lt;summary&gt;
+Molecular mass related functions
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs51">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to 64-bit float. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Double.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted float&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type float = System.Double<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type float&lt;&#39;Measure&gt; =
+  float<br /><em>&lt;summary&gt;The type of double-precision floating point numbers, annotated with a unit of measure. 
+ The unit of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to 
+ &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category index=&quot;6&quot;&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
 <div class="fsdocs-tip" id="fs52">val monoMass : float</div>
 <div class="fsdocs-tip" id="fs53">val threeLetterCode : string</div>
 <div class="fsdocs-tip" id="fs54">val getThreeLetterCode : monoMass:&#39;a * threeLetterCode:&#39;b -&gt; &#39;b</div>
 <div class="fsdocs-tip" id="fs55">val monoMass : &#39;a</div>
 <div class="fsdocs-tip" id="fs56">val threeLetterCode : &#39;b</div>
 <div class="fsdocs-tip" id="fs57">val returnTwoValues : unit -&gt; char * int</div>
-<div class="fsdocs-tip" id="fs58">type AminoAcidMass =<br />&#160;&#160;{ OneLetterCode: char<br />&#160;&#160;&#160;&#160;Mass: float }</div>
+<div class="fsdocs-tip" id="fs58">type AminoAcidMass =
+  { OneLetterCode: char
+    Mass: float }</div>
 <div class="fsdocs-tip" id="fs59">AminoAcidMass.OneLetterCode: char</div>
-<div class="fsdocs-tip" id="fs60">Multiple items<br />val char : value:&#39;T -&gt; char (requires member op_Explicit)<br /><br />--------------------<br />type char = System.Char</div>
-<div class="fsdocs-tip" id="fs61">Multiple items<br />AminoAcidMass.Mass: float<br /><br />--------------------<br />module Mass<br /><br />from BioFSharp</div>
-<div class="fsdocs-tip" id="fs62">type NucleotideMass =<br />&#160;&#160;{ Symbol: char<br />&#160;&#160;&#160;&#160;Mass: float }</div>
+<div class="fsdocs-tip" id="fs60">Multiple items<br />val char : value:&#39;T -&gt; char (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to character. Numeric inputs are converted according to the UTF-16 
+ encoding for characters. String inputs must be exactly one character long. For other
+ input types the operation requires an appropriate static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted char.&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type char = System.Char<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Char&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs61">Multiple items<br />AminoAcidMass.Mass: float<br /><br />--------------------<br />module Mass
+
+from BioFSharp<br /><em>&lt;summary&gt;
+Molecular mass related functions
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs62">type NucleotideMass =
+  { Symbol: char
+    Mass: float }</div>
 <div class="fsdocs-tip" id="fs63">NucleotideMass.Symbol: char</div>
-<div class="fsdocs-tip" id="fs64">Multiple items<br />NucleotideMass.Mass: float<br /><br />--------------------<br />module Mass<br /><br />from BioFSharp</div>
+<div class="fsdocs-tip" id="fs64">Multiple items<br />NucleotideMass.Mass: float<br /><br />--------------------<br />module Mass
+
+from BioFSharp<br /><em>&lt;summary&gt;
+Molecular mass related functions
+&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs65">val asp : AminoAcidMass</div>
-<div class="fsdocs-tip" id="fs66">module Mass<br /><br />from BioFSharp</div>
-<div class="fsdocs-tip" id="fs67">type AminoAcidMassRecord =<br />&#160;&#160;{ OneLetterCode: char<br />&#160;&#160;&#160;&#160;Mass: float }</div>
+<div class="fsdocs-tip" id="fs66">module Mass
+
+from BioFSharp<br /><em>&lt;summary&gt;
+Molecular mass related functions
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs67">type AminoAcidMassRecord =
+  { OneLetterCode: char
+    Mass: float }</div>
 <div class="fsdocs-tip" id="fs68">AminoAcidMassRecord.OneLetterCode: char</div>
-<div class="fsdocs-tip" id="fs69">Multiple items<br />AminoAcidMassRecord.Mass: float<br /><br />--------------------<br />module Mass<br /><br />from BioFSharp</div>
+<div class="fsdocs-tip" id="fs69">Multiple items<br />AminoAcidMassRecord.Mass: float<br /><br />--------------------<br />module Mass
+
+from BioFSharp<br /><em>&lt;summary&gt;
+Molecular mass related functions
+&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs70">type AminoAcidMassTuple = char * float</div>
 <div class="fsdocs-tip" id="fs71">val cys : AminoAcidMassRecord</div>
 <div class="fsdocs-tip" id="fs72">AminoAcidMassRecord.Mass: float</div>

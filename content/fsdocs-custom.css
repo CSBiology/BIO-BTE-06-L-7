@@ -9021,6 +9021,11 @@ em {
 #fsdocs-content span.s {
   color: #d59a1b; }
 
+/* Added for special characters – was absent before*/
+#fsdocs-content span.pn {
+    color: #A07F15;
+}
+
 /* printf formatters */
 #fsdocs-content span.pf {
   color: #ed7d31; }
