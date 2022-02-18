@@ -72,12 +72,11 @@ This notebook introduces the most classical way to model growth of *Chlamydomona
 Now, let's get started by loading the required libraries first.
 *)
 
-#r "nuget: FSharp.Stats, 0.4.0"
-#r "nuget: Plotly.NET, 2.0.0-beta6"
+#r "nuget: FSharp.Stats, 0.4.3"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta8"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
 #endif // IPYNB
 
 open System
@@ -101,8 +100,8 @@ let example_Chart_1 =
     Chart.Point(exmp_x_Hours,exmp_y_Count)
     // some minor styling with title and axis-titles.
     |> Chart.withTitle "Growth curve of Chlamydomonas reinhardtii cell cultures"
-    |> Chart.withY_AxisStyle ("Number of cells")
-    |> Chart.withX_AxisStyle ("Time [hours]")
+    |> Chart.withYAxisStyle ("Number of cells")
+    |> Chart.withXAxisStyle ("Time [hours]")
 
 example_Chart_1
 (***hide***)
@@ -135,8 +134,8 @@ let exmp_y_Count_Log = exmp_y_Count |> Array.map log2
 let example_Chart_2 = 
     Chart.Point(exmp_x_Hours,exmp_y_Count_Log)
     |> Chart.withTitle "Growth curve of Chlamydomonas reinhardtii cell cultures"
-    |> Chart.withY_AxisStyle ("Number of cells [log2]")
-    |> Chart.withX_AxisStyle ("Time [hours]")
+    |> Chart.withYAxisStyle ("Number of cells [log2]")
+    |> Chart.withXAxisStyle ("Time [hours]")
 
 example_Chart_2
 (***hide***)
@@ -301,7 +300,7 @@ let fittedChartGompertz =
         example_Chart_2      |> Chart.withTraceName "raw data"
         fittedValuesGompertz |> Chart.withTraceName "gompertz model"
     ]
-    |> Chart.Combine
+    |> Chart.combine
 
 fittedChartGompertz
 (***hide***)
@@ -320,8 +319,8 @@ Luckily, there is a short cut when using the Gompertz model. It allows the deter
 
 *)
 
-let getGenTimeFromGompertz (parametervector:vector) (logTransform:float -> float) =
-    logTransform 2. * Math.E / (parametervector.[1] * parametervector.[2])
+let getGenTimeFromGompertz (parameterVector: vector) (logTransform: float -> float) =
+    logTransform 2. * Math.E / (parameterVector.[1] * parameterVector.[2])
 
 let genTime = getGenTimeFromGompertz gompertzParams log2
 

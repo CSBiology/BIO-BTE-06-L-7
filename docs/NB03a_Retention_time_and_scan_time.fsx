@@ -26,15 +26,14 @@ hydrophobicity. It is a only a crude model, but considers the fact that less hyd
 As always, we start by loading our famous libraries.
 *)
 
-#r "nuget: FSharp.Stats, 0.4.0"
+#r "nuget: FSharp.Stats, 0.4.3"
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-#r "nuget: Plotly.NET, 2.0.0-beta6"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
 #r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta8"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
 #endif // IPYNB
 
 open BioFSharp
@@ -56,7 +55,7 @@ I think you remember the protein digestion process from the privious notebook (s
 // Code-Block 1
 
 let directory = __SOURCE_DIRECTORY__
-let path = Path.Combine[|directory;"downloads/Chlamy_JGI5_5(Cp_Mp).fasta"|]
+let path = Path.Combine[|directory; "downloads/Chlamy_JGI5_5(Cp_Mp).fasta"|]
 downloadFile path "Chlamy_JGI5_5(Cp_Mp).fasta" "bio-bte-06-l-7"
 // with /../ we navigate a directory 
 path
@@ -89,14 +88,14 @@ Calculate the single and double charged m/z for all peptides and combine both in
 let singleChargedPeptides =
     peptideAndMasses
     // we only consider peptides longer than 6 amino acids 
-    |> Array.filter (fun (peptide,ucMass) -> peptide.Length >=7)
+    |> Array.filter (fun (peptide,ucMass) -> peptide.Length >= 7)
     |> Array.map (fun (peptide,ucMass) -> peptide, Mass.toMZ ucMass 1.) 
 
 // calculate m/z for each peptide z=2
 let doubleChargedPeptides =
     peptideAndMasses
     // we only consider peptides longer than 6 amino acids 
-    |> Array.filter (fun (peptide,ucMass) -> peptide.Length >=7)
+    |> Array.filter (fun (peptide,ucMass) -> peptide.Length >= 7)
     |> Array.map (fun (peptide,ucMass) -> peptide, Mass.toMZ ucMass 2.) 
 
 // combine this two    
@@ -121,11 +120,13 @@ let rnd = new System.Random()
 let chargedPeptideChar =
     Array.sampleWithOutReplacement rnd chargedPeptides 100
     // we only want the m/z
-    |> Array.map (fun (peptide,mz) -> mz,1.) 
+    |> Array.map (fun (peptide,mz) -> mz, 1.) 
     |> Chart.Column
-    |> Chart.withX_AxisStyle("m/z", MinMax=(0.,3000.))
-    |> Chart.withY_AxisStyle ("Intensity", MinMax=(0.,1.3))
-    |> Chart.withSize (900.,400.)
+    |> Chart.withXAxisStyle ("m/z", MinMax = (0., 3000.))
+    |> Chart.withYAxisStyle ("Intensity", MinMax = (0., 1.3))
+    |> Chart.withSize (900., 400.)
+    |> Chart.withTemplate ChartTemplates.light
+
 chargedPeptideChar
 (***hide***)
 chargedPeptideChar |> GenericChart.toChartHTML
@@ -143,7 +144,7 @@ but a full isotopic cluster. Therefore, we use our convenience function from the
 
 // Predicts an isotopic distribution of the given formula at the given charge, 
 // normalized by the sum of probabilities, using the MIDAs algorithm
-let generateIsotopicDistribution (charge:int) (f:Formula.Formula) =
+let generateIsotopicDistribution (charge: int) (f: Formula.Formula) =
     IsotopicDistribution.MIDA.ofFormula 
         IsotopicDistribution.MIDA.normalizeByMaxProb
         0.01
@@ -177,9 +178,11 @@ let peptidesAndMassesChart =
         ] |> Array.concat
         )
     |> Chart.Column
-    |> Chart.withX_AxisStyle("m/z", MinMax=(0.,3000.))
-    |> Chart.withY_AxisStyle ("Intensity", MinMax=(0.,1.3))
-    |> Chart.withSize (900.,400.)
+    |> Chart.withXAxisStyle ("m/z", MinMax = (0., 3000.))
+    |> Chart.withYAxisStyle ("Intensity", MinMax = (0., 1.3))
+    |> Chart.withSize (900., 400.)
+    |> Chart.withTemplate ChartTemplates.light
+
 peptidesAndMassesChart
 // HINT: zoom in on peptides
 
@@ -253,13 +256,16 @@ let peptidesFirst200Chart =
             generateIsotopicDistribution 1 formula
             // generate double charged iones 
             generateIsotopicDistribution 2 formula
-        ] |> Array.concat
+        ]
+        |> Array.concat
         )
     // Display
     |> Chart.Column
-    |> Chart.withX_AxisStyle("m/z", MinMax=(0.,3000.))
-    |> Chart.withY_AxisStyle ("Intensity", MinMax=(0.,1.3))
-    |> Chart.withSize (900.,400.)
+    |> Chart.withXAxisStyle ("m/z", MinMax = (0., 3000.))
+    |> Chart.withYAxisStyle ("Intensity", MinMax = (0., 1.3))
+    |> Chart.withSize (900., 400.)
+    |> Chart.withTemplate ChartTemplates.light
+
 peptidesFirst200Chart
 // HINT: zoom in on peptides
 

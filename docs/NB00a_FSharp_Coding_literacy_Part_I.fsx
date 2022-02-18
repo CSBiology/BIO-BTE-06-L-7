@@ -30,7 +30,7 @@ application in live science.
 
 ### Numeric types
 
-Definitely, F# can be a good friend in your daily work even when you are doing simple calculations, e.g. in the lab. Let’s jump right in and some stuff done:
+Definitely, F# can be a good friend in your daily work even when you are doing simple calculations, e.g. in the lab. Let's jump right in and some stuff done:
 *)
 // Define numerical values
 let co2Oxygens = 2
@@ -39,7 +39,7 @@ let oxygenMass = 15.9994
 let carbonMass = 12.0107
 let avogadro = 6.023e23
 (**
-First things first: Any text on a line that follows `//` is handled as a comment and is ignored by the F# interpreter. Comments help to write organized code with documentation 
+First things first: Any text on a line that follows `//` is handled as a comment and is ignored by the F# compiler. Comments help to write organized code with documentation 
 and are therefore not executed as part of your program or script. Additionally, there is also the possibility to write comments that span multiple lines by putting text between 
 parenthesis and asterisk `(* … *)`.
 
@@ -78,7 +78,7 @@ let nucleotide = 'A'
 Here, single quotes are used for single character (`char`), while double quotes indicate a string. Importantly, if you would like to use quotes (or other special characters) in a string, you must 
 quote the quotes with a backslash `\`. 
 
-One more way to declare strings in F# that allows you to even include line breaks in the strings. It’s useful, for example, for declaring paragraphs of text as strings. To use it, you have to enclose
+One more way to declare strings in F# that allows you to even include line breaks in the strings. It's useful, for example, for declaring paragraphs of text as strings. To use it, you have to enclose
 the string itself in triple quotes.
 *)
 let poem = """
@@ -100,7 +100,7 @@ Very often, in programming, you will need a data type that can only have one of 
 `true` or `false`.
 
 ### F# handles your types.
-The F# interpreter needs to always know the type of your value. Luckily, this does not mean, that you need to specify the type all the time explicitly by yourself. In the process of type inference, the 
+The F# compiler needs to always know the type of your value. Luckily, this does not mean that you need to specify the type all the time explicitly by yourself. In the process of type inference, the 
 F# compiler infers the types of values, variables, parameters and return values.
 The compiler infers the type based on the context. If the type is not otherwise specified, it is inferred to be generic. If the code uses a value inconsistently, in such a way that there is no single 
 inferred type that satisfies all the uses of a value, the compiler reports an error. 
@@ -262,8 +262,8 @@ let bufferRecipe' buffer molarity =
     
 
 (**
-Each `|`defines a condition, the `->` means "if the condition is true, follow this path...". The `_` is the default pattern, meaning that it matches anything, sort of like a wildcard. Occasionally, it's not enough to 
-match an input against a particular value; we can add filters, or guards, to patterns using the `when` keyword. We can rewrite out ` bufferRecipe` function once again. 
+Each `|` defines a condition, the `->` means "if the condition is true, follow this path...". The `_` is the default pattern, meaning that it matches anything, sort of like a wildcard. Occasionally, it's not enough to 
+match an input against a particular value; we can add filters, or guards, to patterns using the `when` keyword. We can rewrite our `bufferRecipe` function once again. 
 *)
 
 //Function for calculating buffer recipes that uses match-conditions with guards
@@ -277,5 +277,5 @@ let bufferRecipe'' buffer molarity =
     grams * molarity 
     
 (**
-Maybe we should notice, that in this function we use the function `failwith` to throw an error, if we do not know the buffer. This is not particular nice, however necessary in our example. 
+Maybe we should notice that in this function we use the function `failwith` to throw an error, if we do not know the buffer. This is not particular nice, however necessary in our example. 
 *)

@@ -25,13 +25,12 @@ explained under quantification in the following section.
 
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-#r "nuget: Plotly.NET, 2.0.0-beta6"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
 #r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta8"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
 #endif // IPYNB
 
 open Plotly.NET
@@ -49,7 +48,7 @@ and the centroided. For the centroidisation, we use a Ricker 2D wavelet.
 
 // Code-Block 1
 
-let ms1PeakPicking (mzData:float []) (intensityData: float []) = 
+let ms1PeakPicking (mzData: float []) (intensityData: float []) = 
     if mzData.Length < 3 then 
         [||],[||]
     else
@@ -72,7 +71,7 @@ We load a sample MS1 from a mgf file.
 
 // Code-Block 2
 let directory = __SOURCE_DIRECTORY__
-let path = Path.Combine[|directory;"downloads/ms1MGF.mgf"|]
+let path = Path.Combine[|directory; "downloads/ms1MGF.mgf"|]
 downloadFile path "ms1MGF.mgf" "bio-bte-06-l-7"
 
 let ms1 = 
@@ -114,10 +113,11 @@ let filteredChart =
         Chart.Point(fst centroidedMs1,snd centroidedMs1)
         |> Chart.withTraceName "Centroided MS1"
     ]
-    |> Chart.Combine
-    |> Chart.withY_AxisStyle "Intensity"
-    |> Chart.withX_AxisStyle (title = "m/z", MinMax = (400., 800.))
-    |> Chart.withSize (900.,900.)
+    |> Chart.combine
+    |> Chart.withYAxisStyle "Intensity"
+    |> Chart.withXAxisStyle (title = "m/z", MinMax = (400., 800.))
+    |> Chart.withSize (900., 900.)
+
 filteredChart
 (***hide***)
 filteredChart |> GenericChart.toChartHTML

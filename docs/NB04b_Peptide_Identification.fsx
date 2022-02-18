@@ -96,15 +96,14 @@ where:
 Matching a measured spectrum against chlamy database
 *)
 
-#r "nuget: BioFSharp, 2.0.0-beta4"
-#r "nuget: BioFSharp.IO, 2.0.0-beta4"
+#r "nuget: BioFSharp, 2.0.0-beta5"
+#r "nuget: BioFSharp.IO, 2.0.0-beta5"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
-#r "nuget: Plotly.NET, 2.0.0-beta6"
 #r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta8"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
 #endif // IPYNB
 
 open Plotly.NET
@@ -139,7 +138,11 @@ Here, the spectrum is already centroidized as shown in *NB03c\_Centroidisation.i
 
 // Code-Block 2
 
-let ms2Chart = Chart.Column(ms2.Mass, ms2.Intensity)
+let ms2Chart = 
+    Chart.Column(ms2.Intensity, ms2.Mass) 
+    |> Chart.withTemplate ChartTemplates.light
+
+
 ms2Chart
 (***hide***)
 ms2Chart |> GenericChart.toChartHTML
@@ -160,7 +163,10 @@ let preprocessedIntesities =
     |> (fun pa -> Mz.PeakArray.peaksToNearestUnitDaltonBinVector pa lowerScanLimit upperScanLimit)
     |> (fun pa -> Mz.SequestLike.windowNormalizeIntensities pa 10)
     
-let intensityChart = Chart.Column([lowerScanLimit .. upperScanLimit], preprocessedIntesities)
+let intensityChart = 
+    Chart.Column(preprocessedIntesities, [lowerScanLimit .. upperScanLimit])
+    |> Chart.withTemplate ChartTemplates.light
+
 intensityChart
 (***hide***)
 intensityChart |> GenericChart.toChartHTML
@@ -197,12 +203,12 @@ let peptideAndMasses =
     |> Array.mapi (fun i fastAItem ->
         Digestion.BioArray.digest Digestion.Table.Trypsin i fastAItem.Sequence
         |> Digestion.BioArray.concernMissCleavages 0 0
-        )
+    )
     |> Array.concat
     |> Array.map (fun peptide ->
         // calculate mass for each peptide
         peptide.PepSequence, BioSeq.toMonoisotopicMassWith (BioItem.monoisoMass ModificationInfo.Table.H2O) peptide.PepSequence
-        )
+    )
 
 peptideAndMasses |> Array.head
 

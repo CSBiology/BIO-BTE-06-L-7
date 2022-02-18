@@ -87,21 +87,19 @@ data analysis. Those extracted-ion chromatogram (XIC) can be obtained to calcula
 
 Let’s start and extract a XIC…
 *)
-
-#r "nuget: FSharp.Stats, 0.4.0"
+#r "nuget: FSharp.Stats, 0.4.3"
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-#r "nuget: Plotly.NET, 2.0.0-beta6"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
 #r "nuget: System.Data.SQLite, 1.0.113.7"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
-#r "nuget: MzIO, 0.1.0-beta"
-#r "nuget: MzIO.SQL, 0.1.0-beta"
-#r "nuget: MzIO.Processing, 0.1.0-beta"
+#r "nuget: MzIO, 0.1.1"
+#r "nuget: MzIO.SQL, 0.1.4"
+#r "nuget: MzIO.Processing, 0.1.2"
 #r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta8"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
 #endif // IPYNB
 
 open Plotly.NET
@@ -158,9 +156,10 @@ transaction.Dispose()
 let xicChart =
     xic
     |> Chart.Point
-    |> Chart.withX_AxisStyle "Retention Time"
-    |> Chart.withY_AxisStyle "Intensity/Score"
+    |> Chart.withXAxisStyle "Retention Time"
+    |> Chart.withYAxisStyle "Intensity/Score"
     |> Chart.withSize (900.,900.)
+
 xicChart
 (***hide***)
 xicChart |> GenericChart.toChartHTML
@@ -196,15 +195,16 @@ let apices =
 
 let apicesChart=
     [    
-        Chart.Point(apices, Name="apices")
-        |> Chart.withMarkerStyle(Size=15)
+        Chart.Point(apices, Name = "apices")
+        |> Chart.withMarkerStyle(Size = 15)
         Chart.Point(xic, Name = "XIC")
 
     ]
-    |> Chart.Combine
-    |> Chart.withX_AxisStyle "Retention Time"
-    |> Chart.withY_AxisStyle "Intensity"
-    |> Chart.withSize (900.,900.)
+    |> Chart.combine
+    |> Chart.withXAxisStyle "Retention Time"
+    |> Chart.withYAxisStyle "Intensity"
+    |> Chart.withSize (900., 900.)
+
 apicesChart
 (***hide***)
 apicesChart |> GenericChart.toChartHTML
@@ -249,13 +249,14 @@ let quantifiedArea =
 
 let quantifiedAreaChart =
     [
-        Chart.Point(xic,Name="XIC")
-        Chart.SplineArea(quantifiedArea,Name="quantified XIC")
+        Chart.Point(xic, Name="XIC")
+        Chart.SplineArea(quantifiedArea, Name = "quantified XIC")
     ]
-    |> Chart.Combine
-    |> Chart.withX_AxisStyle (title = "Retention Time", MinMax = (51.,58.))
-    |> Chart.withY_AxisStyle "Intensity"
-    |> Chart.withSize (900.,900.)
+    |> Chart.combine
+    |> Chart.withXAxisStyle (title = "Retention Time", MinMax = (51.,58.))
+    |> Chart.withYAxisStyle "Intensity"
+    |> Chart.withSize (900., 900.)
+
 quantifiedAreaChart
 (***hide***)
 quantifiedAreaChart |> GenericChart.toChartHTML

@@ -34,12 +34,11 @@ Amino acid composition of the proteome is simply counting each amino acid occurr
 
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-#r "nuget: Plotly.NET, 2.0.0-beta6"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
 #r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta8"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
 #endif // IPYNB
 
 open Plotly.NET
@@ -104,7 +103,8 @@ let aaDistributionHis =
     // create chart
     |> Chart.Column
     // style chart
-    |> Chart.withY_AxisStyle "Count"
+    |> Chart.withYAxisStyle "Count"
+    |> Chart.withSize (650.,600.)
     |> Chart.withTitle "Amino Acid composition of the <i>Chlamydomonas reinhardtii</i> proteome"
 
 aaDistributionHis
@@ -162,11 +162,11 @@ let chartDigestedProteins =
         // calculate mass for each peptide
         BioSeq.toMonoisotopicMassWith (BioItem.monoisoMass ModificationInfo.Table.H2O) peptide.PepSequence
         )
-    |> Array.filter (fun x -> x<3000.)
-    // visualize distribution of all peptide masses < 5000 Da
-    |> fun masses -> Chart.Histogram(data=masses,nBinsx=100)
-    |> Chart.withX_AxisStyle (title = "Mass [Da]",MinMax=(0.,3000.))
-    |> Chart.withY_AxisStyle "Count"
+    |> Array.filter (fun x -> x < 3000.)
+    // visualize distribution of all peptide masses < 3000 Da
+    |> fun masses -> Chart.Histogram(data = masses, orientation = StyleParam.Orientation.Vertical, NBinsX = 100)
+    |> Chart.withXAxisStyle (title = "Mass [Da]", MinMax = (0., 3000.))
+    |> Chart.withYAxisStyle "Count"
 
 chartDigestedProteins
 (***hide***)
@@ -195,10 +195,10 @@ let digestedPeptideMasses =
 let chartDigestedPeptideMasses =
     digestedPeptideMasses
     |> Array.map (fun ucMass -> Mass.toMZ ucMass 2.)
-    |> Array.filter (fun x -> x<3000.)
-    |> fun masses -> Chart.Histogram(data=masses,nBinsx=100)
-    |> Chart.withX_AxisStyle (title = "m/z",MinMax=(0.,3000.))
-    |> Chart.withY_AxisStyle "Count"
+    |> Array.filter (fun x -> x < 3000.)
+    |> fun masses -> Chart.Histogram(data = masses, orientation = StyleParam.Orientation.Vertical, NBinsX=100)
+    |> Chart.withXAxisStyle (title = "m/z", MinMax = (0., 3000.))
+    |> Chart.withYAxisStyle "Count"
     
 chartDigestedPeptideMasses
 

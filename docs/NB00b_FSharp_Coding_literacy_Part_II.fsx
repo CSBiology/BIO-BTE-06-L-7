@@ -49,7 +49,7 @@ string. You can also slice strings up using a [from .. to] syntax:
 *)
 
 "atcg".[2]
-"atcg".[1..2]
+"atcg".[1 .. 2]
 
 (**
 Technically, strings are specialized collection of characters and we have seen how to represent a nucleotide sequence.
@@ -156,7 +156,7 @@ Extracting a value from a Map work similar to accessing an array using the key i
 
 mass.["Carbon"]
 
-Map.find "Cabon" mass
+Map.find "Carbon" mass
 
 (**
 Analogously to the List and Array module there is a Map module. 
@@ -239,7 +239,7 @@ For example, here are some type definitions for a variety of types:
 
 type A = int * int
 
-type B = {AminoAcidName:string; Mass:float}
+type B = {AminoAcidName: string; Mass: float}
 
 (**
 ### Tuples are ad hoc data structures 
@@ -327,4 +327,3 @@ let cys = { OneLetterCode = 'C'; Mass = 103.0091848 }
 cys.OneLetterCode
 // Access the monoisotopic mass of cysteine and multiply it times 3
 cys.Mass * 3.
-

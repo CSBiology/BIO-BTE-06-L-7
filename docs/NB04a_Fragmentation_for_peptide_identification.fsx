@@ -43,12 +43,11 @@ These losses do not change the charge of the ions and are observable as natural 
 
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-#r "nuget: Plotly.NET, 2.0.0-beta6"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta8"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
 #endif // IPYNB
 
 open Plotly.NET
@@ -110,10 +109,11 @@ Now, we can just plot the simulated data and look at our theoretical spectrum.
 
 let ionChart =
     [    
-        Chart.Column (ionSeriesB, Name="b ions")
-        Chart.Column (ionSeriesY, Name="y ions")
+        Chart.Column (ionSeriesB, Name = "b ions")
+        Chart.Column (ionSeriesY, Name = "y ions")
     ]
-    |> Chart.Combine
+    |> Chart.combine
+
 ionChart
 (***hide***)
 ionChart |> GenericChart.toChartHTML

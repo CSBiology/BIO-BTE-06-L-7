@@ -36,11 +36,11 @@ individual elements (Rockwood et al. 1995), or rely on dynamic programming (Snid
 
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-#r "nuget: Plotly.NET, 2.0.0-beta6"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
+//#r "nuget: Plotly.NET, 2.0.0-beta6"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta8"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
 #endif // IPYNB
 
 open Plotly.NET
@@ -110,6 +110,11 @@ let generateIsotopicDistribution (charge:int) (f:Formula.Formula) =
         charge
         f
         
+let testValue = 1
+
+testValue
+(*** include-it ***)
+
 // create pattern for peptide_short
 let isoPattern_peptide_short = 
     generateIsotopicDistribution 1 peptide_short
@@ -118,8 +123,8 @@ let isoPattern_peptide_short =
 let isoPattern_peptide_long = 
     generateIsotopicDistribution 1 peptide_long
     
-isoPattern_peptide_long
-
+//isoPattern_peptide_long
+isoPattern_peptide_short
 (*** include-it ***)
 
 
@@ -128,15 +133,16 @@ isoPattern_peptide_long
 // create one chart for both, short and long peptide isotopic patterns.     
 let isoPatternChart = 
     [
-        Chart.Column(isoPattern_peptide_short,Name= "peptide_short" )
-        |> Chart.withX_AxisStyle ("m/z",MinMax=(885.,895.))
-        Chart.Column(isoPattern_peptide_long,Name= "peptide_long" )
-        |> Chart.withX_AxisStyle ("m/z",MinMax=(3230., 3240.))
+        Chart.Column(isoPattern_peptide_short, Name = "peptide_short" )
+        |> Chart.withXAxisStyle ("m/z", MinMax = (885., 895.))
+        Chart.Column(isoPattern_peptide_long, Name = "peptide_long" )
+        |> Chart.withXAxisStyle ("m/z", MinMax = (3230., 3240.))
     ]
-    |> Chart.Stack 2
+    |> Chart.Grid (1,2)
     |> Chart.withSize (900.,600.)
     |> Chart.withTitle "Isotopeclusters"
-    |> Chart.withY_AxisStyle "intensity"
+    |> Chart.withYAxisStyle "intensity"
+
 isoPatternChart
 
 (***hide***)
@@ -208,22 +214,23 @@ let N15_isoPattern_peptid_long =
 let isoPatternChart2 = 
     [
         [
-            Chart.Column(isoPattern_peptide_short,Name= "peptide_short" )
-            Chart.Column(N15_isoPattern_peptide_short,Name= "N15_peptide_short" )
+            Chart.Column(isoPattern_peptide_short, Name = "peptide_short" )
+            Chart.Column(N15_isoPattern_peptide_short, Name = "N15_peptide_short" )
         ] 
-        |> Chart.Combine 
-        |> Chart.withX_AxisStyle ("m/z",MinMax=(885., 905.0))
+        |> Chart.combine 
+        |> Chart.withXAxisStyle ("m/z", MinMax = (885., 905.0))
 
         [
-            Chart.Column(isoPattern_peptide_long,Name= "peptide_long" )
-            Chart.Column(N15_isoPattern_peptid_long,Name= "N15_peptide_long" )            
+            Chart.Column(isoPattern_peptide_long,Name = "peptide_long" )
+            Chart.Column(N15_isoPattern_peptid_long, Name = "N15_peptide_long" )
         ] 
-        |> Chart.Combine 
-        |> Chart.withX_AxisStyle ("m/z",MinMax=(3230.0, 3270.0))
+        |> Chart.combine 
+        |> Chart.withXAxisStyle ("m/z", MinMax = (3230.0, 3270.0))
     ]
-    |> Chart.Stack 2
+    |> Chart.Grid (1, 2)
     |> Chart.withTitle "Isotopeclusters"
-    |> Chart.withY_AxisStyle "intensity"
+    |> Chart.withYAxisStyle "intensity"
+
 isoPatternChart2
 (***hide***)
 isoPatternChart2 |> GenericChart.toChartHTML
