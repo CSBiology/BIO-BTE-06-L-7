@@ -102,18 +102,13 @@ can use `IsotopicDistribution.MIDA.ofFormula` from the BioFSharp library. Howeve
 
 // Predicts an isotopic distribution of the given formula at the given charge, 
 // normalized by the sum of probabilities, using the MIDAs algorithm
-let generateIsotopicDistribution (charge:int) (f:Formula.Formula) =
+let generateIsotopicDistribution (charge: int) (f: Formula.Formula) =
     IsotopicDistribution.MIDA.ofFormula 
         IsotopicDistribution.MIDA.normalizeByMaxProb
         0.01
         0.005
         charge
         f
-        
-let testValue = 1
-
-testValue
-(*** include-it ***)
 
 // create pattern for peptide_short
 let isoPattern_peptide_short = 

@@ -13,7 +13,7 @@
 (**
 ## Mass spectrometry (MS)-based proteomic
 
-![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/OmicsWorkflow.png)
+![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/OmicsWorkflow.png)  
 **Figure 2. Summary of a typical proteomics workflow following the bottom-up principle.**
 
 During sample preparation proteins are extracted from the samples and digested into peptides using proteases typically trypsin. An optional fractionation or enrichment may be applied at either the protein or peptide level to enhance the scope of identification. Peptides are separated by high-performance liquid chromatography (HPLC) and afterward transferred into the 

@@ -169,6 +169,7 @@ For a log2 transform the numerator is 1.
 ## Fitting biological growth curves
 
 <br>
+
 ### Theory
 
 To derive the slope required for the doubling time calculation, the measured growth data points have to be modelled. 
@@ -332,7 +333,6 @@ gt
 
 
 (**
-
 <br>
 ## Questions:
 

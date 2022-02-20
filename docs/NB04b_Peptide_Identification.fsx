@@ -64,7 +64,7 @@ achieved using the formula for cross-correlation in the form for discrete input 
 
 ***Equation 5***
 
-![](https://latex.codecogs.com/png.latex?\large&space;R_{\tau}&space;=&space;\sum_{i=0}^{n-1}x_{i}\cdot y_{i&plus;\tau})
+![](https://latex.codecogs.com/png.latex?\large&space;R_{\tau}&space;=&space;\sum_{i=0}^{n-1}x_{i}\cdot%20y_{i&plus;\tau})
 
 where x(i) is a peak of the reconstructed spectrum at position i and y(i) is a peak of the experimental spectrum. The displacement value 𝜏 
 is the amount by which the signal is offset during the translation and is varied over a range of values. If two signals are the same, the correlation 
@@ -96,8 +96,8 @@ where:
 Matching a measured spectrum against chlamy database
 *)
 
-#r "nuget: BioFSharp, 2.0.0-beta5"
-#r "nuget: BioFSharp.IO, 2.0.0-beta5"
+#r "nuget: BioFSharp, 2.0.0-beta4"
+#r "nuget: BioFSharp.IO, 2.0.0-beta4"
 #r "nuget: Plotly.NET, 2.0.0-preview.16"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
 #r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"

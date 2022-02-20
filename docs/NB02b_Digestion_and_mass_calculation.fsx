@@ -58,7 +58,7 @@ of *Chlamydomonas*, which is saved in the .fasta file we are accessing below.
 
 // __SOURCE_DIRECTORY__ returns the directory in which the current notebook is located
 let directory = __SOURCE_DIRECTORY__
-let path = Path.Combine[|directory;"downloads/Chlamy_JGI5_5(Cp_Mp).fasta"|]
+let path = Path.Combine [|directory; "downloads/Chlamy_JGI5_5(Cp_Mp).fasta"|]
 downloadFile path "Chlamy_JGI5_5(Cp_Mp).fasta" "bio-bte-06-l-7"
 // with /../ we navigate a directory 
 path
@@ -99,7 +99,7 @@ let aaDistributionHis =
     aminoAcidDistribution
     |> Array.map (fun (name,count) -> string name, count)
     // sort by number of occurences
-    |> Array.sortBy fst
+    |> Array.sortByDescending snd
     // create chart
     |> Chart.Column
     // style chart

@@ -41,11 +41,11 @@ from its type. *- FYI -* this is true for all core types in F#.
 String.length "atcg"
 
 (**
-Here, the ` String.Length ` returns the length of the string sequence. If you are using a nice text editor with more sophisticated code completion (intelliSense), you can 
+Here, the `String.Length` returns the length of the string sequence. If you are using a nice text editor with more sophisticated code completion (intelliSense), you can 
 explore the functionality provided within a module by pressing `Strg + Space`. Otherwise, you need to look it up in one of many [documentations.](https://fsharp.github.io/fsharp-core-docs/reference/fsharp-core-stringmodule.html)
 
 Another interesting feature of strings is that their characters can also be accessed according to their numerical position, starting from 0 up to 1 minus the length of the 
-string. You can also slice strings up using a [from .. to] syntax:
+string. You can also slice strings up using a `[from .. to]` syntax:
 *)
 
 "atcg".[2]

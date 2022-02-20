@@ -44,13 +44,15 @@ and are therefore not executed as part of your program or script. Additionally, 
 parenthesis and asterisk `(* … *)`.
 
 The example shows the two most common types of numbers used in F#:
-
-* integer (`int`): co2Oxygens = 1
-* floating point numbers (`float`): let oxygenMass = 15.9994
-
+*)
+// integer (`int`)
+let co2Oxygens = 1
+// floating point numbers (`float`)
+let oxygenMass = 15.9994
+(**
 One of the most important action in programming is naming things, which is called binding. Binding is the naming process that associates an identifier (name) to a value or function. 
 In F#, the `let` keyword is used to do such a binding and bind a name to a value in our example. We can use `let` binding at various level. It might be worth noting here that this 
-process is often referred as declaring variables, but using the term “binding” is much nicer.
+process is often referred as declaring variables, but using the term "binding" is much nicer.
 Bindings are case sensitive names and can contain letters, numbers as well as the underscore character. They cannot start with a number however and they cannot contain spaces. 
 
 This makes the following three different bindings: 
@@ -60,7 +62,7 @@ let MyVariable = 3.172
 let MYVARIABLE = "Undefined"
 
 (** 
-*But what is a value?*
+_But what is a value?_
 
 In general, computer programs manipulate data. An individual item of data is called a value. F# is a statically typed language and every value has a type that identifies the kind of value it is. 
 For example, the type of `co2Oxygens` is `int`. Each value can be seen an instance of a particular type, later we will complete this point of view by recognizing that each object is an 
