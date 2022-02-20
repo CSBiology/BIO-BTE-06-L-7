@@ -309,7 +309,7 @@ from its type. <em>- FYI -</em> this is true for all core types in F#.</p>
 <p>Here, the <code>String.Length</code> returns the length of the string sequence. If you are using a nice text editor with more sophisticated code completion (intelliSense), you can
 explore the functionality provided within a module by pressing <code>Strg + Space</code>. Otherwise, you need to look it up in one of many <a href="https://fsharp.github.io/fsharp-core-docs/reference/fsharp-core-stringmodule.html">documentations.</a></p>
 <p>Another interesting feature of strings is that their characters can also be accessed according to their numerical position, starting from 0 up to 1 minus the length of the
-string. You can also slice strings up using a [from .. to] syntax:</p>
+string. You can also slice strings up using a <code>[from .. to]</code> syntax:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="s">&quot;atcg&quot;</span><span class="id">.</span><span class="pn">[</span><span class="n">2</span><span class="pn">]</span>
 <span class="s">&quot;atcg&quot;</span><span class="id">.</span><span class="pn">[</span><span class="n">1</span> <span class="o">..</span> <span class="n">2</span><span class="pn">]</span>
 </code></pre>
