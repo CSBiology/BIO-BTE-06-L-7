@@ -28,16 +28,16 @@ and do some manipulations to achieve your desired outcome.
 
 | Day      | Topic                                 | Notebooks        |
 |----------|---------------------------------------|------------------|
-| 21.02.21 | Getting started; Coding literacy      | 00a; 00b         |
-| 22.02.21 | 1: Growth Model and Cell number       | 01a; 01b         |
-| 23.02.21 | 2: In-silico proteome analysis        | 02a; 02b; 02c    |
-| 24.02.21 | 3: Understanding the Data             | 03a; 03b; 03c    |
-| 25.02.21 | 4: Protein and Peptide identification | 04a; 04b         |
-| 28.02.21 | 5: Peptide quantification             | 05a              |
-| 01.03.21 | Research Data Management              | 06a              |
-| 02.03.21 | Analysing the course Experiment       | 07a              |
-| 03.03.21 | Analysing the course Experiment       | 07b              |
-| 04.03.21 | Analysing the course Experiment       | 07c              |
+| 21.02.22 | Getting started; Coding literacy      | 00a; 00b         |
+| 22.02.22 | 1: Growth Model and Cell number       | 01a; 01b         |
+| 23.02.22 | 2: In-silico proteome analysis        | 02a; 02b; 02c    |
+| 24.02.22 | 3: Understanding the Data             | 03a; 03b; 03c    |
+| 25.02.22 | 4: Protein and Peptide identification | 04a; 04b         |
+| 28.02.22 | 5: Peptide quantification             | 05a              |
+| 01.03.22 | Research Data Management              | 06a              |
+| 02.03.22 | Analysing the course Experiment       | 07a              |
+| 03.03.22 | Analysing the course Experiment       | 07b              |
+| 04.03.22 | Analysing the course Experiment       | 07c              |
 
 ## Getting started
 
