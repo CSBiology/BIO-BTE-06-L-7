@@ -69,7 +69,7 @@
                                 </span>
                             </a>
                         </li>
-                        <!--<li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href="NB01a_Systems_Biology_FSharp_Introduction.html">
                                 <span class="text">
                                     <span>NB01a Systems Biology</span>
@@ -83,7 +83,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB02a_Mass_spectrometry_based_proteomics.html">
                                 <span class="text">
                                     <span>NB02a Mass Spectrometry Based Proteomics</span>
@@ -445,57 +445,57 @@ created by 'plotIsotopicPatternOf' and write correct descriptions for the x and 
 </code></pre>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs98', 206)" onmouseover="showTip(event, 'fs98', 206)" class="id">examplePep1</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs88', 207)" onmouseover="showTip(event, 'fs88', 207)" class="fn">getIsotopicPattern</span> <span class="s">&quot;DTDILAAFR&quot;</span> <span class="n">2</span>
 </code></pre>
-<div id="5d0ff713-131a-465a-96e5-51a111a89200" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="1e70afc9-39e0-4e45-9b28-0983ddf4bd4c" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_5d0ff713131a465a96e551a111a89200 = function() {
+            var renderPlotly_1e70afc939e04e459b280983ddf4bd4c = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"scatter","x":[516.7474592008799,516.7474592008799],"y":[0.0,0.026959823544210483],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}},{"type":"scatter","x":[517.255191950945,517.255191950945],"y":[0.0,0.7184488740412237],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}},{"type":"scatter","x":[517.7535871412731,517.7535871412731],"y":[0.0,0.2545913024145658],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}}];
             var layout = {"xaxis":{"title":"","range":[515.7474592008799,518.7535871412731]},"yaxis":{"title":""}};
             var config = {};
-            Plotly.newPlot('5d0ff713-131a-465a-96e5-51a111a89200', data, layout, config);
+            Plotly.newPlot('1e70afc9-39e0-4e45-9b28-0983ddf4bd4c', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_5d0ff713131a465a96e551a111a89200();
+                    renderPlotly_1e70afc939e04e459b280983ddf4bd4c();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_5d0ff713131a465a96e551a111a89200();
+                renderPlotly_1e70afc939e04e459b280983ddf4bd4c();
             }
 </script>
 
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs105', 218)" onmouseover="showTip(event, 'fs105', 218)" class="id">examplePep2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs88', 219)" onmouseover="showTip(event, 'fs88', 219)" class="fn">getIsotopicPattern</span> <span class="s">&quot;LTYYTPDYVVR&quot;</span> <span class="n">2</span>
 </code></pre>
-<div id="760892ef-3672-45a3-8987-eebdc445fcff" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="f64a7a1e-a23c-4ff7-a91a-883db1fb994b" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_760892ef367245a38987eebdc445fcff = function() {
+            var renderPlotly_f64a7a1ea23c4ff7a91a883db1fb994b = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"scatter","x":[701.8333408162464,701.8333408162464],"y":[0.0,0.027600669046608583],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}},{"type":"scatter","x":[702.3319849798934,702.3319849798934],"y":[0.0,0.6511620940160272],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}},{"type":"scatter","x":[702.8308062209867,702.8308062209867],"y":[0.0,0.3212372369373643],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}}];
             var layout = {"xaxis":{"title":"","range":[700.8333408162464,703.8308062209867]},"yaxis":{"title":""}};
             var config = {};
-            Plotly.newPlot('760892ef-3672-45a3-8987-eebdc445fcff', data, layout, config);
+            Plotly.newPlot('f64a7a1e-a23c-4ff7-a91a-883db1fb994b', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_760892ef367245a38987eebdc445fcff();
+                    renderPlotly_f64a7a1ea23c4ff7a91a883db1fb994b();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_760892ef367245a38987eebdc445fcff();
+                renderPlotly_f64a7a1ea23c4ff7a91a883db1fb994b();
             }
 </script>
 
@@ -550,29 +550,29 @@ Note: we copy the code so you can make yourself familiar with it, of course we c
 
 <span onmouseout="hideTip(event, 'fs65', 303)" onmouseover="showTip(event, 'fs65', 303)" class="fn">plotIsotopicPattern</span> <span onmouseout="hideTip(event, 'fs7', 304)" onmouseover="showTip(event, 'fs7', 304)" class="id">FSharpAux</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs82', 305)" onmouseover="showTip(event, 'fs82', 305)" class="m">Colors</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs99', 306)" onmouseover="showTip(event, 'fs99', 306)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs100', 307)" onmouseover="showTip(event, 'fs100', 307)" class="m">Office</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs143', 308)" onmouseover="showTip(event, 'fs143', 308)" class="id">orange</span> <span onmouseout="hideTip(event, 'fs142', 309)" onmouseover="showTip(event, 'fs142', 309)" class="id">examplePep2_Sim1</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs144', 310)" onmouseover="showTip(event, 'fs144', 310)" class="id">SimPattern</span>
 </code></pre>
-<div id="c06bfac0-dc21-47f0-a1c2-85c5942fba51" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="c0081338-9e81-4063-b326-aaecc8be39c2" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_c06bfac0dc2147f0a1c285c5942fba51 = function() {
+            var renderPlotly_c00813389e814063b326aaecc8be39c2 = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"scatter","x":[697.8490096036468,697.8490096036468],"y":[0.0,1.3970829629574933E-09],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[698.34760896613,698.34760896613],"y":[0.0,4.0837277521087134E-08],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[698.8461528800368,698.8461528800368],"y":[0.0,8.936765434790334E-07],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[699.3447045573978,699.3447045573978],"y":[0.0,1.50116355657933E-05],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[699.350721733829,699.350721733829],"y":[0.0,1.1693889739674368E-08],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[699.8432654129793,699.8432654129793],"y":[0.0,0.00019271012948812225],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[699.8494946436625,699.8494946436625],"y":[0.0,2.308370562429268E-07],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[700.3418522455902,700.3418522455902],"y":[0.0,0.0018682789930166105],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[700.3499652027043,700.3499652027043],"y":[0.0,1.7276860783679397E-07],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[700.8404579489564,700.8404579489564],"y":[0.0,0.013274054447479195],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[700.8459764478409,700.8459764478409],"y":[0.0,9.428546333152092E-06],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[701.3390727035044,701.3390727035044],"y":[0.0,0.06549263210686368],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[701.344578535139,701.344578535139],"y":[0.0,0.0006348449156610074],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[701.3514222235586,701.3514222235586],"y":[0.0,1.7279990119335753E-07],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[701.8379114616379,701.8379114616379],"y":[0.0,0.21157489675194804],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[701.8458061211896,701.8458061211896],"y":[0.0,5.7564098295199155E-05],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[701.8544691076909,701.8544691076909],"y":[0.0,1.6999882718488825E-09],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[702.3370174054604,702.3370174054604],"y":[0.0,0.36203186035882484],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[702.3423610000177,702.3423610000177],"y":[0.0,0.004130325278245811],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[702.3515689975715,702.3515689975715],"y":[0.0,3.4480019518200574E-08],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[702.8382324208044,702.8382324208044],"y":[0.0,0.22246617271295813],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[702.8457378571696,702.8457378571696],"y":[0.0,0.0001462593704238711],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[702.8501644628818,702.8501644628818],"y":[0.0,3.1451260748537322E-06],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[703.3395053137706,703.3395053137706],"y":[0.0,0.0851825003708714],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[703.3456257963234,703.3456257963234],"y":[0.0,0.0007191798130445007],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[703.3502310346838,703.3502310346838],"y":[0.0,1.1066092278374865E-06],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[703.3549927006201,703.3549927006201],"y":[0.0,2.8968827193078952E-09],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[703.8408651894921,703.8408651894921],"y":[0.0,0.024710191896730845],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[703.8459649130984,703.8459649130984],"y":[0.0,0.00019010097666118022],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[703.8515856253384,703.8515856253384],"y":[0.0,2.9716252927342786E-07],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[704.3422484737587,704.3422484737587],"y":[0.0,0.00587188711208848],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[704.3508297211299,704.3508297211299],"y":[0.0,8.580356592920924E-07],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[704.8435771463786,704.8435771463786],"y":[0.0,0.001177875784266261],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[704.8506496238499,704.8506496238499],"y":[0.0,1.5459571677803764E-06],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[705.3448892958287,705.3448892958287],"y":[0.0,0.00020676147130907146],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[705.3504305476782,705.3504305476782],"y":[0.0,8.906200508228865E-07],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[705.8461710899614,705.8461710899614],"y":[0.0,3.229041025803717E-05],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[705.8508707655795,705.8508707655795],"y":[0.0,4.090580840687963E-07],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[706.3475354829349,706.3475354829349],"y":[0.0,4.6709300844135485E-06],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[706.848810629564,706.848810629564],"y":[0.0,6.089268971635478E-07],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[707.3500830289358,707.3500830289358],"y":[0.0,7.166202784559138E-08],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[707.8512850146085,707.8512850146085],"y":[0.0,5.644613849283407E-09],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}}];
             var layout = {"xaxis":{"title":"","range":[696.8490096036468,708.8512850146085]},"yaxis":{"title":""}};
             var config = {};
-            Plotly.newPlot('c06bfac0-dc21-47f0-a1c2-85c5942fba51', data, layout, config);
+            Plotly.newPlot('c0081338-9e81-4063-b326-aaecc8be39c2', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_c06bfac0dc2147f0a1c285c5942fba51();
+                    renderPlotly_c00813389e814063b326aaecc8be39c2();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_c06bfac0dc2147f0a1c285c5942fba51();
+                renderPlotly_c00813389e814063b326aaecc8be39c2();
             }
 </script>
 
@@ -580,29 +580,29 @@ Note: we copy the code so you can make yourself familiar with it, of course we c
 
 <span onmouseout="hideTip(event, 'fs65', 323)" onmouseover="showTip(event, 'fs65', 323)" class="fn">plotIsotopicPattern</span> <span onmouseout="hideTip(event, 'fs7', 324)" onmouseover="showTip(event, 'fs7', 324)" class="id">FSharpAux</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs82', 325)" onmouseover="showTip(event, 'fs82', 325)" class="m">Colors</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs99', 326)" onmouseover="showTip(event, 'fs99', 326)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs100', 327)" onmouseover="showTip(event, 'fs100', 327)" class="m">Office</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs143', 328)" onmouseover="showTip(event, 'fs143', 328)" class="id">orange</span> <span onmouseout="hideTip(event, 'fs145', 329)" onmouseover="showTip(event, 'fs145', 329)" class="id">examplePep2_Sim2</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs144', 330)" onmouseover="showTip(event, 'fs144', 330)" class="id">SimPattern</span>
 </code></pre>
-<div id="f2079acf-f37f-4196-adc1-3e53d047e0f4" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="abce26c9-8190-4f9b-861f-eebaa8a9252a" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_f2079acff37f4196adc13e53d047e0f4 = function() {
+            var renderPlotly_abce26c981904f9b861feebaa8a9252a = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"scatter","x":[699.3445692604643,699.3445692604643],"y":[0.0,1.2795196065098556E-09],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[699.84308914607,699.84308914607],"y":[0.0,8.444829402963785E-08],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[700.3416552813679,700.3416552813679],"y":[0.0,4.241870601983185E-06],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[700.8401928601737,700.8401928601737],"y":[0.0,0.00015357027680704173],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[700.8462813906463,700.8462813906463],"y":[0.0,2.480177816281291E-08],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[701.3387412204617,701.3387412204617],"y":[0.0,0.0038357381030572255],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[701.3450300802326,701.3450300802326],"y":[0.0,1.106270881023102E-06],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[701.8373203629613,701.8373203629613],"y":[0.0,0.059520197958898825],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[701.8452748188865,701.8452748188865],"y":[0.0,1.4979383613640783E-06],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[702.3360027567306,702.3360027567306],"y":[0.0,0.4439690230636216],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[702.3412799787812,702.3412799787812],"y":[0.0,0.00017926695465607132],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[702.8375676547897,702.8375676547897],"y":[0.0,0.31366832017216384],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[702.8469614513797,702.8469614513797],"y":[0.0,1.7926755363389707E-06],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[703.3390576723148,703.3390576723148],"y":[0.0,0.1285289488408072],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[703.345490313138,703.345490313138],"y":[0.0,4.10581410868632E-05],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[703.3500287645082,703.3500287645082],"y":[0.0,1.7797960847793486E-08],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[703.8405039149677,703.8405039149677],"y":[0.0,0.03852319937845025],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[703.8478654137475,703.8478654137475],"y":[0.0,4.0968959374914253E-07],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[704.3419115559918,704.3419115559918],"y":[0.0,0.009280541163370635],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[704.8432915106474,704.8432915106474],"y":[0.0,0.001891736027759499],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[704.85059383228,704.85059383228],"y":[0.0,6.498670030654246E-08],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[705.344650370425,705.344650370425],"y":[0.0,0.00033678418681284055],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[705.3509986969107,705.3509986969107],"y":[0.0,2.4543263736862864E-08],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[705.845980763922,705.845980763922],"y":[0.0,5.336007534189496E-05],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[705.8505905738847,705.8505905738847],"y":[0.0,1.432216923884686E-07],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[706.3473207120211,706.3473207120211],"y":[0.0,7.698640579254149E-06],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[706.8486322385055,706.8486322385055],"y":[0.0,1.01329418499124E-06],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[707.3498984607531,707.3498984607531],"y":[0.0,1.2130237339165246E-07],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[707.8511606166704,707.8511606166704],"y":[0.0,1.2895844677662855E-08],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}}];
             var layout = {"xaxis":{"title":"","range":[698.3445692604643,708.8511606166704]},"yaxis":{"title":""}};
             var config = {};
-            Plotly.newPlot('f2079acf-f37f-4196-adc1-3e53d047e0f4', data, layout, config);
+            Plotly.newPlot('abce26c9-8190-4f9b-861f-eebaa8a9252a', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_f2079acff37f4196adc13e53d047e0f4();
+                    renderPlotly_abce26c981904f9b861feebaa8a9252a();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_f2079acff37f4196adc13e53d047e0f4();
+                renderPlotly_abce26c981904f9b861feebaa8a9252a();
             }
 </script>
 
@@ -641,58 +641,58 @@ measured one. Then we normalize it again and have two spectra that can be compar
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs161', 402)" onmouseover="showTip(event, 'fs161', 402)" class="id">comp1</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs151', 403)" onmouseover="showTip(event, 'fs151', 403)" class="fn">compareIsotopicDistributions</span> <span onmouseout="hideTip(event, 'fs105', 404)" onmouseover="showTip(event, 'fs105', 404)" class="id">examplePep2</span> <span onmouseout="hideTip(event, 'fs142', 405)" onmouseover="showTip(event, 'fs142', 405)" class="id">examplePep2_Sim1</span>
 <span onmouseout="hideTip(event, 'fs161', 406)" onmouseover="showTip(event, 'fs161', 406)" class="id">comp1</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs162', 407)" onmouseover="showTip(event, 'fs162', 407)" class="id">Plot</span>
 </code></pre>
-<div id="0e5a45a8-d7d5-462c-926f-5fc56040af3e" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="709ec86e-2b67-430b-9e6c-fc84549e4aa6" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_0e5a45a8d7d5462c926f5fc56040af3e = function() {
+            var renderPlotly_709ec86e2b67430b9e6cfc84549e4aa6 = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"scatter","x":[701.8333408162464,701.8333408162464],"y":[0.0,0.027600669046608583],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}},{"type":"scatter","x":[702.3319849798934,702.3319849798934],"y":[0.0,0.6511620940160272],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}},{"type":"scatter","x":[702.8308062209867,702.8308062209867],"y":[0.0,0.3212372369373643],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}},{"type":"scatter","x":[701.8333408162464,701.8333408162464],"y":[0.0,0.26440498474221436],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[702.3319849798934,702.3319849798934],"y":[0.0,0.45746817410044194],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[702.8308062209867,702.8308062209867],"y":[0.0,0.27812684115734354],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}}];
             var layout = {"xaxis":{"title":"","range":[700.8333408162464,703.8308062209867]},"yaxis":{"title":""}};
             var config = {};
-            Plotly.newPlot('0e5a45a8-d7d5-462c-926f-5fc56040af3e', data, layout, config);
+            Plotly.newPlot('709ec86e-2b67-430b-9e6c-fc84549e4aa6', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_0e5a45a8d7d5462c926f5fc56040af3e();
+                    renderPlotly_709ec86e2b67430b9e6cfc84549e4aa6();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_0e5a45a8d7d5462c926f5fc56040af3e();
+                renderPlotly_709ec86e2b67430b9e6cfc84549e4aa6();
             }
 </script>
 
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs163', 412)" onmouseover="showTip(event, 'fs163', 412)" class="id">comp2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs151', 413)" onmouseover="showTip(event, 'fs151', 413)" class="fn">compareIsotopicDistributions</span> <span onmouseout="hideTip(event, 'fs105', 414)" onmouseover="showTip(event, 'fs105', 414)" class="id">examplePep2</span> <span onmouseout="hideTip(event, 'fs145', 415)" onmouseover="showTip(event, 'fs145', 415)" class="id">examplePep2_Sim2</span>
 <span onmouseout="hideTip(event, 'fs163', 416)" onmouseover="showTip(event, 'fs163', 416)" class="id">comp2</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs162', 417)" onmouseover="showTip(event, 'fs162', 417)" class="id">Plot</span>
 </code></pre>
-<div id="063e4887-50dc-4277-ac59-b0fa27702336" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="c1199582-b413-4af4-8ce0-9ea1513af413" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_063e488750dc4277ac59b0fa27702336 = function() {
+            var renderPlotly_c1199582b4134af48ce09ea1513af413 = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"scatter","x":[701.8333408162464,701.8333408162464],"y":[0.0,0.027600669046608583],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}},{"type":"scatter","x":[702.3319849798934,702.3319849798934],"y":[0.0,0.6511620940160272],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}},{"type":"scatter","x":[702.8308062209867,702.8308062209867],"y":[0.0,0.3212372369373643],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}},{"type":"scatter","x":[701.8333408162464,701.8333408162464],"y":[0.0,0.0728236580920546],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[702.3319849798934,702.3319849798934],"y":[0.0,0.5434069498001416],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[702.8308062209867,702.8308062209867],"y":[0.0,0.38376939210780375],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}}];
             var layout = {"xaxis":{"title":"","range":[700.8333408162464,703.8308062209867]},"yaxis":{"title":""}};
             var config = {};
-            Plotly.newPlot('063e4887-50dc-4277-ac59-b0fa27702336', data, layout, config);
+            Plotly.newPlot('c1199582-b413-4af4-8ce0-9ea1513af413', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_063e488750dc4277ac59b0fa27702336();
+                    renderPlotly_c1199582b4134af48ce09ea1513af413();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_063e488750dc4277ac59b0fa27702336();
+                renderPlotly_c1199582b4134af48ce09ea1513af413();
             }
 </script>
 
@@ -748,57 +748,57 @@ and write correct descriptions for the x and the y axis. (Fill: |&gt; Chart.with
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs77', 530)" onmouseover="showTip(event, 'fs77', 530)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs84', 531)" onmouseover="showTip(event, 'fs84', 531)" class="id">withX_AxisStyle</span> <span class="s">&quot;&quot;</span>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs77', 532)" onmouseover="showTip(event, 'fs77', 532)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs85', 533)" onmouseover="showTip(event, 'fs85', 533)" class="id">withY_AxisStyle</span> <span class="s">&quot;&quot;</span>
 </code></pre>
-<div id="6cd78413-3342-4fb7-9ae6-227a10fd3611" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="abed311e-97df-4c1f-85a1-98af48a0e89e" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_6cd7841333424fb79ae6227a10fd3611 = function() {
+            var renderPlotly_abed311e97df4c1f85a198af48a0e89e = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"scatter","x":[0.95,0.951,0.952,0.953,0.954,0.955,0.956,0.957,0.958,0.959,0.96,0.961,0.962,0.963,0.964,0.965,0.966,0.967,0.968,0.969,0.97,0.971,0.972,0.973,0.974,0.975,0.976,0.977,0.978,0.979,0.98,0.981,0.982,0.983,0.984,0.985,0.986,0.987,0.988,0.989,0.99,0.991,0.992,0.993,0.994,0.995,0.996,0.997,0.998,0.999],"y":[0.4202300368720852,0.4106811298362736,0.40108374365623656,0.3914389407235811,0.38174792039725797,0.372012003930289,0.36223266208822635,0.35241152647217344,0.34255040204347276,0.3326512802759425,0.3227163606483192,0.3127480663845308,0.30274906643771704,0.29272229739667555,0.28267099006858043,0.2725986984454146,0.26250933123933023,0.2524071867765106,0.2422969939163012,0.23218395539234604,0.2220738050482816,0.21197285571490368,0.20188807197079947,0.19182714021125777,0.18179856413990877,0.17181174971809146,0.16187712901082377,0.15200629184997771,0.1422121388475539,0.13250907072122395,0.12291320078434166,0.11344261535799016,0.10411768870923449,0.09496146484697818,0.08600012427897644,0.07726357314862309,0.06878616776923088,0.06060765985257048,0.052774416177287634,0.045341040135439804,0.038372562381640114,0.031947502243633324,0.026162263258920064,0.021137708970179185,0.0170294553364064,0.014045041687708933,0.01247494613699962,0.01275534840045972,0.015618942496663,0.022586969474675464],"mode":"markers","marker":{}}];
             var layout = {};
             var config = {};
-            Plotly.newPlot('6cd78413-3342-4fb7-9ae6-227a10fd3611', data, layout, config);
+            Plotly.newPlot('abed311e-97df-4c1f-85a1-98af48a0e89e', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_6cd7841333424fb79ae6227a10fd3611();
+                    renderPlotly_abed311e97df4c1f85a198af48a0e89e();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_6cd7841333424fb79ae6227a10fd3611();
+                renderPlotly_abed311e97df4c1f85a198af48a0e89e();
             }
 </script>
 
 <pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs180', 545)" onmouseover="showTip(event, 'fs180', 545)" class="id">bestFit</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs162', 546)" onmouseover="showTip(event, 'fs162', 546)" class="id">Plot</span>
 </code></pre>
-<div id="d8c6b552-bc7f-4d28-94bd-b4a9234fae78" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="eba0a7c4-1341-4255-8572-2de3e4175cf8" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_d8c6b552bc7f4d2894bdb4a9234fae78 = function() {
+            var renderPlotly_eba0a7c41341425585722de3e4175cf8 = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"scatter","x":[516.7474592008799,516.7474592008799],"y":[0.0,0.026959823544210483],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}},{"type":"scatter","x":[517.255191950945,517.255191950945],"y":[0.0,0.7184488740412237],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}},{"type":"scatter","x":[517.7535871412731,517.7535871412731],"y":[0.0,0.2545913024145658],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}},{"type":"scatter","x":[516.7474592008799,516.7474592008799],"y":[0.0,0.030740481622225],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[517.255191950945,517.255191950945],"y":[0.0,0.6462486749099781],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[517.7535871412731,517.7535871412731],"y":[0.0,0.32301084346779685],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}}];
             var layout = {"xaxis":{"title":"","range":[515.7474592008799,518.7535871412731]},"yaxis":{"title":""}};
             var config = {};
-            Plotly.newPlot('d8c6b552-bc7f-4d28-94bd-b4a9234fae78', data, layout, config);
+            Plotly.newPlot('eba0a7c4-1341-4255-8572-2de3e4175cf8', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_d8c6b552bc7f4d2894bdb4a9234fae78();
+                    renderPlotly_eba0a7c41341425585722de3e4175cf8();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_d8c6b552bc7f4d2894bdb4a9234fae78();
+                renderPlotly_eba0a7c41341425585722de3e4175cf8();
             }
 </script>
 
@@ -818,57 +818,57 @@ and write correct descriptions for the x and the y axis. (Fill: |&gt; Chart.with
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs77', 583)" onmouseover="showTip(event, 'fs77', 583)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs84', 584)" onmouseover="showTip(event, 'fs84', 584)" class="id">withX_AxisStyle</span> <span class="s">&quot;&quot;</span>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs77', 585)" onmouseover="showTip(event, 'fs77', 585)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs85', 586)" onmouseover="showTip(event, 'fs85', 586)" class="id">withY_AxisStyle</span> <span class="s">&quot;&quot;</span>
 </code></pre>
-<div id="2fa2b13f-6058-4cd7-ba8a-28f341756282" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="94dec44c-02d6-4745-9db0-319414603e5b" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_2fa2b13f60584cd7ba8a28f341756282 = function() {
+            var renderPlotly_94dec44c02d647459db0319414603e5b = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"scatter","x":[0.95,0.951,0.952,0.953,0.954,0.955,0.956,0.957,0.958,0.959,0.96,0.961,0.962,0.963,0.964,0.965,0.966,0.967,0.968,0.969,0.97,0.971,0.972,0.973,0.974,0.975,0.976,0.977,0.978,0.979,0.98,0.981,0.982,0.983,0.984,0.985,0.986,0.987,0.988,0.989,0.99,0.991,0.992,0.993,0.994,0.995,0.996,0.997,0.998,0.999],"y":[0.3958720572825158,0.3870879592238074,0.3782550250649485,0.36937405723007255,0.36044596633975307,0.3514717862672045,0.34245269212590573,0.33338999558298527,0.32428517707171617,0.3151398895003735,0.30595597866502666,0.29673550151578365,0.28748075116940497,0.27819427026846727,0.2688788836245405,0.2595377248790925,0.25017426838871804,0.24079236499462642,0.23139628281859717,0.2219907503404549,0.21258101130378365,0.20317287876216344,0.19377280969637206,0.18438796919156014,0.17502632524296788,0.16569674872475104,0.15640912737178073,0.14717450427852014,0.13800523490298547,0.1289151757678232,0.11991990615046978,0.11103699296460559,0.10228631692844146,0.09369045315704211,0.08527516302551627,0.07706997776186397,0.0691089595923986,0.061431659618945804,0.05408436637666729,0.047121760700113105,0.04060915777701403,0.03462563764337007,0.029268518568318296,0.02466006073478405,0.020957955136867865,0.01837278558846797,0.017199542210354885,0.017881330251814626,0.02116228995807555,0.028585922870256353],"mode":"markers","marker":{}}];
             var layout = {};
             var config = {};
-            Plotly.newPlot('2fa2b13f-6058-4cd7-ba8a-28f341756282', data, layout, config);
+            Plotly.newPlot('94dec44c-02d6-4745-9db0-319414603e5b', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_2fa2b13f60584cd7ba8a28f341756282();
+                    renderPlotly_94dec44c02d647459db0319414603e5b();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_2fa2b13f60584cd7ba8a28f341756282();
+                renderPlotly_94dec44c02d647459db0319414603e5b();
             }
 </script>
 
 <pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs186', 598)" onmouseover="showTip(event, 'fs186', 598)" class="id">bestFit2</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs162', 599)" onmouseover="showTip(event, 'fs162', 599)" class="id">Plot</span>
 </code></pre>
-<div id="2dc43de1-6bbd-45b3-a839-64cc60817a65" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="d0493056-9276-4c84-afb9-8d7bb74ef0d5" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_2dc43de16bbd45b3a83964cc60817a65 = function() {
+            var renderPlotly_d049305692764c84afb98d7bb74ef0d5 = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"scatter","x":[701.8333408162464,701.8333408162464],"y":[0.0,0.027600669046608583],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}},{"type":"scatter","x":[702.3319849798934,702.3319849798934],"y":[0.0,0.6511620940160272],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}},{"type":"scatter","x":[702.8308062209867,702.8308062209867],"y":[0.0,0.3212372369373643],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#41719C"},"line":{"width":7}},{"type":"scatter","x":[701.8333408162464,701.8333408162464],"y":[0.0,0.030909557622845665],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[702.3319849798934,702.3319849798934],"y":[0.0,0.5619050489097641],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}},{"type":"scatter","x":[702.8308062209867,702.8308062209867],"y":[0.0,0.4071853934673903],"mode":"lines","showlegend":false,"marker":{"size":0,"color":"#ED7D31"},"line":{"width":7}}];
             var layout = {"xaxis":{"title":"","range":[700.8333408162464,703.8308062209867]},"yaxis":{"title":""}};
             var config = {};
-            Plotly.newPlot('2dc43de1-6bbd-45b3-a839-64cc60817a65', data, layout, config);
+            Plotly.newPlot('d0493056-9276-4c84-afb9-8d7bb74ef0d5', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_2dc43de16bbd45b3a83964cc60817a65();
+                    renderPlotly_d049305692764c84afb98d7bb74ef0d5();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_2dc43de16bbd45b3a83964cc60817a65();
+                renderPlotly_d049305692764c84afb98d7bb74ef0d5();
             }
 </script>
 
@@ -906,29 +906,29 @@ some high intensity peptides and visualize the results. Please fill the x axis d
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs60', 671)" onmouseover="showTip(event, 'fs60', 671)" class="m">Series</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs204', 672)" onmouseover="showTip(event, 'fs204', 672)" class="id">values</span>
     <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs70', 673)" onmouseover="showTip(event, 'fs70', 673)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs205', 674)" onmouseover="showTip(event, 'fs205', 674)" class="id">choose</span> <span onmouseout="hideTip(event, 'fs206', 675)" onmouseover="showTip(event, 'fs206', 675)" class="fn">id</span>
 </code></pre>
-<div id="dc485800-e561-4e56-a067-ae6e0166132c" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="6183a40e-d625-4953-a029-f7399e2a93b2" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_dc485800e5614e56a067ae6e0166132c = function() {
+            var renderPlotly_6183a40ed6254953a029f7399e2a93b2 = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"box","x":[0.9964043390426609,0.9970736546415111,0.9972546896277672,0.9955931699486613,0.9967332091423007,0.9964442257241938,0.9955171619261681,0.9956074456817249,0.9955994301859825,0.9959536519137125,0.9961790811237841,0.9964705515627769,0.9963796100630795,0.9933099682843453,0.9960970211651181,0.9958145306475031,0.995964367907164,0.9963189350019076,0.9956625304180128,0.9959898490526867],"marker":{}}];
             var layout = {};
             var config = {};
-            Plotly.newPlot('dc485800-e561-4e56-a067-ae6e0166132c', data, layout, config);
+            Plotly.newPlot('6183a40e-d625-4953-a029-f7399e2a93b2', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_dc485800e5614e56a067ae6e0166132c();
+                    renderPlotly_6183a40ed6254953a029f7399e2a93b2();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_dc485800e5614e56a067ae6e0166132c();
+                renderPlotly_6183a40ed6254953a029f7399e2a93b2();
             }
 </script>
 
