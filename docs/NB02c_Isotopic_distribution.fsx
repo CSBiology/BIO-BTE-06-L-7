@@ -37,7 +37,6 @@ individual elements (Rockwood et al. 1995), or rely on dynamic programming (Snid
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
 #r "nuget: Plotly.NET, 2.0.0-preview.16"
-//#r "nuget: Plotly.NET, 2.0.0-beta6"
 
 #if IPYNB
 #r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
@@ -125,7 +124,7 @@ isoPattern_peptide_short
 
 // Code-Block 4
 
-// create one chart for both, short and long peptide isotopic patterns.     
+// create one chart for both, short and long peptide isotopic patterns.
 let isoPatternChart = 
     [
         Chart.Column(isoPattern_peptide_short, Name = "peptide_short" )
@@ -150,7 +149,7 @@ isoPatternChart |> GenericChart.toChartHTML
 In addition to the natural occurring isotopic distribution, the field of proteomics has benefited greatly from the ability to 
 introduce stable isotopes into peptide sequences. So called isotopic labeling refers to the introduction of a naturally low-abundance 
 isotope of carbon, nitrogen, hydrogen and, in some cases, oxygen, into a peptide sequence. The isotopes commonly used are 13C, 
-15N, 2H (deuterium) and 18O with natural abundances of 1.10%, 0.366%, 0.015% and 0.200%, 
+15N, 2H (deuterium) and 18O with natural abundances of 1.10 %, 0.366 %, 0.015 % and 0.200 %, 
 respectively (Becker 2008). Therefore, the introduction of these isotopes into a peptide sequence can be detected by 
 most modern mass spectrometers leading to a respective mass shift and the ability to separate the same peptide species within the same run.
 
@@ -158,7 +157,7 @@ most modern mass spectrometers leading to a respective mass shift and the abilit
 > of the peptide sequence ‘PEPTIDES’ and ‘PEPTIDEPEPTIDEPEPTIDEPEPTIDES’ with stable isotopes 15N labeling. 
 
 Therefore, we define a function called `label`. The function maps from a formula to a formula with exchangen nitrogen isotopes. 
-(Attention: Don't get confused a formula is just a FSharpMap.) 
+(Attention: Don't get confused a formula is just an FSharpMap.) 
 *)
 
 // Code-Block 5
@@ -205,7 +204,7 @@ let N15_isoPattern_peptid_long =
 
 // Code-Block 8
 
-// Create two charts. Each with the related 14N and 15N isotopic clusters. Then stack them two one unit.
+// Create two charts. Each with the related 14N and 15N isotopic clusters. Then stack them to one unit.
 let isoPatternChart2 = 
     [
         [
@@ -235,7 +234,7 @@ isoPatternChart2 |> GenericChart.toChartHTML
 ## Questions
 
 1. Does the isotopic distribution tend to vary more or less the larger a peptide sequence becomes?
-2. How does the isotopic distribution of the amino acid-sequence "SEQUENCE" look like with natural and heavy N-labelling? Plot it via using the functions provided above.
+2. How does the isotopic distribution of the amino acid-sequence "SEQUENCE" looks like with natural and heavy N-labelling? Plot it via using the functions provided above.
 3. Which information can be drawn from the distance of two values of adjacent signals (of one isotopic cluster) regarding m/z?
 *)
 
@@ -249,4 +248,3 @@ isoPatternChart2 |> GenericChart.toChartHTML
 29. Alves, G. & Yu, Y. K. Robust accurate identification of peptides (RAId). deciphering MS2 data using a structured library search with de novo based statistics. Bioinformatics 21, 3726–3732; 10.1093/bioinformatics/bti620 (2005).
 30. Becker, G. W. Stable isotopic labeling of proteins for quantitative proteomic applications. Brief Funct Genomic Proteomic 7, 371–382; 10.1093/bfgp/eln047 (2008).
 *)
-

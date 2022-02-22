@@ -28,7 +28,7 @@ usually well distributed throughout a protein (Switzar et al. 2013). This leads 
 acids that carry at least two positive charges, which is ideally suited for CID-MS analysis (Burkhart et al. 2012).
 
 Using *in silico* analysis, we want to confirm that the general properties of trypsin digestion also apply for the 
-proteome of *Chlamydomonas reinhardtii* . First, we load the proteome of *Chlamydomonas* in standard fastA format. 
+proteome of *Chlamydomonas reinhardtii*. First, we load the proteome of *Chlamydomonas* in standard FASTA format. 
 Amino acid composition of the proteome is simply counting each amino acid occurrence and can be visualized by a histogram:
 *)
 
@@ -83,7 +83,7 @@ sequences |> Array.head
 
 ## Amino acid distribution for *C. reinhardtii*
 
-To count the amino acid composition, we take the sequence of every protein and count the occurences of each amino acid
+To count the amino acid composition, we take the sequence of every protein and count the occurences of each amino acid:
 *)
 
 let aminoAcidDistribution =
@@ -111,7 +111,7 @@ aaDistributionHis
 
 (***hide***)
 aaDistributionHis |> GenericChart.toChartHTML
-(***include-it-raw***)    
+(***include-it-raw***)
 
 (**
 
@@ -122,7 +122,7 @@ The molecular weight M of a peptide may be estimated by calculating the equation
 ![](https://latex.codecogs.com/png.latex?M&space;=&space;M_{N}&plus;M_{C}\sum_{i=0}^{n}N_{i}M_{i})
 
 where N(i) are the number, and M(i) the average residue molecular weights, of the amino acids. M(N) + M(C) 
-are added to the total in order to account for the termini: H at the N-terminus and OH at the C-terminus. (Remark: if the termini are modified, 
+are added to the total in order to account for the termini: H at the N-terminus and OH at the C-terminus. (Remark: If the termini are modified, 
 these additions are replaced by those of the modifiers.)
 
 The distribution of all molecular weights for the peptides resulting from the previous proteome digest can be calculated and visualized using a histogram chart:
@@ -209,10 +209,10 @@ chartDigestedPeptideMasses |> GenericChart.toChartHTML
 (**
 ## Questions
 
-1. When trypsin is used for digestion in a MS experiment, it is often combined with another protease (e.g. Lys-C). Why can it be beneficial to combine trypsin?
-2. A peptide with a charge of 2 has a m/z of 414. What is the m/z of the same peptide with a charge of 3? Visualize the m/z of the peptides from the fastA with a charge of 3
+1. When trypsin is used for digestion in an MS experiment, it is often combined with another protease (e.g. Lys-C). Why can it be beneficial to combine trypsin?
+2. A peptide with a charge of 2 has an m/z of 414. What is the m/z of the same peptide with a charge of 3? Visualize the m/z of the peptides from the FASTA with a charge of 3
 like done above.
-3. Peptides can occur at different charge states during a MS run. Do the different charge states of an peptide usually possess similar intensities?
+3. Peptides can occur at different charge states during an MS run. Do the different charge states of an peptide usually possess similar intensities?
 *)
 
 
@@ -222,4 +222,3 @@ like done above.
 23. Burkhart, J. M., Schumbrutzki, C., Wortelkamp, S., Sickmann, A. & Zahedi, R. P. Systematic and quantitative comparison of digest efficiency and specificity reveals the impact of trypsin quality on MS-based proteomics. Journal of proteomics 75, 1454–1462; 10.1016/j.jprot.2011.11.016 (2012).
 24. Switzar, L., Giera, M. & Niessen, W. M. A. Protein digestion: an overview of the available techniques and recent developments. J. Proteome Res. 12, 1067–1077; 10.1021/pr301201x (2013).
 *)
-

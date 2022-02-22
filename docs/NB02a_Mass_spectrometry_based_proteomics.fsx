@@ -27,7 +27,7 @@ Mass spectrometry-based proteomics refers to the large-scale analysis of
 proteins using mass spectrometry, an analytical method to determine the mass of molecules. In the case of proteomics, the target 
 molecules are whole proteins or peptides.
 
-The typical proteomics workflow is as follows (Figure 2): first, proteins are isolated from 
+The typical proteomics workflow is as follows (Figure 2): First, proteins are isolated from 
 cells or tissues by lysis followed by biochemical fractionation or affinity selection. MS on whole proteins (top-down proteomics) 
 is less sensitive and more difficult to handle when compared to MS on peptides (bottom-up proteomics), as the mass of the intact protein by 
 itself is insufficient for protein identification (Breuker et al. 2008, Reid and McLuckey 2002). Therefore, the bottom-up approach is 
