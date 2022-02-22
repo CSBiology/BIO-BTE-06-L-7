@@ -9,7 +9,7 @@ This notebook introduces the field of Systems Biology and explains why programmi
 
 1. Systems Biology: A brief introduction
 
-3. References
+2. References
 
 ## Systems Biology: A brief introduction
 
@@ -19,7 +19,7 @@ functions are required to achieve the system's objective (Bertalanffy 1945). The
 properties allows complex biological functions. Biological processes like cell division, biomass production, or a systemic response to perturbations are molecular physiological functions 
 which result from a complex dynamic interplay between genes, proteins and metabolites (Figure 1). To gain a holistic understanding of a biological system, all parts of the 
 system need to be studied simultaneously by quantitative measures (Sauer et al. 2007). The focus on a system-wide perspective lies on the quantitative understanding of the 
-organizational structure, functional state, robustness and dynamics of a biological system and led to the coining of the term “Systems Biology”(Kitano 2002a).
+organizational structure, functional state, robustness and dynamics of a biological system and led to the coining of the term “Systems Biology” (Kitano 2002a).
 
 The current challenges of Systems Biology approaches are mainly along four lines (Sauer et al. 2007, Joyce and Palsson 2006): 
 

@@ -27,17 +27,17 @@ In addition, most plants are sessile systems that have to face fluctuating envir
 The process of a biological system responding to changes in environmental conditions is termed acclimation. These molecular physiological responses represent a complex 
 dynamic adjustment of the interplay between genes, proteins and metabolites that allows the organism to acclimate to the changing environment. 
 The ability to acclimate ensures the survival of all living organisms and is therefore fundamental for the understanding of biological systems. 
-Detailed knowledge about how plants acclimate to a changing environment is crucial especially in times of global climate changes, 
+Detailed knowledge about how plants acclimate to a changing environment is crucial especially in times of global climate change, 
 as plants are of great importance for our quality of life as a key source of food, shelter, fiber, medicine, and fuel (Minorsky 2003).
 
-The prominent model plant *Arabidopsis thaliana* is well suited for plant Systems Biology studies because sophisticated experimental tools and extensive data 
+The prominent model plant *Arabidopsis thaliana* is well suited for Plant Systems Biology studies because sophisticated experimental tools and extensive data 
 collections are readily available (Van Norman et al. 2009). However, the importance of a model organism is not only coined by the availability of molecular 
 tools to manipulate the organism, but also by its agricultural and economic impact like in the cases of tobacco, rice, maize or 
-barley (Pãcurar 2009). Also microalgae are of special economic interest due to their potential as biofuel producers (Cagnon et al. 2013). 
+barley (Pãcurar 2009). Also, microalgae are of special economic interest due to their potential as biofuel producers (Cagnon et al. 2013). 
 Additionally, the use of organisms with lower biological complexity facilitates the feasibility of System Biology studies and is an important factor to consider 
 for the choice of a suitable model organism in Systems Biology.
 
-The eukaryotic green alga *Chlamydomonas reinhardtii* is particularly well suited for plant Systems Biology approaches. 
+The eukaryotic green alga *Chlamydomonas reinhardtii* is particularly well suited for Plant Systems Biology approaches. 
 This unicellular freshwater and soil-dwelling alga has a single, cup-shaped chloroplast with a photosynthetic apparatus that is similar to 
 that of higher plants (Eberhard et al. 2008, Merchant et al. 2007). Hence, results gained on photosynthesis processes in *Chlamydomonas* 
 are likely to be transferable to higher plants. The nuclear, mitochondrial, and chloroplast genomes have been sequenced and tools for manipulating them 
@@ -202,7 +202,7 @@ The selected model should match the theoretical (time) course of the studied sig
 consideration of Occams razor principle. It states, that a approriate model with a low number of coefficients should be preferred over a 
 model with many coefficients, since the excessive use of coefficients leads to overfitting.
 
-A often used growth curve model is the four parameter [Gompertz model](https://en.wikipedia.org/wiki/Gompertz_function). 
+An often used growth curve model is the four parameter [Gompertz model](https://en.wikipedia.org/wiki/Gompertz_function). 
 
 The function has the form: ![](https://latex.codecogs.com/png.latex?A+Ce^{-e^{-B(t-M)}}) [Gibson et al. 1988](https://www.sciencedirect.com/science/article/pii/0168160588900517?via%3Dihub). 
 
@@ -233,7 +233,7 @@ open FSharp.Stats.Fitting.NonLinearRegression
 // The model we need already exists in FSharp.Stats and can be taken from the "Table" module.
 let modelGompertz = Table.GrowthModels.gompertz
 
-// The solver, that iteratively optimizes the coefficients requires an initial guess of the coefficients.
+// The solver that iteratively optimizes the coefficients requires an initial guess of the coefficients.
 // The following function was specifically designed to estimate gompertz model coefficients from the data
 // You have to provide the time data, the log transformed count data, the expected generation time, and the used log transform
 let solverOptions = Table.GrowthModels.getSolverOptionsGompertz exmp_x_Hours exmp_y_Count_Log 8. log2
@@ -283,7 +283,7 @@ The model coefficients were determined to be:
 They are pretty close to the initial estimations that were determined in Code-Block 3 With the coefficients at hand, the model function can be filled with coefficients and can be used to create a fit to the data.
 
 *)
-// Code-Block 4
+// Code-Block 5
 
 // Create fitting function from optimal coefficients
 let fittingFunction = modelGompertz.GetFunctionValue gompertzParams
@@ -319,6 +319,7 @@ Luckily, there is a short cut when using the Gompertz model. It allows the deter
 
 
 *)
+// Code-Block 6
 
 let getGenTimeFromGompertz (parameterVector: vector) (logTransform: float -> float) =
     logTransform 2. * Math.E / (parameterVector.[1] * parameterVector.[2])
@@ -336,11 +337,11 @@ gt
 <br>
 ## Questions:
 
-1. Why is it useful to use a log2 transform rather than a ln, log10, or any other log transform?
-Hint: Define your own exponentially growing cell counts with a generation time of 1 and transform them using different log transforms.
+1. Why is it useful to use a log2 transform rather than a ln, log10, or any other log transform?  
+_Hint:_ Define your own exponentially growing cell counts with a generation time of 1 and transform them using different log transforms.
 
-2. Why is it not sufficient to fit the (raw or transformed) data using the possibilities Excel offers? 
-Hint: Which models are available and why are these not always appropriate?
+2. Why is it not sufficient to fit the (raw or transformed) data using the possibilities Excel offers?  
+_Hint:_ Which models are available and why are these not always appropriate?
 
 3. Calculate the generation time of the following data. Compare the time points of maximal slope of the raw data and the transformed data by eye. Without the log transform you are blind for the actual point of maximal growth.
 
