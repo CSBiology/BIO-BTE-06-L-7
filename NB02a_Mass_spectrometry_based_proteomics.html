@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>NB02a Mass Spectrometry Based Proteomics
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/x-icon" href="/BIO-BTE-06-L-7//img/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+    <link type="text/css" rel="stylesheet" href="/BIO-BTE-06-L-7/content/fsdocs-default.css" />
+    <link type="text/css" rel="stylesheet" href="/BIO-BTE-06-L-7/content/fsdocs-custom.css" />
+    <script type="text/javascript" src="/BIO-BTE-06-L-7/content/fsdocs-tips.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script defer type="text/javascript" src="https://kit.fontawesome.com/0d3e0ea7a6.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head> 
+
+<body>
+    <div class="columns is-fullheight m-0">
+        <div id="fsdocs-menu" class="column is-2 is-paddingless">
+            <aside class="menu">
+                <div class="container is-paddingless is-marginless has-background-dark">
+                    <a href="/BIO-BTE-06-L-7/">
+                        <figure class="image is-128x128 container">
+                            <img src="img/logo.svg">
+                        </figure>
+                    </a>
+                    <h2 class="title has-text-centered has-text-white pb-4">BIO-BTE-06-L-7</h2>
+                </div>
+                <div class="content">
+                    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+                    <div id="header">
+                        <div class="field">
+                            <div class="control has-icons-left has-icons-right searchbox" id="fsdocs-searchbox">
+                                <input data-search-input="" id="search-by" type="search" placeholder="Search..." class="input"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- END SEARCH BOX: this adds support for the search box -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB00a_FSharp_Coding_literacy_Part_I.html">
+                                <span class="text">
+                                    <span>NB00a FSharp Coding literacy part I</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB00b_FSharp_Coding_literacy_Part_II.html">
+                                <span class="text">
+                                    <span>NB00b FSharp Coding literacy part II</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB01a_Systems_Biology_FSharp_Introduction.html">
+                                <span class="text">
+                                    <span>NB01a Systems Biology</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB01b_Plant_Systems_Biology.html">
+                                <span class="text">
+                                    <span>NB01b Plant Systems Biology</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB02a_Mass_spectrometry_based_proteomics.html">
+                                <span class="text">
+                                    <span>NB02a Mass Spectrometry Based Proteomics</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB02b_Digestion_and_mass_calculation.html">
+                                <span class="text">
+                                    <span>NB02b Digestion and mass calculation</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB02c_Isotopic_distribution.html">
+                                <span class="text">
+                                    <span>NB02c Isotopic Distribution</span>
+                                </span>
+                            </a>
+                        </li>
+                        <!--<li class="nav-item">
+                            <a class="nav-link" href="NB03a_Retention_time_and_scan_time.html">
+                                <span class="text">
+                                    <span>NB03a Retention time and scan time</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB03b_Signal_detection_and_quantification.html">
+                                <span class="text">
+                                    <span>NB03b Signal detection and quantification</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB03c_Centroidisation.html">
+                                <span class="text">
+                                    <span>NB03c Centroidisation</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB04a_Fragmentation_for_peptide_identification.html">
+                                <span class="text">
+                                    <span>NB04a Fragmentation for peptide identification</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB04b_Peptide_Identification.html">
+                                <span class="text">
+                                    <span>NB04b Peptide Identification</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB05a_Quantification.html">
+                                <span class="text">
+                                    <span>NB05a Quantification</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06a_Working_With_Deedle.html">
+                                <span class="text">
+                                    <span>NB06a Working with Deedle</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06b_Data_Access_And_Quality_Control.html">
+                                <span class="text">
+                                    <span>NB06b Data Access and Quality Control</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06b_Data_Access_And_Quality_Control_SDS.html">
+                                <span class="text">
+                                    <span>NB06b' Data Access and Quality Control (SDS)</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06b_Data_Access_And_Quality_Control_BN.html">
+                                <span class="text">
+                                    <span>NB06b'' Data Access and Quality Control (BN)</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06c_Label_efficiency.html">
+                                <span class="text">
+                                    <span>NB06c Label Efficiency</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06c_Label_efficiency_SDS.html">
+                                <span class="text">
+                                    <span>NB06c' Label Efficiency (SDS)</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06c_Label_efficiency_BN.html">
+                                <span class="text">
+                                    <span>NB06c''' Label Efficiency (BN)</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06d_Absolute_Quantification.html">
+                                <span class="text">
+                                    <span>NB06d Absolute Quantification</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06d_Absolute_Quantification_SDS.html">
+                                <span class="text">
+                                    <span>NB06d' Absolute Quantification (SDS)</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06d_Absolute_Quantification_BN.html">
+                                <span class="text">
+                                    <span>NB06d'' Absolute Quantification (BN)</span>
+                                </span>
+                            </a>
+                        </li>-->
+                        <li class="nav-header">Links</li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://csb.bio.uni-kl.de/teaching/">
+                                <span class="icon-text">
+                                    <span class="icon">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </span>
+                                    <span>Other CSB courses</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://twitter.com/cs_biology">
+                                <span class="icon-text">
+                                    <span class="icon">
+                                        <i class="fab fa-twitter"></i>
+                                    </span>
+                                    <span>Get in touch on twitter</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/CSBiology?type=source">
+                                <span class="icon-text">
+                                    <span class="icon">
+                                        <i class="fab fa-github"></i>
+                                    </span>
+                                    <span>Check out our open source projects</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/CSBiology/BIO-BTE-06-L-7">
+                                <span class="icon-text">
+                                    <span class="icon">
+                                        <i class="fas fa-code-branch"></i>
+                                    </span>
+                                    <span>Source repository</span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        <div class="column is-10 is-paddingless has-text-justified	">
+            <div class="section pt-4">
+                <div class="container" id="fsdocs-content">
+                    <h1><a name="NB02a-Mass-Spectrometry-Based-Proteomics" class="anchor" href="#NB02a-Mass-Spectrometry-Based-Proteomics">NB02a Mass Spectrometry Based Proteomics</a></h1>
+<p><a href="https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB02a_Mass_spectrometry_based_proteomics.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a></p>
+<p><a href="https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB02a_NB02b_NB02c/NB02a_Mass_spectrometry_based_proteomics.ipynb">Download Notebook</a></p>
+<ol>
+<li>Mass spectrometry (MS)-based proteomic</li>
+<li>References</li>
+</ol>
+<h2><a name="Mass-spectrometry-MS-based-proteomic" class="anchor" href="#Mass-spectrometry-MS-based-proteomic">Mass spectrometry (MS)-based proteomic</a></h2>
+<p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/OmicsWorkflow.png" alt="" /><br />
+<strong>Figure 2. Summary of a typical proteomics workflow following the bottom-up principle.</strong></p>
+<p>During sample preparation proteins are extracted from the samples and digested into peptides using proteases typically trypsin. An optional fractionation or enrichment may be applied at either the protein or peptide level to enhance the scope of identification. Peptides are separated by high-performance liquid chromatography (HPLC) and afterward transferred into the
+vacuum of the mass spectrometer mostly using electrospray ionization (ESI). Cycles of full MS including all peptide at a time followed by MS/MS of selected peptides are measured.
+The consecutive measured MS and MS/MS spectra are then used to computationally identify and quantify the peptide sequence and infer the protein.</p>
+<p>The proteome is understood as an entire complement of proteins in one cell, tissue or a whole organism.
+Proteomics as a scientific field deals with the qualitative and quantitative analysis of protein expression patterns.
+Thus, proteomics relies primarily on the ability to unambiguously identify proteins, followed by accurate quantification.
+Mass spectrometry-based proteomics refers to the large-scale analysis of
+proteins using mass spectrometry, an analytical method to determine the mass of molecules. In the case of proteomics, the target
+molecules are whole proteins or peptides.</p>
+<p>The typical proteomics workflow is as follows (Figure 2): First, proteins are isolated from
+cells or tissues by lysis followed by biochemical fractionation or affinity selection. MS on whole proteins (top-down proteomics)
+is less sensitive and more difficult to handle when compared to MS on peptides (bottom-up proteomics), as the mass of the intact protein by
+itself is insufficient for protein identification (Breuker et al. 2008, Reid and McLuckey 2002). Therefore, the bottom-up approach is
+standardly used, which comprises the enzymatic degradation of proteins to peptides using an endopeptidase (trypsin in most cases)
+(Olsen et al. 2004). Trypsin is advantageous as it generates peptides with C-terminally protonated amino acids to foster
+the detectability of a full ion ladder (series) in a subsequent, optional fragmentation step for sequencing. The peptides are separated by one
+or more steps of liquid chromatography (LC) and afterwards transferred into the vacuum of the mass spectrometer, where a mass spectrum
+of the peptides eluting at this time from the LC is taken (MSU+00B9 spectrum or ‘normal mass spectrum’). A prioritized list of these peptides
+for fragmentation is either automatically generated or provided by the operator. These peptide ions are then fragmented by energetic collision with
+an inert gas and recorded as tandem MS spectra (MS/MS or MSU+00B2 spectra). The consecutive MS and MS/MS
+spectra are then used to computationally identify the peptide’s sequence and quantify its abundance (Walther and Mann 2010, Aebersold and Mann 2003).</p>
+<h2><a name="References" class="anchor" href="#References">References</a></h2>
+<ol>
+<li>Breuker, K., Jin, M., Han, X., Jiang, H. &amp; McLafferty, F. W. Top-down identification and characterization of biomolecules by mass spectrometry. Journal of the American Society for Mass Spectrometry 19, 1045–1053; 10.1016/j.jasms.2008.05.013 (2008).</li>
+<li>Reid, G. E. &amp; McLuckey, S. A. 'Top down' protein characterization via tandem mass spectrometry. Journal of mass spectrometry : JMS 37, 663–675; 10.1002/jms.346 (2002).</li>
+<li>Olsen, J. V., Ong, S.-E. &amp; Mann, M. Trypsin cleaves exclusively C-terminal to arginine and lysine residues. Molecular &amp; cellular proteomics : MCP 3, 608–614; 10.1074/mcp.T400003-MCP200 (2004).</li>
+<li>Walther, T. C. &amp; Mann, M. Mass spectrometry-based proteomics in cell biology. J. Cell Biol. 190, 491–500; 10.1083/jcb.201004052 (2010).</li>
+<li>Aebersold, R. &amp; Mann, M. Mass spectrometry-based proteomics. Nature 422, 198–207; 10.1038/Nature01511 (2003).</li>
+</ol>
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <script type="text/javascript">var fsdocs_search_baseurl = '/BIO-BTE-06-L-7/'</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+    <script type="text/javascript" src="/BIO-BTE-06-L-7/content/fsdocs-search.js"></script>
+    <!-- END SEARCH BOX: this adds support for the search box -->
+</body>
+
+</html>
