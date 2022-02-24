@@ -98,7 +98,7 @@ let doubleChargedPeptides =
     |> Array.filter (fun (peptide,ucMass) -> peptide.Length >= 7)
     |> Array.map (fun (peptide,ucMass) -> peptide, Mass.toMZ ucMass 2.) 
 
-// combine this two    
+// combine this two
 let chargedPeptides =
     Array.concat [singleChargedPeptides;doubleChargedPeptides]
 
@@ -113,11 +113,11 @@ Now, we can sample our random "MS1" spectrum from this collection of m/z.
 
 // Code-Block 3
 
-// initialze a random generator 
+// initialize a random generator 
 let rnd = new System.Random()
 
 // sample n random peptides from all Chlamydomonas reinhardtii peptides
-let chargedPeptideChar =
+let chargedPeptideChart =
     Array.sampleWithOutReplacement rnd chargedPeptides 100
     // we only want the m/z
     |> Array.map (fun (peptide,mz) -> mz, 1.) 
@@ -127,14 +127,14 @@ let chargedPeptideChar =
     |> Chart.withSize (900., 400.)
     |> Chart.withTemplate ChartTemplates.light
 
-chargedPeptideChar
+chargedPeptideChart
 (***hide***)
-chargedPeptideChar |> GenericChart.toChartHTML
+chargedPeptideChart |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
 
-This looks quite strange. I think you immediately see that we forgot about our isotopic cluster. A peptide doesn’t produce a single peak, 
+This looks quite strange. I think you immediately see that we forgot about our isotopic cluster. A peptide doesn't produce a single peak, 
 but a full isotopic cluster. Therefore, we use our convenience function from the previous notebook 
 (see: *NB02c\_Isotopic\_distribution.ipynb* ).
 
