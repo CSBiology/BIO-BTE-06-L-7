@@ -14,7 +14,7 @@
 ## Mass spectrometry (MS)-based proteomic
 
 ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/OmicsWorkflow.png)  
-**Figure 2. Summary of a typical proteomics workflow following the bottom-up principle.**
+***Figure 3: Summary of a typical proteomics workflow following the bottom-up principle.***
 
 During sample preparation proteins are extracted from the samples and digested into peptides using proteases typically trypsin. An optional fractionation or enrichment may be applied at either the protein or peptide level to enhance the scope of identification. Peptides are separated by high-performance liquid chromatography (HPLC) and afterward transferred into the 
 vacuum of the mass spectrometer mostly using electrospray ionization (ESI). Cycles of full MS including all peptide at a time followed by MS/MS of selected peptides are measured. 
@@ -27,7 +27,7 @@ Mass spectrometry-based proteomics refers to the large-scale analysis of
 proteins using mass spectrometry, an analytical method to determine the mass of molecules. In the case of proteomics, the target 
 molecules are whole proteins or peptides.
 
-The typical proteomics workflow is as follows (Figure 2): First, proteins are isolated from 
+The typical proteomics workflow is as follows (Figure 3): First, proteins are isolated from 
 cells or tissues by lysis followed by biochemical fractionation or affinity selection. MS on whole proteins (top-down proteomics) 
 is less sensitive and more difficult to handle when compared to MS on peptides (bottom-up proteomics), as the mass of the intact protein by 
 itself is insufficient for protein identification (Breuker et al. 2008, Reid and McLuckey 2002). Therefore, the bottom-up approach is 

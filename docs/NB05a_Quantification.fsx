@@ -35,7 +35,7 @@ suited to find the peptide feature.
 
 ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/Wavelets.png)
 
-**Figure 5: Schematic representation of the ‘Haar’-wavelet (blue) and the ‘Mexican Hat’- wavelet (green). **
+***Figure 6: Schematic representation of the ‘Haar’-wavelet (blue) and the ‘Mexican Hat’- wavelet (green). ***
 The ‘Haar’-wavelet is named after its discoverer Alfred Haar and represents the first wavelet ever to be described. The ‘Mexican Hat’- or ‘Ricker’-wavelet is 
 frequently used in the fields of signal detection and compression.
 
@@ -52,7 +52,7 @@ protein.
 
 ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/ComputationalProteinQuantification.png)
 
-**Figure 6: Computational strategy of peptide and protein quantiﬁcation on based on stable isotope labeling or by label-free quantiﬁcation.**
+***Figure 7: Computational strategy of peptide and protein quantiﬁcation on based on stable isotope labeling or by label-free quantiﬁcation.*** 
 (A) Label-free methods compare corresponding peptide abundances over different MS runs. The abundance is either 
 estimated by the elution proﬁle les of the pep de ions or (B) in case of spectral counting, by the number of times a peptide was 
 successfully identiﬁed (MS2). In contrast, methods based on differential stable isotope labeling analyze peptides pairs detected by 

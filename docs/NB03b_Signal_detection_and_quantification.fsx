@@ -21,7 +21,7 @@ operational mode used to record the spectrum. It is either a full scan or the nu
 
 ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/MSDerivedDataSpaces.PNG)
 
-**Figure 3: A conceptual view of different spaces of MS derived data sets.**
+***Figure 4: A conceptual view of different spaces of MS derived data sets.***
 (i) The metadata-space serves as a descriptive layer to order, assign and integrate spectra information. (ii) 
 The MS1-space and the (iii) MS2-space represent two independent entities that differ in signal shape, resolution and their 
 information content (‘features’).

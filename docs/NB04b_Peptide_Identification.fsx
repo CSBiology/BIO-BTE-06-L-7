@@ -44,12 +44,12 @@ searching, the most frequently used methods.
 
 ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/ComputationalProteinIdentification.png)
 
-**Figure 5: Process of computational identification of peptides from their fragment spectra**
+**Figure 6: Process of computational identification of peptides from their fragment spectra**
 
 Previously we learned, that peptides fragment to create patterns characteristic of a specific amino acid sequence. These patterns are reproducible and, in general, 
 predictable taking the applied fragmentation method into account. This can be used for computational identification of peptides from their fragment spectra. 
 This process can be subdivided into 5 main steps: spectrum preprocessing, selection of possible sequences, generating theoretical spectra, matching and scoring 
-(Figure 5). The first step is a preprocessing of the experimental spectra and is done to reduce noise. Secondly, all possible amino acid 
+(Figure 6). The first step is a preprocessing of the experimental spectra and is done to reduce noise. Secondly, all possible amino acid 
 sequences are selected which match the particular precursor peptide mass. The possible peptides can but do not need to be restricted to a particular organism. 
 A theoretical spectrum is predicted for each of these amino acid sequences. Matching and scoring is performed by comparing experimental spectra to their predicted 
 corresponding theoretical spectra. The score function measures the closeness of fit between the experimental acquired and theoretical spectrum. There are many 

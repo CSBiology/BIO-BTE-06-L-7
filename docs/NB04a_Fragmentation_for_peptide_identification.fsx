@@ -20,9 +20,8 @@ derived from the fragmentation of a specific peptide in the collision cell of a 
 information on their amino acid sequence. The correct assignment of such a spectrum to a peptide sequence is the central step to link 
 m/z values and ion intensities to biology (Nesvizhskii et al. 2007). 
 
-![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/FragmentIonNomenclature.PNG)
-
-**Figure 4: The Roepstorff-Fohlmann-Biemann nomenclature of fragment ions.**
+![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/FragmentIonNomenclature.PNG)  
+***Figure 5: The Roepstorff-Fohlmann-Biemann nomenclature of fragment ions.*** 
 N-terminal and C-terminal peptide fragments result of dissociation of electron bonds along the peptide backbone.
 
 During the unimolecular peptide ion dissociation processes, different chemical reactions can lead to different types 

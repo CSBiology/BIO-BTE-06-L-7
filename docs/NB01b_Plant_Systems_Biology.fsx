@@ -117,7 +117,8 @@ also called log phase, during which cell growth is exponential due to the iterat
 death rate are equal. The stationary phase is typically initiated due to limitations in growth conditions, e.g. depletion of essential nutrients or accumulation of toxic/inhibitory 
 excretions/products. The doubling time (or generation time) defines a time interval in which the quantity of cells doubles.
 
-![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/growthCurve.png)
+![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/growthCurve.png)  
+***Figure 2: An exemplary growth curve.***
 
 Growth data always should be visualized in log space. Therefore the count data must be log transformed. When a log2 transform is applied, 
 a doubling of the original counts is achieved, when the value increase 1 unit. 
