@@ -23,11 +23,11 @@ The NFDI (Nationale Forschungsdateninfrastruktur) is a german infrastructure tha
 The ARC is, basically, a folder and file structure. Its design shall cover the entire research cycle, from experimental to computational analyses, actual data and metadata, as well as resulting publications.
 
 ![](https://github.com/CSBiology/BIO-BTE-06-L-7/raw/main/docs/img/ARCfolderStructure.jpg)  
-***Figure 8: An exemplary ARC, schematically visualised***
+***Figure 8: An exemplary ARC, schematically visualized***
 
 Some parts of the ARC are an implementation of the ISA model you have seen before, e.g. the _Investigation_ file, _Study_ files, and the _assays_ folder.  
-In the _assays_ folder, all the assays of the research project are stored. Each assay has its own folder whose foldername represents the _AssayID_. In Figure 1, this is "proteomics". In each assay's folder are the subfolders _dataset_ (which stores all according datasets) and _protocol_ (for ISA protocol information), as well as this assays _Assay_ file whose name is always "assay.isa.xlsx".  
-The _externals_ folder consists of files that are not directly part of any other ARC structure but related to the ARC in some way (in this practical course, it won't play a role).  
+In the _assays_ folder, all the assays of the research project are stored. Each assay has its own folder whose foldername represents the _AssayID_. In Figure 1, this is "proteomics". In each assay's folder are the subfolders _dataset_ (which stores all corresponding datasets) and _protocol_ (for ISA protocol information), as well as this assay's _Assay_ file whose name is always "assay.isa.xlsx".  
+The _externals_ folder consists of files that are not directly part of any other ARC structure but related to the ARC in some way.  
 In the _workflows_ folder, computational workflows are stored. Here (Figure 8), it is a script named "norm", written in the programming language python and located in the "PythonCapsule" folder. This is the directory where you could, e.g., place your Jupyter Notebooks.  
 The results of computational evaluations and calculations are placed in the _runs_ folder, where each subfolder represents a single computational run.  
 Finally, there's the _Investigation_ file which is located in the ARC's root folder. In this file, all the information about the ARC itself and its research project are contained. That is, e.g., the names of the researchers involved, the name of the group, etc.
@@ -59,7 +59,7 @@ The different types of columns:
 The values of this column describe the name of the _input_ of the process. This can be, in a lab experiment, the name of the biological source, e.g. the name of a specimen in a petri dish.
 - the sink columns
   - **Sample Name**  
-    A Sample Name describes the name of the _output_ of a process. For example, if a process ends in the specimen being stored in an eppendorfer tube, it could be the name of this eppi.
+    A Sample Name describes the name of the _output_ of a process. For example, if a process ends in the specimen being stored in an eppendorf tube, it could be the name of this eppi.
   - **Data File Name**  
     Like the Sample Name except that it is used when the output is a file. The whole file's name shall be used as Data File Name, that also includes the file extension.
 - the _Building Blocks_:
@@ -75,14 +75,14 @@ The values of this column describe the name of the _input_ of the process. This 
 
 Ideally, an annotation table describes its experiment's process chronologically so that a researcher trying to replicate it can easily do so. The worksheets an _Assay_ file consists of should be ordered chronologically, too.  
 
-While you could do all this stuff by hand, it is much easier if you use a tool that automatizes much of the work. For this, an MS Excel add-in exists that facilitates the work with Xlsx files massively.
+While you could do all this data entry by hand, it is much easier if you use a tool that automatizes much of the work. For this, an MS Excel add-in exists that facilitates the work with Xlsx files massively.
 
 # Swate
 
 **Swate** (Swate workflow annotation tool for Excel) was developed by the CSB group as an MS Excel extension for facilitating the work with _Assay_ files.  
 You either need to have Microsoft Office installed to work with the desktop application or have a Microsoft 365 account to work online in a browser of your choice.
 
-Header over to the [installing chapter for Swate](https://github.com/nfdi4plants/Swate#installuse) and follow the instructions there.
+Head over to the [installing chapter for Swate](https://github.com/nfdi4plants/Swate#installuse) and follow the instructions there.
 
 After you successfully installed Swate, you can create an exemplary _Assay_ file to get a feeling of how to use Swate.  
 
