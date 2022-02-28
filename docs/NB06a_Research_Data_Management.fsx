@@ -103,6 +103,11 @@ Like with Building Blocks, rather write down your own terms before choosing a te
 7. Use _Autoformat Table_ (A) to automatically format an annotation table. _Remove Building Block_ (B) deletes whole Building Blocks while _Get Building Block Information_ gives you information about the terms and size of a Building Block:
 ![](AutoformatTable_RemoveBuildingBlock_GetBuildingBlockInformation.png)
 
+# Editing an ARC
 
+After you learned about the ARC, its structure and the _Assay_ file, you will now transform a given protocol into such an _Assay_ file via using Swate.  
+There's a protocol of the method section of a common paper in this course's ARC's assay in the _protocols_ folder. Read it and build a Swate table according to it in the _Assay_ file. Annotate the _Investigation_ file in the ARC's root folder accordingly.
+
+Download this course's ARC from [here](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/RDMWorkshopARC/RDMWorkshopARC-2022.zip).
 
 *)
