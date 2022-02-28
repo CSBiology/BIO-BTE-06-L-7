@@ -147,7 +147,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="NB06a_Research_Data_Managment.html">
+                            <a class="nav-link" href="NB06a_Research_Data_Management.html">
                                 <span class="text">
                                     <span>NB06a Research Data Management</span>
                                 </span>
@@ -285,11 +285,11 @@ ISA-Xlsx
 <li>Swate</li>
 <li>Editing an ARC</li>
 </ol>
-<p>The NFDI (Nationale Forschungsdateninfrastruktur) is a german infrastructure that targets standardization of RDM. The CSB group is part of DataPLANT, a consortium within the NFDI, which tackles the field of basic plant research. To achieve the already introduced FAIR principles, DataPLANT envisioned the <strong>Annotated Research Context</strong> (short: <strong>ARC</strong>).</p>
+<p>The NFDI (Nationale Forschungsdateninfrastruktur) is a german infrastructure that targets standardization of Research Data Management (RDM). The CSB group is part of DataPLANT, a consortium within the NFDI, which tackles the field of basic plant research. To achieve the already introduced FAIR principles, DataPLANT envisioned the <strong>Annotated Research Context</strong> (short: <strong>ARC</strong>).</p>
 <h1><a name="ARC" class="anchor" href="#ARC">ARC</a></h1>
-<p><img src="ARC.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/ARC.png" alt="" /></p>
 <p>The ARC is, basically, a folder and file structure. Its design shall cover the entire research cycle, from experimental to computational analyses, actual data and metadata, as well as resulting publications.</p>
-<p><img src="ARCfolderStructure.jpg" alt="" /><br />
+<p><img src="https://github.com/CSBiology/BIO-BTE-06-L-7/raw/main/docs/img/ARCfolderStructure.jpg" alt="" /><br />
 <strong><em>Figure 8: An exemplary ARC, schematically visualised</em></strong></p>
 <p>Some parts of the ARC are an implementation of the ISA model you have seen before, e.g. the <em>Investigation</em> file, <em>Study</em> files, and the <em>assays</em> folder.<br />
 In the <em>assays</em> folder, all the assays of the research project are stored. Each assay has its own folder whose foldername represents the <em>AssayID</em>. In Figure 1, this is "proteomics". In each assay's folder are the subfolders <em>dataset</em> (which stores all according datasets) and <em>protocol</em> (for ISA protocol information), as well as this assays <em>Assay</em> file whose name is always "assay.isa.xlsx".<br />
@@ -298,60 +298,101 @@ In the <em>workflows</em> folder, computational workflows are stored. Here (Figu
 The results of computational evaluations and calculations are placed in the <em>runs</em> folder, where each subfolder represents a single computational run.<br />
 Finally, there's the <em>Investigation</em> file which is located in the ARC's root folder. In this file, all the information about the ARC itself and its research project are contained. That is, e.g., the names of the researchers involved, the name of the group, etc.</p>
 <h1><a name="ISA-Xlsx" class="anchor" href="#ISA-Xlsx">ISA-Xlsx</a></h1>
-<p>The <em>Assay</em> files are, from an experimenter's perspective, the most important files of each ARC since they contain the information about
-- the sample that was used
-- the condition of the sample, i.e. how the sample was treated
-- the way how the data was obtained from the sample</p>
+<p>The <em>Assay</em> files are, from an experimenter's perspective, the most important files of each ARC since they contain the information about</p>
+<ul>
+<li>the sample that was used</li>
+<li>the condition of the sample, i.e. how the sample was treated</li>
+<li>the way how the data was obtained from the sample</li>
+</ul>
 <p>In each <em>Assay</em> file, the metadata of the respective experiment is documented thoroughly. To do so, the Xlsx file format is suitable. The common way to work with Xlsx files are spreadsheet programs like Microsoft Excel or LibreOffice.</p>
 <h2><a name="The-structure-of-ISA-Xlsx" class="anchor" href="#The-structure-of-ISA-Xlsx">The structure of ISA-Xlsx</a></h2>
-<p>A practical implementation of the <a href="https://isa-specs.readthedocs.io/en/latest/isamodel.html">ISA standard</a> is <a href="https://github.com/nfdi4plants/ARC-specification/blob/main/ARC%20specification.md#isa-xlsx-format">ISA-Xlsx</a>. In this, the <a href="https://isa-specs.readthedocs.io/en/latest/isatab.html#study-and-assay-files">format of the Assay files</a> served as the blueprint. Here, ISA is realized in a very similar manner.</p>
 <p>A practical implementation of the <a href="https://isa-specs.readthedocs.io/en/latest/isamodel.html">ISA standard</a> is <a href="https://github.com/nfdi4plants/ARC-specification/blob/main/ARC%20specification.md#isa-xlsx-format">ISA-Xlsx</a>. In this, the <a href="https://isa-specs.readthedocs.io/en/latest/isatab.html#study-and-assay-files">format of the Assay files</a> served as the blueprint. Here, ISA is realized in a very similar manner.</p>
 <p>An <em>Assay</em> file consists of at least one annotation table (like in Figure 9). 1 annotation table per Xlsx worksheet is allowed. Each annotation table represents an ISA process which is the depiction of a sequence of steps from the input to the output.<br />
 Annotation tables are row-oriented. This means that the first row consists entirely of each column's header. Annotation tables are ordered from left to right and always begin with a source column ("Source Name") and end with a sink column ("Sample Name" or "Data File Name"). In between are <em>Building Blocks</em> that consist of an ISA term ("Characteristics", "Parameter", or "Factor") and an ontology term in square brackets.<br />
 The cells below the headers are the values.</p>
-<p><img src="ExemplaryAssayFile.png" alt="" /><br />
+<p><img src="https://github.com/CSBiology/BIO-BTE-06-L-7/raw/main/docs/img/ExemplaryAssayFile.png" alt="" /><br />
 <strong><em>Figure 9: An annotation table of an exemplary Assay file.</em></strong></p>
-<p>The different types of columns:
-- the source column: <strong>Source Name</strong><br />
+<p>The different types of columns:</p>
+<ul>
+<li>
+the source column: <strong>Source Name</strong><br />
 The values of this column describe the name of the <em>input</em> of the process. This can be, in a lab experiment, the name of the biological source, e.g. the name of a specimen in a petri dish.
-- the sink columns
-- <strong>Sample Name</strong><br />
-Sample names describe the name of the <em>output</em> of a process. For example, if a process ends in the specimen being stored in an eppendorfer tube, it could be the name of this eppi.
-- <strong>Data File Name</strong><br />
+</li>
+<li>
+the sink columns
+<ul>
+<li>
+<strong>Sample Name</strong><br />
+A Sample Name describes the name of the <em>output</em> of a process. For example, if a process ends in the specimen being stored in an eppendorfer tube, it could be the name of this eppi.
+</li>
+<li>
+<strong>Data File Name</strong><br />
 Like the Sample Name except that it is used when the output is a file. The whole file's name shall be used as Data File Name, that also includes the file extension.
-- the <em>Building Blocks</em>:
-- <strong>Characteristics</strong><br />
+</li>
+</ul>
+</li>
+<li>
+the <em>Building Blocks</em>:
+<ul>
+<li>
+<strong>Characteristics</strong><br />
 Characteristics are <em>Building Blocks</em> that <em>describe the specimen</em> used, e.g. the species, the strain, the genotype, the number of leaves (if it is a plant), its mass, etc.
-- <strong>Parameter</strong><br />
+</li>
+<li>
+<strong>Parameter</strong><br />
 <em>Building Blocks</em> of this type <em>describe a method being applied to the specimen</em>, e.g. the number of hours in daylight a plant is exposed to per day, the weight of the food a mouse is fed with per meal, a specific condition we apply to our specimen, the type of machine we use to get a result from our specimen, this machine's settings, etc.
-- <strong>Factor</strong><br />
-Factors are specific <em>Building Blocks</em> that can be Parameters of Characteristics of special importance in this experiment or research project. We won't use them in this practical course.</p>
-<p><img src="ParameterBuildingBlock_filled.png" alt="" /><br />
+</li>
+<li>
+<strong>Factor</strong><br />
+Factors are specific <em>Building Blocks</em> that can be Parameters of Characteristics of special importance in this experiment or research project. We won't use them in this practical course.
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://github.com/CSBiology/BIO-BTE-06-L-7/raw/main/docs/img/ParameterBuildingBlock_filled.png" alt="" /><br />
 <strong><em>Figure 11: Building Block "Parameter [instrument model]", filled with values.</em></strong></p>
-<p>Ideally, an annotation table describes this experiment's process chronologically so that a researcher trying to replicate it can easily do so. The worksheets an <em>Assay</em> file consists of, should be ordere chronologically, too.</p>
-<p>While you could do all this stuff by hand, it is much easier of you use a tool that automatizes much of the work. For this, an MS Excel add-in exists that facilitates the work with Xlsx files massively.</p>
+<p>Ideally, an annotation table describes its experiment's process chronologically so that a researcher trying to replicate it can easily do so. The worksheets an <em>Assay</em> file consists of should be ordered chronologically, too.</p>
+<p>While you could do all this stuff by hand, it is much easier if you use a tool that automatizes much of the work. For this, an MS Excel add-in exists that facilitates the work with Xlsx files massively.</p>
 <h1><a name="Swate" class="anchor" href="#Swate">Swate</a></h1>
 <p><strong>Swate</strong> (Swate workflow annotation tool for Excel) was developed by the CSB group as an MS Excel extension for facilitating the work with <em>Assay</em> files.<br />
 You either need to have Microsoft Office installed to work with the desktop application or have a Microsoft 365 account to work online in a browser of your choice.</p>
 <p>Header over to the <a href="https://github.com/nfdi4plants/Swate#installuse">installing chapter for Swate</a> and follow the instructions there.</p>
-<p>After you successfully installed Swate, you can create an exemplary <em>Assay</em> file to get a feeling of how to use Swate.<br />
-1. Create a new Xlsx file and open it (online or desktop)
-2. Start Swate Core by opening it via the Data tab<br />
-<img src="OpenSwateCore.png" alt="" />
-3. <a href="https://github.com/nfdi4plants/Swate/wiki/Docs02-Annotation-Table">Create a new annotation table</a><br />
-<img src="CreateAnnotationTable.jpg" alt="" />
-4. <a href="https://github.com/nfdi4plants/Swate/wiki/Docs03-Building-Blocks">Add Building Blocks</a><br />
-<img src="AddBuildingBlock.jpg" alt="" /><br />
+<p>After you successfully installed Swate, you can create an exemplary <em>Assay</em> file to get a feeling of how to use Swate.</p>
+<ol>
+<li>Create a new Xlsx file and open it (online or desktop)</li>
+<li>
+Start Swate Core by opening it via the Data tab<br />
+<img src="https://github.com/CSBiology/BIO-BTE-06-L-7/raw/main/docs/img/OpenSwateCore.png" alt="" />
+</li>
+<li>
+<a href="https://github.com/nfdi4plants/Swate/wiki/Docs02-Annotation-Table">Create a new annotation table</a><br />
+<img src="https://github.com/CSBiology/BIO-BTE-06-L-7/raw/main/docs/img/CreateAnnotationTable.jpg" alt="" />
+</li>
+<li>
+<a href="https://github.com/nfdi4plants/Swate/wiki/Docs03-Building-Blocks">Add Building Blocks</a><br />
+<img src="https://github.com/CSBiology/BIO-BTE-06-L-7/raw/main/docs/img/AddBuildingBlock.jpg" alt="" />
+</li>
+<li>
 Search the term database (B) for a term fitting. If you don't find one, just write a custom term that suits your needs.<br />
-You can add units to them before creation (D) or afterwards:<br />
-<img src="UpdateUnit.jpg" alt="" />
-5. <a href="https://github.com/nfdi4plants/Swate/wiki/docs04-Ontology-Term-Search">Fill cells with terms</a><br />
-<img src="TermInsert.jpg" alt="" /><br />
+You can add units to them before creation (D) or afterwards:
+<br>
+<img src="https://github.com/CSBiology/BIO-BTE-06-L-7/raw/main/docs/img/UpdateUnit.jpg" alt="" />
+</li>
+<li>
+<a href="https://github.com/nfdi4plants/Swate/wiki/docs04-Ontology-Term-Search">Fill cells with terms</a><br />
+<img src="https://github.com/CSBiology/BIO-BTE-06-L-7/raw/main/docs/img/TermInsert.jpg" alt="" />
+<br>
 Like with Building Blocks, rather write down your own terms before choosing a term from the database that doesn't fit well and annotates the experiment worse.
-6. You can also type values into cells without using the Ontology Term Search, but don't forget to update them afterwards via the <em>Update Ontology Terms</em> function:<br />
-<img src="UpdateOntologyTerms.png" alt="" />
-7. Use <em>Autoformat Table</em> (A) to automatically format an annotation table. <em>Remove Building Block</em> (B) deletes whole Building Blocks while <em>Get Building Block Information</em> gives you information about the terms and size of a Building Block:
-<img src="AutoformatTable_RemoveBuildingBlock_GetBuildingBlockInformation.png" alt="" /></p>
+</li>
+<li>
+You can also type values into cells without using the Ontology Term Search, but don't forget to update them afterwards via the <em>Update Ontology Terms</em> function:<br />
+<img src="https://github.com/CSBiology/BIO-BTE-06-L-7/raw/main/docs/img/UpdateOntologyTerms.png" alt="" />
+</li>
+<li>
+Use <em>Autoformat Table</em> (A) to automatically format an annotation table. <em>Remove Building Block</em> (B) deletes whole Building Blocks while <em>Get Building Block Information</em> gives you information about the terms and size of a Building Block:<br />
+<img src="https://github.com/CSBiology/BIO-BTE-06-L-7/raw/main/docs/img/AutoformatTable_RemoveBuildingBlock_GetBuildingBlockInformation.png" alt="" />
+</li>
+</ol>
 <h1><a name="Editing-an-ARC" class="anchor" href="#Editing-an-ARC">Editing an ARC</a></h1>
 <p>After you learned about the ARC, its structure and the <em>Assay</em> file, you will now transform a given protocol into such an <em>Assay</em> file via using Swate.<br />
 There's a protocol of the method section of a common paper in this course's ARC's assay in the <em>protocols</em> folder. Read it and build a Swate table according to it in the <em>Assay</em> file. Annotate the <em>Investigation</em> file in the ARC's root folder accordingly.</p>
