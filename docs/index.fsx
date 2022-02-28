@@ -35,9 +35,9 @@ and do some manipulations to achieve your desired outcome.
 | 25.02.22 | 4: Protein and Peptide identification | 04a; 04b         |
 | 28.02.22 | 5: Peptide quantification             | 05a              |
 | 01.03.22 | Research Data Management              | 06a              |
-| 02.03.22 | Analysing the course Experiment       | 07a              |
-| 03.03.22 | Analysing the course Experiment       | 07b              |
-| 04.03.22 | Analysing the course Experiment       | 07c              |
+| 02.03.22 | Working with Deedle                   | 07a              |
+| 03.03.22 | Analysing the course Experiment       | 08a              |
+| 04.03.22 | Analysing the course Experiment       | 08b, 08c         |
 
 ## Getting started
 
