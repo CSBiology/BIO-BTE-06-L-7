@@ -25,7 +25,7 @@ open BIO_BTE_06_L_7_Aux.FS3_Aux
 open BIO_BTE_06_L_7_Aux.Deedle_Aux
 
 (**
-# NB06b Data Access and Quality Control
+# NB08a Data Access and Quality Control
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b_Data_Access_And_Quality_Control.ipynb)
 
