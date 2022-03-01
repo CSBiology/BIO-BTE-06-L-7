@@ -96,7 +96,7 @@ Let’s start and extract a XIC…
 #r "nuget: MzIO, 0.1.1"
 #r "nuget: MzIO.SQL, 0.1.4"
 #r "nuget: MzIO.Processing, 0.1.2"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.1"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.9"
 
 #if IPYNB
 #r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
