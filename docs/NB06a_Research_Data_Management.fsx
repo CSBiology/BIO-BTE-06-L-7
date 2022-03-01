@@ -16,7 +16,7 @@
 (**
 The NFDI (Nationale Forschungsdateninfrastruktur) is a german infrastructure that targets standardization of Research Data Management (RDM). The CSB group is part of DataPLANT, a consortium within the NFDI, which tackles the field of basic plant research. To achieve the already introduced FAIR principles, DataPLANT envisioned the **Annotated Research Context** (short: **ARC**\).
 
-# ARC
+## ARC
 
 ![](https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/ARC.png)
 
@@ -32,7 +32,7 @@ In the _workflows_ folder, computational workflows are stored. Here (Figure 8), 
 The results of computational evaluations and calculations are placed in the _runs_ folder, where each subfolder represents a single computational run.  
 Finally, there's the _Investigation_ file which is located in the ARC's root folder. In this file, all the information about the ARC itself and its research project are contained. That is, e.g., the names of the researchers involved, the name of the group, etc.
 
-# ISA-Xlsx
+## ISA-Xlsx
 
 The _Assay_ files are, from an experimenter's perspective, the most important files of each ARC since they contain the information about
 
@@ -42,7 +42,7 @@ The _Assay_ files are, from an experimenter's perspective, the most important fi
 
 In each _Assay_ file, the metadata of the respective experiment is documented thoroughly. To do so, the Xlsx file format is suitable. The common way to work with Xlsx files are spreadsheet programs like Microsoft Excel or LibreOffice.  
 
-## The structure of ISA-Xlsx
+### The structure of ISA-Xlsx
 
 A practical implementation of the [ISA standard](https://isa-specs.readthedocs.io/en/latest/isamodel.html) is [ISA-Xlsx](https://github.com/nfdi4plants/ARC-specification/blob/main/ARC%20specification.md#isa-xlsx-format). In this, the [format of the Assay files](https://isa-specs.readthedocs.io/en/latest/isatab.html#study-and-assay-files) served as the blueprint. Here, ISA is realized in a very similar manner.
 
@@ -77,7 +77,7 @@ Ideally, an annotation table describes its experiment's process chronologically 
 
 While you could do all this data entry by hand, it is much easier if you use a tool that automatizes much of the work. For this, an MS Excel add-in exists that facilitates the work with Xlsx files massively.
 
-# Swate
+## Swate
 
 **Swate** (Swate workflow annotation tool for Excel) was developed by the CSB group as an MS Excel extension for facilitating the work with _Assay_ files.  
 You either need to have Microsoft Office installed to work with the desktop application or have a Microsoft 365 account to work online in a browser of your choice.
