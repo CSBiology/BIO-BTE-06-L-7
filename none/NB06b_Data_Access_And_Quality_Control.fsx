@@ -88,7 +88,7 @@ let get15N_PS_Amount (fileName:string) =
 let getGroupID (fileName:string) =
     let fN = fileName |> normalizeFileName
     BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Extraction" "Group name" fN myAssayFile |> Option.defaultValue ""
-    |> int    
+    |> int
 
 (**
 A quick execution to test the retrieval of data from the isa sample table:
@@ -103,8 +103,7 @@ getGroupID "WCGr2_U1.wiff"
 Now that we have the sample sheet, all that is missing is the data to be analyzed:
 *)
 
-let path = Path.Combine[|directory;"downloads/Quantifications_wc_annotated.txt"|]
-downloadFile path "Quantifications_wc_annotated.txt" "bio-bte-06-l-7"
+let path = @"..assays\VP21_WC\dataset\WCAnnotated.txt"
 
 (**
 ## II. Raw data access using Deedle:
@@ -123,7 +122,7 @@ for the charts to be scrollable, so we pipe the output into "Chart.Show", to vis
 #if IPYNB
 rawData
 |> Frame.take 10
-|> formatAsTable 
+|> formatAsTable 1500 
 |> Chart.Show
 #endif // IPYNB
 (***hide***)
@@ -142,7 +141,7 @@ let indexedData =
     |> Frame.indexRowsUsing (fun os -> 
             {|
                 ProteinGroup    = os.GetAs<string>("ProteinGroup"); 
-                Synonyms        = os.GetAs<string>("Synonyms")
+                Synonyms        = os.GetAs<string>("Synonym")
                 StringSequence  = os.GetAs<string>("StringSequence");
                 PepSequenceID   = os.GetAs<int>("PepSequenceID");
                 Charge          = os.GetAs<int>("Charge")
@@ -155,7 +154,7 @@ let indexedData =
 // The effect of our frame manipulation can be observed:
 indexedData
 |> Frame.take 10
-|> formatAsTable 
+|> formatAsTable 1500 
 |> Chart.Show
 #endif // IPYNB
 (***hide***)
@@ -197,7 +196,7 @@ let initGetQProtAmount qProt =
 #if IPYNB
 finalRaw
 |> Frame.take 10
-|> formatAsTable 
+|> formatAsTable 1500 
 |> Chart.Show
 #endif // IPYNB
 (***hide***)
@@ -221,14 +220,14 @@ let sliceQuantColumns quantColID frame =
 
 // How did the data frame change, how did the column headers change?
 let ratios = sliceQuantColumns "Ratio" finalRaw
-let light  = sliceQuantColumns "Light" finalRaw
-let heavy  = sliceQuantColumns "Heavy" finalRaw
+let light  = sliceQuantColumns "Quant_Light" finalRaw
+let heavy  = sliceQuantColumns "Quant_Heavy" finalRaw
 
 (***condition:ipynb***)
 #if IPYNB
 ratios
 |> Frame.take 10
-|> formatAsTable 
+|> formatAsTable 1500 
 |> Chart.Show
 #endif // IPYNB
 (***hide***)
@@ -384,9 +383,9 @@ plotPeptidesOf ratios "rbcL" 1 |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
-plotPeptidesOf ratios "RBCS2;RBCS1" 2
+plotPeptidesOf ratios "RBCS1;RBCS2" 2
 (***hide***)
-plotPeptidesOf ratios "RBCS2;RBCS1" 2 |> GenericChart.toChartHTML
+plotPeptidesOf ratios "RBCS1;RBCS2" 2 |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
@@ -450,7 +449,7 @@ let ratiosFiltered =
         try
             get15N_CBC_Amount kFileName > 0.1 
         with
-        | _ -> false
+        | _ -> true
     )
 
 (**
