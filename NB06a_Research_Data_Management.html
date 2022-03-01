@@ -290,10 +290,10 @@ ISA-Xlsx
 <p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/ARC.png" alt="" /></p>
 <p>The ARC is, basically, a folder and file structure. Its design shall cover the entire research cycle, from experimental to computational analyses, actual data and metadata, as well as resulting publications.</p>
 <p><img src="https://github.com/CSBiology/BIO-BTE-06-L-7/raw/main/docs/img/ARCfolderStructure.jpg" alt="" /><br />
-<strong><em>Figure 8: An exemplary ARC, schematically visualised</em></strong></p>
+<strong><em>Figure 8: An exemplary ARC, schematically visualized</em></strong></p>
 <p>Some parts of the ARC are an implementation of the ISA model you have seen before, e.g. the <em>Investigation</em> file, <em>Study</em> files, and the <em>assays</em> folder.<br />
-In the <em>assays</em> folder, all the assays of the research project are stored. Each assay has its own folder whose foldername represents the <em>AssayID</em>. In Figure 1, this is "proteomics". In each assay's folder are the subfolders <em>dataset</em> (which stores all according datasets) and <em>protocol</em> (for ISA protocol information), as well as this assays <em>Assay</em> file whose name is always "assay.isa.xlsx".<br />
-The <em>externals</em> folder consists of files that are not directly part of any other ARC structure but related to the ARC in some way (in this practical course, it won't play a role).<br />
+In the <em>assays</em> folder, all the assays of the research project are stored. Each assay has its own folder whose foldername represents the <em>AssayID</em>. In Figure 1, this is "proteomics". In each assay's folder are the subfolders <em>dataset</em> (which stores all corresponding datasets) and <em>protocol</em> (for ISA protocol information), as well as this assay's <em>Assay</em> file whose name is always "assay.isa.xlsx".<br />
+The <em>externals</em> folder consists of files that are not directly part of any other ARC structure but related to the ARC in some way.<br />
 In the <em>workflows</em> folder, computational workflows are stored. Here (Figure 8), it is a script named "norm", written in the programming language python and located in the "PythonCapsule" folder. This is the directory where you could, e.g., place your Jupyter Notebooks.<br />
 The results of computational evaluations and calculations are placed in the <em>runs</em> folder, where each subfolder represents a single computational run.<br />
 Finally, there's the <em>Investigation</em> file which is located in the ARC's root folder. In this file, all the information about the ARC itself and its research project are contained. That is, e.g., the names of the researchers involved, the name of the group, etc.</p>
@@ -323,7 +323,7 @@ the sink columns
 <ul>
 <li>
 <strong>Sample Name</strong><br />
-A Sample Name describes the name of the <em>output</em> of a process. For example, if a process ends in the specimen being stored in an eppendorfer tube, it could be the name of this eppi.
+A Sample Name describes the name of the <em>output</em> of a process. For example, if a process ends in the specimen being stored in an eppendorf tube, it could be the name of this eppi.
 </li>
 <li>
 <strong>Data File Name</strong><br />
@@ -352,11 +352,11 @@ Factors are specific <em>Building Blocks</em> that can be Parameters of Characte
 <p><img src="https://github.com/CSBiology/BIO-BTE-06-L-7/raw/main/docs/img/ParameterBuildingBlock_filled.png" alt="" /><br />
 <strong><em>Figure 11: Building Block "Parameter [instrument model]", filled with values.</em></strong></p>
 <p>Ideally, an annotation table describes its experiment's process chronologically so that a researcher trying to replicate it can easily do so. The worksheets an <em>Assay</em> file consists of should be ordered chronologically, too.</p>
-<p>While you could do all this stuff by hand, it is much easier if you use a tool that automatizes much of the work. For this, an MS Excel add-in exists that facilitates the work with Xlsx files massively.</p>
+<p>While you could do all this data entry by hand, it is much easier if you use a tool that automatizes much of the work. For this, an MS Excel add-in exists that facilitates the work with Xlsx files massively.</p>
 <h1><a name="Swate" class="anchor" href="#Swate">Swate</a></h1>
 <p><strong>Swate</strong> (Swate workflow annotation tool for Excel) was developed by the CSB group as an MS Excel extension for facilitating the work with <em>Assay</em> files.<br />
 You either need to have Microsoft Office installed to work with the desktop application or have a Microsoft 365 account to work online in a browser of your choice.</p>
-<p>Header over to the <a href="https://github.com/nfdi4plants/Swate#installuse">installing chapter for Swate</a> and follow the instructions there.</p>
+<p>Head over to the <a href="https://github.com/nfdi4plants/Swate#installuse">installing chapter for Swate</a> and follow the instructions there.</p>
 <p>After you successfully installed Swate, you can create an exemplary <em>Assay</em> file to get a feeling of how to use Swate.</p>
 <ol>
 <li>Create a new Xlsx file and open it (online or desktop)</li>
