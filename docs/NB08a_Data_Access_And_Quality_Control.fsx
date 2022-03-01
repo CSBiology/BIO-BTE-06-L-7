@@ -1,14 +1,14 @@
-#r "nuget: FSharp.Stats, 0.4.0"
+#r "nuget: FSharp.Stats, 0.4.3"
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-#r "nuget: Plotly.NET, 2.0.0-beta8"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.8"
-#r "nuget: Deedle, 2.3.0"
-#r "nuget: ISADotNet, 0.2.4"
-#r "nuget: ISADotNet.XLSX, 0.2.4"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.9"
+#r "nuget: Deedle, 2.5.0"
+#r "nuget: ISADotNet, 0.2.6"
+#r "nuget: ISADotNet.XLSX, 0.2.6"
 
 #if IPYNB
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
 #endif // IPYNB
 
 open System.IO
@@ -45,9 +45,8 @@ It supports working with structured data frames, ordered and unordered data, as 
 
 Before we analyze our data, we will download and read the sample description provided by the experimentalist.
 *)
-let directory = __SOURCE_DIRECTORY__
-let path2 = Path.Combine[|directory;"downloads/alle_Gruppen_V7_SWATE.xlsx"|]
-downloadFile path2 "alle_Gruppen_V7_SWATE.xlsx" "bio-bte-06-l-7"
+
+let path2 = @"..\assays\VP21_WC\isa-assay.xlsx"
 
 let _,_,_,myAssayFile = XLSX.AssayFile.AssayFile.fromFile path2
 let inOutMap = BIO_BTE_06_L_7_Aux.ISA_Aux.createInOutMap myAssayFile
@@ -61,33 +60,36 @@ let normalizeFileName (f:string) = if Path.HasExtension f then f else Path.Chang
 //        
 let getStrain (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation -Sample preparation" "strain" fN myAssayFile
+    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation" "strain" fN myAssayFile
     |> Option.defaultValue ""
 
 //
 let getExpressionLevel (fileName:string) =
     let fN = fileName |> normalizeFileName 
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation -Sample preparation" "gene expression" fN myAssayFile 
+    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation" "gene expression" fN myAssayFile 
     |> Option.defaultValue "Wt-Like"
 
 //  
 let get15N_CBC_Amount (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Extraction" "gram" fN myAssayFile |> Option.defaultValue ""
+    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Protein extraction" "15N Calvin-Benson cycle QconCAT mass#3" fN myAssayFile
+    |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
-    |> float 
+    |> float
 //
 let get15N_PS_Amount (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Extraction" "gram #2" fN myAssayFile |> Option.defaultValue ""
+    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Protein extraction" "15N Photosynthesis QconCAT mass#4" fN myAssayFile
+    |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
     |> float 
 //
 let getGroupID (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Extraction" "Group name" fN myAssayFile |> Option.defaultValue ""
+    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Protein extraction" "Group name" fN myAssayFile
+    |> Option.defaultValue ""
     |> int
 
 (**
@@ -123,7 +125,6 @@ for the charts to be scrollable, so we pipe the output into "Chart.Show", to vis
 rawData
 |> Frame.take 10
 |> formatAsTable 1500 
-|> Chart.Show
 #endif // IPYNB
 (***hide***)
 rawData |> Frame.take 10 |> fun x -> x.Print()
@@ -155,7 +156,6 @@ let indexedData =
 indexedData
 |> Frame.take 10
 |> formatAsTable 1500 
-|> Chart.Show
 #endif // IPYNB
 (***hide***)
 indexedData |> Frame.take 10 |> fun x -> x.Print()
@@ -197,7 +197,6 @@ let initGetQProtAmount qProt =
 finalRaw
 |> Frame.take 10
 |> formatAsTable 1500 
-|> Chart.Show
 #endif // IPYNB
 (***hide***)
 finalRaw |> Frame.take 10 |> fun x -> x.Print()
@@ -228,7 +227,6 @@ let heavy  = sliceQuantColumns "Quant_Heavy" finalRaw
 ratios
 |> Frame.take 10
 |> formatAsTable 1500 
-|> Chart.Show
 #endif // IPYNB
 (***hide***)
 ratios |> Frame.take 10 |> fun x -> x.Print()
@@ -250,8 +248,8 @@ let createBoxPlot f =
          Chart.BoxPlot(x,y,Orientation=StyleParam.Orientation.Vertical)         
          )
     |> Series.values
-    |> Chart.Combine
-    |> Chart.withY_AxisStyle "Ion intensity"
+    |> Chart.combine
+    |> Chart.withYAxisStyle "Ion intensity"
 
 (**
 The function applied to the n14 values: 
@@ -357,13 +355,13 @@ let plotPeptidesOf (ratios:Frame<PeptideIon,string>) (prot:string) (groupID:int)
                 )
             |> Series.values
             |> Seq.unzip3
-        Chart.Point(qprotAmounts,ratios,Labels=fileLabel)
+        Chart.Point(qprotAmounts,ratios, MultiText = fileLabel)
         |> Chart.withTraceName (sprintf "S:%s_C:%i" pep.StringSequence pep.Charge)
-        |> Chart.withX_AxisStyle("qProt Amount")
-        |> Chart.withY_AxisStyle("Ratio")
+        |> Chart.withXAxisStyle("qProt Amount")
+        |> Chart.withYAxisStyle("Ratio")
         )
     |> Series.values
-    |> Chart.Combine
+    |> Chart.combine
 
 (**
 First we get an overview of available protein ids.
