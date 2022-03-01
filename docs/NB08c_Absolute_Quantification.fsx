@@ -38,9 +38,7 @@ calculate protein abundancies. Since we start again by getting access to our dat
 
 As always: before we analyze our data, we will download and read the sample description provided by the experimentalist.
 *)
-let directory = __SOURCE_DIRECTORY__
-let path2 = Path.Combine[|directory;"downloads/alle_Gruppen_V7_SWATE.xlsx"|]
-downloadFile path2 "alle_Gruppen_V7_SWATE.xlsx" "bio-bte-06-l-7"
+let path2 = @"C:\Users\jonat\Downloads\2021_Biotech-VP_AssayFile_neu.xlsx"
 
 let _,_,_,myAssayFile = XLSX.AssayFile.AssayFile.fromFile path2
 let inOutMap = BIO_BTE_06_L_7_Aux.ISA_Aux.createInOutMap myAssayFile
@@ -69,18 +67,24 @@ let getExpressionLevel (fileName:string) =
 let getμgChlorophPerMlCult (fileName:string) =
     let fN = fileName |> normalizeFileName
     BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation" "total chlorophyll concentration of culture#7" fN myAssayFile |> Option.defaultValue ""
+    |> String.split ' '
+    |> Array.head
     |> float 
 
 // 
 let getCellCountPerMlCult (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Cultivation" "cell concentration of sample#13" fN myAssayFile |> Option.defaultValue ""
+    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation" "cell concentration#6" fN myAssayFile |> Option.defaultValue ""
+    |> String.split ' '
+    |> Array.head
     |> float 
 
 // 
 let getμgChlorophPerμlSample (fileName:string) =
     let fN = fileName |> normalizeFileName
     BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation" "total chlorophyll of sample#12" fN myAssayFile |> Option.defaultValue ""
+    |> String.split ' '
+    |> Array.head
     |> float
     |> fun x -> x / 1000.
 
@@ -88,6 +92,8 @@ let getμgChlorophPerμlSample (fileName:string) =
 let getμgProtPerμlSample (fileName:string) =
     let fN = fileName |> normalizeFileName
     BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation" "whole cell protein concentration of sample#11" fN myAssayFile |> Option.defaultValue ""
+    |> String.split ' '
+    |> Array.head
     |> float 
     |> fun x -> x / 1000.
 
@@ -156,7 +162,7 @@ type PeptideIon =
     |}
 
 //This is the filepath you chose in *NB06b Data Access and Quality Control*
-let filePath = @"C:\YourPath\testOut.txt"
+let filePath = @"C:\Users\jonat\source\repos\BIO-BTE-06-L-7\none\WCAnnotatedOut.txt"
 
 let qConcatDataFiltered =
     Frame.ReadCsv(path = filePath,separators="\t")
@@ -228,7 +234,7 @@ Inspecting the input parameters of 'calcAbsoluteAbundance' we can see that we ne
 native Protein. Since we have none at hand we will use our newly aquired skills to compute both and add them to the row key of our Frame. 
 *)
 
-let path = @"..\assays\VP21_WC\isa-assay.xlsx"
+let path = @"C:\Users\jonat\source\repos\BIO-BTE-06-L-7\none\Chlamy_JGI5_5(Cp_Mp)_QProt.fasta"
 
 let examplePeptides = 
     path
@@ -358,17 +364,19 @@ let rbcsQuantification = extractAbsolutAbundancesOf "RBCS" ["AFPDAYVR", 2;"LVAFD
 
 let protAbundanceChart =
     [
-    Chart.Column(rbclQuantification |> Seq.map (fun x -> x.Filename),rbclQuantification |> Seq.map (fun x -> x.MeanQuant))
+    Chart.Column(rbclQuantification |> Seq.map (fun x -> x.MeanQuant),rbclQuantification |> Seq.map (fun x -> x.Filename))
     |> Chart.withYErrorStyle (rbclQuantification |> Seq.map (fun x -> x.StdevQuant))
     |> Chart.withTraceName "rbcL"
-    Chart.Column(rbcsQuantification |> Seq.map (fun x -> x.Filename),rbcsQuantification |> Seq.map (fun x -> x.MeanQuant))
+    Chart.Column(rbcsQuantification |> Seq.map (fun x -> x.MeanQuant),rbcsQuantification |> Seq.map (fun x -> x.Filename))
     |> Chart.withYErrorStyle (rbcsQuantification |> Seq.map (fun x -> x.StdevQuant))
     |> Chart.withTraceName "RBCS"
     ]
     |> Chart.combine
+    |> Chart.withTemplate ChartTemplates.light
     |> Chart.withYAxisStyle "protein abundance [amol/cell]"
 
 protAbundanceChart
+|> Chart.show
 (***hide***)
 protAbundanceChart |> GenericChart.toChartHTML
 (***include-it-raw***)
