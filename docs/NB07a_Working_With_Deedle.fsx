@@ -1,10 +1,10 @@
 
 (**
-# NB06a Working with Deedle
+# NB07a Working with Deedle
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06a_Working_With_Deedle.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB07a_Working_With_Deedle.ipynb)
 
-[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06a/NB06a_Working_With_Deedle.ipynb)
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB07a/NB07a_Working_With_Deedle.ipynb)
 
 [Deedle](http://bluemountaincapital.github.io/Deedle/index.html)  is an easy to use library for data and time series manipulation and for scientific 
 programming. It supports working with structured data frames, ordered and unordered data, as well as time series.
@@ -19,12 +19,12 @@ We start by loading our usual nuget packages and the Deedle package.
 #r "nuget: BioFSharp, 2.0.0-beta4"
 #r "nuget: BioFSharp.IO, 2.0.0-beta4"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.6"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.9"
 #r "nuget: FSharp.Stats"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-beta8"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
 #endif // IPYNB
 
 open Plotly.NET
@@ -50,7 +50,8 @@ let persons =
 (***condition:ipynb***)
 #if IPYNB
 persons
-|> formatAsTable 
+|> formatAsTable 0.
+|> Chart.withSize (600.,700.)
 #endif // IPYNB
 
 (**
@@ -100,7 +101,8 @@ let peptidesFrame =
 #if IPYNB
 peptidesFrame
 |> Frame.take 10
-|> formatAsTable 
+|> formatAsTable 0.
+|> Chart.withSize (700.,900.)
 #endif // IPYNB
 (***hide***)
 peptidesFrame |> Frame.take 10 |> fun x -> x.Print()
@@ -108,7 +110,8 @@ peptidesFrame |> Frame.take 10 |> fun x -> x.Print()
 
 (**
 As you can see, our columns are named the same as the field of the record type, while our rows are indexed by numbers only. It is often helpful to use a more descriptive
-row key. In this case, we can use the peptide sequence for that. **Note** Row keys must be unique. By grouping with "PeptidesSequence", we get the sequence tupled with the index as key. 
+row key. In this case, we can use the peptide sequence for that.  
+**Note:** Row keys must be unique. By grouping with "PeptidesSequence", we get the sequence tupled with the index as key. 
 The function `Frame.reduceLevel` aggregates the rows now based on the first part of the tuple, the peptide sequence, ignoring the second part of the tuple, the index. 
 The aggregator function given to `Frame.reduceLevel` aggregates each column separately.
 *)
@@ -123,7 +126,8 @@ let pfIndexedSequenceList : Frame<list<AminoAcids.AminoAcid>,string> =
 #if IPYNB
 pfIndexedSequenceList
 |> Frame.take 10
-|> formatAsTable 
+|> formatAsTable 0.
+|> Chart.withSize (500.,900.)
 #endif // IPYNB
 (***hide***)
 pfIndexedSequenceList |> Frame.take 10 |> fun x -> x.Print()
@@ -141,7 +145,8 @@ let pfIndexedStringSequence =
 #if IPYNB
 pfIndexedStringSequence
 |> Frame.take 10
-|> formatAsTable 
+|> formatAsTable 0.
+|> Chart.withSize (800.,900.)
 #endif // IPYNB
 (***hide***)
 pfIndexedStringSequence |> Frame.take 10 |> fun x -> x.Print()
@@ -177,7 +182,8 @@ let pfAddedMass =
 #if IPYNB
 pfAddedMass
 |> Frame.take 10
-|> formatAsTable 
+|> formatAsTable 0.
+|> Chart.withSize (1000.,900.)
 #endif // IPYNB
 (***hide***)
 pfAddedMass |> Frame.take 10 |> fun x -> x.Print()
@@ -197,7 +203,8 @@ let pfChargedMass =
 #if IPYNB
 pfChargedMass
 |> Frame.take 10
-|> formatAsTable 
+|> formatAsTable 0.
+|> Chart.withSize (1000.,900.)
 #endif // IPYNB
 (***hide***)
 pfChargedMass |> Frame.take 10 |> fun x -> x.Print()
@@ -215,7 +222,8 @@ let joinedFrame =
 #if IPYNB
 joinedFrame
 |> Frame.take 10
-|> formatAsTable 
+|> formatAsTable 0.
+|> Chart.withSize (1500.,900.)
 #endif // IPYNB
 (***hide***)
 joinedFrame |> Frame.take 10 |> fun x -> x.Print()
