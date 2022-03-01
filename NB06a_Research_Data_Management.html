@@ -153,14 +153,14 @@
                                 </span>
                             </a>
                         </li>
-                        <!--<li class="nav-item">
-                            <a class="nav-link" href="NB06a_Working_With_Deedle.html">
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB07a_Working_With_Deedle.html">
                                 <span class="text">
-                                    <span>NB06a Working with Deedle</span>
+                                    <span>NB07a Working with Deedle</span>
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB06b_Data_Access_And_Quality_Control.html">
                                 <span class="text">
                                     <span>NB06b Data Access and Quality Control</span>
@@ -286,7 +286,7 @@ ISA-Xlsx
 <li>Editing an ARC</li>
 </ol>
 <p>The NFDI (Nationale Forschungsdateninfrastruktur) is a german infrastructure that targets standardization of Research Data Management (RDM). The CSB group is part of DataPLANT, a consortium within the NFDI, which tackles the field of basic plant research. To achieve the already introduced FAIR principles, DataPLANT envisioned the <strong>Annotated Research Context</strong> (short: <strong>ARC</strong>).</p>
-<h1><a name="ARC" class="anchor" href="#ARC">ARC</a></h1>
+<h2><a name="ARC" class="anchor" href="#ARC">ARC</a></h2>
 <p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/ARC.png" alt="" /></p>
 <p>The ARC is, basically, a folder and file structure. Its design shall cover the entire research cycle, from experimental to computational analyses, actual data and metadata, as well as resulting publications.</p>
 <p><img src="https://github.com/CSBiology/BIO-BTE-06-L-7/raw/main/docs/img/ARCfolderStructure.jpg" alt="" /><br />
@@ -297,7 +297,7 @@ The <em>externals</em> folder consists of files that are not directly part of an
 In the <em>workflows</em> folder, computational workflows are stored. Here (Figure 8), it is a script named "norm", written in the programming language python and located in the "PythonCapsule" folder. This is the directory where you could, e.g., place your Jupyter Notebooks.<br />
 The results of computational evaluations and calculations are placed in the <em>runs</em> folder, where each subfolder represents a single computational run.<br />
 Finally, there's the <em>Investigation</em> file which is located in the ARC's root folder. In this file, all the information about the ARC itself and its research project are contained. That is, e.g., the names of the researchers involved, the name of the group, etc.</p>
-<h1><a name="ISA-Xlsx" class="anchor" href="#ISA-Xlsx">ISA-Xlsx</a></h1>
+<h2><a name="ISA-Xlsx" class="anchor" href="#ISA-Xlsx">ISA-Xlsx</a></h2>
 <p>The <em>Assay</em> files are, from an experimenter's perspective, the most important files of each ARC since they contain the information about</p>
 <ul>
 <li>the sample that was used</li>
@@ -305,7 +305,7 @@ Finally, there's the <em>Investigation</em> file which is located in the ARC's r
 <li>the way how the data was obtained from the sample</li>
 </ul>
 <p>In each <em>Assay</em> file, the metadata of the respective experiment is documented thoroughly. To do so, the Xlsx file format is suitable. The common way to work with Xlsx files are spreadsheet programs like Microsoft Excel or LibreOffice.</p>
-<h2><a name="The-structure-of-ISA-Xlsx" class="anchor" href="#The-structure-of-ISA-Xlsx">The structure of ISA-Xlsx</a></h2>
+<h3><a name="The-structure-of-ISA-Xlsx" class="anchor" href="#The-structure-of-ISA-Xlsx">The structure of ISA-Xlsx</a></h3>
 <p>A practical implementation of the <a href="https://isa-specs.readthedocs.io/en/latest/isamodel.html">ISA standard</a> is <a href="https://github.com/nfdi4plants/ARC-specification/blob/main/ARC%20specification.md#isa-xlsx-format">ISA-Xlsx</a>. In this, the <a href="https://isa-specs.readthedocs.io/en/latest/isatab.html#study-and-assay-files">format of the Assay files</a> served as the blueprint. Here, ISA is realized in a very similar manner.</p>
 <p>An <em>Assay</em> file consists of at least one annotation table (like in Figure 9). 1 annotation table per Xlsx worksheet is allowed. Each annotation table represents an ISA process which is the depiction of a sequence of steps from the input to the output.<br />
 Annotation tables are row-oriented. This means that the first row consists entirely of each column's header. Annotation tables are ordered from left to right and always begin with a source column ("Source Name") and end with a sink column ("Sample Name" or "Data File Name"). In between are <em>Building Blocks</em> that consist of an ISA term ("Characteristics", "Parameter", or "Factor") and an ontology term in square brackets.<br />
@@ -353,7 +353,7 @@ Factors are specific <em>Building Blocks</em> that can be Parameters of Characte
 <strong><em>Figure 11: Building Block "Parameter [instrument model]", filled with values.</em></strong></p>
 <p>Ideally, an annotation table describes its experiment's process chronologically so that a researcher trying to replicate it can easily do so. The worksheets an <em>Assay</em> file consists of should be ordered chronologically, too.</p>
 <p>While you could do all this data entry by hand, it is much easier if you use a tool that automatizes much of the work. For this, an MS Excel add-in exists that facilitates the work with Xlsx files massively.</p>
-<h1><a name="Swate" class="anchor" href="#Swate">Swate</a></h1>
+<h2><a name="Swate" class="anchor" href="#Swate">Swate</a></h2>
 <p><strong>Swate</strong> (Swate workflow annotation tool for Excel) was developed by the CSB group as an MS Excel extension for facilitating the work with <em>Assay</em> files.<br />
 You either need to have Microsoft Office installed to work with the desktop application or have a Microsoft 365 account to work online in a browser of your choice.</p>
 <p>Head over to the <a href="https://github.com/nfdi4plants/Swate#installuse">installing chapter for Swate</a> and follow the instructions there.</p>
