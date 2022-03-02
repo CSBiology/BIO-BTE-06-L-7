@@ -27,7 +27,7 @@ our QconCAT protein (Why?). In this notebook we will have a look at some high qu
 illustrate how the label efficiency can be calculated using simulations.  
 
 ## I. Reading the data
-As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from *NB06b Data Access and Quality Control* is stored in a .txt
+As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from *NB08a Data Access and Quality Control* is stored in a .txt
 *)
 
 type Qprot = 
