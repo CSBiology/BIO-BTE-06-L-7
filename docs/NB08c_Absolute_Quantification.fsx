@@ -21,6 +21,7 @@ open FSharpAux
 open FSharp.Stats
 open Plotly.NET
 open arcIO.NET
+open BIO_BTE_06_L_7_Aux.Deedle_Aux
 
 (**
 # NB06d Absolute Quantification
@@ -36,10 +37,10 @@ calculate protein abundancies. Since we start again by getting access to our dat
 
 As always: before we analyze our data, we will download and read the sample description provided by the experimentalist.
 *)
-let path2 = @@"..\assays\VP21_WC\isa-assay.xlsx"
+let path2 = @"..\assays\VP21_WC\isa-assay.xlsx"
 
 let _,_,_,myAssayFile = XLSX.AssayFile.Assay.fromFile path2
-let inOutMap = BIO_BTE_06_L_7_Aux.ISA_Aux.createInOutMap myAssayFile
+let inOutMap = ISADotNet.createInOutMap myAssayFile
 
 (**
 Next, we will prepare functions to look up parameters which might be needed for further calculations.
@@ -47,22 +48,22 @@ If you compare this list to the one of note book *NB08a Data Access and Quality 
 in order to calculate the absolute abundances. 
 *)
 
-let normalizeFileName (f:string) = if Path.HasExtension f then f else Path.ChangeExtension(f, "wiff")
+let normalizeFileName (f: string) = if Path.HasExtension f then f else Path.ChangeExtension(f, "wiff")
 
 //        
-let getStrain (fileName:string) =
+let getStrain (fileName: string) =
     let fN = fileName |> normalizeFileName
     ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "strain" fN myAssayFile
     |> Option.defaultValue ""
 
 //
-let getExpressionLevel (fileName:string) =
+let getExpressionLevel (fileName: string) =
     let fN = fileName |> normalizeFileName 
     ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "gene expression" fN myAssayFile 
     |> Option.defaultValue "Wt-Like"
 
 // 
-let getμgChlorophPerMlCult (fileName:string) =
+let getμgChlorophPerMlCult (fileName: string) =
     let fN = fileName |> normalizeFileName
     ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "total chlorophyll concentration of culture #7" fN myAssayFile |> Option.defaultValue ""
     |> String.split ' '
@@ -70,7 +71,7 @@ let getμgChlorophPerMlCult (fileName:string) =
     |> float 
 
 // 
-let getCellCountPerMlCult (fileName:string) =
+let getCellCountPerMlCult (fileName: string) =
     let fN = fileName |> normalizeFileName
     ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "cell concentration #6" fN myAssayFile |> Option.defaultValue ""
     |> String.split ' '
@@ -78,7 +79,7 @@ let getCellCountPerMlCult (fileName:string) =
     |> float 
 
 // 
-let getμgChlorophPerμlSample (fileName:string) =
+let getμgChlorophPerμlSample (fileName: string) =
     let fN = fileName |> normalizeFileName
     ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "total chlorophyll of sample #12" fN myAssayFile |> Option.defaultValue ""
     |> String.split ' '
@@ -87,7 +88,7 @@ let getμgChlorophPerμlSample (fileName:string) =
     |> fun x -> x / 1000.
 
 // 
-let getμgProtPerμlSample (fileName:string) =
+let getμgProtPerμlSample (fileName: string) =
     let fN = fileName |> normalizeFileName
     ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "whole cell protein concentration of sample #11" fN myAssayFile |> Option.defaultValue ""
     |> String.split ' '
@@ -96,7 +97,7 @@ let getμgProtPerμlSample (fileName:string) =
     |> fun x -> x / 1000.
 
 //  
-let get15N_CBC_Amount (fileName:string) =
+let get15N_CBC_Amount (fileName: string) =
     let fN = fileName |> normalizeFileName
     ISADotNet.tryGetParameter inOutMap "Protein extraction" "15N Calvin-Benson cycle QconCAT mass #3" fN myAssayFile
     |> Option.defaultValue ""
@@ -104,7 +105,7 @@ let get15N_CBC_Amount (fileName:string) =
     |> Array.head
     |> float
 //
-let get15N_PS_Amount (fileName:string) =
+let get15N_PS_Amount (fileName: string) =
     let fN = fileName |> normalizeFileName
     ISADotNet.tryGetParameter inOutMap "Protein extraction" "15N Photosynthesis QconCAT mass #4" fN myAssayFile
     |> Option.defaultValue ""
@@ -112,7 +113,7 @@ let get15N_PS_Amount (fileName:string) =
     |> Array.head
     |> float 
 //
-let getGroupID (fileName:string) =
+let getGroupID (fileName: string) =
     let fN = fileName |> normalizeFileName
     ISADotNet.tryGetParameter inOutMap "Protein extraction" "Group name" fN myAssayFile
     |> Option.defaultValue ""
@@ -189,7 +190,6 @@ let qConcatDataFiltered =
 qConcatDataFiltered
 |> Frame.take 10
 |> formatAsTable 1500.
-|> Chart.Show
 #endif // IPYNB
 
 (**
@@ -201,7 +201,7 @@ the quality checks to an estimator for protein abundance! First we start off by 
 
 let sliceQuantColumns quantColID frame = 
     frame
-    |> Frame.filterCols (fun ck os -> ck |> String.contains ("."+quantColID))
+    |> Frame.filterCols (fun ck os -> ck |> String.contains ("." + quantColID))
     |> Frame.mapColKeys (fun ck -> ck.Split('.') |> Array.item 0)
 
 
@@ -211,7 +211,7 @@ Next up, we have to define a function, which maps the measured ratio and measure
 
 /// 
 let calcAbsoluteAbundance μgChlorophPerMlCult cellCountPerMlCult μgChlorophPerμlSample μgProtPerμlSample μgQProtSpike molWeightQProt molWeightTargetProt ratio1415N =
-    let chlorophPerCell :float = μgChlorophPerMlCult / cellCountPerMlCult
+    let chlorophPerCell: float = μgChlorophPerMlCult / cellCountPerMlCult
     let cellsPerμlSample = μgChlorophPerμlSample / chlorophPerCell
     let μgProteinPerCell = μgProtPerμlSample / cellsPerμlSample
     let molQProtSpike = μgQProtSpike * 10. ** -6. / molWeightQProt
@@ -220,7 +220,7 @@ let calcAbsoluteAbundance μgChlorophPerMlCult cellCountPerMlCult μgChlorophPer
     let gTargetProtIn1μgWCProt = molWeightTargetProt * molProtIn1μgWCProt
     let molProteinPerCell = molProtIn1μgWCProt * μgProteinPerCell
     let proteinsPerCell = molProteinPerCell * 6.022 * 10. ** 23.
-    let attoMolProteinPerCell = molProteinPerCell * (10.**18.)
+    let attoMolProteinPerCell = molProteinPerCell * (10. ** 18.)
     {|
         MassTargetProteinInWCProtein    = gTargetProtIn1μgWCProt
         ProteinsPerCell                 = proteinsPerCell
@@ -302,7 +302,6 @@ let ratios = sliceQuantColumns "Ratio" withProteinWeights
 ratios
 |> Frame.take 10
 |> formatAsTable 1500.
-|> Chart.Show
 #endif // IPYNB
 
 (** 
@@ -357,8 +356,8 @@ let extractAbsolutAbundancesOf prot peptidelist =
         )
     |> Series.values
 
-let rbclQuantification = extractAbsolutAbundancesOf "rbcL" ["DTDILAAFR", 2;"FLFVAEAIYK",2]
-let rbcsQuantification = extractAbsolutAbundancesOf "RBCS" ["AFPDAYVR", 2;"LVAFDNQK",2]
+let rbclQuantification = extractAbsolutAbundancesOf "rbcL" ["DTDILAAFR", 2; "FLFVAEAIYK", 2]
+let rbcsQuantification = extractAbsolutAbundancesOf "RBCS" ["AFPDAYVR", 2; "LVAFDNQK", 2]
 
 let protAbundanceChart =
     [
@@ -374,7 +373,6 @@ let protAbundanceChart =
     |> Chart.withYAxisStyle "protein abundance [amol/cell]"
 
 protAbundanceChart
-|> Chart.show
 (***hide***)
 protAbundanceChart |> GenericChart.toChartHTML
 (***include-it-raw***)

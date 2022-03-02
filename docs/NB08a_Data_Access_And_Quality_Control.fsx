@@ -21,6 +21,7 @@ open FSharpAux
 open FSharp.Stats
 open Plotly.NET
 open arcIO.NET
+open BIO_BTE_06_L_7_Aux.Deedle_Aux
 
 (**
 # NB08a Data Access and Quality Control
@@ -47,28 +48,28 @@ Before we analyze our data, we will download and read the sample description pro
 let path2 = @"..\assays\VP21_WC\isa-assay.xlsx"
 
 let _,_,_,myAssayFile = XLSX.AssayFile.Assay.fromFile path2
-let inOutMap = BIO_BTE_06_L_7_Aux.ISA_Aux.createInOutMap myAssayFile
+let inOutMap = ISADotNet.createInOutMap myAssayFile
 
 (**
 Next, we will prepare functions to look up parameters, which might be needed for further calculations. 
 *)
 
-let normalizeFileName (f:string) = if Path.HasExtension f then f else Path.ChangeExtension(f, "wiff")
+let normalizeFileName (f: string) = if Path.HasExtension f then f else Path.ChangeExtension(f, "wiff")
 
 //        
-let getStrain (fileName:string) =
+let getStrain (fileName: string) =
     let fN = fileName |> normalizeFileName
     ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "strain" fN myAssayFile
     |> Option.defaultValue ""
 
 //
-let getExpressionLevel (fileName:string) =
+let getExpressionLevel (fileName: string) =
     let fN = fileName |> normalizeFileName 
     ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "gene expression" fN myAssayFile 
     |> Option.defaultValue "Wt-Like"
 
 //  
-let get15N_CBC_Amount (fileName:string) =
+let get15N_CBC_Amount (fileName: string) =
     let fN = fileName |> normalizeFileName
     ISADotNet.tryGetParameter inOutMap "Protein extraction" "15N Calvin-Benson cycle QconCAT mass #3" fN myAssayFile
     |> Option.defaultValue ""
@@ -76,7 +77,7 @@ let get15N_CBC_Amount (fileName:string) =
     |> Array.head
     |> float
 //
-let get15N_PS_Amount (fileName:string) =
+let get15N_PS_Amount (fileName: string) =
     let fN = fileName |> normalizeFileName
     ISADotNet.tryGetParameter inOutMap "Protein extraction" "15N Photosynthesis QconCAT mass #4" fN myAssayFile
     |> Option.defaultValue ""
@@ -84,7 +85,7 @@ let get15N_PS_Amount (fileName:string) =
     |> Array.head
     |> float 
 //
-let getGroupID (fileName:string) =
+let getGroupID (fileName: string) =
     let fN = fileName |> normalizeFileName
     ISADotNet.tryGetParameter inOutMap "Protein extraction" "Group name" fN myAssayFile
     |> Option.defaultValue ""
@@ -111,7 +112,7 @@ As teasered in the primer, we want to work with our tabular data using Deedle. L
 manipulation, but also allows us to quickly read the recently downloaded data into the memory:
 *)
 
-let rawData = Frame.ReadCsv(path,separators="\t")
+let rawData = Frame.ReadCsv(path, separators = "\t")
 
 (**
 To visualize the data, we can call the "formatAsTable" function. The preview of visual studio code does not allow
@@ -122,7 +123,7 @@ for the charts to be scrollable, so we pipe the output into "Chart.Show", to vis
 #if IPYNB
 rawData
 |> Frame.take 10
-|> formatAsTable 1500 
+|> formatAsTable 1500.
 #endif // IPYNB
 (***hide***)
 rawData |> Frame.take 10 |> fun x -> x.Print()
@@ -153,7 +154,7 @@ let indexedData =
 // The effect of our frame manipulation can be observed:
 indexedData
 |> Frame.take 10
-|> formatAsTable 1500 
+|> formatAsTable 1500.
 #endif // IPYNB
 (***hide***)
 indexedData |> Frame.take 10 |> fun x -> x.Print()
@@ -194,7 +195,7 @@ let initGetQProtAmount qProt =
 #if IPYNB
 finalRaw
 |> Frame.take 10
-|> formatAsTable 1500 
+|> formatAsTable 1500.
 #endif // IPYNB
 (***hide***)
 finalRaw |> Frame.take 10 |> fun x -> x.Print()
@@ -212,7 +213,7 @@ such as, "Ratio", "Light" or "Heavy".
 *)
 let sliceQuantColumns quantColID frame = 
     frame
-    |> Frame.filterCols (fun ck os -> ck |> String.contains ("."+quantColID))
+    |> Frame.filterCols (fun ck os -> ck |> String.contains ("." + quantColID))
     |> Frame.mapColKeys (fun ck -> ck.Split('.') |> Array.item 0)
 
 // How did the data frame change, how did the column headers change?
@@ -224,7 +225,7 @@ let heavy  = sliceQuantColumns "Quant_Heavy" finalRaw
 #if IPYNB
 ratios
 |> Frame.take 10
-|> formatAsTable 1500 
+|> formatAsTable 1500.
 #endif // IPYNB
 (***hide***)
 ratios |> Frame.take 10 |> fun x -> x.Print()
@@ -243,7 +244,7 @@ let createBoxPlot f =
             |> Series.values 
             |> Seq.map (fun values -> k,values)
             |> Seq.unzip
-         Chart.BoxPlot(x,y,Orientation=StyleParam.Orientation.Vertical)         
+         Chart.BoxPlot(x, y, Orientation = StyleParam.Orientation.Vertical)
          )
     |> Series.values
     |> Chart.combine
@@ -336,10 +337,10 @@ type PeptideIon =
 // Given a frame, a prot-ID and a group-ID this function creates an xy plot for every peptide ion belonging to the protein/proteingroup.
 // The parameter 'prot' can either be given a valid Cre-ID or a synonym.
 // What is the unit of the x-Axis? How is the ratio calculated? 
-let plotPeptidesOf (ratios:Frame<PeptideIon,string>) (prot:string) (groupID:int) = 
+let plotPeptidesOf (ratios: Frame<PeptideIon,string>) (prot: string) (groupID: int) = 
     ratios
-    |> Frame.filterRows (fun k s -> k.Synonyms.Contains prot || k.ProteinGroup.Contains prot )
-    |> Frame.filterCols (fun k s -> getGroupID k = groupID)    
+    |> Frame.filterRows (fun k s -> k.Synonyms.Contains prot || k.ProteinGroup.Contains prot)
+    |> Frame.filterCols (fun k s -> getGroupID k = groupID)
     |> Frame.transpose
     |> Frame.getNumericCols
     |> Series.map (fun pep (values) -> 
@@ -349,11 +350,11 @@ let plotPeptidesOf (ratios:Frame<PeptideIon,string>) (prot:string) (groupID:int)
             |> Series.map (fun fileName (ratio) -> 
                     let qProtAmount =  getQProtAmount fileName
                     let expressionLevel = getExpressionLevel fileName
-                    qProtAmount, ratio, (sprintf "%s %s" fileName expressionLevel)         
-                )
+                    qProtAmount, ratio, (sprintf "%s %s" fileName expressionLevel)
+            )
             |> Series.values
             |> Seq.unzip3
-        Chart.Point(qprotAmounts,ratios, MultiText = fileLabel)
+        Chart.Point(qprotAmounts, ratios, MultiText = fileLabel)
         |> Chart.withTraceName (sprintf "S:%s_C:%i" pep.StringSequence pep.Charge)
         |> Chart.withXAxisStyle("qProt Amount")
         |> Chart.withYAxisStyle("Ratio")
@@ -417,14 +418,14 @@ With the plots at hand, we can use the following functions to manipulate the dat
 an absolute protein quantification e.g.:
 *)
 
-let discardPeptideIonInFile stringsequence charge filename (ratios:Frame<PeptideIon,string>) = 
+let discardPeptideIonInFile stringsequence charge filename (ratios: Frame<PeptideIon,string>) = 
     ratios
     |> Frame.map (fun r c value -> 
         let cFileName = String.split '.' c |> Array.head
         if r.StringSequence = stringsequence && r.Charge = charge && cFileName = filename then nan else value
     )
 
-let discardPeptideIon stringsequence charge (ratios:Frame<PeptideIon,string>) = 
+let discardPeptideIon stringsequence charge (ratios: Frame<PeptideIon,string>) = 
     ratios
     |> Frame.filterRows (fun r s -> (r.StringSequence = stringsequence && r.Charge = charge) |> not)
 (**
