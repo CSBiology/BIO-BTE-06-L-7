@@ -38,14 +38,14 @@ open FSharp.Stats
 
 (**
 ## Deedle Basics
-Familiarize yourself with Deedle! Create a series yourself that you add to the frame 'persons' frame.
+Familiarize yourself with Deedle! Create a Series yourself that you add to the Frame 'persons'.
 *)
-let firstNames      = Series.ofValues ["Kevin";"Lukas";"Benedikt";"Michael"] 
-let coffeesPerWeek  = Series.ofValues [15;12;10;11] 
-let lastNames       = Series.ofValues ["Schneider";"Weil";"Venn";"Schroda"]  
-let group           = Series.ofValues ["CSB";"CSB";"CSB";"MBS"] 
+let firstNames      = Series.ofValues ["Kevin"; "Lukas"; "Benedikt";" Michael"] 
+let coffeesPerWeek  = Series.ofValues [15; 12; 10; 11] 
+let lastNames       = Series.ofValues ["Schneider"; "Weil"; "Venn"; "Schroda"]
+let group           = Series.ofValues ["CSB"; "CSB"; "CSB"; "MBS"] 
 let persons = 
-    Frame.ofColumns(List.zip ["fN";"lN";"g"] [firstNames;lastNames;group])
+    Frame.ofColumns(List.zip ["fN"; "lN"; "g"] [firstNames; lastNames; group])
     |> Frame.addCol "cpw" coffeesPerWeek
 (***condition:ipynb***)
 #if IPYNB
@@ -56,13 +56,16 @@ persons
 
 (**
 Follow the above scheme and create another frame that is exactly the same, but represents different persons (the frame can be small, e.g. two persons).
-Use the function Frame.merge to combine your frame and 'persons'.
-Back to the frame 'persons'! In the following you see a series of frame/series manipulations.
+Use the function Frame.merge to combine your frame and 'persons'. Does it work? If not, why?  
+_Hint:_ Think about how Frames are built. What could be a reasons why exactly THOSE Frames won't merge?
+
+Back to the Frame 'persons'! In the following you see a Series of Frame/Series manipulations.  
+Look how the Frames and Series have changed. Use the functions `formatAsTable` and `Chart.withSize` as seen above to convert a Frame into a Plotly table. For Series, use `.Print()` on the object.
 *)
-let coffeePerWeek' :Series<int,int> = Frame.getCol ("cpw") persons 
-let groupedByG :Frame<string*int,_> = persons |> Frame.groupRowsBy "g"
-let withOutG :Frame<string*int,_> = groupedByG |> Frame.sliceCols ["fN";"lN";"cpw"]
-let coffeePerWeek'' :Series<string*int,int>= groupedByG |> Frame.getCol ("cpw")
+let coffeePerWeek' : Series<int,int> = Frame.getCol ("cpw") persons 
+let groupedByG : Frame<string*int,_> = persons |> Frame.groupRowsBy "g"
+let withOutG : Frame<string*int,_> = groupedByG |> Frame.sliceCols ["fN"; "lN"; "cpw"]
+let coffeePerWeek'' : Series<string*int,int>= groupedByG |> Frame.getCol ("cpw")
 let coffeePerWeekPerGroup = Series.applyLevel Pair.get1Of2 (Series.values >> Seq.sum) coffeePerWeek''
 
 (**
@@ -133,7 +136,7 @@ pfIndexedSequenceList
 pfIndexedSequenceList |> Frame.take 10 |> fun x -> x.Print()
 (***include-fsi-merged-output***)
 (**
-Our rows are now indexed with the peptide sequences. The peptide sequence is still an aarray of amino acids. For better visibility we can transform it to its string representation. 
+Our rows are now indexed with the peptide sequences. The peptide sequence is still an array of amino acids. For better visibility we can transform it to its string representation. 
 For that we can map over our row keys similar to an array and call the function `BioList.toString` on each row key.
 *)
 
@@ -152,9 +155,9 @@ pfIndexedStringSequence
 pfIndexedStringSequence |> Frame.take 10 |> fun x -> x.Print()
 (***include-fsi-merged-output***)
 (**
-We now have a frame containing information about our peptides. To add additional information we can go back to the peptide array we started with and calculate 
-the monoisotopic mass, for example. The monoisotopic mass is tupled with the peptide sequence as string, the same as in our peptide frame. The resulting array
-can then be transformed into a `series`
+We now have a Frame containing information about our peptides. To add additional information we can go back to the peptide array we started with and calculate 
+the monoisotopic mass, for example. The monoisotopic mass is tupled with the peptide sequence as string, the same as in our peptide Frame. The resulting array
+can then be transformed into a `Series`.
 *)
 
 let peptidesAndMasses =
@@ -170,8 +173,8 @@ let peptidesAndMassesSeries =
     |> series
 
 (**
-The columns in frames consist of series. Since we now have a series containing our monoisotopic masses, together with the peptide sequence, we can simply add 
-it to our frame and give the column a name.
+The columns in Frames consist of Series. Since we now have a series containing our monoisotopic masses, together with the peptide sequence, we can simply add 
+it to our Frame and give the column a name.
 *)
 
 let pfAddedMass =
@@ -189,7 +192,7 @@ pfAddedMass
 pfAddedMass |> Frame.take 10 |> fun x -> x.Print()
 (***include-fsi-merged-output***)
 (**
-Alternatively, we can take a column from our frame, apply a function to it, and create a new frame from the series.
+Alternatively, we can take a column from our Frame, apply a function to it, and create a new frame from the Series.
 *)
 
 let pfChargedMass =
@@ -210,8 +213,8 @@ pfChargedMass
 pfChargedMass |> Frame.take 10 |> fun x -> x.Print()
 (***include-fsi-merged-output***)
 (**
-The new frame has the same row keys as our previous frame. The information from our new frame can be joined with our old frame by using `Frame.join`.
-`Frame.join` is similar to `Frame.addCol`, but can join whole frames at once instead of single columns.
+The new Frame has the same row keys as our previous Frame. The information from our new Frame can be joined with our old Frame by using `Frame.join`.
+`Frame.join` is similar to `Frame.addCol`, but can join whole Frames at once instead of single columns.
 *)
 
 let joinedFrame =
