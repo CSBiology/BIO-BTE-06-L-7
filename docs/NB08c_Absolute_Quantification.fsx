@@ -4,8 +4,9 @@
 #r "nuget: Plotly.NET, 2.0.0-preview.16"
 #r "nuget: BIO-BTE-06-L-7_Aux, 0.0.9"
 #r "nuget: Deedle, 2.5.0"
-#r "nuget: ISADotNet, 0.2.6"
-#r "nuget: ISADotNet.XLSX, 0.2.6"
+#r "nuget: ISADotNet, 0.4.0-preview.4"
+#r "nuget: ISADotNet.XLSX, 0.4.0-preview.4"
+#r "nuget: ISADotNet.IO, 0.0.2"
 
 #if IPYNB
 #r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
@@ -19,17 +20,14 @@ open BioFSharp
 open FSharpAux
 open FSharp.Stats
 open Plotly.NET
-open FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares.Linear
-open System.IO
-open BIO_BTE_06_L_7_Aux.FS3_Aux
-open BIO_BTE_06_L_7_Aux.Deedle_Aux
+open arcIO.NET
 
 (**
 # NB06d Absolute Quantification
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06d_Absolute_Quantification.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB08c_Absolute_Quantification.ipynb)
 
-[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06d/NB06d_Absolute_Quantification.ipynb)
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB08c/NB08c_Absolute_Quantification.ipynb)
 
 Finally, after careful peptide ion selection, quality control and assuring that our label efficiency allows accurate for quantifications, we can start to
 calculate protein abundancies. Since we start again by getting access to our data and its description, this notebook will start off familiar!
@@ -38,14 +36,14 @@ calculate protein abundancies. Since we start again by getting access to our dat
 
 As always: before we analyze our data, we will download and read the sample description provided by the experimentalist.
 *)
-let path2 = @"C:\Users\jonat\Downloads\2021_Biotech-VP_AssayFile_neu.xlsx"
+let path2 = @@"..\assays\VP21_WC\isa-assay.xlsx"
 
-let _,_,_,myAssayFile = XLSX.AssayFile.AssayFile.fromFile path2
+let _,_,_,myAssayFile = XLSX.AssayFile.Assay.fromFile path2
 let inOutMap = BIO_BTE_06_L_7_Aux.ISA_Aux.createInOutMap myAssayFile
 
 (**
 Next, we will prepare functions to look up parameters which might be needed for further calculations.
-If you compare this list to the one of note book *NB06b Data Access and Quality Control* you will find additional functions. We will need these functions
+If you compare this list to the one of note book *NB08a Data Access and Quality Control* you will find additional functions. We will need these functions
 in order to calculate the absolute abundances. 
 *)
 
@@ -54,19 +52,19 @@ let normalizeFileName (f:string) = if Path.HasExtension f then f else Path.Chang
 //        
 let getStrain (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation" "strain" fN myAssayFile
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "strain" fN myAssayFile
     |> Option.defaultValue ""
 
 //
 let getExpressionLevel (fileName:string) =
     let fN = fileName |> normalizeFileName 
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation" "gene expression" fN myAssayFile 
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "gene expression" fN myAssayFile 
     |> Option.defaultValue "Wt-Like"
 
 // 
 let getμgChlorophPerMlCult (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation" "total chlorophyll concentration of culture#7" fN myAssayFile |> Option.defaultValue ""
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "total chlorophyll concentration of culture #7" fN myAssayFile |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
     |> float 
@@ -74,7 +72,7 @@ let getμgChlorophPerMlCult (fileName:string) =
 // 
 let getCellCountPerMlCult (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation" "cell concentration#6" fN myAssayFile |> Option.defaultValue ""
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "cell concentration #6" fN myAssayFile |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
     |> float 
@@ -82,7 +80,7 @@ let getCellCountPerMlCult (fileName:string) =
 // 
 let getμgChlorophPerμlSample (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation" "total chlorophyll of sample#12" fN myAssayFile |> Option.defaultValue ""
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "total chlorophyll of sample #12" fN myAssayFile |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
     |> float
@@ -91,7 +89,7 @@ let getμgChlorophPerμlSample (fileName:string) =
 // 
 let getμgProtPerμlSample (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation" "whole cell protein concentration of sample#11" fN myAssayFile |> Option.defaultValue ""
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "whole cell protein concentration of sample #11" fN myAssayFile |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
     |> float 
@@ -100,7 +98,7 @@ let getμgProtPerμlSample (fileName:string) =
 //  
 let get15N_CBC_Amount (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Protein extraction" "15N Calvin-Benson cycle QconCAT mass#3" fN myAssayFile
+    ISADotNet.tryGetParameter inOutMap "Protein extraction" "15N Calvin-Benson cycle QconCAT mass #3" fN myAssayFile
     |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
@@ -108,7 +106,7 @@ let get15N_CBC_Amount (fileName:string) =
 //
 let get15N_PS_Amount (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Protein extraction" "15N Photosynthesis QconCAT mass#4" fN myAssayFile
+    ISADotNet.tryGetParameter inOutMap "Protein extraction" "15N Photosynthesis QconCAT mass #4" fN myAssayFile
     |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
@@ -116,7 +114,7 @@ let get15N_PS_Amount (fileName:string) =
 //
 let getGroupID (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Protein extraction" "Group name" fN myAssayFile
+    ISADotNet.tryGetParameter inOutMap "Protein extraction" "Group name" fN myAssayFile
     |> Option.defaultValue ""
     |> int
 
@@ -161,8 +159,8 @@ type PeptideIon =
         QProt           : Qprot
     |}
 
-//This is the filepath you chose in *NB06b Data Access and Quality Control*
-let filePath = @"C:\Users\jonat\source\repos\BIO-BTE-06-L-7\none\WCAnnotatedOut.txt"
+//This is the filepath you chose in *NB08a Data Access and Quality Control*
+let filePath = @"C:\YourPath\testOut.txt"
 
 let qConcatDataFiltered =
     Frame.ReadCsv(path = filePath,separators="\t")
@@ -234,7 +232,7 @@ Inspecting the input parameters of 'calcAbsoluteAbundance' we can see that we ne
 native Protein. Since we have none at hand we will use our newly aquired skills to compute both and add them to the row key of our Frame. 
 *)
 
-let path = @"C:\Users\jonat\source\repos\BIO-BTE-06-L-7\none\Chlamy_JGI5_5(Cp_Mp)_QProt.fasta"
+let path = @"..\externals\Chlamy_JGI5_5(Cp_Mp)_QProt.fasta"
 
 let examplePeptides = 
     path

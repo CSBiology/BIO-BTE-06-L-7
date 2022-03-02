@@ -17,9 +17,9 @@ open Plotly.NET
 (**
 # NB08b Label efficiency
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06c_Label_efficiency.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB08b_Label_efficiency.ipynb)
 
-[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06c/NB06c_Label_efficiency.ipynb)
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB08b/NB08b_Label_efficiency.ipynb)
 
 Stable isotopic peptide labeling is the foundation of QconCAT experiments. While an excellent tool when carried out with correctly, it also exposes 
 challenges and pitfalls that have to be checked and possibly accounted for. One of these pitfalls is the efficiency with which we labeled 
@@ -44,7 +44,7 @@ type PeptideIon =
         QProt           : Qprot
     |}
 
-//This is the filepath you chose in *NB06b Data Access and Quality Control*
+//This is the filepath you chose in *NB08a Data Access and Quality Control*
 let filePath = @"C:\YourPath\testOut.txt"
 
 // What is different about this function from the one known from the last notebook?

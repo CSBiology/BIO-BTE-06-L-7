@@ -4,8 +4,9 @@
 #r "nuget: Plotly.NET, 2.0.0-preview.16"
 #r "nuget: BIO-BTE-06-L-7_Aux, 0.0.9"
 #r "nuget: Deedle, 2.5.0"
-#r "nuget: ISADotNet, 0.2.6"
-#r "nuget: ISADotNet.XLSX, 0.2.6"
+#r "nuget: ISADotNet, 0.4.0-preview.4"
+#r "nuget: ISADotNet.XLSX, 0.4.0-preview.4"
+#r "nuget: ISADotNet.IO, 0.0.2"
 
 #if IPYNB
 #r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
@@ -19,17 +20,14 @@ open BioFSharp
 open FSharpAux
 open FSharp.Stats
 open Plotly.NET
-open FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares.Linear
-open System.IO
-open BIO_BTE_06_L_7_Aux.FS3_Aux
-open BIO_BTE_06_L_7_Aux.Deedle_Aux
+open arcIO.NET
 
 (**
 # NB08a Data Access and Quality Control
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b_Data_Access_And_Quality_Control.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB08a_Data_Access_And_Quality_Control.ipynb)
 
-[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b/NB06b_Data_Access_And_Quality_Control.ipynb)
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB08a/NB08a_Data_Access_And_Quality_Control.ipynb)
 
 With this notebook, we want to converge the threads of computational and experimental proteomics by analyzing the data measured by you during the practical course.
 Behind the scenes there was already a lot going on! While you were going through the hands-on tutorials addressing single steps of the computation proteomics pipeline, we executed
@@ -48,7 +46,7 @@ Before we analyze our data, we will download and read the sample description pro
 
 let path2 = @"..\assays\VP21_WC\isa-assay.xlsx"
 
-let _,_,_,myAssayFile = XLSX.AssayFile.AssayFile.fromFile path2
+let _,_,_,myAssayFile = XLSX.AssayFile.Assay.fromFile path2
 let inOutMap = BIO_BTE_06_L_7_Aux.ISA_Aux.createInOutMap myAssayFile
 
 (**
@@ -60,19 +58,19 @@ let normalizeFileName (f:string) = if Path.HasExtension f then f else Path.Chang
 //        
 let getStrain (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation" "strain" fN myAssayFile
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "strain" fN myAssayFile
     |> Option.defaultValue ""
 
 //
 let getExpressionLevel (fileName:string) =
     let fN = fileName |> normalizeFileName 
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation" "gene expression" fN myAssayFile 
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "gene expression" fN myAssayFile 
     |> Option.defaultValue "Wt-Like"
 
 //  
 let get15N_CBC_Amount (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Protein extraction" "15N Calvin-Benson cycle QconCAT mass#3" fN myAssayFile
+    ISADotNet.tryGetParameter inOutMap "Protein extraction" "15N Calvin-Benson cycle QconCAT mass #3" fN myAssayFile
     |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
@@ -80,7 +78,7 @@ let get15N_CBC_Amount (fileName:string) =
 //
 let get15N_PS_Amount (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Protein extraction" "15N Photosynthesis QconCAT mass#4" fN myAssayFile
+    ISADotNet.tryGetParameter inOutMap "Protein extraction" "15N Photosynthesis QconCAT mass #4" fN myAssayFile
     |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
@@ -88,7 +86,7 @@ let get15N_PS_Amount (fileName:string) =
 //
 let getGroupID (fileName:string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Protein extraction" "Group name" fN myAssayFile
+    ISADotNet.tryGetParameter inOutMap "Protein extraction" "Group name" fN myAssayFile
     |> Option.defaultValue ""
     |> int
 
