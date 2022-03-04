@@ -24,7 +24,7 @@ open arcIO.NET
 open BIO_BTE_06_L_7_Aux.Deedle_Aux
 
 (**
-# NB06d Absolute Quantification
+# NB08c Absolute Quantification
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB08c_Absolute_Quantification.ipynb)
 
