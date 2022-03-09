@@ -12,32 +12,15 @@
 #r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
 #endif // IPYNB
 
-//open System.IO //old
-//open ISADotNet
-//open ISADotNet.API
-//open Deedle
-//open BioFSharp
-//open FSharpAux
-//open FSharp.Stats
-//open Plotly.NET
-//open FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares.Linear
-//open System.IO
-//open BIO_BTE_06_L_7_Aux.FS3_Aux
-//open BIO_BTE_06_L_7_Aux.Deedle_Aux
-
 open System.IO
 open ISADotNet
-open ISADotNet.API
 open Deedle
-open BioFSharp
 open FSharpAux
 open FSharp.Stats
 open Plotly.NET
-open arcIO.NET
-open BIO_BTE_06_L_7_Aux.Deedle_Aux
 
 (**
-# NB06b Data Access and Quality Control
+# NB08a Data Access and Quality Control (for SDS-PAGE results)
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b_Data_Access_And_Quality_Control_BN.ipynb)
 
@@ -67,29 +50,29 @@ let inOutMap = BIO_BTE_06_L_7_Aux.ISA_Aux.createInOutMap myAssayFile
 Next, we will prepare functions to look up parameters, which might be needed for further calculations. 
 *)
 
-let normalizeFileName (f:string) = if Path.HasExtension f then f else Path.ChangeExtension(f, "wiff")
+let normalizeFileName (f : string) = if Path.HasExtension f then f else Path.ChangeExtension(f, "wiff")
 
 //        
-let getStrain (fileName:string) =
+let getStrain (fileName : string) =
     let fN = fileName |> normalizeFileName
     BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation -Sample preparation" "strain" fN myAssayFile
     |> Option.defaultValue ""
 
 //
-let getExpressionLevel (fileName:string) =
+let getExpressionLevel (fileName : string) =
     let fN = fileName |> normalizeFileName 
     BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation -Sample preparation" "gene expression" fN myAssayFile 
     |> Option.defaultValue "Wt-Like"
 
 //
-let get15N_PS_Amount (fileName:string) =
+let get15N_PS_Amount (fileName : string) =
     let fN = fileName |> normalizeFileName
     BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Extraction" "gram #2" fN myAssayFile |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
     |> float 
 //
-let getGroupID (fileName:string) =
+let getGroupID (fileName : string) =
     let fN = fileName |> normalizeFileName
     BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Extraction" "Group name" fN myAssayFile |> Option.defaultValue ""
     |> int
@@ -242,7 +225,7 @@ let createBoxPlot f =
             |> Series.values 
             |> Seq.map (fun values -> k,values)
             |> Seq.unzip
-         Chart.BoxPlot(x, y, Orientation = StyleParam.Orientation.Vertical)         
+         Chart.BoxPlot(x, y, Orientation = StyleParam.Orientation.Vertical)
          )
     |> Series.values
     |> Chart.combine
@@ -351,17 +334,17 @@ let plotPeptidesOf (ratios : Frame<PeptideIon,string>) (prot : string) (groupID 
                     )
                 |> Series.values
                 |> Seq.unzip3
-            Chart.Point(fileNames, ratios, Labels = fileLabel)
+            Chart.Point(fileNames, ratios, MultiText = fileLabel)
             |> Chart.withTraceName (sprintf "S:%s_C:%i" pep.StringSequence pep.Charge)
-            |> Chart.withX_AxisStyle("File name")
-            |> Chart.withY_AxisStyle("Ratio")
+            |> Chart.withXAxisStyle("File name")
+            |> Chart.withYAxisStyle("Ratio")
         )
         |> Series.values
-        |> Chart.Combine
-        |> Chart.withTitle "BN-PAGE extraction"
+        |> Chart.combine
+        |> Chart.withTitle "SDS-PAGE extraction"
         |> Chart.withSize (600.,700.)
         |> Chart.withMarginSize (Bottom = 175.)
-    with :? System.ArgumentException -> failwith "ERROR: Input protein was not found."
+    with e when e :? System.ArgumentException = true -> failwith $"ERROR: Input protein was not found.\n\t{e.ToString()}"
 
 (**
 First we get an overview of available protein ids.
@@ -438,14 +421,14 @@ With the plots at hand, we can use the following functions to manipulate the dat
 an absolute protein quantification e.g.:
 *)
 
-let discardPeptideIonInFile stringsequence charge filename (ratios:Frame<PeptideIon,string>) = 
+let discardPeptideIonInFile stringsequence charge filename (ratios : Frame<PeptideIon,string>) = 
     ratios
     |> Frame.map (fun r c value -> 
         let cFileName = String.split '.' c |> Array.head
         if r.StringSequence = stringsequence && r.Charge = charge && cFileName = filename then nan else value
     )
 
-let discardPeptideIon stringsequence charge (ratios:Frame<PeptideIon,string>) = 
+let discardPeptideIon stringsequence charge (ratios : Frame<PeptideIon,string>) = 
     ratios
     |> Frame.filterRows (fun r s -> (r.StringSequence = stringsequence && r.Charge = charge) |> not)
 (**
@@ -479,4 +462,4 @@ let frameToSave =
     |> Frame.indexRowsOrdinally
 
 // frameToSave.SaveCsv(@"C:\YourPath\testOut.txt", separator = '\t', includeRowKeys = false)
-frameToSave.SaveCsv(System.IO.Path.Combine [|__SOURCE_DIRECTORY__; "downloads"; "qualityControlResult_BN.txt"|], separator = '\t', includeRowKeys = false)
+frameToSave.SaveCsv(@"C:\YourPath\testOut.txt", separator = '\t', includeRowKeys = false)
