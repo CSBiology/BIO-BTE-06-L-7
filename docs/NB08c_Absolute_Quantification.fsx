@@ -37,7 +37,7 @@ calculate protein abundancies. Since we start again by getting access to our dat
 
 As always: before we analyze our data, we will download and read the sample description provided by the experimentalist.
 *)
-let path2 = @"..\assays\VP21_WC\isa-assay.xlsx"
+let path2 = @"..\assays\VP21_WC\isa.assay.xlsx"
 
 let _,_,_,myAssayFile = XLSX.AssayFile.Assay.fromFile path2
 let inOutMap = ISADotNet.createInOutMap myAssayFile
