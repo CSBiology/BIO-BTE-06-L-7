@@ -140,7 +140,7 @@ let plotIsotopicPattern color mzsAndintensities =
         mzsAndintensities |> Seq.maxBy fst |> fst
     Seq.map (fun (x,y) -> 
         Chart.Line([x;x],[0.;y], ShowLegend = false)
-        |> Chart.withLineStyle (Width = 7)
+        |> Chart.withLineStyle (Width = 7.)
     ) mzsAndintensities
     |> Chart.combine
     |> Chart.withMarkerStyle(Size=0,Color = Color.fromHex (FSharpAux.Colors.toWebColor color))
@@ -188,7 +188,7 @@ plotIsotopicPattern FSharpAux.Colors.Table.Office.blue examplePep2.Pattern |> Ge
 
 Now that we visualized the patterns of two sample peptides, we will simulate theoretical patterns
 and compare them to the ones we measured! You will recognize a lot of the used code from *NB02c Isotopic distribution*
-Note: we copy the code so you can make yourself familiar with it, of course we could also reference functions defined beforehand.
+Note: We copy the code so you can make yourself familiar with it, of course we could also reference functions defined beforehand.
 *)
 
 // create chemical formula for amino acid and add water to reflect hydrolysed state in mass spectrometer
@@ -443,4 +443,3 @@ Chart.BoxPlot estimates |> GenericChart.toChartHTML
 Now that we know more than an educated guess of an lable efficiency estimate we can start with our main goal:
 the absolute quantification of chlamydomonas proteins!
 *)
-
