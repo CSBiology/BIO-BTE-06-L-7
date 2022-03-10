@@ -18,6 +18,8 @@ open Deedle
 open FSharpAux
 open FSharp.Stats
 open Plotly.NET
+open arcIO.NET
+open BIO_BTE_06_L_7_Aux.Deedle_Aux
 
 (**
 # NB08a Data Access and Quality Control (for SDS-PAGE results)
@@ -41,16 +43,20 @@ It supports working with structured data frames, ordered and unordered data, as 
 Before we analyze our data, we will download and read the sample description provided by the experimentalist.
 *)
 
-let path2 = @"..\assays\VP21_WC\isa.assay.xlsx"
+let path2 = @"..\assays\VP21_SDS\isa.assay.xlsx"
 
 let _,_,_,myAssayFile = XLSX.AssayFile.Assay.fromFile path2
-let inOutMap = BIO_BTE_06_L_7_Aux.ISA_Aux.createInOutMap myAssayFile
+let inOutMap = ISADotNet.createInOutMap myAssayFile
 
 (**
 Next, we will prepare functions to look up parameters, which might be needed for further calculations. 
 *)
 
 let normalizeFileName (f : string) = if Path.HasExtension f then f else Path.ChangeExtension(f, "wiff")
+
+type CutoutBand =
+    | RbcL
+    | RbcS
 
 //        
 let getStrain (fileName : string) =
@@ -77,20 +83,36 @@ let getGroupID (fileName : string) =
     BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Extraction" "Group name" fN myAssayFile |> Option.defaultValue ""
     |> int
 
+let getLoadAmount (fileName : string) =
+    let fN = fileName |> normalizeFileName
+    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "PAGE - Sample preparation" "soluble protein content" fN myAssayFile |> Option.defaultValue ""
+    |> String.filter (fun c -> System.Char.IsDigit(c))
+    |> float
+
+let getCutoutBand (fileName : string) =
+    let fN = fileName |> normalizeFileName
+    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "PAGE - Sample preparation" "Cutout band" fN myAssayFile |> Option.defaultValue ""
+    |> fun str ->
+        match str with
+        | "rbcL" -> RbcL
+        | "rbcS" -> RbcS
+        | _ -> failwith (sprintf "rbcL or rbcS not cut out in file %s" fN)
+
 
 (**
 A quick execution to test the retrieval of data from the isa sample table:
 *)
-getStrain "WCGr2_U1.wiff"
-getExpressionLevel "WCGr2_U1.wiff"
-get15N_PS_Amount "WCGr2_U1.wiff"
-getGroupID "WCGr2_U1.wiff"
+getStrain "Gr2rbcL2_5.wiff"
+getExpressionLevel "Gr2rbcL2_5.wiff"
+get15N_PS_Amount "Gr2rbcL2_5.wiff"
+getGroupID "Gr2rbcL2_5.wiff"
+getLoadAmount "Gr2rbcL2_5.wiff"
 
 (**
 Now that we have the sample sheet, all that is missing is the data to be analyzed:
 *)
 
-let path = @"..assays\VP21_WC\dataset\WCAnnotated.txt"
+let path = @"..runs\VP21_SDS\notebookInput\SDSAnnotated.txt"
 
 (**
 ## II. Raw data access using Deedle:
@@ -128,7 +150,7 @@ let indexedData =
     |> Frame.indexRowsUsing (fun os -> 
         {|
             ProteinGroup    = os.GetAs<string>("ProteinGroup"); 
-            Synonyms        = os.GetAs<string>("Synonyms")
+            Synonyms        = os.GetAs<string>("Synonym")
             StringSequence  = os.GetAs<string>("StringSequence");
             PepSequenceID   = os.GetAs<int>("PepSequenceID");
             Charge          = os.GetAs<int>("Charge")
@@ -162,7 +184,7 @@ let finalRaw =
 
 finalRaw
 |> Frame.filterRows (fun x s -> x.StringSequence = "DTDILAAFR")
-|> Frame.getCol "20210312BN2_U1.Ratio"
+|> Frame.getCol "Gr3rbcL2_5.Ratio"
 |> Series.mapValues string
 
 (***condition:ipynb***)
@@ -193,12 +215,12 @@ let sliceQuantColumns quantColID frame =
 
 // How did the data frame change, how did the column headers change?
 let ratios = sliceQuantColumns "Ratio" finalRaw
-let light  = sliceQuantColumns "Light" finalRaw
-let heavy  = sliceQuantColumns "Heavy" finalRaw
+let light  = sliceQuantColumns "Quant_Light" finalRaw
+let heavy  = sliceQuantColumns "Quant_Heavy" finalRaw
 
 ratios
 |> Frame.filterRows (fun x s -> x.StringSequence = "DTDILAAFR")
-|> Frame.getCol "20210312BN2_U1"
+|> Frame.getCol "Gr3rbcL2_5"
 |> Series.mapValues string
 
 (***condition:ipynb***)
@@ -403,7 +425,7 @@ plotPeptidesOf ratios "PRK1" 1
 plotPeptidesOf ratios "PRK1" 1 |> GenericChart.toChartHTML
 (***include-it-raw***)
 
-// Describe what happened with the last 3 plots.
+// Describe what happened with the last 4 plots.
 
 
 (**
@@ -461,5 +483,4 @@ let frameToSave =
     ratiosFiltered
     |> Frame.indexRowsOrdinally
 
-// frameToSave.SaveCsv(@"C:\YourPath\testOut.txt", separator = '\t', includeRowKeys = false)
 frameToSave.SaveCsv(@"C:\YourPath\testOut.txt", separator = '\t', includeRowKeys = false)

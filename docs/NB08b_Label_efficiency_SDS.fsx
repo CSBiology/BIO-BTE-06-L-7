@@ -49,7 +49,7 @@ let qConcatDataFiltered =
     |> Frame.indexRowsUsing (fun os -> 
             {|
                 ProteinGroup    = os.GetAs<string>("ProteinGroup"); 
-                Synonyms        = os.GetAs<string>("Synonyms")
+                Synonyms        = os.GetAs<string>("Synonym")
                 StringSequence  = os.GetAs<string>("StringSequence");
                 PepSequenceID   = os.GetAs<int>("PepSequenceID");
                 Charge          = os.GetAs<int>("Charge");
@@ -423,7 +423,6 @@ let highIntensityPeptides =
 
 let estimates = 
     highIntensityPeptides
-    |> Series.take 20 
     |> Series.map (fun k v -> 
         FSharp.Stats.Optimization.Brent.minimize (calcKL k.StringSequence k.Charge) 0.98 0.999
         )
