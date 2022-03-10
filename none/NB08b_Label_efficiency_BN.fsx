@@ -15,11 +15,11 @@ open FSharp.Stats
 open Plotly.NET
 
 (**
-# NB06c' Label efficiency for SDS
+# NB08b Label efficiency for SDS
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06c_Label_efficiency_BN.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB08b_Label_efficiency_BN.ipynb)
 
-[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b_NB06b_NB06c_NB06c_NB06d_NB06d/NB06c_Label_efficiency_BN.ipynb)
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB08b/NB08b_Label_efficiency_BN.ipynb)
 
 Stable isotopic peptide labeling is the foundation of QconCAT experiments. While an excellent tool when carried out with correctly, it also exposes 
 challenges and pitfalls that have to be checked and possibly accounted for. One of these pitfalls is the efficiency with which we labeled 
@@ -27,7 +27,7 @@ our QconCAT protein (Why?). In this notebook we will have a look at some high qu
 illustrate how the label efficiency can be calculated using simulations.  
 
 ## I. Reading the data
-As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from *NB06b Data Access and Quality Control* is stored in a .txt
+As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from *NB08a Data Access and Quality Control* is stored in a .txt
 *)
 
 type PeptideIon = 
@@ -39,7 +39,7 @@ type PeptideIon =
         Charge          : int
     |}
 
-//This is the filepath you chose in *NB06b Data Access and Quality Control*
+//This is the filepath you chose in *NB08a Data Access and Quality Control*
 // let filePath = @"C:\YourPath\testOut.txt"
 let filePath = @"C:\YourPath\testOut.txt"
 

@@ -1,14 +1,15 @@
-#r "nuget: FSharp.Stats, 0.4.0"
+#r "nuget: FSharp.Stats, 0.4.3"
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-#r "nuget: Plotly.NET, 2.0.0-beta8"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.8"
-#r "nuget: Deedle, 2.3.0"
-#r "nuget: ISADotNet, 0.2.4"
-#r "nuget: ISADotNet.XLSX, 0.2.4"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.9"
+#r "nuget: Deedle, 2.5.0"
+#r "nuget: ISADotNet, 0.4.0-preview.4"
+#r "nuget: ISADotNet.XLSX, 0.4.0-preview.4"
+#r "nuget: ISADotNet.IO, 0.0.2"
 
 #if IPYNB
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
 #endif // IPYNB
 
 open System.IO
@@ -19,17 +20,15 @@ open BioFSharp
 open FSharpAux
 open FSharp.Stats
 open Plotly.NET
-open FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares.Linear
-open System.IO
-open BIO_BTE_06_L_7_Aux.FS3_Aux
+open arcIO.NET
 open BIO_BTE_06_L_7_Aux.Deedle_Aux
 
 (**
-# NB06d Absolute Quantification
+# NB08c Absolute Quantification
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06d_Absolute_Quantification_BN.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB08c_Absolute_Quantification_BN.ipynb)
 
-[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b_NB06b_NB06c_NB06c_NB06d_NB06d/NB06d_Absolute_Quantification_BN.ipynb)
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB08c/NB08c_Absolute_Quantification_BN.ipynb)
 
 Finally, after careful peptide ion selection, quality control and assuring that our label efficiency allows accurate for quantifications, we can start to
 calculate protein abundancies. Since we start again by getting access to our data and its description, this notebook will start off familiar!
@@ -49,9 +48,9 @@ type PeptideIon =
         Charge          : int
     |}
 
-//This is the filepath you chose in *NB06b Data Access and Quality Control*
+//This is the filepath you chose in *NB08a Data Access and Quality Control*
 // let filePath = @"C:\yourPath\testOut.txt"
-let filePath = System.IO.Path.Combine [|__SOURCE_DIRECTORY__ + "/downloads/qualityControlResult_BN.txt"|]
+let filePath = @"C:\YourPath\testOut.txt"
 
 let qConcatDataFiltered =
     Frame.ReadCsv(path = filePath, separators = "\t")
@@ -59,7 +58,7 @@ let qConcatDataFiltered =
     |> Frame.indexRowsUsing (fun os -> 
         {|
             ProteinGroup    = os.GetAs<string>("ProteinGroup"); 
-            Synonyms        = os.GetAs<string>("Synonyms")
+            Synonyms        = os.GetAs<string>("Synonym")
             StringSequence  = os.GetAs<string>("StringSequence");
             PepSequenceID   = os.GetAs<int>("PepSequenceID");
             Charge          = os.GetAs<int>("Charge");
