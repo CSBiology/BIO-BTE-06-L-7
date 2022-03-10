@@ -1,27 +1,18 @@
-#r "nuget: FSharp.Stats, 0.4.0"
+#r "nuget: FSharp.Stats, 0.4.3"
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-#r "nuget: Plotly.NET, 2.0.0-beta8"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.8"
-#r "nuget: Deedle, 2.3.0"
-#r "nuget: ISADotNet, 0.2.4"
-#r "nuget: ISADotNet.XLSX, 0.2.4"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
+#r "nuget: Deedle, 2.5.0"
 
 #if IPYNB
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
 #endif // IPYNB
 
-open System.IO
-open ISADotNet
-open ISADotNet.API
 open Deedle
 open BioFSharp
 open FSharpAux
 open FSharp.Stats
 open Plotly.NET
-open System.IO
-open BIO_BTE_06_L_7_Aux.FS3_Aux
-open BIO_BTE_06_L_7_Aux.Deedle_Aux
 
 (**
 # NB06c' Label efficiency for SDS
@@ -50,7 +41,7 @@ type PeptideIon =
 
 //This is the filepath you chose in *NB06b Data Access and Quality Control*
 // let filePath = @"C:\YourPath\testOut.txt"
-let filePath = System.IO.Path.Combine [|__SOURCE_DIRECTORY__; "downloads"; "qualityControlResult_BN.txt"|]
+let filePath = @"C:\YourPath\testOut.txt"
 
 // What is different about this function from the one known from the last notebook?
 let qConcatDataFiltered =
@@ -60,7 +51,7 @@ let qConcatDataFiltered =
             let proteinGroup = os.GetAs<string>("ProteinGroup")
             {|
                 ProteinGroup    = os.GetAs<string>("ProteinGroup"); 
-                Synonyms        = os.GetAs<string>("Synonyms")
+                Synonyms        = os.GetAs<string>("Synonym")
                 StringSequence  = os.GetAs<string>("StringSequence");
                 PepSequenceID   = os.GetAs<int>("PepSequenceID");
                 Charge          = os.GetAs<int>("Charge");
@@ -86,7 +77,7 @@ let sliceQuantColumns quantColID frame =
 Besides already familiar slices...
 *)
 
-let heavy = sliceQuantColumns "Heavy" qConcatDataFiltered
+let heavy = sliceQuantColumns "Quant_Heavy" qConcatDataFiltered
 
 (**
 ... we can also use this function for information needed to reconstruct isotopic patterns.
@@ -138,13 +129,13 @@ let plotIsotopicPattern color mzsAndintensities =
         mzsAndintensities |> Seq.minBy fst |> fst,
         mzsAndintensities |> Seq.maxBy fst |> fst
     Seq.map (fun (x,y) -> 
-        Chart.Line([x;x],[0.;y], Showlegend = false)
+        Chart.Line([x;x],[0.;y], ShowLegend = false)
         |> Chart.withLineStyle (Width = 7)
     ) mzsAndintensities
-    |> Chart.Combine
-    |> Chart.withMarkerStyle(Size=0,Color = FSharpAux.Colors.toWebColor color)
-    |> Chart.withX_AxisStyle ("", MinMax = (min - 1., max + 1.))
-    |> Chart.withY_AxisStyle ""
+    |> Chart.combine
+    |> Chart.withMarkerStyle(Size=0,Color = Color.fromHex (FSharpAux.Colors.toWebColor color))
+    |> Chart.withXAxisStyle ("", MinMax = (min - 1., max + 1.))
+    |> Chart.withYAxisStyle ""
 
 type ExtractedIsoPattern = 
     {|
@@ -287,7 +278,7 @@ let compareIsotopicDistributions (measured:ExtractedIsoPattern) (simulated:Simul
             plotIsotopicPattern FSharpAux.Colors.Table.Office.blue measured.Pattern
             plotIsotopicPattern FSharpAux.Colors.Table.Office.orange patternSim'
             ]
-            |> Chart.Combine
+            |> Chart.combine
     |}
 (**
 *)
@@ -335,7 +326,7 @@ let compareIsotopicDistributions' (measured:ExtractedIsoPattern) (simulated:Simu
             plotIsotopicPattern FSharpAux.Colors.Table.Office.blue measured.Pattern
             plotIsotopicPattern FSharpAux.Colors.Table.Office.orange patternSim'
             ]
-            |> Chart.Combine
+            |> Chart.combine
     |}
 
 (**
@@ -359,8 +350,8 @@ let lableEfficiency, comparison =
 let bestFit = comparison |> Seq.minBy (fun x -> x.KLDiv) 
 
 Chart.Point(lableEfficiency,comparison |> Seq.map (fun x -> x.KLDiv))
-|> Chart.withX_AxisStyle ""
-|> Chart.withY_AxisStyle ""
+|> Chart.withXAxisStyle ""
+|> Chart.withYAxisStyle ""
 
 
 (***hide***)
@@ -388,8 +379,8 @@ let lableEfficiency2, comparison2 =
 let bestFit2 = comparison2 |> Seq.minBy (fun x -> x.KLDiv) 
 
 Chart.Point(lableEfficiency2,comparison2 |> Seq.map (fun x -> x.KLDiv))
-|> Chart.withX_AxisStyle ""
-|> Chart.withY_AxisStyle ""
+|> Chart.withXAxisStyle ""
+|> Chart.withYAxisStyle ""
 
 
 (***hide***)
