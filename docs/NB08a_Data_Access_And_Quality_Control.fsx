@@ -45,7 +45,7 @@ It supports working with structured data frames, ordered and unordered data, as 
 Before we analyze our data, we will download and read the sample description provided by the experimentalist.
 *)
 
-let path2 = @"..\assays\VP21_WC\isa.assay.xlsx"
+let path2 = @"..\assays\VP21_WC\isa-assay.xlsx"
 
 let _,_,_,myAssayFile = XLSX.AssayFile.Assay.fromFile path2
 let inOutMap = ISADotNet.createInOutMap myAssayFile
@@ -76,6 +76,7 @@ let get15N_CBC_Amount (fileName: string) =
     |> String.split ' '
     |> Array.head
     |> float
+
 //
 let get15N_PS_Amount (fileName: string) =
     let fN = fileName |> normalizeFileName
@@ -84,6 +85,7 @@ let get15N_PS_Amount (fileName: string) =
     |> String.split ' '
     |> Array.head
     |> float 
+
 //
 let getGroupID (fileName: string) =
     let fN = fileName |> normalizeFileName

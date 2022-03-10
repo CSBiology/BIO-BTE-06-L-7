@@ -1,14 +1,15 @@
-#r "nuget: FSharp.Stats, 0.4.0"
+#r "nuget: FSharp.Stats, 0.4.3"
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-#r "nuget: Plotly.NET, 2.0.0-beta8"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.8"
-#r "nuget: Deedle, 2.3.0"
-#r "nuget: ISADotNet, 0.2.4"
-#r "nuget: ISADotNet.XLSX, 0.2.4"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.9"
+#r "nuget: Deedle, 2.5.0"
+#r "nuget: ISADotNet, 0.4.0-preview.4"
+#r "nuget: ISADotNet.XLSX, 0.4.0-preview.4"
+#r "nuget: ISADotNet.IO, 0.0.2"
 
 #if IPYNB
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta8"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
 #endif // IPYNB
 
 open System.IO
@@ -19,17 +20,15 @@ open BioFSharp
 open FSharpAux
 open FSharp.Stats
 open Plotly.NET
-open FSharp.Stats.Fitting.LinearRegression.OrdinaryLeastSquares.Linear
-open System.IO
-open BIO_BTE_06_L_7_Aux.FS3_Aux
+open arcIO.NET
 open BIO_BTE_06_L_7_Aux.Deedle_Aux
 
 (**
-# NB06b Data Access and Quality Control
+# NB08a Data Access and Quality Control
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b_Data_Access_And_Quality_Control_BN.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB08a_Data_Access_And_Quality_Control_BN.ipynb)
 
-[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b_NB06b_NB06c_NB06c_NB06d_NB06d/NB06b_Data_Access_And_Quality_Control_BN.ipynb)
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB08a/NB08a_Data_Access_And_Quality_Control_BN.ipynb)
 
 With this notebook, we want to converge the threads of computational and experimental proteomics by analyzing the data measured by you during the practical course.
 Behind the scenes there was already a lot going on! While you were going through the hands-on tutorials addressing single steps of the computation proteomics pipeline, we executed
@@ -45,12 +44,10 @@ It supports working with structured data frames, ordered and unordered data, as 
 
 Before we analyze our data, we will download and read the sample description provided by the experimentalist.
 *)
-let directory = __SOURCE_DIRECTORY__
-let path2 = Path.Combine[|directory;"downloads/alle_Gruppen_V11_SWATE.xlsx"|]
-downloadFile path2 "alle_Gruppen_V11_SWATE.xlsx" "bio-bte-06-l-7"
+let path2 = @"..\assays\VP21_WC\isa-assay.xlsx"
 
-let _,_,_,myAssayFile = XLSX.AssayFile.AssayFile.fromFile path2
-let inOutMap = BIO_BTE_06_L_7_Aux.ISA_Aux.createInOutMap myAssayFile
+let _,_,_,myAssayFile = XLSX.AssayFile.Assay.fromFile path2
+let inOutMap = ISADotNet.createInOutMap myAssayFile
 
 (**
 Next, we will prepare functions to look up parameters, which might be needed for further calculations. 
@@ -59,28 +56,31 @@ Next, we will prepare functions to look up parameters, which might be needed for
 let normalizeFileName (f:string) = if Path.HasExtension f then f else Path.ChangeExtension(f, "wiff")
 
 //        
-let getStrain (fileName:string) =
+let getStrain (fileName: string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation -Sample preparation" "strain" fN myAssayFile
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "strain" fN myAssayFile
     |> Option.defaultValue ""
 
 //
-let getExpressionLevel (fileName:string) =
+let getExpressionLevel (fileName: string) =
     let fN = fileName |> normalizeFileName 
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation -Sample preparation" "gene expression" fN myAssayFile 
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "gene expression" fN myAssayFile 
     |> Option.defaultValue "Wt-Like"
 
 //
-let get15N_PS_Amount (fileName:string) =
+let get15N_PS_Amount (fileName: string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Extraction" "gram #2" fN myAssayFile |> Option.defaultValue ""
+    ISADotNet.tryGetParameter inOutMap "Protein extraction" "15N Photosynthesis QconCAT mass #4" fN myAssayFile
+    |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
     |> float 
+
 //
-let getGroupID (fileName:string) =
+let getGroupID (fileName: string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Extraction" "Group name" fN myAssayFile |> Option.defaultValue ""
+    ISADotNet.tryGetParameter inOutMap "Protein extraction" "Group name" fN myAssayFile
+    |> Option.defaultValue ""
     |> int
 
 
@@ -96,8 +96,7 @@ getGroupID "20210312BN2_U1.wiff"
 Now that we have the sample sheet, all that is missing is the data to be analyzed:
 *)
 
-let path = Path.Combine[|directory; "downloads/Quantifications_bn_annotated_replaced.txt"|]
-downloadFile path "Quantifications_bn_annotated_replaced.txt" "bio-bte-06-l-7"
+let path = @"..assays\VP21_WC\dataset\WCAnnotated.txt"
 
 (**
 ## II. Raw data access using Deedle:
@@ -117,12 +116,10 @@ for the charts to be scrollable, so we pipe the output into "Chart.Show", to vis
 rawData
 |> Frame.take 10
 |> formatAsTable 1500.
-|> Chart.Show
 
 #endif // IPYNB
 (***hide***)
 rawData |> Frame.take 10 |> fun x -> x.Print()
-
 (***include-fsi-merged-output***)
 (**
 Looking at the raw data, we can see that each row contains a different quantification of a peptide ion, with the columns containing 
@@ -137,7 +134,7 @@ let indexedData =
     |> Frame.indexRowsUsing (fun os -> 
         {|
             ProteinGroup    = os.GetAs<string>("ProteinGroup"); 
-            Synonyms        = os.GetAs<string>("Synonyms")
+            Synonyms        = os.GetAs<string>("Synonym")
             StringSequence  = os.GetAs<string>("StringSequence");
             PepSequenceID   = os.GetAs<int>("PepSequenceID");
             Charge          = os.GetAs<int>("Charge")
@@ -151,12 +148,10 @@ let indexedData =
 indexedData
 |> Frame.take 10
 |> formatAsTable 1500.
-|> Chart.Show
 
 #endif // IPYNB
 (***hide***)
 indexedData |> Frame.take 10 |> fun x -> x.Print()
-
 (***include-fsi-merged-output***)
 (**
 ## III. Augmenting and filtering the data frame 
@@ -181,12 +176,10 @@ finalRaw
 finalRaw
 |> Frame.take 10
 |> formatAsTable 1500.
-|> Chart.Show
 
 #endif // IPYNB
 (***hide***)
 finalRaw |> Frame.take 10 |> fun x -> x.Print()
-
 (***include-fsi-merged-output***)
 
 (**
@@ -206,8 +199,8 @@ let sliceQuantColumns quantColID frame =
 
 // How did the data frame change, how did the column headers change?
 let ratios = sliceQuantColumns "Ratio" finalRaw
-let light = sliceQuantColumns "Light" finalRaw
-let heavy = sliceQuantColumns "Heavy" finalRaw
+let light = sliceQuantColumns "Quant_Light" finalRaw
+let heavy = sliceQuantColumns "Quant_Heavy" finalRaw
 
 ratios
 |> Frame.filterRows (fun x s -> x.StringSequence = "DTDILAAFR")
@@ -219,12 +212,10 @@ ratios
 ratios
 |> Frame.take 10
 |> formatAsTable 1500.
-|> Chart.Show
 
 #endif // IPYNB
 (***hide***)
 ratios |> Frame.take 10 |> fun x -> x.Print()
-
 (***include-fsi-merged-output***)
 
 (**
@@ -243,8 +234,8 @@ let createBoxPlot f =
          Chart.BoxPlot(x, y, Orientation = StyleParam.Orientation.Vertical)         
          )
     |> Series.values
-    |> Chart.Combine
-    |> Chart.withY_AxisStyle "Ion intensity"
+    |> Chart.combine
+    |> Chart.withYAxisStyle "Ion intensity"
 
 (**
 The function applied to the n14 values: 
@@ -349,13 +340,13 @@ let plotPeptidesOf (ratios : Frame<PeptideIon,string>) (prot : string) (groupID 
                     )
                 |> Series.values
                 |> Seq.unzip3
-            Chart.Point(fileNames, ratios, Labels = fileLabel)
+            Chart.Point(fileNames, ratios, MultiText = fileLabel)
             |> Chart.withTraceName (sprintf "S:%s_C:%i" pep.StringSequence pep.Charge)
-            |> Chart.withX_AxisStyle("File name")
-            |> Chart.withY_AxisStyle("Ratio")
+            |> Chart.withXAxisStyle("File name")
+            |> Chart.withYAxisStyle("Ratio")
         )
         |> Series.values
-        |> Chart.Combine
+        |> Chart.combine
         |> Chart.withTitle "BN-PAGE extraction"
         |> Chart.withSize (600.,700.)
         |> Chart.withMarginSize (Bottom = 175.)
@@ -387,7 +378,7 @@ plotPeptidesOf ratios "rbcL" 1 |> GenericChart.toChartHTML
 plotPeptidesOf ratios "RBCS2;RBCS1" 2
 #endif // IPYNB
 (***hide***)
-plotPeptidesOf ratios "RBCS2;RBCS1" 2 |> GenericChart.toChartHTML
+plotPeptidesOf ratios "RBCS1;RBCS2" 2 |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
@@ -477,4 +468,4 @@ let frameToSave =
     |> Frame.indexRowsOrdinally
 
 // frameToSave.SaveCsv(@"C:\YourPath\testOut.txt", separator = '\t', includeRowKeys = false)
-frameToSave.SaveCsv(System.IO.Path.Combine [|__SOURCE_DIRECTORY__; "downloads"; "qualityControlResult_BN.txt"|], separator = '\t', includeRowKeys = false)
+frameToSave.SaveCsv(@"C:\YourPath\testOut.txt", separator = '\t', includeRowKeys = false)
