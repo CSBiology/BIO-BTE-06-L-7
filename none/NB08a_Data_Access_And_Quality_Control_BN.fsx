@@ -44,7 +44,7 @@ It supports working with structured data frames, ordered and unordered data, as 
 
 Before we analyze our data, we will download and read the sample description provided by the experimentalist.
 *)
-let path2 = @"..\assays\VP21_WC\isa-assay.xlsx"
+let path2 = @"..\assays\VP21_WC\isa.assay.xlsx"
 
 let _,_,_,myAssayFile = XLSX.AssayFile.Assay.fromFile path2
 let inOutMap = ISADotNet.createInOutMap myAssayFile
@@ -53,22 +53,22 @@ let inOutMap = ISADotNet.createInOutMap myAssayFile
 Next, we will prepare functions to look up parameters, which might be needed for further calculations. 
 *)
 
-let normalizeFileName (f:string) = if Path.HasExtension f then f else Path.ChangeExtension(f, "wiff")
+let normalizeFileName (f : string) = if Path.HasExtension f then f else Path.ChangeExtension(f, "wiff")
 
 //        
-let getStrain (fileName: string) =
+let getStrain (fileName : string) =
     let fN = fileName |> normalizeFileName
     ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "strain" fN myAssayFile
     |> Option.defaultValue ""
 
 //
-let getExpressionLevel (fileName: string) =
+let getExpressionLevel (fileName : string) =
     let fN = fileName |> normalizeFileName 
     ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "gene expression" fN myAssayFile 
     |> Option.defaultValue "Wt-Like"
 
 //
-let get15N_PS_Amount (fileName: string) =
+let get15N_PS_Amount (fileName : string) =
     let fN = fileName |> normalizeFileName
     ISADotNet.tryGetParameter inOutMap "Protein extraction" "15N Photosynthesis QconCAT mass #4" fN myAssayFile
     |> Option.defaultValue ""
@@ -77,7 +77,7 @@ let get15N_PS_Amount (fileName: string) =
     |> float 
 
 //
-let getGroupID (fileName: string) =
+let getGroupID (fileName : string) =
     let fN = fileName |> normalizeFileName
     ISADotNet.tryGetParameter inOutMap "Protein extraction" "Group name" fN myAssayFile
     |> Option.defaultValue ""

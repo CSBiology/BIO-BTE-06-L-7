@@ -164,7 +164,7 @@ type PeptideIon =
 let filePath = @"C:\YourPath\testOut.txt"
 
 let qConcatDataFiltered =
-    Frame.ReadCsv(path = filePath,separators="\t")
+    Frame.ReadCsv(path = filePath, separators = "\t")
     // StringSequence is the peptide sequence
     |> Frame.indexRowsUsing (fun os -> 
             let proteinGroup = os.GetAs<string>("ProteinGroup")
