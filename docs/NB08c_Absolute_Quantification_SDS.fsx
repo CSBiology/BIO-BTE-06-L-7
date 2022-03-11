@@ -31,8 +31,120 @@ open arcIO.NET
 Finally, after careful peptide ion selection, quality control and assuring that our label efficiency allows accurate for quantifications, we can start to
 calculate protein abundancies. Since we start again by getting access to our data and its description, this notebook will start off familiar!
 
+## I. Reading the sample description
 
-## I. Reading the data
+As always: before we analyze our data, we will download and read the sample description provided by the experimentalist.
+*)
+let path2 = @"..\assays\VP21_WC\isa.assay.xlsx"
+
+let _,_,_,myAssayFile = XLSX.AssayFile.Assay.fromFile path2
+let inOutMap = ISADotNet.createInOutMap myAssayFile
+
+(**
+Next, we will prepare functions to look up parameters which might be needed for further calculations.
+If you compare this list to the one of note book NB06b you will find additional functions. We will need these functions
+in order to calculate the absolute abundances. 
+*)
+
+type CutoutBand =
+    | RbcL
+    | RbcS
+
+let normalizeFileName (f : string) = if Path.HasExtension f then f else Path.ChangeExtension(f, "wiff")
+
+//
+let getStrain (fileName : string) =
+    let fN = fileName |> normalizeFileName
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "strain" fN myAssayFile
+    |> Option.defaultValue "Wt"
+
+//
+let getExpressionLevel (fileName : string) =
+    let fN = fileName |> normalizeFileName 
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "gene expression" fN myAssayFile 
+    |> Option.defaultValue "Wt-Like"
+
+// 
+let getμgChlorophPerMlCult (fileName : string) =
+    let fN = fileName |> normalizeFileName
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "total chlorophyll concentration of culture #7" fN myAssayFile |> Option.defaultValue "0."
+    |> String.split ' '
+    |> Array.head
+    |> float 
+    |> (*) 1000.
+
+// 
+let getCellCountPerMlCult (fileName : string) =
+    let fN = fileName |> normalizeFileName
+    ISADotNet.tryGetParameter inOutMap "Cultivation" "cell concentration of sample #13" fN myAssayFile |> Option.defaultValue "0"
+    |> String.split ' '
+    |> Array.head
+    |> float 
+
+// 
+let getμgChlorophPerμlSample (fileName : string) =
+    let fN = fileName |> normalizeFileName
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "total chlorophyll of sample #12" fN myAssayFile |> Option.defaultValue "0"
+    |> String.split ' '
+    |> Array.head
+    |> float 
+
+// 
+let getμgProtPerμlSample (fileName : string) =
+    let fN = fileName |> normalizeFileName
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "whole cell protein concentration of sample #11" fN myAssayFile |> Option.defaultValue "0"
+    |> String.split ' '
+    |> Array.head
+    |> float 
+
+//
+let get15N_PS_Amount (fileName : string) =
+    let fN = fileName |> normalizeFileName
+    ISADotNet.tryGetCharacteristic inOutMap "Protein extraction" "15N Photosynthesis QconCAT mass #4" fN myAssayFile |> Option.defaultValue "0"
+    |> String.split ' '
+    |> Array.head
+    |> float 
+//
+let getGroupID (fileName : string) =
+    let fN = fileName |> normalizeFileName
+    ISADotNet.tryGetParameter inOutMap "Protein extraction" "Group name" fN myAssayFile |> Option.defaultValue "0"
+    |> String.split ' '
+    |> Array.head
+    |> int
+
+let getLoadAmount (fileName : string) =
+    let fN = fileName |> normalizeFileName
+    ISADotNet.tryGetParameter inOutMap "Sample preparation (PAGE)" "soluble protein content" fN myAssayFile |> Option.defaultValue "0"
+    |> String.split ' '
+    |> Array.head
+    |> float
+
+
+let getCutoutBand (fileName : string) =
+    let fN = fileName |> normalizeFileName
+    ISADotNet.tryGetParameter inOutMap "Sample preparation (PAGE)" "Cutout band" fN myAssayFile |> Option.defaultValue ""
+    |> fun str ->
+        match str with
+        | "rbcL" -> RbcL
+        | "rbcS" -> RbcS
+        | _ -> failwith (sprintf "rbcL or rbcS not cut out in file %s" fN)
+
+(**
+A quick execution to test the retrieval of data from the isa sample table:
+*)
+
+getStrain "Gr2rbcL2_5.wiff"
+getExpressionLevel "Gr2rbcL2_5.wiff"
+getμgChlorophPerMlCult "Gr2rbcL2_5.wiff"
+getCellCountPerMlCult "Gr2rbcL2_5.wiff"
+getμgChlorophPerμlSample "Gr2rbcL2_5.wiff"
+getμgProtPerμlSample "Gr2rbcL2_5.wiff"
+get15N_PS_Amount "Gr2rbcL2_5.wiff"
+getGroupID "Gr2rbcL2_5.wiff"
+getLoadAmount "Gr2rbcL2_5.wiff"
+
+(**
+## II. Reading the data
 As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from *NB06b Data Access and Quality Control* is stored in a .txt
 *)
 
@@ -47,7 +159,7 @@ type PeptideIon =
     |}
 
 //This is the filepath you chose in *NB08a Data Access and Quality Control (results for SDS-PAGE)*
-let filePath = @"C:\yourPath\testOut.txt"
+let filePath = @"C:\YourPath\testOut.txt"
 
 let qConcatDataFiltered =
     Frame.ReadCsv(path = filePath, separators = "\t")
@@ -55,7 +167,7 @@ let qConcatDataFiltered =
     |> Frame.indexRowsUsing (fun os -> 
         {|
             ProteinGroup    = os.GetAs<string>("ProteinGroup"); 
-            Synonyms        = os.GetAs<string>("Synonyms")
+            Synonyms        = os.GetAs<string>("Synonym")
             StringSequence  = os.GetAs<string>("StringSequence");
             PepSequenceID   = os.GetAs<int>("PepSequenceID");
             Charge          = os.GetAs<int>("Charge");
@@ -75,7 +187,94 @@ let sliceQuantColumns quantColID frame =
     |> Frame.filterCols (fun ck os -> ck |> String.contains ("." + quantColID))
     |> Frame.mapColKeys (fun ck -> ck.Split('.') |> Array.item 0)
 
-let ratios = sliceQuantColumns "Ratio" qConcatDataFiltered
+
+(**
+Next up, we have to define a function, which maps the measured ratio and measured parameters to an quantification value.
+*)
+
+/// 
+let calcAbsoluteAbundance μgChlorophPerMlCult cellCountPerMlCult μgChlorophPerμlSample μgProtPerμlSample μgQProtSpike μgloadedProtein molWeightQProt molWeightTargetProt ratio1415N =
+    let chlorophPerCell : float = μgChlorophPerMlCult / cellCountPerMlCult
+    let cellsPerμlSample = μgChlorophPerμlSample / chlorophPerCell
+    let μgProteinPerCell = μgProtPerμlSample / cellsPerμlSample
+    let molQProtSpike = μgQProtSpike * 10. ** -6. / molWeightQProt
+    let molProtPerBand = ratio1415N * molQProtSpike
+    let molProtIn1μgLoadedProt = molProtPerBand / μgloadedProtein
+    let gTargetProtIn1μgLoadedProt = molWeightTargetProt * molProtIn1μgLoadedProt
+    let molProteinPerCell = molProtIn1μgLoadedProt * μgProteinPerCell
+    let proteinsPerCell = molProteinPerCell * 6.022 * 10. ** 23.
+    let attoMolProteinPerCell = molProteinPerCell * (10. ** 18.)
+    {|
+        MassTargetProteinInLoadedProtein    = gTargetProtIn1μgLoadedProt
+        ProteinsPerCell                     = proteinsPerCell
+        AttoMolProteinPerCell               = attoMolProteinPerCell
+    |}
+
+(** 
+Inspecting the input parameters of 'calcAbsoluteAbundance' we can see that we need both, the molcular weight of the qProtein and of the 
+native Protein. Since we have none at hand we will use our newly aquired skills to compute both and add them to the row key of our Frame. 
+*)
+
+let path = @"..\externals\Chlamy_JGI5_5(Cp_Mp)_QProt.fasta"
+
+let examplePeptides = 
+    path
+    |> IO.FastA.fromFile BioArray.ofAminoAcidString
+    |> Array.ofSeq
+
+(** 
+First we find the sequences of the qProteins, calculate their masses and define a function to retrieve the calculated mass.
+*)
+
+let PS = 
+    examplePeptides 
+    |> Seq.find (fun prot -> prot.Header |> String.contains "QProt_newPS")
+
+let PSMass = 
+    BioFSharp.BioSeq.toMonoisotopicMassWith (Formula.monoisoMass Formula.Table.H2O) PS.Sequence
+
+
+(** 
+Then we repeat the process and assign the calculated masses to each protein.
+*)
+
+let withProteinWeights = 
+    qConcatDataFiltered
+    /// For each row (peptide) in the frame...
+    |> Frame.mapRowKeys (fun k -> 
+        let proteinsOfInterest = 
+            k.ProteinGroup 
+            |> String.split ';' 
+            |> Array.filter (fun x -> x.Contains "Cre")
+        let masses = 
+            proteinsOfInterest
+            /// ...we look up the matching protein sequence
+            |> Seq.choose (fun creID -> 
+                examplePeptides 
+                |> Seq.tryFind (fun prot -> prot.Header |> String.contains creID)
+                )
+            /// ... and calculate the protein masses        
+            |> Seq.map (fun prot -> 
+                BioFSharp.BioSeq.toMonoisotopicMassWith (Formula.monoisoMass Formula.Table.H2O) prot.Sequence 
+                )
+        let avgMass = if Seq.isEmpty masses then 0. else masses |> Seq.average
+        /// ... and add the average to the peptide.   
+        {|k with AverageProtGroupMass = avgMass|}
+    )
+
+(** 
+With our newest update to our meta data (adding the masses to the rowkey), we can slice out the columns
+needed to calculate absolute abundances: the ratio columns.
+*)
+
+let ratios = sliceQuantColumns "Ratio" withProteinWeights
+
+(***condition:ipynb***)
+#if IPYNB
+ratios
+|> Frame.take 10
+|> formatAsTable 1500.
+#endif // IPYNB
 
 (** 
 Finally, we can iterate the ratios and map each to a protein abundance using our well annotated experiment.
