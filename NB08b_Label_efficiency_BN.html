@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>NB08b Label efficiency for SDS
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/x-icon" href="/BIO-BTE-06-L-7//img/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+    <link type="text/css" rel="stylesheet" href="/BIO-BTE-06-L-7/content/fsdocs-default.css" />
+    <link type="text/css" rel="stylesheet" href="/BIO-BTE-06-L-7/content/fsdocs-custom.css" />
+    <script type="text/javascript" src="/BIO-BTE-06-L-7/content/fsdocs-tips.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script defer type="text/javascript" src="https://kit.fontawesome.com/0d3e0ea7a6.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head> 
+
+<body>
+    <div class="columns is-fullheight m-0">
+        <div id="fsdocs-menu" class="column is-2 is-paddingless">
+            <aside class="menu">
+                <div class="container is-paddingless is-marginless has-background-dark">
+                    <a href="/BIO-BTE-06-L-7/">
+                        <figure class="image is-128x128 container">
+                            <img src="img/logo.svg">
+                        </figure>
+                    </a>
+                    <h2 class="title has-text-centered has-text-white pb-4">BIO-BTE-06-L-7</h2>
+                </div>
+                <div class="content">
+                    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+                    <div id="header">
+                        <div class="field">
+                            <div class="control has-icons-left has-icons-right searchbox" id="fsdocs-searchbox">
+                                <input data-search-input="" id="search-by" type="search" placeholder="Search..." class="input"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- END SEARCH BOX: this adds support for the search box -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB00a_FSharp_Coding_literacy_Part_I.html">
+                                <span class="text">
+                                    <span>NB00a FSharp Coding literacy part I</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB00b_FSharp_Coding_literacy_Part_II.html">
+                                <span class="text">
+                                    <span>NB00b FSharp Coding literacy part II</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB01a_Systems_Biology_FSharp_Introduction.html">
+                                <span class="text">
+                                    <span>NB01a Systems Biology</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB01b_Plant_Systems_Biology.html">
+                                <span class="text">
+                                    <span>NB01b Plant Systems Biology</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB02a_Mass_spectrometry_based_proteomics.html">
+                                <span class="text">
+                                    <span>NB02a Mass Spectrometry Based Proteomics</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB02b_Digestion_and_mass_calculation.html">
+                                <span class="text">
+                                    <span>NB02b Digestion and mass calculation</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB02c_Isotopic_distribution.html">
+                                <span class="text">
+                                    <span>NB02c Isotopic Distribution</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB03a_Retention_time_and_scan_time.html">
+                                <span class="text">
+                                    <span>NB03a Retention time and scan time</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB03b_Signal_detection_and_quantification.html">
+                                <span class="text">
+                                    <span>NB03b Signal detection and quantification</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB03c_Centroidisation.html">
+                                <span class="text">
+                                    <span>NB03c Centroidisation</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB04a_Fragmentation_for_peptide_identification.html">
+                                <span class="text">
+                                    <span>NB04a Fragmentation for peptide identification</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB04b_Peptide_Identification.html">
+                                <span class="text">
+                                    <span>NB04b Peptide Identification</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB05a_Quantification.html">
+                                <span class="text">
+                                    <span>NB05a Quantification</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06a_Research_Data_Management.html">
+                                <span class="text">
+                                    <span>NB06a Research Data Management</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB07a_Working_With_Deedle.html">
+                                <span class="text">
+                                    <span>NB07a Working with Deedle</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB08a_Data_Access_And_Quality_Control.html">
+                                <span class="text">
+                                    <span>NB08a Data Access and Quality Control</span>
+                                </span>
+                            </a>
+                        </li>
+                        <!--<li class="nav-item">
+                            <a class="nav-link" href="NB06b_Data_Access_And_Quality_Control_SDS.html">
+                                <span class="text">
+                                    <span>NB06b' Data Access and Quality Control (SDS)</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06b_Data_Access_And_Quality_Control_BN.html">
+                                <span class="text">
+                                    <span>NB06b'' Data Access and Quality Control (BN)</span>
+                                </span>
+                            </a>
+                        </li>-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB08b_Label_efficiency.html">
+                                <span class="text">
+                                    <span>NB08b Label Efficiency</span>
+                                </span>
+                            </a>
+                        </li>
+                        <!--<li class="nav-item">
+                            <a class="nav-link" href="NB06c_Label_efficiency_SDS.html">
+                                <span class="text">
+                                    <span>NB06c' Label Efficiency (SDS)</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06c_Label_efficiency_BN.html">
+                                <span class="text">
+                                    <span>NB06c''' Label Efficiency (BN)</span>
+                                </span>
+                            </a>
+                        </li>-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB08c_Absolute_Quantification.html">
+                                <span class="text">
+                                    <span>NB08c Absolute Quantification</span>
+                                </span>
+                            </a>
+                        </li>
+                        <!--<li class="nav-item">
+                            <a class="nav-link" href="NB06d_Absolute_Quantification_SDS.html">
+                                <span class="text">
+                                    <span>NB06d' Absolute Quantification (SDS)</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB06d_Absolute_Quantification_BN.html">
+                                <span class="text">
+                                    <span>NB06d'' Absolute Quantification (BN)</span>
+                                </span>
+                            </a>
+                        </li>-->
+                        <li class="nav-header">Links</li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://csb.bio.uni-kl.de/#teaching">
+                                <span class="icon-text">
+                                    <span class="icon">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </span>
+                                    <span>Other CSB courses</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://twitter.com/cs_biology">
+                                <span class="icon-text">
+                                    <span class="icon">
+                                        <i class="fab fa-twitter"></i>
+                                    </span>
+                                    <span>Get in touch on twitter</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/CSBiology?type=source">
+                                <span class="icon-text">
+                                    <span class="icon">
+                                        <i class="fab fa-github"></i>
+                                    </span>
+                                    <span>Check out our open source projects</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/CSBiology/BIO-BTE-06-L-7">
+                                <span class="icon-text">
+                                    <span class="icon">
+                                        <i class="fas fa-code-branch"></i>
+                                    </span>
+                                    <span>Source repository</span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        <div class="column is-10 is-paddingless has-text-justified	">
+            <div class="section pt-4">
+                <div class="container" id="fsdocs-content">
+                    <pre class="fssnip highlighted"><code lang="fsharp"><span class="m">#r</span> <span class="s">&quot;nuget: FSharp.Stats, 0.4.3&quot;</span>
+<span class="pp">#r</span> <span class="s">&quot;nuget: BioFSharp, 2.0.0-beta5&quot;</span>
+<span class="pp">#r</span> <span class="s">&quot;nuget: BioFSharp.IO, 2.0.0-beta5&quot;</span>
+<span class="pp">#r</span> <span class="s">&quot;nuget: Plotly.NET, 2.0.0-preview.16&quot;</span>
+<span class="pp">#r</span> <span class="s">&quot;nuget: Deedle, 2.5.0&quot;</span>
+
+<span class="pp">#if</span> <span class="id">IPYNB</span>
+<span class="inactive">#r</span><span class="inactive"> </span><span class="inactive">&quot;nuget:</span><span class="inactive"> </span><span class="inactive">Plotly.NET.Interactive,</span><span class="inactive"> </span><span class="inactive">2.0.0-preview.16&quot;</span>
+<span class="pp">#endif</span> <span class="c">// IPYNB</span>
+
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">Deedle</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="id">BioFSharp</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="id">FSharpAux</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="id">FSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="id">Stats</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="id">Plotly</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="id">NET</span>
+</code></pre>
+<h1><a name="NB08b-Label-efficiency-for-SDS" class="anchor" href="#NB08b-Label-efficiency-for-SDS">NB08b Label efficiency for SDS</a></h1>
+<p><a href="https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB08b_Label_efficiency_BN.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a></p>
+<p><a href="https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB08b/NB08b_Label_efficiency_BN.ipynb">Download Notebook</a></p>
+<p>Stable isotopic peptide labeling is the foundation of QconCAT experiments. While an excellent tool when carried out with correctly, it also exposes
+challenges and pitfalls that have to be checked and possibly accounted for. One of these pitfalls is the efficiency with which we labeled
+our QconCAT protein (Why?). In this notebook we will have a look at some high quality peptides selected in the previous notebook and
+illustrate how the label efficiency can be calculated using simulations.</p>
+<h2><a name="I-Reading-the-data" class="anchor" href="#I-Reading-the-data">I. Reading the data</a></h2>
+<p>As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from <em>NB08a Data Access and Quality Control</em> is stored in a .txt</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs8', 8)" onmouseover="showTip(event, 'fs8', 8)" class="rt">PeptideIon</span> <span class="o">=</span> 
+    <span class="pn">{|</span>
+        <span class="prop">ProteinGroup</span>    <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs9', 9)" onmouseover="showTip(event, 'fs9', 9)" class="rt">string</span>  
+        <span class="prop">Synonyms</span>        <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs9', 10)" onmouseover="showTip(event, 'fs9', 10)" class="rt">string</span>
+        <span class="prop">StringSequence</span>  <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="rt">string</span>
+        <span class="prop">PepSequenceID</span>   <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="vt">int</span>
+        <span class="prop">Charge</span>          <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs10', 13)" onmouseover="showTip(event, 'fs10', 13)" class="vt">int</span>
+    <span class="pn">|}</span>
+
+<span class="c">//This is the filepath you chose in *NB08a Data Access and Quality Control*</span>
+<span class="c">// let filePath = @&quot;C:\YourPath\testOut.txt&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="id">filePath</span> <span class="o">=</span> <span class="s">@&quot;C:\YourPath\testOut.txt&quot;</span>
+
+<span class="c">// What is different about this function from the one known from the last notebook?</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 15)" onmouseover="showTip(event, 'fs12', 15)" class="id">qConcatDataFiltered</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs13', 16)" onmouseover="showTip(event, 'fs13', 16)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 17)" onmouseover="showTip(event, 'fs14', 17)" class="id">ReadCsv</span><span class="pn">(</span><span class="fn">path</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs11', 18)" onmouseover="showTip(event, 'fs11', 18)" class="id">filePath</span><span class="pn">,</span> <span class="fn">separators</span> <span class="o">=</span> <span class="s">&quot;\t&quot;</span><span class="pn">)</span>
+    <span class="c">// StringSequence is the peptide sequence</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 19)" onmouseover="showTip(event, 'fs13', 19)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs15', 20)" onmouseover="showTip(event, 'fs15', 20)" class="id">indexRowsUsing</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs16', 21)" onmouseover="showTip(event, 'fs16', 21)" class="fn">os</span> <span class="k">-&gt;</span> 
+            <span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 22)" onmouseover="showTip(event, 'fs17', 22)" class="fn">proteinGroup</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 23)" onmouseover="showTip(event, 'fs16', 23)" class="fn">os</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 24)" onmouseover="showTip(event, 'fs18', 24)" class="id">GetAs</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs9', 25)" onmouseover="showTip(event, 'fs9', 25)" class="rt">string</span><span class="pn">&gt;</span><span class="pn">(</span><span class="s">&quot;ProteinGroup&quot;</span><span class="pn">)</span>
+            <span class="pn">{|</span>
+                <span class="prop">ProteinGroup</span>    <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 26)" onmouseover="showTip(event, 'fs16', 26)" class="fn">os</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 27)" onmouseover="showTip(event, 'fs18', 27)" class="id">GetAs</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs9', 28)" onmouseover="showTip(event, 'fs9', 28)" class="rt">string</span><span class="pn">&gt;</span><span class="pn">(</span><span class="s">&quot;ProteinGroup&quot;</span><span class="pn">)</span><span class="pn">;</span> 
+                <span class="prop">Synonyms</span>        <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 29)" onmouseover="showTip(event, 'fs16', 29)" class="fn">os</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 30)" onmouseover="showTip(event, 'fs18', 30)" class="id">GetAs</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs9', 31)" onmouseover="showTip(event, 'fs9', 31)" class="rt">string</span><span class="pn">&gt;</span><span class="pn">(</span><span class="s">&quot;Synonym&quot;</span><span class="pn">)</span>
+                <span class="prop">StringSequence</span>  <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 32)" onmouseover="showTip(event, 'fs16', 32)" class="fn">os</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 33)" onmouseover="showTip(event, 'fs18', 33)" class="id">GetAs</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs9', 34)" onmouseover="showTip(event, 'fs9', 34)" class="rt">string</span><span class="pn">&gt;</span><span class="pn">(</span><span class="s">&quot;StringSequence&quot;</span><span class="pn">)</span><span class="pn">;</span>
+                <span class="prop">PepSequenceID</span>   <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 35)" onmouseover="showTip(event, 'fs16', 35)" class="fn">os</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 36)" onmouseover="showTip(event, 'fs18', 36)" class="id">GetAs</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs10', 37)" onmouseover="showTip(event, 'fs10', 37)" class="vt">int</span><span class="pn">&gt;</span><span class="pn">(</span><span class="s">&quot;PepSequenceID&quot;</span><span class="pn">)</span><span class="pn">;</span>
+                <span class="prop">Charge</span>          <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 38)" onmouseover="showTip(event, 'fs16', 38)" class="fn">os</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 39)" onmouseover="showTip(event, 'fs18', 39)" class="id">GetAs</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs10', 40)" onmouseover="showTip(event, 'fs10', 40)" class="vt">int</span><span class="pn">&gt;</span><span class="pn">(</span><span class="s">&quot;Charge&quot;</span><span class="pn">)</span><span class="pn">;</span>
+            <span class="pn">|}</span>
+        <span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 41)" onmouseover="showTip(event, 'fs13', 41)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs19', 42)" onmouseover="showTip(event, 'fs19', 42)" class="id">filterRows</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs20', 43)" onmouseover="showTip(event, 'fs20', 43)" class="fn">k</span> <span onmouseout="hideTip(event, 'fs21', 44)" onmouseover="showTip(event, 'fs21', 44)" class="fn">s</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs20', 45)" onmouseover="showTip(event, 'fs20', 45)" class="fn">k</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs22', 46)" onmouseover="showTip(event, 'fs22', 46)" class="id">ProteinGroup</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 47)" onmouseover="showTip(event, 'fs23', 47)" class="m">String</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 48)" onmouseover="showTip(event, 'fs24', 48)" class="id">contains</span> <span class="s">&quot;QProt_newPS&quot;</span><span class="pn">)</span>
+
+<span onmouseout="hideTip(event, 'fs12', 49)" onmouseover="showTip(event, 'fs12', 49)" class="id">qConcatDataFiltered</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs25', 50)" onmouseover="showTip(event, 'fs25', 50)" class="id">ColumnKeys</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs26', 51)" onmouseover="showTip(event, 'fs26', 51)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 52)" onmouseover="showTip(event, 'fs27', 52)" class="id">ofSeq</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<p>First we reuse a proved pattern and define a function to manipulate our frame</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs28', 53)" onmouseover="showTip(event, 'fs28', 53)" class="fn">sliceQuantColumns</span> <span onmouseout="hideTip(event, 'fs29', 54)" onmouseover="showTip(event, 'fs29', 54)" class="fn">quantColID</span> <span onmouseout="hideTip(event, 'fs30', 55)" onmouseover="showTip(event, 'fs30', 55)" class="fn">frame</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs30', 56)" onmouseover="showTip(event, 'fs30', 56)" class="fn">frame</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 57)" onmouseover="showTip(event, 'fs13', 57)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs31', 58)" onmouseover="showTip(event, 'fs31', 58)" class="id">filterCols</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs32', 59)" onmouseover="showTip(event, 'fs32', 59)" class="fn">ck</span> <span onmouseout="hideTip(event, 'fs33', 60)" onmouseover="showTip(event, 'fs33', 60)" class="fn">os</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs32', 61)" onmouseover="showTip(event, 'fs32', 61)" class="fn">ck</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 62)" onmouseover="showTip(event, 'fs23', 62)" class="m">String</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 63)" onmouseover="showTip(event, 'fs24', 63)" class="id">contains</span> <span class="pn">(</span><span class="s">&quot;.&quot;</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs29', 64)" onmouseover="showTip(event, 'fs29', 64)" class="fn">quantColID</span><span class="pn">)</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 65)" onmouseover="showTip(event, 'fs13', 65)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs34', 66)" onmouseover="showTip(event, 'fs34', 66)" class="id">mapColKeys</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs32', 67)" onmouseover="showTip(event, 'fs32', 67)" class="fn">ck</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs32', 68)" onmouseover="showTip(event, 'fs32', 68)" class="fn">ck</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs35', 69)" onmouseover="showTip(event, 'fs35', 69)" class="id">Split</span><span class="pn">(</span><span class="s">&#39;.&#39;</span><span class="pn">)</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs26', 70)" onmouseover="showTip(event, 'fs26', 70)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs36', 71)" onmouseover="showTip(event, 'fs36', 71)" class="id">item</span> <span class="n">0</span><span class="pn">)</span>
+</code></pre>
+<p>Besides already familiar slices...</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 72)" onmouseover="showTip(event, 'fs37', 72)" class="id">heavy</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs28', 73)" onmouseover="showTip(event, 'fs28', 73)" class="fn">sliceQuantColumns</span> <span class="s">&quot;Quant_Heavy&quot;</span> <span onmouseout="hideTip(event, 'fs12', 74)" onmouseover="showTip(event, 'fs12', 74)" class="id">qConcatDataFiltered</span>
+</code></pre>
+<p>... we can also use this function for information needed to reconstruct isotopic patterns.</p>
+<h2><a name="II-Extraction-and-visualization-of-measured-isotopic-envelopes" class="anchor" href="#II-Extraction-and-visualization-of-measured-isotopic-envelopes">II. Extraction and visualization of measured isotopic envelopes.</a></h2>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 75)" onmouseover="showTip(event, 'fs38', 75)" class="id">heavyPatternMz</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs28', 76)" onmouseover="showTip(event, 'fs28', 76)" class="fn">sliceQuantColumns</span> <span class="s">&quot;heavyPatternMz&quot;</span> <span onmouseout="hideTip(event, 'fs12', 77)" onmouseover="showTip(event, 'fs12', 77)" class="id">qConcatDataFiltered</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs39', 78)" onmouseover="showTip(event, 'fs39', 78)" class="id">heavyPatternI</span>  <span class="o">=</span> <span onmouseout="hideTip(event, 'fs28', 79)" onmouseover="showTip(event, 'fs28', 79)" class="fn">sliceQuantColumns</span> <span class="s">&quot;heavyPatternI&quot;</span> <span onmouseout="hideTip(event, 'fs12', 80)" onmouseover="showTip(event, 'fs12', 80)" class="id">qConcatDataFiltered</span>
+</code></pre>
+<p>Now, there's a challenge: The info to reconstruct an isotopic pattern is
+separated into two columns, the x component (heavyPatternMz) and the y component (heavyPatternI).
+As always, this challenged can be solved using a function!
+Hint: Note how we define a function 'floatArrayOf' that specifies how the string is parsed.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs40', 81)" onmouseover="showTip(event, 'fs40', 81)" class="fn">getHeavyPatternsInFile</span> <span onmouseout="hideTip(event, 'fs41', 82)" onmouseover="showTip(event, 'fs41', 82)" class="fn">fileName</span> <span class="o">=</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 83)" onmouseover="showTip(event, 'fs42', 83)" class="fn">floatArrayOf</span> <span onmouseout="hideTip(event, 'fs43', 84)" onmouseover="showTip(event, 'fs43', 84)" class="fn">s</span> <span class="o">=</span> 
+        <span class="k">if</span> <span onmouseout="hideTip(event, 'fs23', 85)" onmouseover="showTip(event, 'fs23', 85)" class="m">String</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs44', 86)" onmouseover="showTip(event, 'fs44', 86)" class="id">isNullOrEmpty</span> <span onmouseout="hideTip(event, 'fs43', 87)" onmouseover="showTip(event, 'fs43', 87)" class="fn">s</span> <span class="k">then</span> 
+            <span class="pn">[|</span><span class="pn">|]</span>
+        <span class="k">else</span>
+            <span onmouseout="hideTip(event, 'fs43', 88)" onmouseover="showTip(event, 'fs43', 88)" class="fn">s</span>
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 89)" onmouseover="showTip(event, 'fs23', 89)" class="m">String</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs45', 90)" onmouseover="showTip(event, 'fs45', 90)" class="id">split</span> <span class="pn">(</span><span class="s">&#39;;&#39;</span><span class="pn">)</span> 
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs26', 91)" onmouseover="showTip(event, 'fs26', 91)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs46', 92)" onmouseover="showTip(event, 'fs46', 92)" class="id">map</span> <span onmouseout="hideTip(event, 'fs47', 93)" onmouseover="showTip(event, 'fs47', 93)" class="fn">float</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs48', 94)" onmouseover="showTip(event, 'fs48', 94)" class="fn">mz</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs49', 95)" onmouseover="showTip(event, 'fs49', 95)" class="fn">intensities</span> <span class="o">=</span>
+        <span onmouseout="hideTip(event, 'fs38', 96)" onmouseover="showTip(event, 'fs38', 96)" class="id">heavyPatternMz</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 97)" onmouseover="showTip(event, 'fs13', 97)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs50', 98)" onmouseover="showTip(event, 'fs50', 98)" class="id">getCol</span> <span onmouseout="hideTip(event, 'fs41', 99)" onmouseover="showTip(event, 'fs41', 99)" class="fn">fileName</span> 
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs51', 100)" onmouseover="showTip(event, 'fs51', 100)" class="m">Series</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs52', 101)" onmouseover="showTip(event, 'fs52', 101)" class="id">mapValues</span> <span onmouseout="hideTip(event, 'fs42', 102)" onmouseover="showTip(event, 'fs42', 102)" class="fn">floatArrayOf</span><span class="pn">,</span>
+        <span onmouseout="hideTip(event, 'fs39', 103)" onmouseover="showTip(event, 'fs39', 103)" class="id">heavyPatternI</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 104)" onmouseover="showTip(event, 'fs13', 104)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs50', 105)" onmouseover="showTip(event, 'fs50', 105)" class="id">getCol</span> <span onmouseout="hideTip(event, 'fs41', 106)" onmouseover="showTip(event, 'fs41', 106)" class="fn">fileName</span> 
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs51', 107)" onmouseover="showTip(event, 'fs51', 107)" class="m">Series</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs52', 108)" onmouseover="showTip(event, 'fs52', 108)" class="id">mapValues</span> <span onmouseout="hideTip(event, 'fs42', 109)" onmouseover="showTip(event, 'fs42', 109)" class="fn">floatArrayOf</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs53', 110)" onmouseover="showTip(event, 'fs53', 110)" class="fn">zipped</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs51', 111)" onmouseover="showTip(event, 'fs51', 111)" class="m">Series</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs54', 112)" onmouseover="showTip(event, 'fs54', 112)" class="id">zipInner</span> <span onmouseout="hideTip(event, 'fs48', 113)" onmouseover="showTip(event, 'fs48', 113)" class="fn">mz</span> <span onmouseout="hideTip(event, 'fs49', 114)" onmouseover="showTip(event, 'fs49', 114)" class="fn">intensities</span>
+    <span onmouseout="hideTip(event, 'fs53', 115)" onmouseover="showTip(event, 'fs53', 115)" class="fn">zipped</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs55', 116)" onmouseover="showTip(event, 'fs55', 116)" class="id">extractedPatterns</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs40', 117)" onmouseover="showTip(event, 'fs40', 117)" class="fn">getHeavyPatternsInFile</span> <span class="s">&quot;20210312BN2_U1&quot;</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<p>Additionally, we can write two functions to plot the patterns of a peptide. When it comes
+to the build the chart (plotIsotopicPattern), things get a little bit trickier, but this is not necessarily your concern. Please inspect the Chart
+created by 'plotIsotopicPatternOf' and write correct descriptions for the x and the y axis. (Fill: |&gt; Chart.withX<em>AxisStyle "" and |&gt; Chart.withY</em>AxisStyle "")</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs56', 118)" onmouseover="showTip(event, 'fs56', 118)" class="fn">plotIsotopicPattern</span> <span onmouseout="hideTip(event, 'fs57', 119)" onmouseover="showTip(event, 'fs57', 119)" class="fn">color</span> <span onmouseout="hideTip(event, 'fs58', 120)" onmouseover="showTip(event, 'fs58', 120)" class="fn">mzsAndintensities</span> <span class="o">=</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs59', 121)" onmouseover="showTip(event, 'fs59', 121)" class="fn">min</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs60', 122)" onmouseover="showTip(event, 'fs60', 122)" class="fn">max</span> <span class="o">=</span>
+        <span onmouseout="hideTip(event, 'fs58', 123)" onmouseover="showTip(event, 'fs58', 123)" class="fn">mzsAndintensities</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 124)" onmouseover="showTip(event, 'fs61', 124)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs62', 125)" onmouseover="showTip(event, 'fs62', 125)" class="id">minBy</span> <span onmouseout="hideTip(event, 'fs63', 126)" onmouseover="showTip(event, 'fs63', 126)" class="fn">fst</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs63', 127)" onmouseover="showTip(event, 'fs63', 127)" class="fn">fst</span><span class="pn">,</span>
+        <span onmouseout="hideTip(event, 'fs58', 128)" onmouseover="showTip(event, 'fs58', 128)" class="fn">mzsAndintensities</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 129)" onmouseover="showTip(event, 'fs61', 129)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs64', 130)" onmouseover="showTip(event, 'fs64', 130)" class="id">maxBy</span> <span onmouseout="hideTip(event, 'fs63', 131)" onmouseover="showTip(event, 'fs63', 131)" class="fn">fst</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs63', 132)" onmouseover="showTip(event, 'fs63', 132)" class="fn">fst</span>
+    <span onmouseout="hideTip(event, 'fs61', 133)" onmouseover="showTip(event, 'fs61', 133)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs65', 134)" onmouseover="showTip(event, 'fs65', 134)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs66', 135)" onmouseover="showTip(event, 'fs66', 135)" class="fn">x</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs67', 136)" onmouseover="showTip(event, 'fs67', 136)" class="fn">y</span><span class="pn">)</span> <span class="k">-&gt;</span> 
+        <span onmouseout="hideTip(event, 'fs68', 137)" onmouseover="showTip(event, 'fs68', 137)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs69', 138)" onmouseover="showTip(event, 'fs69', 138)" class="id">Line</span><span class="pn">(</span><span class="pn">[</span><span onmouseout="hideTip(event, 'fs66', 139)" onmouseover="showTip(event, 'fs66', 139)" class="fn">x</span><span class="pn">;</span><span onmouseout="hideTip(event, 'fs66', 140)" onmouseover="showTip(event, 'fs66', 140)" class="fn">x</span><span class="pn">]</span><span class="pn">,</span><span class="pn">[</span><span class="n">0.</span><span class="pn">;</span><span onmouseout="hideTip(event, 'fs67', 141)" onmouseover="showTip(event, 'fs67', 141)" class="fn">y</span><span class="pn">]</span><span class="pn">,</span> <span class="fn">ShowLegend</span> <span class="o">=</span> <span class="k">false</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs68', 142)" onmouseover="showTip(event, 'fs68', 142)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs70', 143)" onmouseover="showTip(event, 'fs70', 143)" class="id">withLineStyle</span> <span class="pn">(</span><span class="fn">Width</span> <span class="o">=</span> <span class="n">7</span><span class="pn">)</span>
+    <span class="pn">)</span> <span onmouseout="hideTip(event, 'fs58', 144)" onmouseover="showTip(event, 'fs58', 144)" class="fn">mzsAndintensities</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs68', 145)" onmouseover="showTip(event, 'fs68', 145)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs71', 146)" onmouseover="showTip(event, 'fs71', 146)" class="id">combine</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs68', 147)" onmouseover="showTip(event, 'fs68', 147)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs72', 148)" onmouseover="showTip(event, 'fs72', 148)" class="id">withMarkerStyle</span><span class="pn">(</span><span class="fn">Size</span><span class="o">=</span><span class="n">0</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs73', 149)" onmouseover="showTip(event, 'fs73', 149)" class="fn">Color</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs73', 150)" onmouseover="showTip(event, 'fs73', 150)" class="m">Color</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs74', 151)" onmouseover="showTip(event, 'fs74', 151)" class="id">fromHex</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs3', 152)" onmouseover="showTip(event, 'fs3', 152)" class="id">FSharpAux</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs75', 153)" onmouseover="showTip(event, 'fs75', 153)" class="m">Colors</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs76', 154)" onmouseover="showTip(event, 'fs76', 154)" class="id">toWebColor</span> <span onmouseout="hideTip(event, 'fs57', 155)" onmouseover="showTip(event, 'fs57', 155)" class="fn">color</span><span class="pn">)</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs68', 156)" onmouseover="showTip(event, 'fs68', 156)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs77', 157)" onmouseover="showTip(event, 'fs77', 157)" class="id">withXAxisStyle</span> <span class="pn">(</span><span class="s">&quot;&quot;</span><span class="pn">,</span> <span class="fn">MinMax</span> <span class="o">=</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs59', 158)" onmouseover="showTip(event, 'fs59', 158)" class="fn">min</span> <span class="o">-</span> <span class="n">1.</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs60', 159)" onmouseover="showTip(event, 'fs60', 159)" class="fn">max</span> <span class="o">+</span> <span class="n">1.</span><span class="pn">)</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs68', 160)" onmouseover="showTip(event, 'fs68', 160)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs78', 161)" onmouseover="showTip(event, 'fs78', 161)" class="id">withYAxisStyle</span> <span class="s">&quot;&quot;</span>
+
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs79', 162)" onmouseover="showTip(event, 'fs79', 162)" class="rt">ExtractedIsoPattern</span> <span class="o">=</span> 
+    <span class="pn">{|</span>
+        <span class="prop">PeptideSequence</span> <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs8', 163)" onmouseover="showTip(event, 'fs8', 163)" class="rt">PeptideIon</span>
+        <span class="prop">Charge</span>          <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs10', 164)" onmouseover="showTip(event, 'fs10', 164)" class="vt">int</span>
+        <span class="prop">Pattern</span>         <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs80', 165)" onmouseover="showTip(event, 'fs80', 165)" class="if">seq</span><span class="pn">&lt;</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs47', 166)" onmouseover="showTip(event, 'fs47', 166)" class="vt">float</span><span class="pn">*</span><span onmouseout="hideTip(event, 'fs47', 167)" onmouseover="showTip(event, 'fs47', 167)" class="vt">float</span><span class="pn">)</span><span class="pn">&gt;</span>
+    <span class="pn">|}</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs81', 168)" onmouseover="showTip(event, 'fs81', 168)" class="fn">getIsotopicPattern</span> <span onmouseout="hideTip(event, 'fs82', 169)" onmouseover="showTip(event, 'fs82', 169)" class="fn">peptideSequence</span> <span onmouseout="hideTip(event, 'fs83', 170)" onmouseover="showTip(event, 'fs83', 170)" class="fn">charge</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs20', 171)" onmouseover="showTip(event, 'fs20', 171)" class="fn">k</span><span class="pn">,</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs84', 172)" onmouseover="showTip(event, 'fs84', 172)" class="fn">mzs</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs85', 173)" onmouseover="showTip(event, 'fs85', 173)" class="fn">intensities</span><span class="pn">)</span><span class="pn">)</span> <span class="o">=</span> 
+        <span onmouseout="hideTip(event, 'fs55', 174)" onmouseover="showTip(event, 'fs55', 174)" class="id">extractedPatterns</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs51', 175)" onmouseover="showTip(event, 'fs51', 175)" class="m">Series</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs86', 176)" onmouseover="showTip(event, 'fs86', 176)" class="id">observations</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 177)" onmouseover="showTip(event, 'fs61', 177)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs87', 178)" onmouseover="showTip(event, 'fs87', 178)" class="id">find</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs20', 179)" onmouseover="showTip(event, 'fs20', 179)" class="fn">k</span><span class="pn">,</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs84', 180)" onmouseover="showTip(event, 'fs84', 180)" class="id">mzs</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs85', 181)" onmouseover="showTip(event, 'fs85', 181)" class="fn">intensities</span><span class="pn">)</span><span class="pn">)</span> <span class="k">-&gt;</span> 
+                <span onmouseout="hideTip(event, 'fs20', 182)" onmouseover="showTip(event, 'fs20', 182)" class="fn">k</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs88', 183)" onmouseover="showTip(event, 'fs88', 183)" class="id">StringSequence</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs82', 184)" onmouseover="showTip(event, 'fs82', 184)" class="fn">peptideSequence</span> <span class="o">&amp;&amp;</span> <span onmouseout="hideTip(event, 'fs20', 185)" onmouseover="showTip(event, 'fs20', 185)" class="fn">k</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs89', 186)" onmouseover="showTip(event, 'fs89', 186)" class="id">Charge</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs83', 187)" onmouseover="showTip(event, 'fs83', 187)" class="fn">charge</span>
+            <span class="pn">)</span>
+    <span class="pn">{|</span>
+        <span class="prop">PeptideSequence</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs20', 188)" onmouseover="showTip(event, 'fs20', 188)" class="fn">k</span>
+        <span class="prop">Charge</span>  <span class="o">=</span> <span onmouseout="hideTip(event, 'fs83', 189)" onmouseover="showTip(event, 'fs83', 189)" class="fn">charge</span>
+        <span class="prop">Pattern</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs61', 190)" onmouseover="showTip(event, 'fs61', 190)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs90', 191)" onmouseover="showTip(event, 'fs90', 191)" class="id">zip</span> <span onmouseout="hideTip(event, 'fs84', 192)" onmouseover="showTip(event, 'fs84', 192)" class="fn">mzs</span> <span onmouseout="hideTip(event, 'fs85', 193)" onmouseover="showTip(event, 'fs85', 193)" class="fn">intensities</span>
+    <span class="pn">|}</span>
+</code></pre>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs91', 194)" onmouseover="showTip(event, 'fs91', 194)" class="id">examplePep1</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs81', 195)" onmouseover="showTip(event, 'fs81', 195)" class="fn">getIsotopicPattern</span> <span class="s">&quot;DTDILAAFR&quot;</span> <span class="n">2</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs98', 206)" onmouseover="showTip(event, 'fs98', 206)" class="id">examplePep2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs81', 207)" onmouseover="showTip(event, 'fs81', 207)" class="fn">getIsotopicPattern</span> <span class="s">&quot;LTYYTPDYVVR&quot;</span> <span class="n">2</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<h2><a name="III-Simulation-of-isotopic-patterns-revisited" class="anchor" href="#III-Simulation-of-isotopic-patterns-revisited">III. Simulation of isotopic patterns: revisited.</a></h2>
+<p>Now that we visualized the patterns of two sample peptides, we will simulate theoretical patterns
+and compare them to the ones we measured! You will recognize a lot of the used code from <em>NB02c Isotopic distribution</em>
+Note: we copy the code so you can make yourself familiar with it, of course we could also reference functions defined beforehand.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// create chemical formula for amino acid and add water to reflect hydrolysed state in mass spectrometer</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs99', 218)" onmouseover="showTip(event, 'fs99', 218)" class="fn">toFormula</span> <span onmouseout="hideTip(event, 'fs100', 219)" onmouseover="showTip(event, 'fs100', 219)" class="fn">bioseq</span> <span class="o">=</span>  
+    <span onmouseout="hideTip(event, 'fs100', 220)" onmouseover="showTip(event, 'fs100', 220)" class="fn">bioseq</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs101', 221)" onmouseover="showTip(event, 'fs101', 221)" class="m">BioSeq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs102', 222)" onmouseover="showTip(event, 'fs102', 222)" class="id">toFormula</span>
+    <span class="c">// peptides are hydrolysed in the mass spectrometer, so we add H2O</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs103', 223)" onmouseover="showTip(event, 'fs103', 223)" class="m">Formula</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs104', 224)" onmouseover="showTip(event, 'fs104', 224)" class="id">add</span> <span onmouseout="hideTip(event, 'fs103', 225)" onmouseover="showTip(event, 'fs103', 225)" class="m">Formula</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs105', 226)" onmouseover="showTip(event, 'fs105', 226)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs106', 227)" onmouseover="showTip(event, 'fs106', 227)" class="id">H2O</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs107', 228)" onmouseover="showTip(event, 'fs107', 228)" class="fn">label</span> <span onmouseout="hideTip(event, 'fs108', 229)" onmouseover="showTip(event, 'fs108', 229)" class="fn">n15LableEfficiency</span> <span onmouseout="hideTip(event, 'fs109', 230)" onmouseover="showTip(event, 'fs109', 230)" class="fn">formula</span> <span class="o">=</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs110', 231)" onmouseover="showTip(event, 'fs110', 231)" class="fn">heavyN15</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs111', 232)" onmouseover="showTip(event, 'fs111', 232)" class="m">Elements</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs112', 233)" onmouseover="showTip(event, 'fs112', 233)" class="id">Di</span>  <span class="pn">(</span><span onmouseout="hideTip(event, 'fs111', 234)" onmouseover="showTip(event, 'fs111', 234)" class="m">Elements</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs113', 235)" onmouseover="showTip(event, 'fs113', 235)" class="id">createDi</span> <span class="s">&quot;N15&quot;</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs114', 236)" onmouseover="showTip(event, 'fs114', 236)" class="m">Isotopes</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs115', 237)" onmouseover="showTip(event, 'fs115', 237)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs116', 238)" onmouseover="showTip(event, 'fs116', 238)" class="id">N15</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs108', 239)" onmouseover="showTip(event, 'fs108', 239)" class="fn">n15LableEfficiency</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs114', 240)" onmouseover="showTip(event, 'fs114', 240)" class="m">Isotopes</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs115', 241)" onmouseover="showTip(event, 'fs115', 241)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs117', 242)" onmouseover="showTip(event, 'fs117', 242)" class="id">N14</span><span class="pn">,</span><span class="n">1.</span><span class="o">-</span><span onmouseout="hideTip(event, 'fs108', 243)" onmouseover="showTip(event, 'fs108', 243)" class="fn">n15LableEfficiency</span><span class="pn">)</span> <span class="pn">)</span>
+    <span onmouseout="hideTip(event, 'fs103', 244)" onmouseover="showTip(event, 'fs103', 244)" class="m">Formula</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs118', 245)" onmouseover="showTip(event, 'fs118', 245)" class="id">replaceElement</span> <span onmouseout="hideTip(event, 'fs109', 246)" onmouseover="showTip(event, 'fs109', 246)" class="fn">formula</span> <span onmouseout="hideTip(event, 'fs111', 247)" onmouseover="showTip(event, 'fs111', 247)" class="m">Elements</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs119', 248)" onmouseover="showTip(event, 'fs119', 248)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs120', 249)" onmouseover="showTip(event, 'fs120', 249)" class="id">N</span> <span onmouseout="hideTip(event, 'fs110', 250)" onmouseover="showTip(event, 'fs110', 250)" class="fn">heavyN15</span>
+
+<span class="c">// Predicts an isotopic distribution of the given formula at the given charge, </span>
+<span class="c">// normalized by the sum of probabilities, using the MIDAs algorithm</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs121', 251)" onmouseover="showTip(event, 'fs121', 251)" class="fn">generateIsotopicDistribution</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs83', 252)" onmouseover="showTip(event, 'fs83', 252)" class="fn">charge</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs10', 253)" onmouseover="showTip(event, 'fs10', 253)" class="vt">int</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs122', 254)" onmouseover="showTip(event, 'fs122', 254)" class="fn">f</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs103', 255)" onmouseover="showTip(event, 'fs103', 255)" class="m">Formula</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs123', 256)" onmouseover="showTip(event, 'fs123', 256)" class="id">Formula</span><span class="pn">)</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs124', 257)" onmouseover="showTip(event, 'fs124', 257)" class="m">IsotopicDistribution</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs125', 258)" onmouseover="showTip(event, 'fs125', 258)" class="m">MIDA</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs126', 259)" onmouseover="showTip(event, 'fs126', 259)" class="id">ofFormula</span> 
+        <span onmouseout="hideTip(event, 'fs124', 260)" onmouseover="showTip(event, 'fs124', 260)" class="m">IsotopicDistribution</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs125', 261)" onmouseover="showTip(event, 'fs125', 261)" class="m">MIDA</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs127', 262)" onmouseover="showTip(event, 'fs127', 262)" class="id">normalizeByProbSum</span>
+        <span class="n">0.01</span>
+        <span class="n">0.000000001</span>
+        <span onmouseout="hideTip(event, 'fs83', 263)" onmouseover="showTip(event, 'fs83', 263)" class="fn">charge</span>
+        <span onmouseout="hideTip(event, 'fs122', 264)" onmouseover="showTip(event, 'fs122', 264)" class="fn">f</span>
+
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs128', 265)" onmouseover="showTip(event, 'fs128', 265)" class="rt">SimulatedIsoPattern</span> <span class="o">=</span> 
+    <span class="pn">{|</span>
+        <span class="prop">PeptideSequence</span> <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs9', 266)" onmouseover="showTip(event, 'fs9', 266)" class="rt">string</span>
+        <span class="prop">Charge</span>          <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs10', 267)" onmouseover="showTip(event, 'fs10', 267)" class="vt">int</span>
+        <span class="prop">LableEfficiency</span> <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs47', 268)" onmouseover="showTip(event, 'fs47', 268)" class="vt">float</span>
+        <span class="prop">SimPattern</span>      <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs129', 269)" onmouseover="showTip(event, 'fs129', 269)" class="rt">list</span><span class="pn">&lt;</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs47', 270)" onmouseover="showTip(event, 'fs47', 270)" class="vt">float</span><span class="pn">*</span><span onmouseout="hideTip(event, 'fs47', 271)" onmouseover="showTip(event, 'fs47', 271)" class="vt">float</span><span class="pn">)</span><span class="pn">&gt;</span>
+    <span class="pn">|}</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs130', 272)" onmouseover="showTip(event, 'fs130', 272)" class="fn">simulateFrom</span> <span onmouseout="hideTip(event, 'fs131', 273)" onmouseover="showTip(event, 'fs131', 273)" class="fn">peptideSequence</span> <span onmouseout="hideTip(event, 'fs83', 274)" onmouseover="showTip(event, 'fs83', 274)" class="fn">charge</span> <span onmouseout="hideTip(event, 'fs132', 275)" onmouseover="showTip(event, 'fs132', 275)" class="fn">lableEfficiency</span> <span class="o">=</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs133', 276)" onmouseover="showTip(event, 'fs133', 276)" class="fn">simPattern</span> <span class="o">=</span>
+        <span onmouseout="hideTip(event, 'fs131', 277)" onmouseover="showTip(event, 'fs131', 277)" class="fn">peptideSequence</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs101', 278)" onmouseover="showTip(event, 'fs101', 278)" class="m">BioSeq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs134', 279)" onmouseover="showTip(event, 'fs134', 279)" class="id">ofAminoAcidString</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs99', 280)" onmouseover="showTip(event, 'fs99', 280)" class="fn">toFormula</span> 
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs107', 281)" onmouseover="showTip(event, 'fs107', 281)" class="fn">label</span> <span onmouseout="hideTip(event, 'fs132', 282)" onmouseover="showTip(event, 'fs132', 282)" class="fn">lableEfficiency</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs121', 283)" onmouseover="showTip(event, 'fs121', 283)" class="fn">generateIsotopicDistribution</span> <span onmouseout="hideTip(event, 'fs83', 284)" onmouseover="showTip(event, 'fs83', 284)" class="fn">charge</span>     
+    <span class="pn">{|</span>
+        <span class="prop">PeptideSequence</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs131', 285)" onmouseover="showTip(event, 'fs131', 285)" class="fn">peptideSequence</span>
+        <span class="prop">Charge</span>          <span class="o">=</span> <span onmouseout="hideTip(event, 'fs83', 286)" onmouseover="showTip(event, 'fs83', 286)" class="fn">charge</span>
+        <span class="prop">LableEfficiency</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs132', 287)" onmouseover="showTip(event, 'fs132', 287)" class="fn">lableEfficiency</span>
+        <span class="prop">SimPattern</span>      <span class="o">=</span> <span onmouseout="hideTip(event, 'fs133', 288)" onmouseover="showTip(event, 'fs133', 288)" class="fn">simPattern</span>
+    <span class="pn">|}</span>
+</code></pre>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs135', 289)" onmouseover="showTip(event, 'fs135', 289)" class="id">examplePep2_Sim1</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs130', 290)" onmouseover="showTip(event, 'fs130', 290)" class="fn">simulateFrom</span> <span class="s">&quot;LTYYTPDYVVR&quot;</span> <span class="n">2</span> <span class="n">0.95</span>
+
+<span onmouseout="hideTip(event, 'fs56', 291)" onmouseover="showTip(event, 'fs56', 291)" class="fn">plotIsotopicPattern</span> <span onmouseout="hideTip(event, 'fs3', 292)" onmouseover="showTip(event, 'fs3', 292)" class="id">FSharpAux</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs75', 293)" onmouseover="showTip(event, 'fs75', 293)" class="m">Colors</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs92', 294)" onmouseover="showTip(event, 'fs92', 294)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs93', 295)" onmouseover="showTip(event, 'fs93', 295)" class="m">Office</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs136', 296)" onmouseover="showTip(event, 'fs136', 296)" class="id">orange</span> <span onmouseout="hideTip(event, 'fs135', 297)" onmouseover="showTip(event, 'fs135', 297)" class="id">examplePep2_Sim1</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs137', 298)" onmouseover="showTip(event, 'fs137', 298)" class="id">SimPattern</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs138', 309)" onmouseover="showTip(event, 'fs138', 309)" class="id">examplePep2_Sim2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs130', 310)" onmouseover="showTip(event, 'fs130', 310)" class="fn">simulateFrom</span> <span class="s">&quot;LTYYTPDYVVR&quot;</span> <span class="n">2</span> <span class="n">0.99</span>
+
+<span onmouseout="hideTip(event, 'fs56', 311)" onmouseover="showTip(event, 'fs56', 311)" class="fn">plotIsotopicPattern</span> <span onmouseout="hideTip(event, 'fs3', 312)" onmouseover="showTip(event, 'fs3', 312)" class="id">FSharpAux</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs75', 313)" onmouseover="showTip(event, 'fs75', 313)" class="m">Colors</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs92', 314)" onmouseover="showTip(event, 'fs92', 314)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs93', 315)" onmouseover="showTip(event, 'fs93', 315)" class="m">Office</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs136', 316)" onmouseover="showTip(event, 'fs136', 316)" class="id">orange</span> <span onmouseout="hideTip(event, 'fs138', 317)" onmouseover="showTip(event, 'fs138', 317)" class="id">examplePep2_Sim2</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs137', 318)" onmouseover="showTip(event, 'fs137', 318)" class="id">SimPattern</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<h2><a name="IV-Comparing-measured-and-theoretical-isotopic-patterns" class="anchor" href="#IV-Comparing-measured-and-theoretical-isotopic-patterns">IV. Comparing measured and theoretical isotopic patterns.</a></h2>
+<p>As we see, there is a discrepancy between real and simulated patterns, both in peak height and in peak count.
+But before we compare both patterns, we have to take some things into consideration.
+While both patterns are normalized in a way that their intensities
+sum to 1., they were normalized independently from each other. Since it is often not possible to
+extract all peaks of an isotopic pattern from a MS run (e.g. due to measurement inaccuracies), we have to
+write a function which filters the simulated patterns for those peaks present in the experimentally
+measured one. Then we normalize it again and have two spectra that can be compared.
+// How are distributions called that sum up to 1?</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs139', 329)" onmouseover="showTip(event, 'fs139', 329)" class="fn">normBySum</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs140', 330)" onmouseover="showTip(event, 'fs140', 330)" class="fn">a</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs80', 331)" onmouseover="showTip(event, 'fs80', 331)" class="if">seq</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs47', 332)" onmouseover="showTip(event, 'fs47', 332)" class="vt">float</span><span class="pn">*</span><span onmouseout="hideTip(event, 'fs47', 333)" onmouseover="showTip(event, 'fs47', 333)" class="vt">float</span><span class="pn">&gt;</span><span class="pn">)</span> <span class="o">=</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs141', 334)" onmouseover="showTip(event, 'fs141', 334)" class="fn">s</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs61', 335)" onmouseover="showTip(event, 'fs61', 335)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs142', 336)" onmouseover="showTip(event, 'fs142', 336)" class="id">sumBy</span> <span onmouseout="hideTip(event, 'fs143', 337)" onmouseover="showTip(event, 'fs143', 337)" class="fn">snd</span> <span onmouseout="hideTip(event, 'fs140', 338)" onmouseover="showTip(event, 'fs140', 338)" class="fn">a</span> 
+    <span onmouseout="hideTip(event, 'fs61', 339)" onmouseover="showTip(event, 'fs61', 339)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs65', 340)" onmouseover="showTip(event, 'fs65', 340)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs66', 341)" onmouseover="showTip(event, 'fs66', 341)" class="fn">x</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs67', 342)" onmouseover="showTip(event, 'fs67', 342)" class="fn">y</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs66', 343)" onmouseover="showTip(event, 'fs66', 343)" class="fn">x</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs67', 344)" onmouseover="showTip(event, 'fs67', 344)" class="fn">y</span> <span class="o">/</span> <span onmouseout="hideTip(event, 'fs141', 345)" onmouseover="showTip(event, 'fs141', 345)" class="fn">s</span><span class="pn">)</span> <span onmouseout="hideTip(event, 'fs140', 346)" onmouseover="showTip(event, 'fs140', 346)" class="fn">a</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs144', 347)" onmouseover="showTip(event, 'fs144', 347)" class="fn">compareIsotopicDistributions</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs145', 348)" onmouseover="showTip(event, 'fs145', 348)" class="fn">measured</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs79', 349)" onmouseover="showTip(event, 'fs79', 349)" class="rt">ExtractedIsoPattern</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs146', 350)" onmouseover="showTip(event, 'fs146', 350)" class="fn">simulated</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs128', 351)" onmouseover="showTip(event, 'fs128', 351)" class="rt">SimulatedIsoPattern</span><span class="pn">)</span><span class="o">=</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs147', 352)" onmouseover="showTip(event, 'fs147', 352)" class="fn">patternSim&#39;</span> <span class="o">=</span> 
+        <span onmouseout="hideTip(event, 'fs145', 353)" onmouseover="showTip(event, 'fs145', 353)" class="fn">measured</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs95', 354)" onmouseover="showTip(event, 'fs95', 354)" class="id">Pattern</span> 
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 355)" onmouseover="showTip(event, 'fs61', 355)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs65', 356)" onmouseover="showTip(event, 'fs65', 356)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs148', 357)" onmouseover="showTip(event, 'fs148', 357)" class="fn">mz</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs149', 358)" onmouseover="showTip(event, 'fs149', 358)" class="fn">intensities</span><span class="pn">)</span> <span class="k">-&gt;</span> 
+                <span onmouseout="hideTip(event, 'fs148', 359)" onmouseover="showTip(event, 'fs148', 359)" class="fn">mz</span><span class="pn">,</span>
+                <span onmouseout="hideTip(event, 'fs146', 360)" onmouseover="showTip(event, 'fs146', 360)" class="fn">simulated</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs137', 361)" onmouseover="showTip(event, 'fs137', 361)" class="id">SimPattern</span>
+                <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 362)" onmouseover="showTip(event, 'fs61', 362)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs150', 363)" onmouseover="showTip(event, 'fs150', 363)" class="id">filter</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs151', 364)" onmouseover="showTip(event, 'fs151', 364)" class="fn">mzSim</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs152', 365)" onmouseover="showTip(event, 'fs152', 365)" class="fn">intensitiesSim</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs153', 366)" onmouseover="showTip(event, 'fs153', 366)" class="fn">abs</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs151', 367)" onmouseover="showTip(event, 'fs151', 367)" class="fn">mzSim</span><span class="o">-</span><span onmouseout="hideTip(event, 'fs148', 368)" onmouseover="showTip(event, 'fs148', 368)" class="fn">mz</span><span class="pn">)</span> <span class="o">&lt;</span> <span class="n">0.05</span> <span class="pn">)</span>
+                <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 369)" onmouseover="showTip(event, 'fs61', 369)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs142', 370)" onmouseover="showTip(event, 'fs142', 370)" class="id">sumBy</span> <span onmouseout="hideTip(event, 'fs143', 371)" onmouseover="showTip(event, 'fs143', 371)" class="fn">snd</span>
+            <span class="pn">)</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs139', 372)" onmouseover="showTip(event, 'fs139', 372)" class="fn">normBySum</span>
+    <span class="pn">{|</span>
+        <span class="prop">Plot</span> <span class="o">=</span> 
+            <span class="pn">[</span>
+            <span onmouseout="hideTip(event, 'fs56', 373)" onmouseover="showTip(event, 'fs56', 373)" class="fn">plotIsotopicPattern</span> <span onmouseout="hideTip(event, 'fs3', 374)" onmouseover="showTip(event, 'fs3', 374)" class="id">FSharpAux</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs75', 375)" onmouseover="showTip(event, 'fs75', 375)" class="m">Colors</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs92', 376)" onmouseover="showTip(event, 'fs92', 376)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs93', 377)" onmouseover="showTip(event, 'fs93', 377)" class="m">Office</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs94', 378)" onmouseover="showTip(event, 'fs94', 378)" class="id">blue</span> <span onmouseout="hideTip(event, 'fs145', 379)" onmouseover="showTip(event, 'fs145', 379)" class="fn">measured</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs95', 380)" onmouseover="showTip(event, 'fs95', 380)" class="id">Pattern</span>
+            <span onmouseout="hideTip(event, 'fs56', 381)" onmouseover="showTip(event, 'fs56', 381)" class="fn">plotIsotopicPattern</span> <span onmouseout="hideTip(event, 'fs3', 382)" onmouseover="showTip(event, 'fs3', 382)" class="id">FSharpAux</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs75', 383)" onmouseover="showTip(event, 'fs75', 383)" class="m">Colors</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs92', 384)" onmouseover="showTip(event, 'fs92', 384)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs93', 385)" onmouseover="showTip(event, 'fs93', 385)" class="m">Office</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs136', 386)" onmouseover="showTip(event, 'fs136', 386)" class="id">orange</span> <span onmouseout="hideTip(event, 'fs147', 387)" onmouseover="showTip(event, 'fs147', 387)" class="fn">patternSim&#39;</span>
+            <span class="pn">]</span>
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs68', 388)" onmouseover="showTip(event, 'fs68', 388)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs71', 389)" onmouseover="showTip(event, 'fs71', 389)" class="id">combine</span>
+    <span class="pn">|}</span>
+</code></pre>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs154', 390)" onmouseover="showTip(event, 'fs154', 390)" class="id">comp1</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs144', 391)" onmouseover="showTip(event, 'fs144', 391)" class="fn">compareIsotopicDistributions</span> <span onmouseout="hideTip(event, 'fs98', 392)" onmouseover="showTip(event, 'fs98', 392)" class="id">examplePep2</span> <span onmouseout="hideTip(event, 'fs135', 393)" onmouseover="showTip(event, 'fs135', 393)" class="id">examplePep2_Sim1</span>
+<span onmouseout="hideTip(event, 'fs154', 394)" onmouseover="showTip(event, 'fs154', 394)" class="id">comp1</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs155', 395)" onmouseover="showTip(event, 'fs155', 395)" class="id">Plot</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs156', 400)" onmouseover="showTip(event, 'fs156', 400)" class="id">comp2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs144', 401)" onmouseover="showTip(event, 'fs144', 401)" class="fn">compareIsotopicDistributions</span> <span onmouseout="hideTip(event, 'fs98', 402)" onmouseover="showTip(event, 'fs98', 402)" class="id">examplePep2</span> <span onmouseout="hideTip(event, 'fs138', 403)" onmouseover="showTip(event, 'fs138', 403)" class="id">examplePep2_Sim2</span>
+<span onmouseout="hideTip(event, 'fs156', 404)" onmouseover="showTip(event, 'fs156', 404)" class="id">comp2</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs155', 405)" onmouseover="showTip(event, 'fs155', 405)" class="id">Plot</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<p>Comparing both simulations, we see that the simulation with a label efficiency of 0.99 fits the measured spectra better than the simulation with 0.95.
+But since we do not want to find a better fit, but the best fit to our measured pattern, this is no goal that is achievable in a feasable way
+using visual inspections. As a solution we utilize the fact that isotopic patterns can be abstracted as <strong><em> </em></strong> (See: How are distributions called that sum up to 1?) distributions.
+A measure to compare measured and theoretical distributions is the kullback leibler divergence. The following code block extends the function
+'compareIsotopicDistributions' to compute the KL divergence between the precisely measured distribution p and our approximation
+of p (q) using the mida algorithm.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Calculates the Kullback-Leibler divergence Dkl(p||q) from q (theory, model, description, or approximation of p) </span>
+<span class="c">/// to p (the &quot;true&quot; distribution of data, observations, or a ___ ___ precisely measured).</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs157', 410)" onmouseover="showTip(event, 'fs157', 410)" class="fn">klDiv</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs158', 411)" onmouseover="showTip(event, 'fs158', 411)" class="fn">p</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs80', 412)" onmouseover="showTip(event, 'fs80', 412)" class="if">seq</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs47', 413)" onmouseover="showTip(event, 'fs47', 413)" class="vt">float</span><span class="pn">&gt;</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs159', 414)" onmouseover="showTip(event, 'fs159', 414)" class="fn">q</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs80', 415)" onmouseover="showTip(event, 'fs80', 415)" class="if">seq</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs47', 416)" onmouseover="showTip(event, 'fs47', 416)" class="vt">float</span><span class="pn">&gt;</span><span class="pn">)</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs61', 417)" onmouseover="showTip(event, 'fs61', 417)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs160', 418)" onmouseover="showTip(event, 'fs160', 418)" class="id">fold2</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs161', 419)" onmouseover="showTip(event, 'fs161', 419)" class="fn">acc</span> <span onmouseout="hideTip(event, 'fs162', 420)" onmouseover="showTip(event, 'fs162', 420)" class="fn">p</span> <span onmouseout="hideTip(event, 'fs163', 421)" onmouseover="showTip(event, 'fs163', 421)" class="fn">q</span> <span class="k">-&gt;</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs164', 422)" onmouseover="showTip(event, 'fs164', 422)" class="id">System</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs165', 423)" onmouseover="showTip(event, 'fs165', 423)" class="rt">Math</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs166', 424)" onmouseover="showTip(event, 'fs166', 424)" class="id">Log</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs162', 425)" onmouseover="showTip(event, 'fs162', 425)" class="fn">p</span><span class="o">/</span><span onmouseout="hideTip(event, 'fs163', 426)" onmouseover="showTip(event, 'fs163', 426)" class="fn">q</span><span class="pn">)</span><span class="o">*</span><span onmouseout="hideTip(event, 'fs162', 427)" onmouseover="showTip(event, 'fs162', 427)" class="fn">p</span><span class="pn">)</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs161', 428)" onmouseover="showTip(event, 'fs161', 428)" class="fn">acc</span> <span class="pn">)</span> <span class="n">0.</span> <span onmouseout="hideTip(event, 'fs158', 429)" onmouseover="showTip(event, 'fs158', 429)" class="fn">p</span> <span onmouseout="hideTip(event, 'fs159', 430)" onmouseover="showTip(event, 'fs159', 430)" class="fn">q</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs167', 431)" onmouseover="showTip(event, 'fs167', 431)" class="fn">compareIsotopicDistributions&#39;</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs145', 432)" onmouseover="showTip(event, 'fs145', 432)" class="fn">measured</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs79', 433)" onmouseover="showTip(event, 'fs79', 433)" class="rt">ExtractedIsoPattern</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs146', 434)" onmouseover="showTip(event, 'fs146', 434)" class="fn">simulated</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs128', 435)" onmouseover="showTip(event, 'fs128', 435)" class="rt">SimulatedIsoPattern</span><span class="pn">)</span><span class="o">=</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs147', 436)" onmouseover="showTip(event, 'fs147', 436)" class="fn">patternSim&#39;</span> <span class="o">=</span> 
+        <span onmouseout="hideTip(event, 'fs145', 437)" onmouseover="showTip(event, 'fs145', 437)" class="fn">measured</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs95', 438)" onmouseover="showTip(event, 'fs95', 438)" class="id">Pattern</span> 
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 439)" onmouseover="showTip(event, 'fs61', 439)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs65', 440)" onmouseover="showTip(event, 'fs65', 440)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs148', 441)" onmouseover="showTip(event, 'fs148', 441)" class="fn">mz</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs149', 442)" onmouseover="showTip(event, 'fs149', 442)" class="fn">intensities</span><span class="pn">)</span> <span class="k">-&gt;</span> 
+                <span onmouseout="hideTip(event, 'fs148', 443)" onmouseover="showTip(event, 'fs148', 443)" class="fn">mz</span><span class="pn">,</span>
+                <span onmouseout="hideTip(event, 'fs146', 444)" onmouseover="showTip(event, 'fs146', 444)" class="fn">simulated</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs137', 445)" onmouseover="showTip(event, 'fs137', 445)" class="id">SimPattern</span>
+                <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 446)" onmouseover="showTip(event, 'fs61', 446)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs150', 447)" onmouseover="showTip(event, 'fs150', 447)" class="id">filter</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs151', 448)" onmouseover="showTip(event, 'fs151', 448)" class="fn">mzSim</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs152', 449)" onmouseover="showTip(event, 'fs152', 449)" class="fn">intensitiesSim</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs153', 450)" onmouseover="showTip(event, 'fs153', 450)" class="fn">abs</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs151', 451)" onmouseover="showTip(event, 'fs151', 451)" class="fn">mzSim</span><span class="o">-</span><span onmouseout="hideTip(event, 'fs148', 452)" onmouseover="showTip(event, 'fs148', 452)" class="fn">mz</span><span class="pn">)</span> <span class="o">&lt;</span> <span class="n">0.05</span> <span class="pn">)</span>
+                <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 453)" onmouseover="showTip(event, 'fs61', 453)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs142', 454)" onmouseover="showTip(event, 'fs142', 454)" class="id">sumBy</span> <span onmouseout="hideTip(event, 'fs143', 455)" onmouseover="showTip(event, 'fs143', 455)" class="fn">snd</span>
+            <span class="pn">)</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs139', 456)" onmouseover="showTip(event, 'fs139', 456)" class="fn">normBySum</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs168', 457)" onmouseover="showTip(event, 'fs168', 457)" class="fn">klDiv</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs168', 458)" onmouseover="showTip(event, 'fs168', 458)" class="fn">klDiv</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs147', 459)" onmouseover="showTip(event, 'fs147', 459)" class="fn">patternSim&#39;</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 460)" onmouseover="showTip(event, 'fs61', 460)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs65', 461)" onmouseover="showTip(event, 'fs65', 461)" class="id">map</span> <span onmouseout="hideTip(event, 'fs143', 462)" onmouseover="showTip(event, 'fs143', 462)" class="fn">snd</span><span class="pn">)</span>  <span class="pn">(</span><span onmouseout="hideTip(event, 'fs145', 463)" onmouseover="showTip(event, 'fs145', 463)" class="fn">measured</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs95', 464)" onmouseover="showTip(event, 'fs95', 464)" class="id">Pattern</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 465)" onmouseover="showTip(event, 'fs61', 465)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs65', 466)" onmouseover="showTip(event, 'fs65', 466)" class="id">map</span> <span onmouseout="hideTip(event, 'fs143', 467)" onmouseover="showTip(event, 'fs143', 467)" class="fn">snd</span><span class="pn">)</span>
+    <span class="pn">{|</span>
+        <span class="prop">KLDiv</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs168', 468)" onmouseover="showTip(event, 'fs168', 468)" class="fn">klDiv</span>
+        <span class="prop">Plot</span>  <span class="o">=</span> 
+            <span class="pn">[</span>
+            <span onmouseout="hideTip(event, 'fs56', 469)" onmouseover="showTip(event, 'fs56', 469)" class="fn">plotIsotopicPattern</span> <span onmouseout="hideTip(event, 'fs3', 470)" onmouseover="showTip(event, 'fs3', 470)" class="id">FSharpAux</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs75', 471)" onmouseover="showTip(event, 'fs75', 471)" class="m">Colors</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs92', 472)" onmouseover="showTip(event, 'fs92', 472)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs93', 473)" onmouseover="showTip(event, 'fs93', 473)" class="m">Office</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs94', 474)" onmouseover="showTip(event, 'fs94', 474)" class="id">blue</span> <span onmouseout="hideTip(event, 'fs145', 475)" onmouseover="showTip(event, 'fs145', 475)" class="fn">measured</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs95', 476)" onmouseover="showTip(event, 'fs95', 476)" class="id">Pattern</span>
+            <span onmouseout="hideTip(event, 'fs56', 477)" onmouseover="showTip(event, 'fs56', 477)" class="fn">plotIsotopicPattern</span> <span onmouseout="hideTip(event, 'fs3', 478)" onmouseover="showTip(event, 'fs3', 478)" class="id">FSharpAux</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs75', 479)" onmouseover="showTip(event, 'fs75', 479)" class="m">Colors</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs92', 480)" onmouseover="showTip(event, 'fs92', 480)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs93', 481)" onmouseover="showTip(event, 'fs93', 481)" class="m">Office</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs136', 482)" onmouseover="showTip(event, 'fs136', 482)" class="id">orange</span> <span onmouseout="hideTip(event, 'fs147', 483)" onmouseover="showTip(event, 'fs147', 483)" class="fn">patternSim&#39;</span>
+            <span class="pn">]</span>
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs68', 484)" onmouseover="showTip(event, 'fs68', 484)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs71', 485)" onmouseover="showTip(event, 'fs71', 485)" class="id">combine</span>
+    <span class="pn">|}</span>
+</code></pre>
+<h2><a name="V-Determining-the-lable-efficiency-an-optimiziation-problem" class="anchor" href="#V-Determining-the-lable-efficiency-an-optimiziation-problem">V. Determining the lable efficiency: an optimiziation problem.</a></h2>
+<p>Using this function we can now visualize the kullback leibler divergence between
+different models and the two peptides we measured. Since the lower the divergence. We will
+also visualize the pattern with the best fit. Please inspect the Chart created by 'Chart.Point(lableEfficiency,comparison |&gt; Seq.map (fun x -&gt; x.KLDiv))'
+and write correct descriptions for the x and the y axis. (Fill: |&gt; Chart.withX<em>AxisStyle "" and |&gt; Chart.withY</em>AxisStyle "")</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs169', 486)" onmouseover="showTip(event, 'fs169', 486)" class="id">lableEfficiency</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs170', 487)" onmouseover="showTip(event, 'fs170', 487)" class="id">comparison</span> <span class="o">=</span> 
+    <span class="pn">[|</span><span class="o">0.95</span> <span class="o">..</span> <span class="n">0.001</span> <span class="o">..</span> <span class="n">0.999</span><span class="pn">|]</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs26', 488)" onmouseover="showTip(event, 'fs26', 488)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs46', 489)" onmouseover="showTip(event, 'fs46', 489)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs132', 490)" onmouseover="showTip(event, 'fs132', 490)" class="fn">lableEfficiency</span> <span class="k">-&gt;</span> 
+            <span class="k">let</span> <span onmouseout="hideTip(event, 'fs171', 491)" onmouseover="showTip(event, 'fs171', 491)" class="fn">sim</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs130', 492)" onmouseover="showTip(event, 'fs130', 492)" class="fn">simulateFrom</span> <span class="s">&quot;DTDILAAFR&quot;</span> <span class="n">2</span> <span onmouseout="hideTip(event, 'fs132', 493)" onmouseover="showTip(event, 'fs132', 493)" class="fn">lableEfficiency</span>
+            <span class="k">let</span> <span onmouseout="hideTip(event, 'fs172', 494)" onmouseover="showTip(event, 'fs172', 494)" class="fn">comp</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs167', 495)" onmouseover="showTip(event, 'fs167', 495)" class="fn">compareIsotopicDistributions&#39;</span> <span onmouseout="hideTip(event, 'fs91', 496)" onmouseover="showTip(event, 'fs91', 496)" class="id">examplePep1</span> <span onmouseout="hideTip(event, 'fs171', 497)" onmouseover="showTip(event, 'fs171', 497)" class="fn">sim</span>
+            <span onmouseout="hideTip(event, 'fs132', 498)" onmouseover="showTip(event, 'fs132', 498)" class="fn">lableEfficiency</span><span class="pn">,</span>
+            <span onmouseout="hideTip(event, 'fs172', 499)" onmouseover="showTip(event, 'fs172', 499)" class="fn">comp</span>
+        <span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 500)" onmouseover="showTip(event, 'fs61', 500)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs173', 501)" onmouseover="showTip(event, 'fs173', 501)" class="id">unzip</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs174', 502)" onmouseover="showTip(event, 'fs174', 502)" class="id">bestFit</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs170', 503)" onmouseover="showTip(event, 'fs170', 503)" class="id">comparison</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 504)" onmouseover="showTip(event, 'fs61', 504)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs62', 505)" onmouseover="showTip(event, 'fs62', 505)" class="id">minBy</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs175', 506)" onmouseover="showTip(event, 'fs175', 506)" class="fn">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs175', 507)" onmouseover="showTip(event, 'fs175', 507)" class="fn">x</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs176', 508)" onmouseover="showTip(event, 'fs176', 508)" class="id">KLDiv</span><span class="pn">)</span> 
+
+<span onmouseout="hideTip(event, 'fs68', 509)" onmouseover="showTip(event, 'fs68', 509)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs177', 510)" onmouseover="showTip(event, 'fs177', 510)" class="id">Point</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs169', 511)" onmouseover="showTip(event, 'fs169', 511)" class="id">lableEfficiency</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs170', 512)" onmouseover="showTip(event, 'fs170', 512)" class="id">comparison</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 513)" onmouseover="showTip(event, 'fs61', 513)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs65', 514)" onmouseover="showTip(event, 'fs65', 514)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs175', 515)" onmouseover="showTip(event, 'fs175', 515)" class="fn">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs175', 516)" onmouseover="showTip(event, 'fs175', 516)" class="fn">x</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs176', 517)" onmouseover="showTip(event, 'fs176', 517)" class="id">KLDiv</span><span class="pn">)</span><span class="pn">)</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs68', 518)" onmouseover="showTip(event, 'fs68', 518)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs77', 519)" onmouseover="showTip(event, 'fs77', 519)" class="id">withXAxisStyle</span> <span class="s">&quot;&quot;</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs68', 520)" onmouseover="showTip(event, 'fs68', 520)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs78', 521)" onmouseover="showTip(event, 'fs78', 521)" class="id">withYAxisStyle</span> <span class="s">&quot;&quot;</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs174', 533)" onmouseover="showTip(event, 'fs174', 533)" class="id">bestFit</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs155', 534)" onmouseover="showTip(event, 'fs155', 534)" class="id">Plot</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs178', 539)" onmouseover="showTip(event, 'fs178', 539)" class="id">lableEfficiency2</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs179', 540)" onmouseover="showTip(event, 'fs179', 540)" class="id">comparison2</span> <span class="o">=</span> 
+    <span class="pn">[|</span><span class="o">0.95</span> <span class="o">..</span> <span class="n">0.001</span> <span class="o">..</span> <span class="n">0.999</span><span class="pn">|]</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs26', 541)" onmouseover="showTip(event, 'fs26', 541)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs46', 542)" onmouseover="showTip(event, 'fs46', 542)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs132', 543)" onmouseover="showTip(event, 'fs132', 543)" class="fn">lableEfficiency</span> <span class="k">-&gt;</span> 
+            <span class="k">let</span> <span onmouseout="hideTip(event, 'fs171', 544)" onmouseover="showTip(event, 'fs171', 544)" class="fn">sim</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs130', 545)" onmouseover="showTip(event, 'fs130', 545)" class="fn">simulateFrom</span> <span class="s">&quot;LTYYTPDYVVR&quot;</span> <span class="n">2</span> <span onmouseout="hideTip(event, 'fs132', 546)" onmouseover="showTip(event, 'fs132', 546)" class="fn">lableEfficiency</span>
+            <span class="k">let</span> <span onmouseout="hideTip(event, 'fs172', 547)" onmouseover="showTip(event, 'fs172', 547)" class="fn">comp</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs167', 548)" onmouseover="showTip(event, 'fs167', 548)" class="fn">compareIsotopicDistributions&#39;</span> <span onmouseout="hideTip(event, 'fs98', 549)" onmouseover="showTip(event, 'fs98', 549)" class="id">examplePep2</span> <span onmouseout="hideTip(event, 'fs171', 550)" onmouseover="showTip(event, 'fs171', 550)" class="fn">sim</span>
+            <span onmouseout="hideTip(event, 'fs132', 551)" onmouseover="showTip(event, 'fs132', 551)" class="fn">lableEfficiency</span><span class="pn">,</span>
+            <span onmouseout="hideTip(event, 'fs172', 552)" onmouseover="showTip(event, 'fs172', 552)" class="fn">comp</span>
+        <span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 553)" onmouseover="showTip(event, 'fs61', 553)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs173', 554)" onmouseover="showTip(event, 'fs173', 554)" class="id">unzip</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs180', 555)" onmouseover="showTip(event, 'fs180', 555)" class="id">bestFit2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs179', 556)" onmouseover="showTip(event, 'fs179', 556)" class="id">comparison2</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 557)" onmouseover="showTip(event, 'fs61', 557)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs62', 558)" onmouseover="showTip(event, 'fs62', 558)" class="id">minBy</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs175', 559)" onmouseover="showTip(event, 'fs175', 559)" class="fn">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs175', 560)" onmouseover="showTip(event, 'fs175', 560)" class="fn">x</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs176', 561)" onmouseover="showTip(event, 'fs176', 561)" class="id">KLDiv</span><span class="pn">)</span> 
+
+<span onmouseout="hideTip(event, 'fs68', 562)" onmouseover="showTip(event, 'fs68', 562)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs177', 563)" onmouseover="showTip(event, 'fs177', 563)" class="id">Point</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs178', 564)" onmouseover="showTip(event, 'fs178', 564)" class="id">lableEfficiency2</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs179', 565)" onmouseover="showTip(event, 'fs179', 565)" class="id">comparison2</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 566)" onmouseover="showTip(event, 'fs61', 566)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs65', 567)" onmouseover="showTip(event, 'fs65', 567)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs175', 568)" onmouseover="showTip(event, 'fs175', 568)" class="fn">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs175', 569)" onmouseover="showTip(event, 'fs175', 569)" class="fn">x</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs176', 570)" onmouseover="showTip(event, 'fs176', 570)" class="id">KLDiv</span><span class="pn">)</span><span class="pn">)</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs68', 571)" onmouseover="showTip(event, 'fs68', 571)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs77', 572)" onmouseover="showTip(event, 'fs77', 572)" class="id">withXAxisStyle</span> <span class="s">&quot;&quot;</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs68', 573)" onmouseover="showTip(event, 'fs68', 573)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs78', 574)" onmouseover="showTip(event, 'fs78', 574)" class="id">withYAxisStyle</span> <span class="s">&quot;&quot;</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs180', 586)" onmouseover="showTip(event, 'fs180', 586)" class="id">bestFit2</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs155', 587)" onmouseover="showTip(event, 'fs155', 587)" class="id">Plot</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<p>Observing the output, we can make two observations: the function x(lablefficiency) = KL(measured,sim(lableeffciency)) has in both cases a local minimum
+that is similar, yet slightly different for peptides "LTYYTPDYVVR" and "DTDILAAFR", and that the best fit resembles the measured distribution closely, but not
+perfectly, what is the reason for this?</p>
+<p>Finding this local minimum will give us the best estimator for the lable efficiency. This can be done using brute force approaches (as we just did)
+or more elaborate optimization techniques. For this we will use an algorithm called 'Brent's method'. This method is more precise and speeds up the calculation time (Why?).
+How close are the estimates?</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs181', 592)" onmouseover="showTip(event, 'fs181', 592)" class="fn">calcKL</span> <span onmouseout="hideTip(event, 'fs82', 593)" onmouseover="showTip(event, 'fs82', 593)" class="fn">peptideSequence</span> <span onmouseout="hideTip(event, 'fs83', 594)" onmouseover="showTip(event, 'fs83', 594)" class="fn">charge</span> <span onmouseout="hideTip(event, 'fs132', 595)" onmouseover="showTip(event, 'fs132', 595)" class="fn">lableEfficiency</span> <span class="o">=</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs182', 596)" onmouseover="showTip(event, 'fs182', 596)" class="fn">measured</span> <span class="o">=</span> 
+        <span onmouseout="hideTip(event, 'fs81', 597)" onmouseover="showTip(event, 'fs81', 597)" class="fn">getIsotopicPattern</span> <span onmouseout="hideTip(event, 'fs82', 598)" onmouseover="showTip(event, 'fs82', 598)" class="fn">peptideSequence</span> <span onmouseout="hideTip(event, 'fs83', 599)" onmouseover="showTip(event, 'fs83', 599)" class="fn">charge</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs171', 600)" onmouseover="showTip(event, 'fs171', 600)" class="fn">sim</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs130', 601)" onmouseover="showTip(event, 'fs130', 601)" class="fn">simulateFrom</span> <span onmouseout="hideTip(event, 'fs82', 602)" onmouseover="showTip(event, 'fs82', 602)" class="fn">peptideSequence</span> <span onmouseout="hideTip(event, 'fs83', 603)" onmouseover="showTip(event, 'fs83', 603)" class="fn">charge</span> <span onmouseout="hideTip(event, 'fs132', 604)" onmouseover="showTip(event, 'fs132', 604)" class="fn">lableEfficiency</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs172', 605)" onmouseover="showTip(event, 'fs172', 605)" class="fn">comp</span> <span class="o">=</span> 
+        <span onmouseout="hideTip(event, 'fs167', 606)" onmouseover="showTip(event, 'fs167', 606)" class="fn">compareIsotopicDistributions&#39;</span> <span onmouseout="hideTip(event, 'fs182', 607)" onmouseover="showTip(event, 'fs182', 607)" class="fn">measured</span> <span onmouseout="hideTip(event, 'fs171', 608)" onmouseover="showTip(event, 'fs171', 608)" class="fn">sim</span>
+    <span onmouseout="hideTip(event, 'fs172', 609)" onmouseover="showTip(event, 'fs172', 609)" class="fn">comp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs176', 610)" onmouseover="showTip(event, 'fs176', 610)" class="id">KLDiv</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs183', 611)" onmouseover="showTip(event, 'fs183', 611)" class="id">est1</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs184', 612)" onmouseover="showTip(event, 'fs184', 612)" class="id">Optimization</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs185', 613)" onmouseover="showTip(event, 'fs185', 613)" class="m">Brent</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs186', 614)" onmouseover="showTip(event, 'fs186', 614)" class="id">minimize</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs181', 615)" onmouseover="showTip(event, 'fs181', 615)" class="fn">calcKL</span> <span class="s">&quot;DTDILAAFR&quot;</span> <span class="n">2</span><span class="pn">)</span> <span class="n">0.98</span> <span class="n">0.999</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs187', 616)" onmouseover="showTip(event, 'fs187', 616)" class="id">est2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs184', 617)" onmouseover="showTip(event, 'fs184', 617)" class="id">Optimization</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs185', 618)" onmouseover="showTip(event, 'fs185', 618)" class="m">Brent</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs186', 619)" onmouseover="showTip(event, 'fs186', 619)" class="id">minimize</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs181', 620)" onmouseover="showTip(event, 'fs181', 620)" class="fn">calcKL</span> <span class="s">&quot;LTYYTPDYVVR&quot;</span> <span class="n">2</span><span class="pn">)</span> <span class="n">0.98</span> <span class="n">0.999</span>
+</code></pre>
+<p>Since the estimates have a certain level of uncertainty we will repeat the estimation for
+some high intensity peptides and visualize the results. Please fill the x axis description (|&gt; Chart.withX_AxisStyle "")</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs188', 621)" onmouseover="showTip(event, 'fs188', 621)" class="id">highIntensityPeptides</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs37', 622)" onmouseover="showTip(event, 'fs37', 622)" class="id">heavy</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 623)" onmouseover="showTip(event, 'fs13', 623)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs50', 624)" onmouseover="showTip(event, 'fs50', 624)" class="id">getCol</span> <span class="s">&quot;20210312BN2_U1&quot;</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs51', 625)" onmouseover="showTip(event, 'fs51', 625)" class="m">Series</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs189', 626)" onmouseover="showTip(event, 'fs189', 626)" class="id">sortBy</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs66', 627)" onmouseover="showTip(event, 'fs66', 627)" class="fn">x</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs47', 628)" onmouseover="showTip(event, 'fs47', 628)" class="vt">float</span><span class="pn">)</span> <span class="k">-&gt;</span> <span class="o">-</span> <span onmouseout="hideTip(event, 'fs66', 629)" onmouseover="showTip(event, 'fs66', 629)" class="fn">x</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs51', 630)" onmouseover="showTip(event, 'fs51', 630)" class="m">Series</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs190', 631)" onmouseover="showTip(event, 'fs190', 631)" class="id">filter</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs20', 632)" onmouseover="showTip(event, 'fs20', 632)" class="fn">k</span> <span onmouseout="hideTip(event, 'fs191', 633)" onmouseover="showTip(event, 'fs191', 633)" class="fn">v</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs20', 634)" onmouseover="showTip(event, 'fs20', 634)" class="fn">k</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs88', 635)" onmouseover="showTip(event, 'fs88', 635)" class="id">StringSequence</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 636)" onmouseover="showTip(event, 'fs23', 636)" class="m">String</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs192', 637)" onmouseover="showTip(event, 'fs192', 637)" class="id">exists</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs193', 638)" onmouseover="showTip(event, 'fs193', 638)" class="fn">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs193', 639)" onmouseover="showTip(event, 'fs193', 639)" class="fn">x</span><span class="o">=</span><span class="s">&#39;[&#39;</span><span class="pn">)</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs194', 640)" onmouseover="showTip(event, 'fs194', 640)" class="fn">not</span><span class="pn">)</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs195', 641)" onmouseover="showTip(event, 'fs195', 641)" class="id">estimates</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs188', 642)" onmouseover="showTip(event, 'fs188', 642)" class="id">highIntensityPeptides</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs51', 643)" onmouseover="showTip(event, 'fs51', 643)" class="m">Series</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs196', 644)" onmouseover="showTip(event, 'fs196', 644)" class="id">take</span> <span class="n">20</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs51', 645)" onmouseover="showTip(event, 'fs51', 645)" class="m">Series</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs197', 646)" onmouseover="showTip(event, 'fs197', 646)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs20', 647)" onmouseover="showTip(event, 'fs20', 647)" class="fn">k</span> <span onmouseout="hideTip(event, 'fs191', 648)" onmouseover="showTip(event, 'fs191', 648)" class="fn">v</span> <span class="k">-&gt;</span> 
+        <span onmouseout="hideTip(event, 'fs4', 649)" onmouseover="showTip(event, 'fs4', 649)" class="id">FSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs5', 650)" onmouseover="showTip(event, 'fs5', 650)" class="id">Stats</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs184', 651)" onmouseover="showTip(event, 'fs184', 651)" class="id">Optimization</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs185', 652)" onmouseover="showTip(event, 'fs185', 652)" class="m">Brent</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs186', 653)" onmouseover="showTip(event, 'fs186', 653)" class="id">minimize</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs181', 654)" onmouseover="showTip(event, 'fs181', 654)" class="fn">calcKL</span> <span onmouseout="hideTip(event, 'fs20', 655)" onmouseover="showTip(event, 'fs20', 655)" class="fn">k</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs88', 656)" onmouseover="showTip(event, 'fs88', 656)" class="id">StringSequence</span> <span onmouseout="hideTip(event, 'fs20', 657)" onmouseover="showTip(event, 'fs20', 657)" class="fn">k</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs89', 658)" onmouseover="showTip(event, 'fs89', 658)" class="id">Charge</span><span class="pn">)</span> <span class="n">0.98</span> <span class="n">0.999</span>
+        <span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs51', 659)" onmouseover="showTip(event, 'fs51', 659)" class="m">Series</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs198', 660)" onmouseover="showTip(event, 'fs198', 660)" class="id">values</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 661)" onmouseover="showTip(event, 'fs61', 661)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs199', 662)" onmouseover="showTip(event, 'fs199', 662)" class="id">choose</span> <span onmouseout="hideTip(event, 'fs200', 663)" onmouseover="showTip(event, 'fs200', 663)" class="fn">id</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<p>Now that we know more than an educated guess of an lable efficiency estimate we can start with our main goal:
+the absolute quantification of chlamydomonas proteins!</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="fsdocs-tip" id="fs1">namespace Deedle</div>
+<div class="fsdocs-tip" id="fs2">namespace BioFSharp</div>
+<div class="fsdocs-tip" id="fs3">namespace FSharpAux</div>
+<div class="fsdocs-tip" id="fs4">Multiple items<br />namespace FSharp<br /><br />--------------------<br />namespace Microsoft.FSharp</div>
+<div class="fsdocs-tip" id="fs5">namespace FSharp.Stats</div>
+<div class="fsdocs-tip" id="fs6">namespace Plotly</div>
+<div class="fsdocs-tip" id="fs7">namespace Plotly.NET</div>
+<div class="fsdocs-tip" id="fs8">type PeptideIon = {| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |}</div>
+<div class="fsdocs-tip" id="fs9">Multiple items<br />val string : value:&#39;T -&gt; string<br /><em>&lt;summary&gt;Converts the argument to a string using &lt;c&gt;ToString&lt;/c&gt;.&lt;/summary&gt;<br />&lt;remarks&gt;For standard integer and floating point values the and any type that implements &lt;c&gt;IFormattable&lt;/c&gt;&lt;c&gt;ToString&lt;/c&gt; conversion uses &lt;c&gt;CultureInfo.InvariantCulture&lt;/c&gt;. &lt;/remarks&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted string.&lt;/returns&gt;</em><br /><br />--------------------<br />type string = System.String<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.String&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs10">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to signed 32-bit integer. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Int32.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted int&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type int = int32<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type int&lt;&#39;Measure&gt; =
+  int<br /><em>&lt;summary&gt;The type of 32-bit signed integer numbers, annotated with a unit of measure. The unit
+ of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to 
+ &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs11">val filePath : string</div>
+<div class="fsdocs-tip" id="fs12">val qConcatDataFiltered : Frame&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},string&gt;</div>
+<div class="fsdocs-tip" id="fs13">Multiple items<br />module Frame
+
+from Deedle<br /><br />--------------------<br />type Frame =
+  inherit DynamicObj
+  new : unit -&gt; Frame<br /><br />--------------------<br />type Frame&lt;&#39;TRowKey,&#39;TColumnKey (requires equality and equality)&gt; =
+  interface IDynamicMetaObjectProvider
+  interface INotifyCollectionChanged
+  interface IFsiFormattable
+  interface IFrame
+  new : rowIndex:IIndex&lt;&#39;TRowKey&gt; * columnIndex:IIndex&lt;&#39;TColumnKey&gt; * data:IVector&lt;IVector&gt; * indexBuilder:IIndexBuilder * vectorBuilder:IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt; + 1 overload
+  member AddColumn : column:&#39;TColumnKey * series:seq&lt;&#39;V&gt; -&gt; unit + 3 overloads
+  member AggregateRowsBy : groupBy:seq&lt;&#39;TColumnKey&gt; * aggBy:seq&lt;&#39;TColumnKey&gt; * aggFunc:Func&lt;Series&lt;&#39;TRowKey,&#39;a&gt;,&#39;b&gt; -&gt; Frame&lt;int,&#39;TColumnKey&gt;
+  member Clone : unit -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;
+  member ColumnApply : f:Func&lt;Series&lt;&#39;TRowKey,&#39;T&gt;,ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt; + 1 overload
+  member DropColumn : column:&#39;TColumnKey -&gt; unit
+  ...<br /><br />--------------------<br />new : unit -&gt; Frame<br /><br />--------------------<br />new : names:seq&lt;&#39;TColumnKey&gt; * columns:seq&lt;ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;<br />new : rowIndex:Indices.IIndex&lt;&#39;TRowKey&gt; * columnIndex:Indices.IIndex&lt;&#39;TColumnKey&gt; * data:IVector&lt;IVector&gt; * indexBuilder:Indices.IIndexBuilder * vectorBuilder:Vectors.IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;</div>
+<div class="fsdocs-tip" id="fs14">static member Frame.ReadCsv : path:string * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : stream:System.IO.Stream * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : reader:System.IO.TextReader * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : stream:System.IO.Stream * hasHeaders:System.Nullable&lt;bool&gt; * inferTypes:System.Nullable&lt;bool&gt; * inferRows:System.Nullable&lt;int&gt; * schema:string * separators:string * culture:string * maxRows:System.Nullable&lt;int&gt; * missingValues:string [] * preferOptions:System.Nullable&lt;bool&gt; -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : location:string * hasHeaders:System.Nullable&lt;bool&gt; * inferTypes:System.Nullable&lt;bool&gt; * inferRows:System.Nullable&lt;int&gt; * schema:string * separators:string * culture:string * maxRows:System.Nullable&lt;int&gt; * missingValues:string [] * preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : path:string * indexCol:string * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;&#39;R,string&gt; (requires equality)</div>
+<div class="fsdocs-tip" id="fs15">val indexRowsUsing : f:(ObjectSeries&lt;&#39;C&gt; -&gt; &#39;R2) -&gt; frame:Frame&lt;&#39;R1,&#39;C&gt; -&gt; Frame&lt;&#39;R2,&#39;C&gt; (requires equality and equality and equality)</div>
+<div class="fsdocs-tip" id="fs16">val os : ObjectSeries&lt;string&gt;</div>
+<div class="fsdocs-tip" id="fs17">val proteinGroup : string</div>
+<div class="fsdocs-tip" id="fs18">member ObjectSeries.GetAs : column:&#39;K -&gt; &#39;R<br />member ObjectSeries.GetAs : column:&#39;K * fallback:&#39;R -&gt; &#39;R</div>
+<div class="fsdocs-tip" id="fs19">val filterRows : f:(&#39;R -&gt; ObjectSeries&lt;&#39;C&gt; -&gt; bool) -&gt; frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Frame&lt;&#39;R,&#39;C&gt; (requires equality and equality)</div>
+<div class="fsdocs-tip" id="fs20">val k : {| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |}</div>
+<div class="fsdocs-tip" id="fs21">val s : ObjectSeries&lt;string&gt;</div>
+<div class="fsdocs-tip" id="fs22">anonymous record field ProteinGroup: string</div>
+<div class="fsdocs-tip" id="fs23">Multiple items<br />module String
+
+from FSharpAux<br /><br />--------------------<br />module String
+
+from Microsoft.FSharp.Core<br /><em>&lt;summary&gt;Functional programming operators for string processing.  Further string operations
+ are available via the member functions on strings and other functionality in
+  &lt;a href=&quot;http://msdn2.microsoft.com/en-us/library/system.string.aspx&quot;&gt;System.String&lt;/a&gt; 
+ and &lt;a href=&quot;http://msdn2.microsoft.com/library/system.text.regularexpressions.aspx&quot;&gt;System.Text.RegularExpressions&lt;/a&gt; types.
+ &lt;/summary&gt;<br />&lt;category&gt;Strings and Text&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs24">val contains : substr:string -&gt; t:string -&gt; bool<br /><em>&lt;summary&gt;
+ Returns a value indicating whether the specified substring occurs within this string
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs25">property Frame.ColumnKeys: seq&lt;string&gt; with get</div>
+<div class="fsdocs-tip" id="fs26">Multiple items<br />module Array
+
+from FSharp.Stats<br /><em>&lt;summary&gt;
+ Module to compute common statistical measure on array
+&lt;/summary&gt;</em><br /><br />--------------------<br />module Array
+
+from FSharpAux<br /><br />--------------------<br />module Array
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with arrays.&lt;/summary&gt;<br />&lt;remarks&gt;
+  See also &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/arrays&quot;&gt;F# Language Guide - Arrays&lt;/a&gt;.
+ &lt;/remarks&gt;</em></div>
+<div class="fsdocs-tip" id="fs27">val ofSeq : source:seq&lt;&#39;T&gt; -&gt; &#39;T []<br /><em>&lt;summary&gt;Builds a new array from the given enumerable object.&lt;/summary&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The array of elements from the sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs28">val sliceQuantColumns : quantColID:string -&gt; frame:Frame&lt;&#39;a,string&gt; -&gt; Frame&lt;&#39;a,string&gt; (requires equality)</div>
+<div class="fsdocs-tip" id="fs29">val quantColID : string</div>
+<div class="fsdocs-tip" id="fs30">val frame : Frame&lt;&#39;a,string&gt; (requires equality)</div>
+<div class="fsdocs-tip" id="fs31">val filterCols : f:(&#39;C -&gt; ObjectSeries&lt;&#39;R&gt; -&gt; bool) -&gt; frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Frame&lt;&#39;R,&#39;C&gt; (requires equality and equality)</div>
+<div class="fsdocs-tip" id="fs32">val ck : string</div>
+<div class="fsdocs-tip" id="fs33">val os : ObjectSeries&lt;&#39;a&gt; (requires equality)</div>
+<div class="fsdocs-tip" id="fs34">val mapColKeys : f:(&#39;C -&gt; &#39;a) -&gt; frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Frame&lt;&#39;R,&#39;a&gt; (requires equality and equality and equality)</div>
+<div class="fsdocs-tip" id="fs35">System.String.Split([&lt;System.ParamArray&gt;] separator: char []) : string []<br />System.String.Split(separator: string [], options: System.StringSplitOptions) : string []<br />System.String.Split(separator: string,?options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char [], options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char [], count: int) : string []<br />System.String.Split(separator: char,?options: System.StringSplitOptions) : string []<br />System.String.Split(separator: string [], count: int, options: System.StringSplitOptions) : string []<br />System.String.Split(separator: string, count: int,?options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char [], count: int, options: System.StringSplitOptions) : string []<br />System.String.Split(separator: char, count: int,?options: System.StringSplitOptions) : string []</div>
+<div class="fsdocs-tip" id="fs36">val item : index:int -&gt; array:&#39;T [] -&gt; &#39;T<br /><em>&lt;summary&gt;Gets an element from an array.&lt;/summary&gt;<br />&lt;param name=&quot;index&quot;&gt;The input index.&lt;/param&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The value of the array at the given index.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.NullReferenceException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.IndexOutOfRangeException&quot;&gt;Thrown when the index is negative or the input array does not contain enough elements.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs37">val heavy : Frame&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},string&gt;</div>
+<div class="fsdocs-tip" id="fs38">val heavyPatternMz : Frame&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},string&gt;</div>
+<div class="fsdocs-tip" id="fs39">val heavyPatternI : Frame&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},string&gt;</div>
+<div class="fsdocs-tip" id="fs40">val getHeavyPatternsInFile : fileName:string -&gt; Series&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},(float [] * float [])&gt;</div>
+<div class="fsdocs-tip" id="fs41">val fileName : string</div>
+<div class="fsdocs-tip" id="fs42">val floatArrayOf : (string -&gt; float [])</div>
+<div class="fsdocs-tip" id="fs43">val s : string</div>
+<div class="fsdocs-tip" id="fs44">val isNullOrEmpty : text:string -&gt; bool<br /><em>&lt;summary&gt;
+ Returns if the string is null or empty
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs45">val split : delimiter:char -&gt; text:string -&gt; string []<br /><em>&lt;summary&gt;
+ Splits the given string at the given delimiter
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs46">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []<br /><em>&lt;summary&gt;Builds a new array whose elements are the results of applying the given function
+ to each of the elements of the array.&lt;/summary&gt;<br />&lt;param name=&quot;mapping&quot;&gt;The function to transform elements of the array.&lt;/param&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The array of transformed elements.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs47">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to 64-bit float. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Double.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted float&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type float = System.Double<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type float&lt;&#39;Measure&gt; =
+  float<br /><em>&lt;summary&gt;The type of double-precision floating point numbers, annotated with a unit of measure. 
+ The unit of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to 
+ &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category index=&quot;6&quot;&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs48">val mz : Series&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},float []&gt;</div>
+<div class="fsdocs-tip" id="fs49">val intensities : Series&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},float []&gt;</div>
+<div class="fsdocs-tip" id="fs50">val getCol : column:&#39;C -&gt; frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Series&lt;&#39;R,&#39;V&gt; (requires equality and equality)</div>
+<div class="fsdocs-tip" id="fs51">Multiple items<br />module Series
+
+from Deedle<br /><br />--------------------<br />type Series =
+  static member ofNullables : values:seq&lt;Nullable&lt;&#39;a0&gt;&gt; -&gt; Series&lt;int,&#39;a0&gt; (requires default constructor and value type and &#39;a0 :&gt; ValueType)
+  static member ofObservations : observations:seq&lt;&#39;c * &#39;d&gt; -&gt; Series&lt;&#39;c,&#39;d&gt; (requires equality)
+  static member ofOptionalObservations : observations:seq&lt;&#39;K * &#39;a1 option&gt; -&gt; Series&lt;&#39;K,&#39;a1&gt; (requires equality)
+  static member ofValues : values:seq&lt;&#39;a&gt; -&gt; Series&lt;int,&#39;a&gt;<br /><br />--------------------<br />type Series&lt;&#39;K,&#39;V (requires equality)&gt; =
+  interface IFsiFormattable
+  interface ISeries&lt;&#39;K&gt;
+  new : index:IIndex&lt;&#39;K&gt; * vector:IVector&lt;&#39;V&gt; * vectorBuilder:IVectorBuilder * indexBuilder:IIndexBuilder -&gt; Series&lt;&#39;K,&#39;V&gt; + 3 overloads
+  member After : lowerExclusive:&#39;K -&gt; Series&lt;&#39;K,&#39;V&gt;
+  member Aggregate : aggregation:Aggregation&lt;&#39;K&gt; * keySelector:Func&lt;DataSegment&lt;Series&lt;&#39;K,&#39;V&gt;&gt;,&#39;TNewKey&gt; * valueSelector:Func&lt;DataSegment&lt;Series&lt;&#39;K,&#39;V&gt;&gt;,OptionalValue&lt;&#39;R&gt;&gt; -&gt; Series&lt;&#39;TNewKey,&#39;R&gt; (requires equality) + 1 overload
+  member AsyncMaterialize : unit -&gt; Async&lt;Series&lt;&#39;K,&#39;V&gt;&gt;
+  member Before : upperExclusive:&#39;K -&gt; Series&lt;&#39;K,&#39;V&gt;
+  member Between : lowerInclusive:&#39;K * upperInclusive:&#39;K -&gt; Series&lt;&#39;K,&#39;V&gt;
+  member Compare : another:Series&lt;&#39;K,&#39;V&gt; -&gt; Series&lt;&#39;K,Diff&lt;&#39;V&gt;&gt;
+  member Convert : forward:Func&lt;&#39;V,&#39;R&gt; * backward:Func&lt;&#39;R,&#39;V&gt; -&gt; Series&lt;&#39;K,&#39;R&gt;
+  ...<br /><br />--------------------<br />new : pairs:seq&lt;System.Collections.Generic.KeyValuePair&lt;&#39;K,&#39;V&gt;&gt; -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new : keys:seq&lt;&#39;K&gt; * values:seq&lt;&#39;V&gt; -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new : keys:&#39;K [] * values:&#39;V [] -&gt; Series&lt;&#39;K,&#39;V&gt;<br />new : index:Indices.IIndex&lt;&#39;K&gt; * vector:IVector&lt;&#39;V&gt; * vectorBuilder:Vectors.IVectorBuilder * indexBuilder:Indices.IIndexBuilder -&gt; Series&lt;&#39;K,&#39;V&gt;</div>
+<div class="fsdocs-tip" id="fs52">val mapValues : f:(&#39;T -&gt; &#39;R) -&gt; series:Series&lt;&#39;K,&#39;T&gt; -&gt; Series&lt;&#39;K,&#39;R&gt; (requires equality)</div>
+<div class="fsdocs-tip" id="fs53">val zipped : Series&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},(float [] * float [])&gt;</div>
+<div class="fsdocs-tip" id="fs54">val zipInner : series1:Series&lt;&#39;K,&#39;V1&gt; -&gt; series2:Series&lt;&#39;K,&#39;V2&gt; -&gt; Series&lt;&#39;K,(&#39;V1 * &#39;V2)&gt; (requires equality)</div>
+<div class="fsdocs-tip" id="fs55">val extractedPatterns : Series&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},(float [] * float [])&gt;</div>
+<div class="fsdocs-tip" id="fs56">val plotIsotopicPattern : color:Colors.Color -&gt; mzsAndintensities:seq&lt;float * float&gt; -&gt; GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs57">val color : Colors.Color</div>
+<div class="fsdocs-tip" id="fs58">val mzsAndintensities : seq&lt;float * float&gt;</div>
+<div class="fsdocs-tip" id="fs59">val min : float</div>
+<div class="fsdocs-tip" id="fs60">val max : float</div>
+<div class="fsdocs-tip" id="fs61">Multiple items<br />module Seq
+
+from Plotly.NET<br /><br />--------------------<br />module Seq
+
+from FSharp.Stats<br /><em>&lt;summary&gt;
+ Module to compute common statistical measure
+&lt;/summary&gt;</em><br /><br />--------------------<br />module Seq
+
+from FSharpAux<br /><br />--------------------<br />module Seq
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with values of type &lt;see cref=&quot;T:Microsoft.FSharp.Collections.seq`1&quot; /&gt;.&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs62">val minBy : projection:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; &#39;T (requires comparison)<br /><em>&lt;summary&gt;Returns the lowest of all elements of the sequence, compared via Operators.min on the function result.&lt;/summary&gt;<br />&lt;param name=&quot;projection&quot;&gt;A function to transform items from the input sequence into comparable keys.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The smallest element of the sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.ArgumentException&quot;&gt;Thrown when the input sequence is empty.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs63">val fst : tuple:(&#39;T1 * &#39;T2) -&gt; &#39;T1<br /><em>&lt;summary&gt;Return the first element of a tuple, &lt;c&gt;fst (a,b) = a&lt;/c&gt;.&lt;/summary&gt;<br />&lt;param name=&quot;tuple&quot;&gt;The input tuple.&lt;/param&gt;<br />&lt;returns&gt;The first value.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs64">val maxBy : projection:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; &#39;T (requires comparison)<br /><em>&lt;summary&gt;Returns the greatest of all elements of the sequence, compared via Operators.max on the function result.&lt;/summary&gt;<br />&lt;param name=&quot;projection&quot;&gt;A function to transform items from the input sequence into comparable keys.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The largest element of the sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.ArgumentException&quot;&gt;Thrown when the input sequence is empty.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs65">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><em>&lt;summary&gt;Builds a new collection whose elements are the results of applying the given function
+ to each of the elements of the collection.  The given function will be applied
+ as elements are demanded using the &lt;c&gt;MoveNext&lt;/c&gt; method on enumerators retrieved from the
+ object.&lt;/summary&gt;<br />&lt;remarks&gt;The returned sequence may be passed between threads safely. However, 
+ individual IEnumerator values generated from the returned sequence should not be accessed concurrently.&lt;/remarks&gt;<br />&lt;param name=&quot;mapping&quot;&gt;A function to transform items from the input sequence.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The result sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs66">val x : float</div>
+<div class="fsdocs-tip" id="fs67">val y : float</div>
+<div class="fsdocs-tip" id="fs68">type Chart =
+  static member AnnotatedHeatmap : zData:seq&lt;#seq&lt;&#39;a1&gt;&gt; * annotationText:seq&lt;#seq&lt;string&gt;&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?X:seq&lt;#IConvertible&gt; * ?XGap:int * ?Y:seq&lt;#IConvertible&gt; * ?YGap:int * ?Text:&#39;a5 * ?MultiText:seq&lt;&#39;a5&gt; * ?ColorBar:ColorBar * ?ColorScale:Colorscale * ?ShowScale:bool * ?ReverseScale:bool * ?ZSmooth:SmoothAlg * ?Transpose:bool * ?UseWebGL:bool * ?ReverseYAxis:bool * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a1 :&gt; IConvertible and &#39;a5 :&gt; IConvertible)
+  static member Area : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?ShowLegend:bool * ?MarkerSymbol:MarkerSymbol * ?Color:Color * ?Opacity:float * ?Labels:seq&lt;#IConvertible&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:float * ?UseDefaults:bool -&gt; GenericChart + 1 overload
+  static member Bar : values:seq&lt;#IConvertible&gt; * ?Keys:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?MarkerColor:Color * ?MarkerColorScale:Colorscale * ?MarkerOutline:Line * ?MarkerPatternShape:PatternShape * ?MultiMarkerPatternShape:seq&lt;PatternShape&gt; * ?MarkerPattern:Pattern * ?Marker:Marker * ?Base:#IConvertible * ?Width:&#39;a4 * ?MultiWidth:seq&lt;&#39;a4&gt; * ?TextPosition:TextPosition * ?MultiTextPosition:seq&lt;TextPosition&gt; * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a2 :&gt; IConvertible and &#39;a4 :&gt; IConvertible) + 1 overload
+  static member BoxPlot : ?x:seq&lt;#IConvertible&gt; * ?y:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?Fillcolor:Color * ?MarkerColor:Color * ?OutlierColor:Color * ?OutlierWidth:int * ?Opacity:float * ?WhiskerWidth:float * ?BoxPoints:BoxPoints * ?BoxMean:BoxMean * ?Jitter:float * ?PointPos:float * ?Orientation:Orientation * ?Marker:Marker * ?Line:Line * ?AlignmentGroup:string * ?Offsetgroup:string * ?Notched:bool * ?NotchWidth:float * ?QuartileMethod:QuartileMethod * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a2 :&gt; IConvertible) + 1 overload
+  static member Bubble : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * sizes:seq&lt;int&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?TextPosition:TextPosition * ?MultiTextPosition:seq&lt;TextPosition&gt; * ?MarkerColor:Color * ?MarkerColorScale:Colorscale * ?MarkerOutline:Line * ?MarkerSymbol:MarkerSymbol * ?MultiMarkerSymbol:seq&lt;MarkerSymbol&gt; * ?Marker:Marker * ?LineColor:Color * ?LineColorScale:Colorscale * ?LineWidth:float * ?LineDash:DrawingStyle * ?Line:Line * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a2 :&gt; IConvertible) + 1 overload
+  static member Candlestick : open:seq&lt;#IConvertible&gt; * high:seq&lt;#IConvertible&gt; * low:seq&lt;#IConvertible&gt; * close:seq&lt;#IConvertible&gt; * x:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?Text:&#39;a5 * ?MultiText:seq&lt;&#39;a5&gt; * ?Line:Line * ?IncreasingColor:Color * ?Increasing:FinanceMarker * ?DecreasingColor:Color * ?Decreasing:FinanceMarker * ?WhiskerWidth:float * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a5 :&gt; IConvertible) + 1 overload
+  static member Column : values:seq&lt;#IConvertible&gt; * ?Keys:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?MarkerColor:Color * ?MarkerColorScale:Colorscale * ?MarkerOutline:Line * ?MarkerPatternShape:PatternShape * ?MultiMarkerPatternShape:seq&lt;PatternShape&gt; * ?MarkerPattern:Pattern * ?Marker:Marker * ?Base:#IConvertible * ?Width:&#39;a4 * ?MultiWidth:seq&lt;&#39;a4&gt; * ?TextPosition:TextPosition * ?MultiTextPosition:seq&lt;TextPosition&gt; * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a2 :&gt; IConvertible and &#39;a4 :&gt; IConvertible) + 1 overload
+  static member Contour : zData:seq&lt;#seq&lt;&#39;a1&gt;&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?X:seq&lt;#IConvertible&gt; * ?Y:seq&lt;#IConvertible&gt; * ?Text:&#39;a4 * ?MultiText:seq&lt;&#39;a4&gt; * ?ColorBar:ColorBar * ?ColorScale:Colorscale * ?ShowScale:bool * ?ReverseScale:bool * ?Transpose:bool * ?LineColor:Color * ?LineDash:DrawingStyle * ?Line:Line * ?ContoursColoring:ContourColoring * ?ContoursOperation:ConstraintOperation * ?ContoursType:ContourType * ?ShowContourLabels:bool * ?ContourLabelFont:Font * ?Contours:Contours * ?FillColor:Color * ?NContours:int * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a1 :&gt; IConvertible and &#39;a4 :&gt; IConvertible)
+  static member Funnel : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?Width:float * ?Offset:float * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?TextPosition:TextPosition * ?MultiTextPosition:seq&lt;TextPosition&gt; * ?Orientation:Orientation * ?AlignmentGroup:string * ?OffsetGroup:string * ?MarkerColor:Color * ?MarkerOutline:Line * ?Marker:Marker * ?TextInfo:TextInfo * ?ConnectorLineColor:Color * ?ConnectorLineStyle:DrawingStyle * ?ConnectorFillColor:Color * ?ConnectorLine:Line * ?Connector:FunnelConnector * ?InsideTextFont:Font * ?OutsideTextFont:Font * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a2 :&gt; IConvertible)
+  static member Heatmap : zData:seq&lt;#seq&lt;&#39;a1&gt;&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?X:seq&lt;#IConvertible&gt; * ?XGap:int * ?Y:seq&lt;#IConvertible&gt; * ?YGap:int * ?Text:&#39;a4 * ?MultiText:seq&lt;&#39;a4&gt; * ?ColorBar:ColorBar * ?ColorScale:Colorscale * ?ShowScale:bool * ?ReverseScale:bool * ?ZSmooth:SmoothAlg * ?Transpose:bool * ?UseWebGL:bool * ?ReverseYAxis:bool * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a1 :&gt; IConvertible and &#39;a4 :&gt; IConvertible) + 1 overload
+  ...</div>
+<div class="fsdocs-tip" id="fs69">static member Chart.Line : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?ShowMarkers:bool * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?TextPosition:StyleParam.TextPosition * ?MultiTextPosition:seq&lt;StyleParam.TextPosition&gt; * ?MarkerColor:Color * ?MarkerColorScale:StyleParam.Colorscale * ?MarkerOutline:Line * ?MarkerSymbol:StyleParam.MarkerSymbol * ?MultiMarkerSymbol:seq&lt;StyleParam.MarkerSymbol&gt; * ?Marker:TraceObjects.Marker * ?LineColor:Color * ?LineColorScale:StyleParam.Colorscale * ?LineWidth:float * ?LineDash:StyleParam.DrawingStyle * ?Line:Line * ?StackGroup:string * ?Orientation:StyleParam.Orientation * ?GroupNorm:StyleParam.GroupNorm * ?UseWebGL:bool * ?UseDefaults:bool -&gt; GenericChart.GenericChart (requires &#39;a2 :&gt; System.IConvertible)<br />static member Chart.Line : x:seq&lt;#System.IConvertible&gt; * y:seq&lt;#System.IConvertible&gt; * ?ShowMarkers:bool * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?TextPosition:StyleParam.TextPosition * ?MultiTextPosition:seq&lt;StyleParam.TextPosition&gt; * ?MarkerColor:Color * ?MarkerColorScale:StyleParam.Colorscale * ?MarkerOutline:Line * ?MarkerSymbol:StyleParam.MarkerSymbol * ?MultiMarkerSymbol:seq&lt;StyleParam.MarkerSymbol&gt; * ?Marker:TraceObjects.Marker * ?LineColor:Color * ?LineColorScale:StyleParam.Colorscale * ?LineWidth:float * ?LineDash:StyleParam.DrawingStyle * ?Line:Line * ?StackGroup:string * ?Orientation:StyleParam.Orientation * ?GroupNorm:StyleParam.GroupNorm * ?UseWebGL:bool * ?UseDefaults:bool -&gt; GenericChart.GenericChart (requires &#39;a2 :&gt; System.IConvertible)</div>
+<div class="fsdocs-tip" id="fs70">static member Chart.withLineStyle : ?Width:float * ?Color:Color * ?Shape:StyleParam.Shape * ?Dash:StyleParam.DrawingStyle * ?Smoothing:float * ?Colorscale:StyleParam.Colorscale * ?OutlierColor:Color * ?OutlierWidth:float -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs71">static member Chart.combine : gCharts:seq&lt;GenericChart.GenericChart&gt; -&gt; GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs72">static member Chart.withMarkerStyle : ?AutoColorScale:bool * ?CAuto:bool * ?CMax:float * ?CMid:float * ?CMin:float * ?Color:Color * ?Colors:seq&lt;Color&gt; * ?ColorAxis:StyleParam.SubPlotId * ?ColorBar:LayoutObjects.ColorBar * ?Colorscale:StyleParam.Colorscale * ?Gradient:TraceObjects.Gradient * ?Outline:Line * ?Size:int * ?MultiSize:seq&lt;int&gt; * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Pattern:TraceObjects.Pattern * ?Symbol:StyleParam.MarkerSymbol * ?MultiSymbols:seq&lt;StyleParam.MarkerSymbol&gt; * ?OutlierColor:Color * ?Maxdisplayed:int * ?ReverseScale:bool * ?ShowScale:bool * ?SizeMin:int * ?SizeMode:StyleParam.MarkerSizeMode * ?SizeRef:int -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs73">Multiple items<br />module Color
+
+from Plotly.NET<br /><br />--------------------<br />type Color =
+  private new : obj:obj -&gt; Color
+  override Equals : other:obj -&gt; bool
+  override GetHashCode : unit -&gt; int
+  static member fromARGB : a:int -&gt; r:int -&gt; g:int -&gt; b:int -&gt; Color
+  static member fromColorScaleValues : c:seq&lt;#IConvertible&gt; -&gt; Color
+  static member fromColors : c:seq&lt;Color&gt; -&gt; Color
+  static member fromHex : s:string -&gt; Color
+  static member fromKeyword : c:ColorKeyword -&gt; Color
+  static member fromRGB : r:int -&gt; g:int -&gt; b:int -&gt; Color
+  static member fromString : c:string -&gt; Color
+  ...<br /><em>&lt;summary&gt;
+ Plotly color can be a single color, a sequence of colors, or a sequence of numeric values referencing the color of the colorscale obj
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs74">static member Color.fromHex : s:string -&gt; Color</div>
+<div class="fsdocs-tip" id="fs75">module Colors
+
+from FSharpAux<br /><em>&lt;summary&gt;
+ Represents an ARGB (alpha, red, green, blue) color
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs76">val toWebColor : c:Colors.Color -&gt; string<br /><em>&lt;summary&gt;
+ Gets the web color representataion (#FFFFFF)
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs77">static member Chart.withXAxisStyle : title:string * ?TitleFont:Font * ?MinMax:(float * float) * ?ShowGrid:bool * ?ShowLine:bool * ?Side:StyleParam.Side * ?Overlaying:StyleParam.LinearAxisId * ?Id:StyleParam.SubPlotId * ?Domain:(float * float) * ?Position:float * ?Zeroline:bool * ?Anchor:StyleParam.LinearAxisId -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs78">static member Chart.withYAxisStyle : title:string * ?TitleFont:Font * ?MinMax:(float * float) * ?ShowGrid:bool * ?ShowLine:bool * ?Side:StyleParam.Side * ?Overlaying:StyleParam.LinearAxisId * ?Id:StyleParam.SubPlotId * ?Domain:(float * float) * ?Position:float * ?ZeroLine:bool * ?Anchor:StyleParam.LinearAxisId -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs79">type ExtractedIsoPattern = {| Charge: int; Pattern: seq&lt;float * float&gt;; PeptideSequence: PeptideIon |}</div>
+<div class="fsdocs-tip" id="fs80">Multiple items<br />val seq : sequence:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><em>&lt;summary&gt;Builds a sequence using sequence expression syntax&lt;/summary&gt;<br />&lt;param name=&quot;sequence&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The result sequence.&lt;/returns&gt;</em><br /><br />--------------------<br />type seq&lt;&#39;T&gt; = System.Collections.Generic.IEnumerable&lt;&#39;T&gt;<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Collections.Generic.IEnumerable`1&quot; /&gt;&lt;/summary&gt;<br />&lt;remarks&gt;
+  See the &lt;see cref=&quot;T:Microsoft.FSharp.Collections.SeqModule&quot; /&gt; module for further operations related to sequences.
+
+  See also &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/sequences&quot;&gt;F# Language Guide - Sequences&lt;/a&gt;.
+&lt;/remarks&gt;</em></div>
+<div class="fsdocs-tip" id="fs81">val getIsotopicPattern : peptideSequence:string -&gt; charge:int -&gt; {| Charge: int; Pattern: seq&lt;float * float&gt;; PeptideSequence: {| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |} |}</div>
+<div class="fsdocs-tip" id="fs82">val peptideSequence : string</div>
+<div class="fsdocs-tip" id="fs83">val charge : int</div>
+<div class="fsdocs-tip" id="fs84">val mzs : float []</div>
+<div class="fsdocs-tip" id="fs85">val intensities : float []</div>
+<div class="fsdocs-tip" id="fs86">val observations : series:Series&lt;&#39;K,&#39;T&gt; -&gt; seq&lt;&#39;K * &#39;T&gt; (requires equality)</div>
+<div class="fsdocs-tip" id="fs87">val find : predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; &#39;T<br /><em>&lt;summary&gt;Returns the first element for which the given function returns True.&lt;/summary&gt;<br />&lt;param name=&quot;predicate&quot;&gt;A function to test whether an item in the sequence should be returned.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The first element for which the predicate returns True.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.Collections.Generic.KeyNotFoundException&quot;&gt;Thrown if no element returns true when
+ evaluated by the predicate&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs88">anonymous record field StringSequence: string</div>
+<div class="fsdocs-tip" id="fs89">anonymous record field Charge: int</div>
+<div class="fsdocs-tip" id="fs90">val zip : source1:seq&lt;&#39;T1&gt; -&gt; source2:seq&lt;&#39;T2&gt; -&gt; seq&lt;&#39;T1 * &#39;T2&gt;<br /><em>&lt;summary&gt;Combines the two sequences into a list of pairs. The two sequences need not have equal lengths:
+ when one sequence is exhausted any remaining elements in the other
+ sequence are ignored.&lt;/summary&gt;<br />&lt;param name=&quot;source1&quot;&gt;The first input sequence.&lt;/param&gt;<br />&lt;param name=&quot;source2&quot;&gt;The second input sequence.&lt;/param&gt;<br />&lt;returns&gt;The result sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when either of the input sequences is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs91">val examplePep1 : {| Charge: int; Pattern: seq&lt;float * float&gt;; PeptideSequence: {| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |} |}</div>
+<div class="fsdocs-tip" id="fs92">module Table
+
+from FSharpAux.Colors</div>
+<div class="fsdocs-tip" id="fs93">module Office
+
+from FSharpAux.Colors.Table<br /><em>&lt;summary&gt;
+ Color palette from Microsoft office 2016
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs94">val blue : Colors.Color</div>
+<div class="fsdocs-tip" id="fs95">anonymous record field Pattern: seq&lt;float * float&gt;</div>
+<div class="fsdocs-tip" id="fs96">module GenericChart
+
+from Plotly.NET<br /><em>&lt;summary&gt;
+ Module to represent a GenericChart
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs97">val toChartHTML : gChart:GenericChart.GenericChart -&gt; string<br /><em>&lt;summary&gt;
+ Converts a GenericChart to it HTML representation. The div layer has a default size of 600 if not specified otherwise.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs98">val examplePep2 : {| Charge: int; Pattern: seq&lt;float * float&gt;; PeptideSequence: {| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |} |}</div>
+<div class="fsdocs-tip" id="fs99">val toFormula : bioseq:seq&lt;#IBioItem&gt; -&gt; Formula.Formula</div>
+<div class="fsdocs-tip" id="fs100">val bioseq : seq&lt;#IBioItem&gt;</div>
+<div class="fsdocs-tip" id="fs101">Multiple items<br />module BioSeq
+
+from BioFSharp.BioCollectionsExtensions<br /><br />--------------------<br />module BioSeq
+
+from BioFSharp<br /><em>&lt;summary&gt;
+This module contains the BioSeq type and its according functions. The BioSeq type is a sequence of objects using the IBioItem interface
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs102">val toFormula : bs:seq&lt;#IBioItem&gt; -&gt; Formula.Formula<br /><em>&lt;summary&gt;
+ Returns formula
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs103">module Formula
+
+from BioFSharp<br /><em>&lt;summary&gt;
+Contains functionality for working with molecules as a formula of their elements and formulas of biologically relevant molecules
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs104">val add : f1:Formula.Formula -&gt; f2:Formula.Formula -&gt; Formula.Formula<br /><em>&lt;summary&gt;
+ adds two formula
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs105">module Table
+
+from BioFSharp.Formula<br /><em>&lt;summary&gt;
+Contains formulas for amino acids, nucleotides and biologically relevant anorganic molecules
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs106">val H2O : Formula.Formula</div>
+<div class="fsdocs-tip" id="fs107">val label : n15LableEfficiency:float -&gt; formula:Formula.Formula -&gt; Formula.Formula</div>
+<div class="fsdocs-tip" id="fs108">val n15LableEfficiency : float</div>
+<div class="fsdocs-tip" id="fs109">val formula : Formula.Formula</div>
+<div class="fsdocs-tip" id="fs110">val heavyN15 : Elements.Element</div>
+<div class="fsdocs-tip" id="fs111">module Elements
+
+from BioFSharp<br /><em>&lt;summary&gt;
+Contains chemical elements represented as a mixture of their stable isotopes and functionality for building them
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs112">union case Elements.Element.Di: Elements.DiIsotopic -&gt; Elements.Element</div>
+<div class="fsdocs-tip" id="fs113">val createDi : symbol:string -&gt; x:Isotopes.Isotope * xcomp:float -&gt; x1:Isotopes.Isotope * x1comp:float -&gt; Elements.DiIsotopic<br /><em>&lt;summary&gt;
+ Create a di-isotopic element
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs114">module Isotopes
+
+from BioFSharp<br /><em>&lt;summary&gt;
+Contains functionality for working with and creating isotopes and list of biologically relevant isotopes
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs115">module Table
+
+from BioFSharp.Isotopes<br /><em>&lt;summary&gt;
+Contains the stable isotopes of biologically relevant chemical elements.
+
+Note that the name convention of isotopes e.g. 15N cannot be satisfied here, 
+as name bindings starting with numbers are not allowed. 
+
+Therefore, numbers and element symbols are switched, e.g. 15N becoming N15
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs116">val N15 : Isotopes.Isotope<br /><em>&lt;summary&gt;
+Nitrogen whose nucleus consist of 7 protons and 8 neutrons
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs117">val N14 : Isotopes.Isotope<br /><em>&lt;summary&gt;
+Nitrogen whose nucleus consist of 7 protons and 7 neutrons
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs118">val replaceElement : f:Formula.Formula -&gt; unlabled:Elements.Element -&gt; labled:Elements.Element -&gt; Formula.Formula<br /><em>&lt;summary&gt;
+ Lables all elements of a certain kind within a formula
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs119">module Table
+
+from BioFSharp.Elements<br /><em>&lt;summary&gt;
+Contains the biologically relevant, chemical elements represented as a mixture of their stable isotopes
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs120">val N : Elements.Element<br /><em>&lt;summary&gt;
+Nitrogen
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs121">val generateIsotopicDistribution : charge:int -&gt; f:Formula.Formula -&gt; (float * float) list</div>
+<div class="fsdocs-tip" id="fs122">val f : Formula.Formula</div>
+<div class="fsdocs-tip" id="fs123">type Formula = Map&lt;Elements.Element,float&gt;<br /><em>&lt;summary&gt;
+ Type abreviation for Map&amp;lt;Elements.Element,float&amp;gt;
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs124">module IsotopicDistribution
+
+from BioFSharp<br /><em>&lt;summary&gt;
+Contains functionality for working with isotopic abundancies of molecules
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs125">module MIDA
+
+from BioFSharp.IsotopicDistribution</div>
+<div class="fsdocs-tip" id="fs126">val ofFormula : normF:(float -&gt; IsotopicDistribution.MIDA.Polynomial list -&gt; IsotopicDistribution.MIDA.Polynomial list) -&gt; resolution:float -&gt; minProb:float -&gt; charge:int -&gt; fml:Formula.Formula -&gt; (float * float) list<br /><em>&lt;summary&gt;
+ Generates the distribution of the isotopic abundancy using MIDAs polynomial based algorithm (MIDAs_a)
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs127">val normalizeByProbSum : minProb:float -&gt; pols:IsotopicDistribution.MIDA.Polynomial list -&gt; IsotopicDistribution.MIDA.Polynomial list<br /><em>&lt;summary&gt;
+ normalizes istopic distribution probabilities to sum up to 1.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs128">type SimulatedIsoPattern = {| Charge: int; LableEfficiency: float; PeptideSequence: string; SimPattern: (float * float) list |}</div>
+<div class="fsdocs-tip" id="fs129">type &#39;T list = List&lt;&#39;T&gt;<br /><em>&lt;summary&gt;The type of immutable singly-linked lists. &lt;/summary&gt;<br />&lt;remarks&gt;See the &lt;see cref=&quot;T:Microsoft.FSharp.Collections.ListModule&quot; /&gt; module for further operations related to lists.
+
+ Use the constructors &lt;c&gt;[]&lt;/c&gt; and &lt;c&gt;::&lt;/c&gt; (infix) to create values of this type, or
+ the notation &lt;c&gt;[1; 2; 3]&lt;/c&gt;. Use the values in the &lt;c&gt;List&lt;/c&gt; module to manipulate 
+ values of this type, or pattern match against the values directly.
+
+  See also &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/lists&quot;&gt;F# Language Guide - Lists&lt;/a&gt;.
+ &lt;/remarks&gt;</em></div>
+<div class="fsdocs-tip" id="fs130">val simulateFrom : peptideSequence:&#39;a -&gt; charge:int -&gt; lableEfficiency:float -&gt; {| Charge: int; LableEfficiency: float; PeptideSequence: &#39;a; SimPattern: (float * float) list |} (requires &#39;a :&gt; seq&lt;char&gt;)</div>
+<div class="fsdocs-tip" id="fs131">val peptideSequence : #seq&lt;char&gt;</div>
+<div class="fsdocs-tip" id="fs132">val lableEfficiency : float</div>
+<div class="fsdocs-tip" id="fs133">val simPattern : (float * float) list</div>
+<div class="fsdocs-tip" id="fs134">val ofAminoAcidString : s:#seq&lt;char&gt; -&gt; BioSeq.BioSeq&lt;AminoAcids.AminoAcid&gt;<br /><em>&lt;summary&gt;
+ Generates AminoAcid sequence of one-letter-code raw string
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs135">val examplePep2_Sim1 : {| Charge: int; LableEfficiency: float; PeptideSequence: string; SimPattern: (float * float) list |}</div>
+<div class="fsdocs-tip" id="fs136">val orange : Colors.Color</div>
+<div class="fsdocs-tip" id="fs137">anonymous record field SimPattern: (float * float) list</div>
+<div class="fsdocs-tip" id="fs138">val examplePep2_Sim2 : {| Charge: int; LableEfficiency: float; PeptideSequence: string; SimPattern: (float * float) list |}</div>
+<div class="fsdocs-tip" id="fs139">val normBySum : a:seq&lt;float * float&gt; -&gt; seq&lt;float * float&gt;</div>
+<div class="fsdocs-tip" id="fs140">val a : seq&lt;float * float&gt;</div>
+<div class="fsdocs-tip" id="fs141">val s : float</div>
+<div class="fsdocs-tip" id="fs142">val sumBy : projection:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; &#39;U (requires member ( + ) and member get_Zero)<br /><em>&lt;summary&gt;Returns the sum of the results generated by applying the function to each element of the sequence.&lt;/summary&gt;<br />&lt;remarks&gt;The generated elements are summed using the &lt;c&gt;+&lt;/c&gt; operator and &lt;c&gt;Zero&lt;/c&gt; property associated with the generated type.&lt;/remarks&gt;<br />&lt;param name=&quot;projection&quot;&gt;A function to transform items from the input sequence into the type that will be summed.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The computed sum.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs143">val snd : tuple:(&#39;T1 * &#39;T2) -&gt; &#39;T2<br /><em>&lt;summary&gt;Return the second element of a tuple, &lt;c&gt;snd (a,b) = b&lt;/c&gt;.&lt;/summary&gt;<br />&lt;param name=&quot;tuple&quot;&gt;The input tuple.&lt;/param&gt;<br />&lt;returns&gt;The second value.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs144">val compareIsotopicDistributions : measured:ExtractedIsoPattern -&gt; simulated:SimulatedIsoPattern -&gt; {| Plot: GenericChart.GenericChart |}</div>
+<div class="fsdocs-tip" id="fs145">val measured : ExtractedIsoPattern</div>
+<div class="fsdocs-tip" id="fs146">val simulated : SimulatedIsoPattern</div>
+<div class="fsdocs-tip" id="fs147">val patternSim&#39; : seq&lt;float * float&gt;</div>
+<div class="fsdocs-tip" id="fs148">val mz : float</div>
+<div class="fsdocs-tip" id="fs149">val intensities : float</div>
+<div class="fsdocs-tip" id="fs150">val filter : predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><em>&lt;summary&gt;Returns a new collection containing only the elements of the collection
+ for which the given predicate returns &quot;true&quot;. This is a synonym for Seq.where.&lt;/summary&gt;<br />&lt;remarks&gt;The returned sequence may be passed between threads safely. However, 
+ individual IEnumerator values generated from the returned sequence should not be accessed concurrently.
+
+ Remember sequence is lazy, effects are delayed until it is enumerated.&lt;/remarks&gt;<br />&lt;param name=&quot;predicate&quot;&gt;A function to test whether each item in the input sequence should be included in the output.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The result sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs151">val mzSim : float</div>
+<div class="fsdocs-tip" id="fs152">val intensitiesSim : float</div>
+<div class="fsdocs-tip" id="fs153">val abs : value:&#39;T -&gt; &#39;T (requires member Abs)<br /><em>&lt;summary&gt;Absolute value of the given number.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The absolute value of the input.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs154">val comp1 : {| Plot: GenericChart.GenericChart |}</div>
+<div class="fsdocs-tip" id="fs155">anonymous record field Plot: GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs156">val comp2 : {| Plot: GenericChart.GenericChart |}</div>
+<div class="fsdocs-tip" id="fs157">val klDiv : p:seq&lt;float&gt; -&gt; q:seq&lt;float&gt; -&gt; float<br /><em>&#160;Calculates the Kullback-Leibler divergence Dkl(p||q) from q (theory, model, description, or approximation of p) <br />&#160;to p (the &quot;true&quot; distribution of data, observations, or a ___ ___ precisely measured).</em></div>
+<div class="fsdocs-tip" id="fs158">val p : seq&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs159">val q : seq&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs160">val fold2 : folder:(&#39;State -&gt; &#39;T1 -&gt; &#39;T2 -&gt; &#39;State) -&gt; state:&#39;State -&gt; source1:seq&lt;&#39;T1&gt; -&gt; source2:seq&lt;&#39;T2&gt; -&gt; &#39;State<br /><em>&lt;summary&gt;Applies a function to corresponding elements of two collections, threading an accumulator argument
+ through the computation.&lt;/summary&gt;<br />&lt;remarks&gt; The two sequences need not have equal lengths:
+ when one sequence is exhausted any remaining elements in the other sequence are ignored.
+ If the input function is &lt;c&gt;f&lt;/c&gt; and the elements are &lt;c&gt;i0...iN&lt;/c&gt; and &lt;c&gt;j0...jN&lt;/c&gt;
+ then computes &lt;c&gt;f (... (f s i0 j0)...) iN jN&lt;/c&gt;.&lt;/remarks&gt;<br />&lt;param name=&quot;folder&quot;&gt;The function to update the state given the input elements.&lt;/param&gt;<br />&lt;param name=&quot;state&quot;&gt;The initial state.&lt;/param&gt;<br />&lt;param name=&quot;source1&quot;&gt;The first input sequence.&lt;/param&gt;<br />&lt;param name=&quot;source2&quot;&gt;The second input sequence.&lt;/param&gt;<br />&lt;returns&gt;The final state value.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the either of the input sequences is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs161">val acc : float</div>
+<div class="fsdocs-tip" id="fs162">val p : float</div>
+<div class="fsdocs-tip" id="fs163">val q : float</div>
+<div class="fsdocs-tip" id="fs164">namespace System</div>
+<div class="fsdocs-tip" id="fs165">type Math =
+  static member Abs : value: decimal -&gt; decimal + 6 overloads
+  static member Acos : d: float -&gt; float
+  static member Acosh : d: float -&gt; float
+  static member Asin : d: float -&gt; float
+  static member Asinh : d: float -&gt; float
+  static member Atan : d: float -&gt; float
+  static member Atan2 : y: float * x: float -&gt; float
+  static member Atanh : d: float -&gt; float
+  static member BigMul : a: int * b: int -&gt; int64 + 2 overloads
+  static member BitDecrement : x: float -&gt; float
+  ...<br /><em>&lt;summary&gt;Provides constants and static methods for trigonometric, logarithmic, and other common mathematical functions.&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs166">System.Math.Log(d: float) : float<br />System.Math.Log(a: float, newBase: float) : float</div>
+<div class="fsdocs-tip" id="fs167">val compareIsotopicDistributions&#39; : measured:ExtractedIsoPattern -&gt; simulated:SimulatedIsoPattern -&gt; {| KLDiv: float; Plot: GenericChart.GenericChart |}</div>
+<div class="fsdocs-tip" id="fs168">val klDiv : float</div>
+<div class="fsdocs-tip" id="fs169">val lableEfficiency : seq&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs170">val comparison : seq&lt;{| KLDiv: float; Plot: GenericChart.GenericChart |}&gt;</div>
+<div class="fsdocs-tip" id="fs171">val sim : {| Charge: int; LableEfficiency: float; PeptideSequence: string; SimPattern: (float * float) list |}</div>
+<div class="fsdocs-tip" id="fs172">val comp : {| KLDiv: float; Plot: GenericChart.GenericChart |}</div>
+<div class="fsdocs-tip" id="fs173">Multiple items<br />val unzip : input:seq&lt;&#39;a * &#39;b&gt; -&gt; seq&lt;&#39;a&gt; * seq&lt;&#39;b&gt;<br /><em>&lt;summary&gt;
+ Splits a sequence of pairs into two sequences
+&lt;/summary&gt;</em><br /><br />--------------------<br />val unzip : input:seq&lt;&#39;a * &#39;b&gt; -&gt; seq&lt;&#39;a&gt; * seq&lt;&#39;b&gt;<br /><em>&lt;summary&gt;
+ Splits a sequence of pairs into two sequences
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs174">val bestFit : {| KLDiv: float; Plot: GenericChart.GenericChart |}</div>
+<div class="fsdocs-tip" id="fs175">val x : {| KLDiv: float; Plot: GenericChart.GenericChart |}</div>
+<div class="fsdocs-tip" id="fs176">anonymous record field KLDiv: float</div>
+<div class="fsdocs-tip" id="fs177">static member Chart.Point : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?TextPosition:StyleParam.TextPosition * ?MultiTextPosition:seq&lt;StyleParam.TextPosition&gt; * ?MarkerColor:Color * ?MarkerColorScale:StyleParam.Colorscale * ?MarkerOutline:Line * ?MarkerSymbol:StyleParam.MarkerSymbol * ?MultiMarkerSymbol:seq&lt;StyleParam.MarkerSymbol&gt; * ?Marker:TraceObjects.Marker * ?StackGroup:string * ?Orientation:StyleParam.Orientation * ?GroupNorm:StyleParam.GroupNorm * ?UseWebGL:bool * ?UseDefaults:bool -&gt; GenericChart.GenericChart (requires &#39;a2 :&gt; System.IConvertible)<br />static member Chart.Point : x:seq&lt;#System.IConvertible&gt; * y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?TextPosition:StyleParam.TextPosition * ?MultiTextPosition:seq&lt;StyleParam.TextPosition&gt; * ?MarkerColor:Color * ?MarkerColorScale:StyleParam.Colorscale * ?MarkerOutline:Line * ?MarkerSymbol:StyleParam.MarkerSymbol * ?MultiMarkerSymbol:seq&lt;StyleParam.MarkerSymbol&gt; * ?Marker:TraceObjects.Marker * ?StackGroup:string * ?Orientation:StyleParam.Orientation * ?GroupNorm:StyleParam.GroupNorm * ?UseWebGL:bool * ?UseDefaults:bool -&gt; GenericChart.GenericChart (requires &#39;a2 :&gt; System.IConvertible)</div>
+<div class="fsdocs-tip" id="fs178">val lableEfficiency2 : seq&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs179">val comparison2 : seq&lt;{| KLDiv: float; Plot: GenericChart.GenericChart |}&gt;</div>
+<div class="fsdocs-tip" id="fs180">val bestFit2 : {| KLDiv: float; Plot: GenericChart.GenericChart |}</div>
+<div class="fsdocs-tip" id="fs181">val calcKL : peptideSequence:string -&gt; charge:int -&gt; lableEfficiency:float -&gt; float</div>
+<div class="fsdocs-tip" id="fs182">val measured : {| Charge: int; Pattern: seq&lt;float * float&gt;; PeptideSequence: {| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |} |}</div>
+<div class="fsdocs-tip" id="fs183">val est1 : float option</div>
+<div class="fsdocs-tip" id="fs184">namespace FSharp.Stats.Optimization</div>
+<div class="fsdocs-tip" id="fs185">module Brent
+
+from FSharp.Stats.Optimization</div>
+<div class="fsdocs-tip" id="fs186">val minimize : f:(float -&gt; float) -&gt; lowerBound:float -&gt; upperBound:float -&gt; float option<br /><em>&lt;summary&gt;
+ Finds the minimum in the given function between the lower and upper boundary with tolerance 10^-7 via brent search. Returns None if 100 iterations are reached.   
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs187">val est2 : float option</div>
+<div class="fsdocs-tip" id="fs188">val highIntensityPeptides : Series&lt;{| Charge: int; PepSequenceID: int; ProteinGroup: string; StringSequence: string; Synonyms: string |},float&gt;</div>
+<div class="fsdocs-tip" id="fs189">val sortBy : proj:(&#39;T -&gt; &#39;V) -&gt; series:Series&lt;&#39;K,&#39;T&gt; -&gt; Series&lt;&#39;K,&#39;T&gt; (requires comparison and equality)</div>
+<div class="fsdocs-tip" id="fs190">val filter : f:(&#39;K -&gt; &#39;T -&gt; bool) -&gt; series:Series&lt;&#39;K,&#39;T&gt; -&gt; Series&lt;&#39;K,&#39;T&gt; (requires equality)</div>
+<div class="fsdocs-tip" id="fs191">val v : float</div>
+<div class="fsdocs-tip" id="fs192">val exists : predicate:(char -&gt; bool) -&gt; str:string -&gt; bool<br /><em>&lt;summary&gt;Tests if any character of the string satisfies the given predicate.&lt;/summary&gt;<br />&lt;param name=&quot;predicate&quot;&gt;The function to test each character of the string.&lt;/param&gt;<br />&lt;param name=&quot;str&quot;&gt;The input string.&lt;/param&gt;<br />&lt;returns&gt;True if any character returns true for the predicate and false otherwise.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs193">val x : char</div>
+<div class="fsdocs-tip" id="fs194">val not : value:bool -&gt; bool<br /><em>&lt;summary&gt;Negate a logical value. Not True equals False and not False equals True&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The value to negate.&lt;/param&gt;<br />&lt;returns&gt;The result of the negation.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs195">val estimates : seq&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs196">val take : count:int -&gt; series:Series&lt;&#39;K,&#39;T&gt; -&gt; Series&lt;&#39;K,&#39;T&gt; (requires equality)</div>
+<div class="fsdocs-tip" id="fs197">val map : f:(&#39;K -&gt; &#39;T -&gt; &#39;R) -&gt; series:Series&lt;&#39;K,&#39;T&gt; -&gt; Series&lt;&#39;K,&#39;R&gt; (requires equality)</div>
+<div class="fsdocs-tip" id="fs198">val values : series:Series&lt;&#39;K,&#39;T&gt; -&gt; seq&lt;&#39;T&gt; (requires equality)</div>
+<div class="fsdocs-tip" id="fs199">val choose : chooser:(&#39;T -&gt; &#39;U option) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><em>&lt;summary&gt;Applies the given function to each element of the list. Return
+ the list comprised of the results &quot;x&quot; for each element where
+ the function returns Some(x).&lt;/summary&gt;<br />&lt;remarks&gt;The returned sequence may be passed between threads safely. However, 
+ individual IEnumerator values generated from the returned sequence should not
+ be accessed concurrently.&lt;/remarks&gt;<br />&lt;param name=&quot;chooser&quot;&gt;A function to transform items of type T into options of type U.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence of type T.&lt;/param&gt;<br />&lt;returns&gt;The result sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs200">val id : x:&#39;T -&gt; &#39;T<br /><em>&lt;summary&gt;The identity function&lt;/summary&gt;<br />&lt;param name=&quot;x&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The same value.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs201">static member Chart.BoxPlot : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?Fillcolor:Color * ?MarkerColor:Color * ?OutlierColor:Color * ?OutlierWidth:int * ?Opacity:float * ?WhiskerWidth:float * ?BoxPoints:StyleParam.BoxPoints * ?BoxMean:StyleParam.BoxMean * ?Jitter:float * ?PointPos:float * ?Orientation:StyleParam.Orientation * ?Marker:TraceObjects.Marker * ?Line:Line * ?AlignmentGroup:string * ?Offsetgroup:string * ?Notched:bool * ?NotchWidth:float * ?QuartileMethod:StyleParam.QuartileMethod * ?UseDefaults:bool -&gt; GenericChart.GenericChart (requires &#39;a2 :&gt; System.IConvertible)<br />static member Chart.BoxPlot : ?x:seq&lt;#System.IConvertible&gt; * ?y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?Fillcolor:Color * ?MarkerColor:Color * ?OutlierColor:Color * ?OutlierWidth:int * ?Opacity:float * ?WhiskerWidth:float * ?BoxPoints:StyleParam.BoxPoints * ?BoxMean:StyleParam.BoxMean * ?Jitter:float * ?PointPos:float * ?Orientation:StyleParam.Orientation * ?Marker:TraceObjects.Marker * ?Line:Line * ?AlignmentGroup:string * ?Offsetgroup:string * ?Notched:bool * ?NotchWidth:float * ?QuartileMethod:StyleParam.QuartileMethod * ?UseDefaults:bool -&gt; GenericChart.GenericChart (requires &#39;a2 :&gt; System.IConvertible)</div>
+
+    </div>
+
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <script type="text/javascript">var fsdocs_search_baseurl = '/BIO-BTE-06-L-7/'</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+    <script type="text/javascript" src="/BIO-BTE-06-L-7/content/fsdocs-search.js"></script>
+    <!-- END SEARCH BOX: this adds support for the search box -->
+</body>
+
+</html>
