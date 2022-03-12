@@ -82,7 +82,7 @@ let sliceQuantColumns quantColID frame =
 let ratios = sliceQuantColumns "Ratio" qConcatDataFiltered
 
 ratios
-|> Frame.getRow {|Charge = 2; PepSequenceID = 1457965; ProteinGroup = "QProt_newPS;Cre02.g120150.t1.2;Cre02.g120100.t1.2"; StringSequence = "AFPDAYVR"; Synonyms = "RBCS2;RBCS1"|}
+|> Frame.getRow {|Charge = 2; PepSequenceID = 1538853; ProteinGroup = "Cre02.g120100.t1.2;Cre02.g120150.t1.2;QProt_newPS"; StringSequence = "AFPDAYVR"; Synonyms = "RBCS1;RBCS2"|}
 
 let ratiosRbcL =
     ratios
@@ -112,7 +112,7 @@ let medianRbcS =
     Chart.Column (medianRbcS)
     |> Chart.withTraceName "rbcS"
 ]
-|> Chart.Combine
+|> Chart.combine
 #endif // IPYNB
 
 

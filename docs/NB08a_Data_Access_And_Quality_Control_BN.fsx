@@ -375,7 +375,7 @@ plotPeptidesOf ratios "rbcL" 1 |> GenericChart.toChartHTML
 *)
 (***condition:ipynb***)
 #if IPYNB
-plotPeptidesOf ratios "RBCS2;RBCS1" 2
+plotPeptidesOf ratios "RBCS1;RBCS2" 2
 #endif // IPYNB
 (***hide***)
 plotPeptidesOf ratios "RBCS1;RBCS2" 2 |> GenericChart.toChartHTML

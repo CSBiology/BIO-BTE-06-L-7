@@ -437,7 +437,7 @@ let estimates =
 (***condition:ipynb***)
 #if IPYNB
 Chart.BoxPlot estimates
-|> Chart.withX_AxisStyle ""
+|> Chart.withXAxisStyle ""
 #endif // IPYNB
 (***hide***)
 Chart.BoxPlot estimates |> GenericChart.toChartHTML
