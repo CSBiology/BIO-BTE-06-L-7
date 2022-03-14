@@ -75,7 +75,7 @@ let sliceQuantColumns quantColID frame =
 Besides already familiar slices...
 *)
 
-let heavy = sliceQuantColumns "Heavy" qConcatDataFiltered
+let heavy = sliceQuantColumns "Quant_Heavy" qConcatDataFiltered
 
 (**
 ... we can also use this function for information needed to reconstruct isotopic patterns.

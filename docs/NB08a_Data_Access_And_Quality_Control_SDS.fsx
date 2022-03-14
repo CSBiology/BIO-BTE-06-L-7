@@ -61,42 +61,41 @@ type CutoutBand =
 //        
 let getStrain (fileName : string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation -Sample preparation" "strain" fN myAssayFile
-    |> Option.defaultValue ""
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "strain" fN myAssayFile
+    |> Option.defaultValue "Wt"
 
 //
 let getExpressionLevel (fileName : string) =
     let fN = fileName |> normalizeFileName 
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Cultivation -Sample preparation" "gene expression" fN myAssayFile 
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "gene expression" fN myAssayFile 
     |> Option.defaultValue "Wt-Like"
 
 //
 let get15N_PS_Amount (fileName : string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetCharacteristic inOutMap "Extraction" "gram #2" fN myAssayFile |> Option.defaultValue ""
+    ISADotNet.tryGetParameter inOutMap "Protein extraction" "15N Photosynthesis QconCAT mass #4" fN myAssayFile |> Option.defaultValue "0"
     |> String.split ' '
     |> Array.head
     |> float 
 //
 let getGroupID (fileName : string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "Extraction" "Group name" fN myAssayFile |> Option.defaultValue ""
+    ISADotNet.tryGetParameter inOutMap "Protein extraction" "Group name" fN myAssayFile |> Option.defaultValue ""
     |> int
 
 let getLoadAmount (fileName : string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "PAGE - Sample preparation" "soluble protein content" fN myAssayFile |> Option.defaultValue ""
-    |> String.filter (fun c -> System.Char.IsDigit(c))
+    ISADotNet.tryGetCharacteristic inOutMap "Sample preparation (PAGE)" "soluble protein content" fN myAssayFile |> Option.defaultValue ""
+    |> String.split ' '
+    |> Array.head
     |> float
 
 let getCutoutBand (fileName : string) =
     let fN = fileName |> normalizeFileName
-    BIO_BTE_06_L_7_Aux.ISA_Aux.tryGetParameter inOutMap "PAGE - Sample preparation" "Cutout band" fN myAssayFile |> Option.defaultValue ""
-    |> fun str ->
-        match str with
-        | "rbcL" -> RbcL
-        | "rbcS" -> RbcS
-        | _ -> failwith (sprintf "rbcL or rbcS not cut out in file %s" fN)
+    match fN.Contains("rbcL"), fN.Contains("rbcS") with
+    | true,false -> RbcL
+    | false,true -> RbcS
+    | _ -> failwith (sprintf "rbcL or rbcS not cut out in file %s" fN)
 
 
 (**
@@ -107,6 +106,7 @@ getExpressionLevel "Gr2rbcL2_5.wiff"
 get15N_PS_Amount "Gr2rbcL2_5.wiff"
 getGroupID "Gr2rbcL2_5.wiff"
 getLoadAmount "Gr2rbcL2_5.wiff"
+getCutoutBand "Gr2rbcL2_5.wiff"
 
 (**
 Now that we have the sample sheet, all that is missing is the data to be analyzed:
@@ -182,11 +182,6 @@ let finalRaw =
     // How many peptide ions did the filter remove? 
     |> Frame.filterRows (fun k s -> k.Synonyms <> "" && k.ProteinGroup |> String.contains "QProt_newPS")
 
-finalRaw
-|> Frame.filterRows (fun x s -> x.StringSequence = "DTDILAAFR")
-|> Frame.getCol "Gr3rbcL2_5.Ratio"
-|> Series.mapValues string
-
 (***condition:ipynb***)
 #if IPYNB
 finalRaw
@@ -217,11 +212,6 @@ let sliceQuantColumns quantColID frame =
 let ratios = sliceQuantColumns "Ratio" finalRaw
 let light  = sliceQuantColumns "Quant_Light" finalRaw
 let heavy  = sliceQuantColumns "Quant_Heavy" finalRaw
-
-ratios
-|> Frame.filterRows (fun x s -> x.StringSequence = "DTDILAAFR")
-|> Frame.getCol "Gr3rbcL2_5"
-|> Series.mapValues string
 
 (***condition:ipynb***)
 #if IPYNB
@@ -391,10 +381,10 @@ plotPeptidesOf ratios "rbcL" 1 |> GenericChart.toChartHTML
 *)
 (***condition:ipynb***)
 #if IPYNB
-plotPeptidesOf ratios "RBCS2;RBCS1" 2
+plotPeptidesOf ratios "RBCS1;RBCS2" 2
 #endif // IPYNB
 (***hide***)
-plotPeptidesOf ratios "RBCS2;RBCS1" 2 |> GenericChart.toChartHTML
+plotPeptidesOf ratios "RBCS1;RBCS2" 2 |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
 *)
@@ -425,7 +415,7 @@ plotPeptidesOf ratios "PRK1" 1
 plotPeptidesOf ratios "PRK1" 1 |> GenericChart.toChartHTML
 (***include-it-raw***)
 
-// Describe what happened with the last 4 plots.
+// Describe what happened with the last 3 plots.
 
 
 (**

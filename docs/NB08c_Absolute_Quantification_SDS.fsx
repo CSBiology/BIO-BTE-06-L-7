@@ -20,6 +20,7 @@ open FSharpAux
 open FSharp.Stats
 open Plotly.NET
 open arcIO.NET
+open BIO_BTE_06_L_7_Aux.Deedle_Aux
 
 (**
 # NB08c Absolute Quantification (for SDS-PAGE results)
@@ -67,16 +68,15 @@ let getExpressionLevel (fileName : string) =
 // 
 let getμgChlorophPerMlCult (fileName : string) =
     let fN = fileName |> normalizeFileName
-    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "total chlorophyll concentration of culture #7" fN myAssayFile |> Option.defaultValue "0."
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "total chlorophyll concentration of culture #7" fN myAssayFile |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
     |> float 
-    |> (*) 1000.
 
 // 
 let getCellCountPerMlCult (fileName : string) =
     let fN = fileName |> normalizeFileName
-    ISADotNet.tryGetParameter inOutMap "Cultivation" "cell concentration of sample #13" fN myAssayFile |> Option.defaultValue "0"
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "cell concentration of sample #13" fN myAssayFile |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
     |> float 
@@ -84,7 +84,7 @@ let getCellCountPerMlCult (fileName : string) =
 // 
 let getμgChlorophPerμlSample (fileName : string) =
     let fN = fileName |> normalizeFileName
-    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "total chlorophyll of sample #12" fN myAssayFile |> Option.defaultValue "0"
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "total chlorophyll of sample #12" fN myAssayFile |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
     |> float 
@@ -92,7 +92,7 @@ let getμgChlorophPerμlSample (fileName : string) =
 // 
 let getμgProtPerμlSample (fileName : string) =
     let fN = fileName |> normalizeFileName
-    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "whole cell protein concentration of sample #11" fN myAssayFile |> Option.defaultValue "0"
+    ISADotNet.tryGetCharacteristic inOutMap "Cultivation" "whole cell protein concentration of sample #11" fN myAssayFile |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
     |> float 
@@ -100,21 +100,21 @@ let getμgProtPerμlSample (fileName : string) =
 //
 let get15N_PS_Amount (fileName : string) =
     let fN = fileName |> normalizeFileName
-    ISADotNet.tryGetCharacteristic inOutMap "Protein extraction" "15N Photosynthesis QconCAT mass #4" fN myAssayFile |> Option.defaultValue "0"
+    ISADotNet.tryGetParameter inOutMap "Protein extraction" "15N Photosynthesis QconCAT mass #4" fN myAssayFile |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
     |> float 
 //
 let getGroupID (fileName : string) =
     let fN = fileName |> normalizeFileName
-    ISADotNet.tryGetParameter inOutMap "Protein extraction" "Group name" fN myAssayFile |> Option.defaultValue "0"
+    ISADotNet.tryGetParameter inOutMap "Protein extraction" "Group name" fN myAssayFile |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
     |> int
 
 let getLoadAmount (fileName : string) =
     let fN = fileName |> normalizeFileName
-    ISADotNet.tryGetParameter inOutMap "Sample preparation (PAGE)" "soluble protein content" fN myAssayFile |> Option.defaultValue "0"
+    ISADotNet.tryGetCharacteristic inOutMap "Sample preparation (PAGE)" "soluble protein content" fN myAssayFile |> Option.defaultValue ""
     |> String.split ' '
     |> Array.head
     |> float
@@ -122,11 +122,9 @@ let getLoadAmount (fileName : string) =
 
 let getCutoutBand (fileName : string) =
     let fN = fileName |> normalizeFileName
-    ISADotNet.tryGetParameter inOutMap "Sample preparation (PAGE)" "Cutout band" fN myAssayFile |> Option.defaultValue ""
-    |> fun str ->
-        match str with
-        | "rbcL" -> RbcL
-        | "rbcS" -> RbcS
+    match fN.Contains("rbcL"), fN.Contains("rbcS") with
+        | true,false -> RbcL
+        | false,true -> RbcS
         | _ -> failwith (sprintf "rbcL or rbcS not cut out in file %s" fN)
 
 (**
@@ -310,7 +308,7 @@ let absoluteAbundances =
 
 (***condition:ipynb***)
 #if IPYNB
-formatAsTable 1500. absoluteAbundances |> Chart.Show
+formatAsTable 1500. absoluteAbundances
 #endif // IPYNB
 
 // Why don't we see results for the SDS experiments with CBB-QProt?
@@ -392,14 +390,15 @@ let rbcsQuantification' =
 
 let protAbundanceChart' =
     [
-        Chart.Column(rbclQuantification' |> Seq.map (fun x -> x.Filename + "_rbcL"), rbclQuantification' |> Seq.map (fun x -> x.MeanQuant))
+        Chart.Column(rbclQuantification' |> Seq.map (fun x -> x.MeanQuant), rbclQuantification' |> Seq.map (fun x -> x.Filename + "_rbcL"))
         |> Chart.withYErrorStyle (rbclQuantification' |> Seq.map (fun x -> x.StdevQuant))
         |> Chart.withTraceName "rbcL"
-        Chart.Column(rbcsQuantification' |> Seq.map (fun x -> x.Filename + "_rbcS"), rbcsQuantification' |> Seq.map (fun x -> x.MeanQuant))
+        Chart.Column(rbcsQuantification' |> Seq.map (fun x -> x.MeanQuant), rbcsQuantification' |> Seq.map (fun x -> x.Filename + "_rbcS"))
         |> Chart.withYErrorStyle (rbcsQuantification' |> Seq.map (fun x -> x.StdevQuant))
         |> Chart.withTraceName "RBCS"
     ]
     |> Chart.combine
+    |> Chart.withTemplate ChartTemplates.light
     |> Chart.withYAxisStyle "protein abundance [amol/cell]"
 
 (***condition:ipynb***)
@@ -488,17 +487,18 @@ anonymous record type.
 
 // let protAbundanceBandChart =
 //     [
-//         Chart.Column(rbclBandQuantification |> Seq.map (fun x -> x.Synonym),rbclBandQuantification |> Seq.map (fun x -> x.MeanQuant))
+//         Chart.Column(rbclBandQuantification |> Seq.map (fun x -> x.MeanQuant), rbclBandQuantification |> Seq.map (fun x -> x.Synonym))
 //         |> Chart.withYErrorStyle (rbclBandQuantification |> Seq.map (fun x -> x.StdevQuant))
 //         |> Chart.withTraceName "rbcL"
-//         Chart.Column(rbcsBandQuantification |> Seq.map (fun x -> x.Synonym),rbcsBandQuantification |> Seq.map (fun x -> x.MeanQuant))
+//         Chart.Column(rbcsBandQuantification |> Seq.map (fun x -> x.MeanQuant), rbcsBandQuantification |> Seq.map (fun x -> x.Synonym))
 //         |> Chart.withYErrorStyle (rbcsBandQuantification |> Seq.map (fun x -> x.StdevQuant))
 //         |> Chart.withTraceName "RBCS"
 //     ]
-//     |> Chart.Combine
-//     |> Chart.withY_AxisStyle "protein abundance per band [amol/band]"
+//     |> Chart.combine
+//     |> Chart.withTemplate ChartTemplates.light
+//     |> Chart.withYAxisStyle "protein abundance per band [amol/band]"
 
-// protAbundanceBandChart |> Chart.Show
+// protAbundanceBandChart
 
 (**
 Comparing this to the published results (see: https://www.frontiersin.org/articles/10.3389/fpls.2020.00868/full) we see that our preliminary results are
