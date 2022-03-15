@@ -15,7 +15,7 @@ open FSharp.Stats
 open Plotly.NET
 
 (**
-# NB08b Label efficiency for SDS
+# NB08b Label efficiency (for BN-PAGE results)
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB08b_Label_efficiency_BN.ipynb)
 
@@ -27,7 +27,7 @@ our QconCAT protein (Why?). In this notebook we will have a look at some high qu
 illustrate how the label efficiency can be calculated using simulations.  
 
 ## I. Reading the data
-As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from *NB08a Data Access and Quality Control* is stored in a .txt
+As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from *NB08a Data Access and Quality Control (for BN-PAGE results)* is stored in a .txt
 *)
 
 type PeptideIon = 
@@ -39,7 +39,7 @@ type PeptideIon =
         Charge          : int
     |}
 
-//This is the filepath you chose in *NB08a Data Access and Quality Control*
+//This is the filepath you chose in *NB08a Data Access and Quality Control (for BN-PAGE results)*
 // let filePath = @"C:\YourPath\testOut.txt"
 let filePath = @"C:\YourPath\testOut.txt"
 
@@ -195,12 +195,12 @@ let toFormula bioseq =
     |> Formula.add Formula.Table.H2O
 
 let label n15LableEfficiency formula =
-    let heavyN15 = Elements.Di  (Elements.createDi "N15" (Isotopes.Table.N15,n15LableEfficiency) (Isotopes.Table.N14,1.-n15LableEfficiency) )
+    let heavyN15 = Elements.Di (Elements.createDi "N15" (Isotopes.Table.N15, n15LableEfficiency) (Isotopes.Table.N14, 1. - n15LableEfficiency) )
     Formula.replaceElement formula Elements.Table.N heavyN15
 
 // Predicts an isotopic distribution of the given formula at the given charge, 
 // normalized by the sum of probabilities, using the MIDAs algorithm
-let generateIsotopicDistribution (charge:int) (f:Formula.Formula) =
+let generateIsotopicDistribution (charge : int) (f : Formula.Formula) =
     IsotopicDistribution.MIDA.ofFormula 
         IsotopicDistribution.MIDA.normalizeByProbSum
         0.01
@@ -213,7 +213,7 @@ type SimulatedIsoPattern =
         PeptideSequence : string
         Charge          : int
         LableEfficiency : float
-        SimPattern      : list<(float*float)>
+        SimPattern      : list<(float * float)>
     |}
 
 let simulateFrom peptideSequence charge lableEfficiency =
@@ -258,11 +258,11 @@ measured one. Then we normalize it again and have two spectra that can be compar
 // How are distributions called that sum up to 1?
 *)
 
-let normBySum (a:seq<float*float>) =
+let normBySum (a : seq<float * float>) =
     let s = Seq.sumBy snd a 
-    Seq.map (fun (x,y) -> x,y / s) a
+    Seq.map (fun (x,y) -> x, y / s) a
 
-let compareIsotopicDistributions (measured:ExtractedIsoPattern) (simulated:SimulatedIsoPattern)= 
+let compareIsotopicDistributions (measured : ExtractedIsoPattern) (simulated : SimulatedIsoPattern)= 
     let patternSim' = 
         measured.Pattern 
         |> Seq.map (fun (mz,intensities) -> 
@@ -305,10 +305,10 @@ of p (q) using the mida algorithm.
 
 /// Calculates the Kullback-Leibler divergence Dkl(p||q) from q (theory, model, description, or approximation of p) 
 /// to p (the "true" distribution of data, observations, or a ___ ___ precisely measured).
-let klDiv (p:seq<float>) (q:seq<float>) = 
-    Seq.fold2 (fun acc p q -> (System.Math.Log(p/q)*p) + acc ) 0. p q
+let klDiv (p : seq<float>) (q : seq<float>) = 
+    Seq.fold2 (fun acc p q -> (System.Math.Log(p / q) * p) + acc ) 0. p q
 
-let compareIsotopicDistributions' (measured:ExtractedIsoPattern) (simulated:SimulatedIsoPattern)= 
+let compareIsotopicDistributions' (measured : ExtractedIsoPattern) (simulated : SimulatedIsoPattern)= 
     let patternSim' = 
         measured.Pattern 
         |> Seq.map (fun (mz,intensities) -> 
@@ -422,15 +422,15 @@ some high intensity peptides and visualize the results. Please fill the x axis d
 let highIntensityPeptides = 
     heavy
     |> Frame.getCol "20210312BN2_U1" 
-    |> Series.sortBy (fun (x:float) -> - x)
-    |> Series.filter (fun k v -> k.StringSequence |> String.exists (fun x -> x='[') |> not)
+    |> Series.sortBy (fun (x : float) -> - x)
+    |> Series.filter (fun k v -> k.StringSequence |> String.exists (fun x -> x = '[') |> not)
 
 let estimates = 
     highIntensityPeptides
     |> Series.take 20 
     |> Series.map (fun k v -> 
         FSharp.Stats.Optimization.Brent.minimize (calcKL k.StringSequence k.Charge) 0.98 0.999
-        )
+    )
     |> Series.values
     |> Seq.choose id
 

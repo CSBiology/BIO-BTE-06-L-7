@@ -24,7 +24,7 @@ open arcIO.NET
 open BIO_BTE_06_L_7_Aux.Deedle_Aux
 
 (**
-# NB08a Data Access and Quality Control
+# NB08a Data Access and Quality Control (for BN-PAGE results)
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB08a_Data_Access_And_Quality_Control_BN.ipynb)
 
@@ -231,14 +231,14 @@ let createBoxPlot f =
             |> Series.values 
             |> Seq.map (fun values -> k,values)
             |> Seq.unzip
-         Chart.BoxPlot(x, y, Orientation = StyleParam.Orientation.Vertical)         
+         Chart.BoxPlot(x, y, Orientation = StyleParam.Orientation.Vertical)
          )
     |> Series.values
     |> Chart.combine
     |> Chart.withYAxisStyle "Ion intensity"
 
 (**
-The function applied to the n14 values: 
+The function applied to the N14 values: 
 *)
 // How is the data distributed?
 light
@@ -248,7 +248,7 @@ light
 light |> createBoxPlot |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
-The function applied to the n15 values:
+The function applied to the N15 values:
 *)
 
 // Can you recover the dilution series?

@@ -24,7 +24,7 @@ open arcIO.NET
 open BIO_BTE_06_L_7_Aux.Deedle_Aux
 
 (**
-# NB08c Absolute Quantification
+# NB08c Absolute Quantification (for BN-PAGE results)
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB08c_Absolute_Quantification_BN.ipynb)
 
@@ -35,7 +35,7 @@ calculate protein abundancies. Since we start again by getting access to our dat
 
 
 ## I. Reading the data
-As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from *NB06b Data Access and Quality Control* is stored in a .txt
+As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from *NB08a Data Access and Quality Control (for BN-PAGE results)* is stored in a .txt
 *)
 
 
@@ -48,8 +48,7 @@ type PeptideIon =
         Charge          : int
     |}
 
-//This is the filepath you chose in *NB08a Data Access and Quality Control*
-// let filePath = @"C:\yourPath\testOut.txt"
+//This is the filepath you chose in *NB08a Data Access and Quality Control (for BN-PAGE results)*
 let filePath = @"C:\YourPath\testOut.txt"
 
 let qConcatDataFiltered =

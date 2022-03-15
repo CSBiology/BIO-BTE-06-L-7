@@ -253,7 +253,7 @@ let createBoxPlot f =
     |> Chart.withYAxisStyle "Ion intensity"
 
 (**
-The function applied to the n14 values: 
+The function applied to the N14 values: 
 *)
 // How is the data distributed?
 light
@@ -263,7 +263,7 @@ light
 light |> createBoxPlot |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
-The function applied to the n15 values:
+The function applied to the N15 values:
 *)
 
 // Can you recover the dilution series?

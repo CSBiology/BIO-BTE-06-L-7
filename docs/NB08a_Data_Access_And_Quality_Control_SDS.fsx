@@ -24,9 +24,9 @@ open BIO_BTE_06_L_7_Aux.Deedle_Aux
 (**
 # NB08a Data Access and Quality Control (for SDS-PAGE results)
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06b_Data_Access_And_Quality_Control_BN.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB08a_Data_Access_And_Quality_Control_SDS.ipynb)
 
-[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b_NB06b_NB06c_NB06c_NB06d_NB06d/NB06b_Data_Access_And_Quality_Control_BN.ipynb)
+[Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB08a/NB08a_Data_Access_And_Quality_Control_SDS.ipynb)
 
 With this notebook, we want to converge the threads of computational and experimental proteomics by analyzing the data measured by you during the practical course.
 Behind the scenes there was already a lot going on! While you were going through the hands-on tutorials addressing single steps of the computation proteomics pipeline, we executed
@@ -244,7 +244,7 @@ let createBoxPlot f =
     |> Chart.withYAxisStyle "Ion intensity"
 
 (**
-The function applied to the n14 values: 
+The function applied to the N14 values: 
 *)
 // How is the data distributed?
 light
@@ -254,7 +254,7 @@ light
 light |> createBoxPlot |> GenericChart.toChartHTML
 (***include-it-raw***)
 (**
-The function applied to the n15 values:
+The function applied to the N15 values:
 *)
 
 // Can you recover the dilution series?

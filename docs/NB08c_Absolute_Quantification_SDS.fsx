@@ -25,7 +25,7 @@ open BIO_BTE_06_L_7_Aux.Deedle_Aux
 (**
 # NB08c Absolute Quantification (for SDS-PAGE results)
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06d_Absolute_Quantification_SDS.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB08c_Absolute_Quantification_SDS.ipynb)
 
 [Download Notebook](https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB08c/NB08c_Absolute_Quantification_SDS.ipynb)
 
@@ -43,7 +43,7 @@ let inOutMap = ISADotNet.createInOutMap myAssayFile
 
 (**
 Next, we will prepare functions to look up parameters which might be needed for further calculations.
-If you compare this list to the one of note book NB06b you will find additional functions. We will need these functions
+If you compare this list to the one of note book NB08a you will find additional functions. We will need these functions
 in order to calculate the absolute abundances. 
 *)
 
@@ -143,7 +143,7 @@ getLoadAmount "Gr2rbcL2_5.wiff"
 
 (**
 ## II. Reading the data
-As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from *NB06b Data Access and Quality Control* is stored in a .txt
+As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from *NB08a Data Access and Quality Control (for SDS-PAGE results)* is stored in a .txt
 *)
 
 
@@ -156,7 +156,7 @@ type PeptideIon =
         Charge          : int
     |}
 
-//This is the filepath you chose in *NB08a Data Access and Quality Control (results for SDS-PAGE)*
+//This is the filepath you chose in *NB08a Data Access and Quality Control (for SDS-PAGE results)*
 let filePath = @"C:\YourPath\testOut.txt"
 
 let qConcatDataFiltered =
