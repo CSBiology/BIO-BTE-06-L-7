@@ -167,20 +167,20 @@
                                 </span>
                             </a>
                         </li>
-                        <!--<li class="nav-item">
-                            <a class="nav-link" href="NB06b_Data_Access_And_Quality_Control_SDS.html">
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB08a_Data_Access_And_Quality_Control_SDS.html">
                                 <span class="text">
-                                    <span>NB06b' Data Access and Quality Control (SDS)</span>
+                                    <span>NB08a Data Access and Quality Control (SDS)</span>
                                 </span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="NB06b_Data_Access_And_Quality_Control_BN.html">
+                            <a class="nav-link" href="NB08a_Data_Access_And_Quality_Control_BN.html">
                                 <span class="text">
-                                    <span>NB06b'' Data Access and Quality Control (BN)</span>
+                                    <span>NB08a Data Access and Quality Control (BN)</span>
                                 </span>
                             </a>
-                        </li>-->
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="NB08b_Label_efficiency.html">
                                 <span class="text">
@@ -188,20 +188,20 @@
                                 </span>
                             </a>
                         </li>
-                        <!--<li class="nav-item">
-                            <a class="nav-link" href="NB06c_Label_efficiency_SDS.html">
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB08b_Label_efficiency_SDS.html">
                                 <span class="text">
-                                    <span>NB06c' Label Efficiency (SDS)</span>
+                                    <span>NB08b Label Efficiency (SDS)</span>
                                 </span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="NB06c_Label_efficiency_BN.html">
+                            <a class="nav-link" href="NB08b_Label_efficiency_BN.html">
                                 <span class="text">
-                                    <span>NB06c''' Label Efficiency (BN)</span>
+                                    <span>NB08b Label Efficiency (BN)</span>
                                 </span>
                             </a>
-                        </li>-->
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="NB08c_Absolute_Quantification.html">
                                 <span class="text">
@@ -209,20 +209,20 @@
                                 </span>
                             </a>
                         </li>
-                        <!--<li class="nav-item">
-                            <a class="nav-link" href="NB06d_Absolute_Quantification_SDS.html">
+                        <li class="nav-item">
+                            <a class="nav-link" href="NB08c_Absolute_Quantification_SDS.html">
                                 <span class="text">
-                                    <span>NB06d' Absolute Quantification (SDS)</span>
+                                    <span>NB08c Absolute Quantification (SDS)</span>
                                 </span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="NB06d_Absolute_Quantification_BN.html">
+                            <a class="nav-link" href="NB08c_Absolute_Quantification_BN.html">
                                 <span class="text">
-                                    <span>NB06d'' Absolute Quantification (BN)</span>
+                                    <span>NB08c Absolute Quantification (BN)</span>
                                 </span>
                             </a>
-                        </li>-->
+                        </li>
                         <li class="nav-header">Links</li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://csb.bio.uni-kl.de/#teaching">
@@ -288,14 +288,14 @@
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="id">Plotly</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="id">NET</span>
 </code></pre>
 <h1><a name="NB08b-Label-efficiency-for-SDS-PAGE-results" class="anchor" href="#NB08b-Label-efficiency-for-SDS-PAGE-results">NB08b Label efficiency (for SDS-PAGE results)</a></h1>
-<p><a href="https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB06c_Label_efficiency_SDS.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a></p>
-<p><a href="https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB06b_NB06b_NB06c_NB06c_NB06d_NB06d/NB06c_Label_efficiency_SDS.ipynb">Download Notebook</a></p>
+<p><a href="https://mybinder.org/v2/gh/CSBiology/BIO-BTE-06-L-7/gh-pages?filepath=NB08b_Label_efficiency_SDS.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a></p>
+<p><a href="https://github.com/CSBiology/BIO-BTE-06-L-7/releases/download/NB08b/NB08b_Label_efficiency_SDS.ipynb">Download Notebook</a></p>
 <p>Stable isotopic peptide labeling is the foundation of QconCAT experiments. While an excellent tool when carried out with correctly, it also exposes
 challenges and pitfalls that have to be checked and possibly accounted for. One of these pitfalls is the efficiency with which we labeled
 our QconCAT protein (Why?). In this notebook we will have a look at some high quality peptides selected in the previous notebook and
 illustrate how the label efficiency can be calculated using simulations.</p>
 <h2><a name="I-Reading-the-data" class="anchor" href="#I-Reading-the-data">I. Reading the data</a></h2>
-<p>As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from <em>NB06b Data Access and Quality Control</em> is stored in a .txt</p>
+<p>As promised, we start this notebook with the output of the previous analysis, this notebook assumes that the data from <em>NB08a Data Access and Quality Control (for SDS-PAGE results)</em> is stored in a .txt</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs8', 8)" onmouseover="showTip(event, 'fs8', 8)" class="rt">PeptideIon</span> <span class="o">=</span> 
     <span class="pn">{|</span>
         <span class="prop">ProteinGroup</span>    <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs9', 9)" onmouseover="showTip(event, 'fs9', 9)" class="rt">string</span>  
