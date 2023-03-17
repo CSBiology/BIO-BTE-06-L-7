@@ -202,7 +202,7 @@ it means you do not need to write all code and functionality by yourself.
 In the following you can see how you can profit from the amazing F# community efforts to provide you with various libraries. It seems obvious that for our example we load BioFSharp.
 *)
 
-#r "nuget: BioFSharp, 2.0.0-beta5"
+#r "nuget: BioFSharp, 2.0.0-preview.3"
 
 // Access adenine without 'open'
 BioFSharp.Nucleotides.A

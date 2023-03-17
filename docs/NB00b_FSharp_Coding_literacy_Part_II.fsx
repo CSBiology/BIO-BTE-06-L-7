@@ -60,7 +60,7 @@ In contrast to the alphabet of letters we use in natural language, biological nu
 represent biological sequence data that encode DNA and proteins more efficiently using BioFSharp.
 *)
 // Get BioFSharp from nuget 
-#r "nuget: BioFSharp, 2.0.0-beta5"
+#r "nuget: BioFSharp, 2.0.0-preview.3"
 open BioFSharp 
 
 let adenine = Nucleotides.A

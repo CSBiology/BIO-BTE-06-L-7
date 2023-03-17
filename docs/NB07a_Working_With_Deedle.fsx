@@ -15,9 +15,9 @@ the analysis notebooks.
 We start by loading our usual nuget packages and the Deedle package.
 *)
 
-#r "nuget: Deedle, 2.3.0"
-#r "nuget: BioFSharp, 2.0.0-beta4"
-#r "nuget: BioFSharp.IO, 2.0.0-beta4"
+#r "nuget: Deedle, 2.5.0"
+#r "nuget: BioFSharp, 2.0.0-preview.3"
+#r "nuget: BioFSharp.IO, 2.0.0-preview.3"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
 #r "nuget: BIO-BTE-06-L-7_Aux, 0.0.9"
 #r "nuget: FSharp.Stats"
