@@ -19,7 +19,7 @@ We start by loading our usual nuget packages and the Deedle package.
 #r "nuget: BioFSharp, 2.0.0-preview.3"
 #r "nuget: BioFSharp.IO, 2.0.0-preview.3"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.9"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.10"
 #r "nuget: FSharp.Stats"
 
 #if IPYNB
