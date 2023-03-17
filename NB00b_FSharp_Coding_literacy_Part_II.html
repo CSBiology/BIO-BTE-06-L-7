@@ -69,7 +69,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB01a_Systems_Biology_FSharp_Introduction.html">
                                 <span class="text">
                                     <span>NB01a Systems Biology</span>
@@ -152,7 +152,7 @@
                                     <span>NB06a Research Data Management</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-item">
                             <a class="nav-link" href="NB07a_Working_With_Deedle.html">
                                 <span class="text">
@@ -160,7 +160,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB08a_Data_Access_And_Quality_Control.html">
                                 <span class="text">
                                     <span>NB08a Data Access and Quality Control</span>
@@ -222,7 +222,7 @@
                                     <span>NB08c Absolute Quantification (BN)</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-header">Links</li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://csb.bio.uni-kl.de/#teaching">
@@ -326,43 +326,43 @@ string. You can also slice strings up using a <code>[from .. to]</code> syntax:<
 represent biological sequence data that encode DNA and proteins more efficiently using BioFSharp.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Get BioFSharp from nuget </span>
 <span class="pp">#r</span> <span class="s">&quot;nuget: BioFSharp, 2.0.0-beta5&quot;</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="id">BioFSharp</span> 
+<span class="k">open</span> <span class="id">BioFSharp</span> 
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="id">adenine</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="m">Nucleotides</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="id">A</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 8)" onmouseover="showTip(event, 'fs8', 8)" class="id">alanine</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 9)" onmouseover="showTip(event, 'fs9', 9)" class="m">AminoAcids</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs10', 10)" onmouseover="showTip(event, 'fs10', 10)" class="id">Ala</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="id">adenine</span> <span class="o">=</span> <span class="id">Nucleotides</span><span class="pn">.</span><span class="id">A</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="id">alanine</span> <span class="o">=</span> <span class="id">AminoAcids</span><span class="pn">.</span><span class="id">Ala</span>
 </code></pre>
 <p>Sequence types or collection types are a series of any items or values rather than only characters. There are different variations of collection types with different properties
 regarding there manipulation and efficiency. To cover all different kinds and their methods to manipulate them would go far beyond the scope of this introduction. So, we will
 focus on the most important types and methods of manipulation. Collections provide a more flexible way to work with groups of items. In the case of our Bio-collections from
 BioFSharp the items of the biological alphabets. Here is an example of a list of nucleotides:</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs4', 11)" onmouseover="showTip(event, 'fs4', 11)" class="id">BioFSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs6', 12)" onmouseover="showTip(event, 'fs6', 12)" class="m">Nucleotides</span> 
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span class="id">BioFSharp</span><span class="pn">.</span><span class="id">Nucleotides</span> 
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="id">nucs</span> <span class="o">=</span> <span class="pn">[</span> <span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="uc">A</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs13', 15)" onmouseover="showTip(event, 'fs13', 15)" class="uc">T</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs14', 16)" onmouseover="showTip(event, 'fs14', 16)" class="uc">C</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs15', 17)" onmouseover="showTip(event, 'fs15', 17)" class="uc">G</span><span class="pn">;</span> <span class="pn">]</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="id">nucs</span> <span class="o">=</span> <span class="pn">[</span> <span class="id">A</span><span class="pn">;</span> <span class="id">T</span><span class="pn">;</span> <span class="id">C</span><span class="pn">;</span> <span class="id">G</span><span class="pn">;</span> <span class="pn">]</span>
 </code></pre>
 <p>Notice here that we have stored the exact same sequence as in our previous string example, but this time in list format. Notice how the items are separated by a semicolon and
 enclosed in square brackets instead of quotes. Analogously, we can access each item by its index, however, in case of lists this is not very efficient.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Accessing position 3 (remember index start at 0)</span>
-<span onmouseout="hideTip(event, 'fs11', 18)" onmouseover="showTip(event, 'fs11', 18)" class="id">nucs</span><span class="pn">.</span><span class="pn">[</span><span class="n">2</span><span class="pn">]</span>
+<span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="id">nucs</span><span class="pn">.</span><span class="pn">[</span><span class="n">2</span><span class="pn">]</span>
 <span class="c">// Add elongates the list (very efficient operation on lists)</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 19)" onmouseover="showTip(event, 'fs16', 19)" class="id">nucs&#39;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs15', 20)" onmouseover="showTip(event, 'fs15', 20)" class="uc">G</span><span class="uc">::</span><span onmouseout="hideTip(event, 'fs12', 21)" onmouseover="showTip(event, 'fs12', 21)" class="uc">A</span><span class="uc">::</span><span onmouseout="hideTip(event, 'fs11', 22)" onmouseover="showTip(event, 'fs11', 22)" class="id">nucs</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="id">nucs&#39;</span> <span class="o">=</span> <span class="id">G</span><span class="uc">::</span><span class="id">A</span><span class="uc">::</span><span onmouseout="hideTip(event, 'fs6', 9)" onmouseover="showTip(event, 'fs6', 9)" class="id">nucs</span>
 </code></pre>
 <p>If you need a collection type with the opposite properties, meaning fast random access but very inefficient adding or deleting elements an array is what you want to use instead.
 Just add the additional <code>|</code> and you have an array.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// The same sequence but as an array</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 23)" onmouseover="showTip(event, 'fs17', 23)" class="id">nucsArr</span> <span class="o">=</span> <span class="pn">[|</span> <span onmouseout="hideTip(event, 'fs12', 24)" onmouseover="showTip(event, 'fs12', 24)" class="uc">A</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs13', 25)" onmouseover="showTip(event, 'fs13', 25)" class="uc">T</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs14', 26)" onmouseover="showTip(event, 'fs14', 26)" class="uc">C</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs15', 27)" onmouseover="showTip(event, 'fs15', 27)" class="uc">G</span><span class="pn">;</span> <span class="pn">|]</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="id">nucsArr</span> <span class="o">=</span> <span class="pn">[|</span> <span class="id">A</span><span class="pn">;</span> <span class="id">T</span><span class="pn">;</span> <span class="id">C</span><span class="pn">;</span> <span class="id">G</span><span class="pn">;</span> <span class="pn">|]</span>
 </code></pre>
 <h3><a name="All-collections-have-their-modules" class="anchor" href="#All-collections-have-their-modules">All collections have their modules</a></h3>
 <p>Whenever you need functions to manipulate bio-collections, you might find them in the respective module. You can either use intelliSense to browse the available functions or you
 can have a look at the documentation <a href="https://csbiology.github.io/BioFSharp">here.</a></p>
 <p>With functions you find in the Bio-collection modules you can easily compute for example the complementary mRNA sequence or translate it into the corresponding peptide sequence.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Reverse complement of a sequence as a BioArray</span>
-<span onmouseout="hideTip(event, 'fs18', 28)" onmouseover="showTip(event, 'fs18', 28)" class="m">BioArray</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs19', 29)" onmouseover="showTip(event, 'fs19', 29)" class="id">reverseComplement</span> <span onmouseout="hideTip(event, 'fs17', 30)" onmouseover="showTip(event, 'fs17', 30)" class="id">nucsArr</span>
+<span class="id">BioArray</span><span class="pn">.</span><span class="id">reverseComplement</span> <span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="id">nucsArr</span>
 
 <span class="c">// Translate to peptide </span>
-<span onmouseout="hideTip(event, 'fs20', 31)" onmouseover="showTip(event, 'fs20', 31)" class="m">BioList</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs21', 32)" onmouseover="showTip(event, 'fs21', 32)" class="id">translate</span> <span class="n">0</span> <span class="pn">[</span><span onmouseout="hideTip(event, 'fs12', 33)" onmouseover="showTip(event, 'fs12', 33)" class="uc">A</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs22', 34)" onmouseover="showTip(event, 'fs22', 34)" class="uc">U</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs14', 35)" onmouseover="showTip(event, 'fs14', 35)" class="uc">C</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs15', 36)" onmouseover="showTip(event, 'fs15', 36)" class="uc">G</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs14', 37)" onmouseover="showTip(event, 'fs14', 37)" class="uc">C</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs15', 38)" onmouseover="showTip(event, 'fs15', 38)" class="uc">G</span><span class="pn">]</span>
+<span class="id">BioList</span><span class="pn">.</span><span class="id">translate</span> <span class="n">0</span> <span class="pn">[</span><span class="id">A</span><span class="pn">;</span> <span class="id">U</span><span class="pn">;</span> <span class="id">C</span><span class="pn">;</span> <span class="id">G</span><span class="pn">;</span> <span class="id">C</span><span class="pn">;</span> <span class="id">G</span><span class="pn">]</span>
 
 <span class="c">// Use the Array module to find the index of the first occurring cytosine</span>
-<span onmouseout="hideTip(event, 'fs23', 39)" onmouseover="showTip(event, 'fs23', 39)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 40)" onmouseover="showTip(event, 'fs24', 40)" class="id">findIndex</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs25', 41)" onmouseover="showTip(event, 'fs25', 41)" class="fn">n</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs25', 42)" onmouseover="showTip(event, 'fs25', 42)" class="fn">n</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 43)" onmouseover="showTip(event, 'fs14', 43)" class="uc">C</span><span class="pn">)</span>  <span class="pn">[|</span> <span onmouseout="hideTip(event, 'fs12', 44)" onmouseover="showTip(event, 'fs12', 44)" class="uc">A</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs13', 45)" onmouseover="showTip(event, 'fs13', 45)" class="uc">T</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs14', 46)" onmouseover="showTip(event, 'fs14', 46)" class="uc">C</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs15', 47)" onmouseover="showTip(event, 'fs15', 47)" class="uc">G</span><span class="pn">;</span> <span class="pn">|]</span>
+<span onmouseout="hideTip(event, 'fs9', 12)" onmouseover="showTip(event, 'fs9', 12)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs10', 13)" onmouseover="showTip(event, 'fs10', 13)" class="id">findIndex</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="fn">n</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs11', 15)" onmouseover="showTip(event, 'fs11', 15)" class="fn">n</span> <span class="o">=</span> <span class="id">C</span><span class="pn">)</span>  <span class="pn">[|</span> <span class="id">A</span><span class="pn">;</span> <span class="id">T</span><span class="pn">;</span> <span class="id">C</span><span class="pn">;</span> <span class="id">G</span><span class="pn">;</span> <span class="pn">|]</span>
 </code></pre>
 <p>However, it is worth noticing that the bio-collections are normal F# collections. The Bio* modules just enhance the functionalities of the default modules. In the example, we
 apply the <code>Array.findIndex</code> functions from the default array module to a BioArray to find the index of the first occurring cytosine.</p>
@@ -376,23 +376,23 @@ In the following example we apply the same functions to a list and on an array.<
 for such an operation. You know by now that depending on the use case one collection might be advantages compared to the other. For example, if you know that you need to access
 your sequence multiple times at different position, you want to convert it from a list into an array.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Returns the length of the array</span>
-<span onmouseout="hideTip(event, 'fs26', 48)" onmouseover="showTip(event, 'fs26', 48)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 49)" onmouseover="showTip(event, 'fs27', 49)" class="id">length</span> <span class="pn">[|</span> <span onmouseout="hideTip(event, 'fs12', 50)" onmouseover="showTip(event, 'fs12', 50)" class="uc">A</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs13', 51)" onmouseover="showTip(event, 'fs13', 51)" class="uc">T</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs14', 52)" onmouseover="showTip(event, 'fs14', 52)" class="uc">C</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs15', 53)" onmouseover="showTip(event, 'fs15', 53)" class="uc">G</span><span class="pn">;</span> <span class="pn">|]</span>
+<span onmouseout="hideTip(event, 'fs12', 16)" onmouseover="showTip(event, 'fs12', 16)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs13', 17)" onmouseover="showTip(event, 'fs13', 17)" class="id">length</span> <span class="pn">[|</span> <span class="id">A</span><span class="pn">;</span> <span class="id">T</span><span class="pn">;</span> <span class="id">C</span><span class="pn">;</span> <span class="id">G</span><span class="pn">;</span> <span class="pn">|]</span>
 <span class="c">// Returns the length of the list  </span>
-<span onmouseout="hideTip(event, 'fs26', 54)" onmouseover="showTip(event, 'fs26', 54)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 55)" onmouseover="showTip(event, 'fs27', 55)" class="id">length</span> <span class="pn">[</span> <span onmouseout="hideTip(event, 'fs12', 56)" onmouseover="showTip(event, 'fs12', 56)" class="uc">A</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs13', 57)" onmouseover="showTip(event, 'fs13', 57)" class="uc">T</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs14', 58)" onmouseover="showTip(event, 'fs14', 58)" class="uc">C</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs15', 59)" onmouseover="showTip(event, 'fs15', 59)" class="uc">G</span><span class="pn">;</span> <span class="pn">]</span>
+<span onmouseout="hideTip(event, 'fs12', 18)" onmouseover="showTip(event, 'fs12', 18)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs13', 19)" onmouseover="showTip(event, 'fs13', 19)" class="id">length</span> <span class="pn">[</span> <span class="id">A</span><span class="pn">;</span> <span class="id">T</span><span class="pn">;</span> <span class="id">C</span><span class="pn">;</span> <span class="id">G</span><span class="pn">;</span> <span class="pn">]</span>
 <span class="c">// The input is a list type the output an array type </span>
-<span onmouseout="hideTip(event, 'fs28', 60)" onmouseover="showTip(event, 'fs28', 60)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs29', 61)" onmouseover="showTip(event, 'fs29', 61)" class="id">toArray</span> <span class="pn">[</span> <span onmouseout="hideTip(event, 'fs12', 62)" onmouseover="showTip(event, 'fs12', 62)" class="uc">A</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs13', 63)" onmouseover="showTip(event, 'fs13', 63)" class="uc">T</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs14', 64)" onmouseover="showTip(event, 'fs14', 64)" class="uc">C</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs15', 65)" onmouseover="showTip(event, 'fs15', 65)" class="uc">G</span><span class="pn">;</span> <span class="pn">]</span>
+<span onmouseout="hideTip(event, 'fs14', 20)" onmouseover="showTip(event, 'fs14', 20)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs15', 21)" onmouseover="showTip(event, 'fs15', 21)" class="id">toArray</span> <span class="pn">[</span> <span class="id">A</span><span class="pn">;</span> <span class="id">T</span><span class="pn">;</span> <span class="id">C</span><span class="pn">;</span> <span class="id">G</span><span class="pn">;</span> <span class="pn">]</span>
 </code></pre>
 <p>Due to those performance issues, certain functionality is only offered on particular collection types and you need to do the conversion first before you can apply this function.</p>
 <h3><a name="Build-a-map-to-associate-values-with-a-key" class="anchor" href="#Build-a-map-to-associate-values-with-a-key">Build a map to associate values with a key</a></h3>
 <p>We learned that you can access the elements within collections by its numerical position index. To build more complex examples, it might be necessary to have a more sophisticated
 way to associate values with a key. A map is built from a list of key-value pairs using the so-called Map constructor.</p>
 <p>This just means you need to write <code>Map</code> in front of that key-value pair list:</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs30', 66)" onmouseover="showTip(event, 'fs30', 66)" class="id">mass</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs31', 67)" onmouseover="showTip(event, 'fs31', 67)" class="fn">Map</span> <span class="pn">[</span><span class="s">&quot;Hydrogen&quot;</span><span class="pn">,</span><span class="n">1.0079</span><span class="pn">;</span> <span class="s">&quot;Carbon&quot;</span><span class="pn">,</span> <span class="n">12.001</span><span class="pn">]</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 22)" onmouseover="showTip(event, 'fs16', 22)" class="id">mass</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 23)" onmouseover="showTip(event, 'fs17', 23)" class="fn">Map</span> <span class="pn">[</span><span class="s">&quot;Hydrogen&quot;</span><span class="pn">,</span><span class="n">1.0079</span><span class="pn">;</span> <span class="s">&quot;Carbon&quot;</span><span class="pn">,</span> <span class="n">12.001</span><span class="pn">]</span>
 </code></pre>
 <p>Extracting a value from a Map work similar to accessing an array using the key instead of the index.</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs30', 68)" onmouseover="showTip(event, 'fs30', 68)" class="id">mass</span><span class="pn">.</span><span class="pn">[</span><span class="s">&quot;Carbon&quot;</span><span class="pn">]</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs16', 24)" onmouseover="showTip(event, 'fs16', 24)" class="id">mass</span><span class="pn">.</span><span class="pn">[</span><span class="s">&quot;Carbon&quot;</span><span class="pn">]</span>
 
-<span onmouseout="hideTip(event, 'fs31', 69)" onmouseover="showTip(event, 'fs31', 69)" class="m">Map</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs32', 70)" onmouseover="showTip(event, 'fs32', 70)" class="id">find</span> <span class="s">&quot;Carbon&quot;</span> <span onmouseout="hideTip(event, 'fs30', 71)" onmouseover="showTip(event, 'fs30', 71)" class="id">mass</span>
+<span onmouseout="hideTip(event, 'fs17', 25)" onmouseover="showTip(event, 'fs17', 25)" class="m">Map</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 26)" onmouseover="showTip(event, 'fs18', 26)" class="id">find</span> <span class="s">&quot;Carbon&quot;</span> <span onmouseout="hideTip(event, 'fs16', 27)" onmouseover="showTip(event, 'fs16', 27)" class="id">mass</span>
 </code></pre>
 <p>Analogously to the List and Array module there is a Map module.
 A full overview of all map function can be found <a href="https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-fsharpmap-2.html">here</a>.</p>
@@ -410,30 +410,30 @@ This is simple but leads to one of the most important concepts of functional pro
 and see how this works. We first need a function that will later be the function working on the inner space. The function <code>monoisoMass</code> from the <code>AminoAcids</code> module in
 BioFSharp returns the monoisotopic mass of the given amino acid as the name suggests:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Function working on the inner space </span>
-<span onmouseout="hideTip(event, 'fs9', 72)" onmouseover="showTip(event, 'fs9', 72)" class="m">AminoAcids</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs33', 73)" onmouseover="showTip(event, 'fs33', 73)" class="id">monoisoMass</span> <span onmouseout="hideTip(event, 'fs9', 74)" onmouseover="showTip(event, 'fs9', 74)" class="m">AminoAcids</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs34', 75)" onmouseover="showTip(event, 'fs34', 75)" class="id">Ser</span>
+<span class="id">AminoAcids</span><span class="pn">.</span><span class="id">monoisoMass</span> <span class="id">AminoAcids</span><span class="pn">.</span><span class="id">Ser</span>
 <span class="c">// Outer or elevated space</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs9', 76)" onmouseover="showTip(event, 'fs9', 76)" class="m">AminoAcids</span>
+<span class="k">open</span> <span class="id">AminoAcids</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs35', 77)" onmouseover="showTip(event, 'fs35', 77)" class="id">peptide</span> <span class="o">=</span> <span class="pn">[</span> <span onmouseout="hideTip(event, 'fs36', 78)" onmouseover="showTip(event, 'fs36', 78)" class="uc">Pro</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs37', 79)" onmouseover="showTip(event, 'fs37', 79)" class="uc">Glu</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs36', 80)" onmouseover="showTip(event, 'fs36', 80)" class="uc">Pro</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs38', 81)" onmouseover="showTip(event, 'fs38', 81)" class="uc">Thr</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs39', 82)" onmouseover="showTip(event, 'fs39', 82)" class="uc">Ile</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs40', 83)" onmouseover="showTip(event, 'fs40', 83)" class="uc">Asp</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs37', 84)" onmouseover="showTip(event, 'fs37', 84)" class="uc">Glu</span><span class="pn">;</span> <span class="pn">]</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 28)" onmouseover="showTip(event, 'fs19', 28)" class="id">peptide</span> <span class="o">=</span> <span class="pn">[</span> <span class="id">Pro</span><span class="pn">;</span> <span class="id">Glu</span><span class="pn">;</span> <span class="id">Pro</span><span class="pn">;</span> <span class="id">Thr</span><span class="pn">;</span> <span class="id">Ile</span><span class="pn">;</span> <span class="id">Asp</span><span class="pn">;</span> <span class="id">Glu</span><span class="pn">;</span> <span class="pn">]</span>
 </code></pre>
 <p>Now, we want to apply the function <code>monoisoMass</code> to each amino acid in the peptide list. For that we can make use of the <code>List.map</code> function. This is very convenient as the
 recursive process that steps through the list and builds a list of the results to return. That part is captured in the mapping function.</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs28', 85)" onmouseover="showTip(event, 'fs28', 85)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs41', 86)" onmouseover="showTip(event, 'fs41', 86)" class="id">map</span> <span onmouseout="hideTip(event, 'fs9', 87)" onmouseover="showTip(event, 'fs9', 87)" class="m">AminoAcids</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs42', 88)" onmouseover="showTip(event, 'fs42', 88)" class="id">monoisoMass</span> <span onmouseout="hideTip(event, 'fs35', 89)" onmouseover="showTip(event, 'fs35', 89)" class="id">peptide</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs14', 29)" onmouseover="showTip(event, 'fs14', 29)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs20', 30)" onmouseover="showTip(event, 'fs20', 30)" class="id">map</span> <span class="id">AminoAcids</span><span class="pn">.</span><span class="id">monoisoMass</span> <span onmouseout="hideTip(event, 'fs19', 31)" onmouseover="showTip(event, 'fs19', 31)" class="id">peptide</span>
 </code></pre>
 <p>The higher-order function map applies a function working on the normal space to an elevated space. This concept is so important that all collection types (lists, arrays, ...)
 have a build in map function.<br />
 If your higher-order function applies a function to the inner space and the return value is not the outer space, you are folding aka. aggregating. Just to build on the example
 above, we can compute the sum of all amino acids being elements of the peptide list.</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs28', 90)" onmouseover="showTip(event, 'fs28', 90)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs43', 91)" onmouseover="showTip(event, 'fs43', 91)" class="id">sumBy</span> <span onmouseout="hideTip(event, 'fs9', 92)" onmouseover="showTip(event, 'fs9', 92)" class="m">AminoAcids</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs42', 93)" onmouseover="showTip(event, 'fs42', 93)" class="id">monoisoMass</span> <span onmouseout="hideTip(event, 'fs35', 94)" onmouseover="showTip(event, 'fs35', 94)" class="id">peptide</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs14', 32)" onmouseover="showTip(event, 'fs14', 32)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs21', 33)" onmouseover="showTip(event, 'fs21', 33)" class="id">sumBy</span> <span class="id">AminoAcids</span><span class="pn">.</span><span class="id">monoisoMass</span> <span onmouseout="hideTip(event, 'fs19', 34)" onmouseover="showTip(event, 'fs19', 34)" class="id">peptide</span>
 </code></pre>
 <p>Maybe it is worth noticing that the mass of water needs to be added to calculate the correct peptide mass.</p>
 <h3><a name="Pipe-forward-operator-gt" class="anchor" href="#Pipe-forward-operator-gt">Pipe-forward operator |&gt;</a></h3>
 <p>F# is all about readability. Here, pipe operators are used to pass parameters to a function in a simple and elegant way. It allows to eliminate intermediate values and
 make function calls easier to read. It possible to chain function calls and feed the return value of each function to the next using the forward type operator which looks
 like this: |&gt; . We can literally read it as “pipe forward”.</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="pn">[</span> <span onmouseout="hideTip(event, 'fs36', 95)" onmouseover="showTip(event, 'fs36', 95)" class="uc">Pro</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs37', 96)" onmouseover="showTip(event, 'fs37', 96)" class="uc">Glu</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs36', 97)" onmouseover="showTip(event, 'fs36', 97)" class="uc">Pro</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs38', 98)" onmouseover="showTip(event, 'fs38', 98)" class="uc">Thr</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs39', 99)" onmouseover="showTip(event, 'fs39', 99)" class="uc">Ile</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs40', 100)" onmouseover="showTip(event, 'fs40', 100)" class="uc">Asp</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs37', 101)" onmouseover="showTip(event, 'fs37', 101)" class="uc">Glu</span><span class="pn">;</span> <span class="pn">]</span>
-<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs28', 102)" onmouseover="showTip(event, 'fs28', 102)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs41', 103)" onmouseover="showTip(event, 'fs41', 103)" class="id">map</span> <span onmouseout="hideTip(event, 'fs9', 104)" onmouseover="showTip(event, 'fs9', 104)" class="m">AminoAcids</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs42', 105)" onmouseover="showTip(event, 'fs42', 105)" class="id">monoisoMass</span> 
-<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs28', 106)" onmouseover="showTip(event, 'fs28', 106)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs44', 107)" onmouseover="showTip(event, 'fs44', 107)" class="id">sum</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="pn">[</span> <span class="id">Pro</span><span class="pn">;</span> <span class="id">Glu</span><span class="pn">;</span> <span class="id">Pro</span><span class="pn">;</span> <span class="id">Thr</span><span class="pn">;</span> <span class="id">Ile</span><span class="pn">;</span> <span class="id">Asp</span><span class="pn">;</span> <span class="id">Glu</span><span class="pn">;</span> <span class="pn">]</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs14', 35)" onmouseover="showTip(event, 'fs14', 35)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs20', 36)" onmouseover="showTip(event, 'fs20', 36)" class="id">map</span> <span class="id">AminoAcids</span><span class="pn">.</span><span class="id">monoisoMass</span> 
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs14', 37)" onmouseover="showTip(event, 'fs14', 37)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs22', 38)" onmouseover="showTip(event, 'fs22', 38)" class="id">sum</span>
 </code></pre>
 <h2><a name="More-interesting-types" class="anchor" href="#More-interesting-types">More interesting types</a></h2>
 <p>We already learned about type annotation that it defines the kind of the value you and the compiler have to deal with. Therefore, you can think of type annotation as a sort of
@@ -447,9 +447,9 @@ so you need to be able to produce your own types.</p>
 definition as an organization or grouping of other types. To do so, every type definition is similar, even though the specific details may vary. All type definitions start with
 a "type" keyword, followed by an name or identifier for the type, which then is followed by any existing type(s).</p>
 <p>For example, here are some type definitions for a variety of types:</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs45', 108)" onmouseover="showTip(event, 'fs45', 108)" class="rt">A</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs46', 109)" onmouseover="showTip(event, 'fs46', 109)" class="vt">int</span> <span class="pn">*</span> <span onmouseout="hideTip(event, 'fs46', 110)" onmouseover="showTip(event, 'fs46', 110)" class="vt">int</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs23', 39)" onmouseover="showTip(event, 'fs23', 39)" class="rt">A</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs24', 40)" onmouseover="showTip(event, 'fs24', 40)" class="vt">int</span> <span class="pn">*</span> <span onmouseout="hideTip(event, 'fs24', 41)" onmouseover="showTip(event, 'fs24', 41)" class="vt">int</span>
 
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs47', 111)" onmouseover="showTip(event, 'fs47', 111)" class="rt">B</span> <span class="o">=</span> <span class="pn">{</span><span onmouseout="hideTip(event, 'fs48', 112)" onmouseover="showTip(event, 'fs48', 112)" class="prop">AminoAcidName</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs49', 113)" onmouseover="showTip(event, 'fs49', 113)" class="rt">string</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs50', 114)" onmouseover="showTip(event, 'fs50', 114)" class="prop">Mass</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs51', 115)" onmouseover="showTip(event, 'fs51', 115)" class="vt">float</span><span class="pn">}</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs25', 42)" onmouseover="showTip(event, 'fs25', 42)" class="rt">B</span> <span class="o">=</span> <span class="pn">{</span><span onmouseout="hideTip(event, 'fs26', 43)" onmouseover="showTip(event, 'fs26', 43)" class="prop">AminoAcidName</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs27', 44)" onmouseover="showTip(event, 'fs27', 44)" class="rt">string</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs28', 45)" onmouseover="showTip(event, 'fs28', 45)" class="prop">Mass</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs29', 46)" onmouseover="showTip(event, 'fs29', 46)" class="vt">float</span><span class="pn">}</span>
 </code></pre>
 <h3><a name="Tuples-are-ad-hoc-data-structures" class="anchor" href="#Tuples-are-ad-hoc-data-structures">Tuples are ad hoc data structures</a></h3>
 <p>Tuples have several advantages over other more complex types. They can be used on the fly because they are always available without being defined, and thus are perfect for small,
@@ -470,19 +470,19 @@ different compared to a collection type.</p>
 <span class="pn">[</span> <span class="n">1.1</span><span class="pn">;</span> <span class="n">3.5</span><span class="pn">;</span> <span class="n">2.0</span> <span class="pn">]</span><span class="pn">.</span><span class="pn">[</span><span class="n">1</span><span class="pn">]</span>
 
 <span class="c">// Accessing the value at position 2 of a tuple</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs52', 116)" onmouseover="showTip(event, 'fs52', 116)" class="id">monoMass</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs53', 117)" onmouseover="showTip(event, 'fs53', 117)" class="id">threeLetterCode</span> <span class="o">=</span> <span class="pn">(</span> <span class="n">115.026943</span><span class="pn">,</span> <span class="s">&quot;asp&quot;</span> <span class="pn">)</span>
-<span onmouseout="hideTip(event, 'fs53', 118)" onmouseover="showTip(event, 'fs53', 118)" class="id">threeLetterCode</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs30', 47)" onmouseover="showTip(event, 'fs30', 47)" class="id">monoMass</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs31', 48)" onmouseover="showTip(event, 'fs31', 48)" class="id">threeLetterCode</span> <span class="o">=</span> <span class="pn">(</span> <span class="n">115.026943</span><span class="pn">,</span> <span class="s">&quot;asp&quot;</span> <span class="pn">)</span>
+<span onmouseout="hideTip(event, 'fs31', 49)" onmouseover="showTip(event, 'fs31', 49)" class="id">threeLetterCode</span>
 </code></pre>
 <p>You notice that accessing a value from a tuple means create a named binding that has the same structure (a process called deconstruction). After this, the individual values have their
 own names and can be used separately. Therefore, it is easy to define functions that can access individual positions of tuple types.</p>
 <p>Let's define a function that returns the three-letter:</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs54', 119)" onmouseover="showTip(event, 'fs54', 119)" class="fn">getThreeLetterCode</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs55', 120)" onmouseover="showTip(event, 'fs55', 120)" class="fn">monoMass</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs56', 121)" onmouseover="showTip(event, 'fs56', 121)" class="fn">threeLetterCode</span><span class="pn">)</span> <span class="o">=</span>
-    <span onmouseout="hideTip(event, 'fs56', 122)" onmouseover="showTip(event, 'fs56', 122)" class="fn">threeLetterCode</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs32', 50)" onmouseover="showTip(event, 'fs32', 50)" class="fn">getThreeLetterCode</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs33', 51)" onmouseover="showTip(event, 'fs33', 51)" class="fn">monoMass</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs34', 52)" onmouseover="showTip(event, 'fs34', 52)" class="fn">threeLetterCode</span><span class="pn">)</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs34', 53)" onmouseover="showTip(event, 'fs34', 53)" class="fn">threeLetterCode</span>
 
-<span onmouseout="hideTip(event, 'fs54', 123)" onmouseover="showTip(event, 'fs54', 123)" class="fn">getThreeLetterCode</span> <span class="pn">(</span> <span class="n">115.026943</span><span class="pn">,</span> <span class="s">&quot;asp&quot;</span> <span class="pn">)</span>
+<span onmouseout="hideTip(event, 'fs32', 54)" onmouseover="showTip(event, 'fs32', 54)" class="fn">getThreeLetterCode</span> <span class="pn">(</span> <span class="n">115.026943</span><span class="pn">,</span> <span class="s">&quot;asp&quot;</span> <span class="pn">)</span>
 </code></pre>
 <p>Tuples are also very useful in the common scenario when you want to return multiple values from a function rather than just one.</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs57', 124)" onmouseover="showTip(event, 'fs57', 124)" class="fn">returnTwoValues</span> <span class="pn">(</span><span class="pn">)</span> <span class="o">=</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs35', 55)" onmouseover="showTip(event, 'fs35', 55)" class="fn">returnTwoValues</span> <span class="pn">(</span><span class="pn">)</span> <span class="o">=</span>
     <span class="pn">(</span><span class="s">&#39;A&#39;</span><span class="pn">,</span><span class="n">100</span><span class="pn">)</span>
 </code></pre>
 <h3><a name="Record-types-provide-more-organization" class="anchor" href="#Record-types-provide-more-organization">Record types provide more organization</a></h3>
@@ -492,28 +492,28 @@ amino acid mass with one-letter-code say, vs. a similar tuple used for nucleotid
 slot in the tuple, which will both document what each element is for and force a distinction between tuples made from the same types. A record type is exactly that: A tuple
 where each element is labeled.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Define a record type amino acid</span>
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs58', 125)" onmouseover="showTip(event, 'fs58', 125)" class="rt">AminoAcidMass</span> <span class="o">=</span> <span class="pn">{</span> <span onmouseout="hideTip(event, 'fs59', 126)" onmouseover="showTip(event, 'fs59', 126)" class="prop">OneLetterCode</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs60', 127)" onmouseover="showTip(event, 'fs60', 127)" class="vt">char</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs61', 128)" onmouseover="showTip(event, 'fs61', 128)" class="prop">Mass</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs51', 129)" onmouseover="showTip(event, 'fs51', 129)" class="vt">float</span> <span class="pn">}</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs36', 56)" onmouseover="showTip(event, 'fs36', 56)" class="rt">AminoAcidMass</span> <span class="o">=</span> <span class="pn">{</span> <span onmouseout="hideTip(event, 'fs37', 57)" onmouseover="showTip(event, 'fs37', 57)" class="prop">OneLetterCode</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs38', 58)" onmouseover="showTip(event, 'fs38', 58)" class="vt">char</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs39', 59)" onmouseover="showTip(event, 'fs39', 59)" class="prop">Mass</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs29', 60)" onmouseover="showTip(event, 'fs29', 60)" class="vt">float</span> <span class="pn">}</span>
 <span class="c">// Define a record type nucleotide</span>
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs62', 130)" onmouseover="showTip(event, 'fs62', 130)" class="rt">NucleotideMass</span> <span class="o">=</span> <span class="pn">{</span> <span onmouseout="hideTip(event, 'fs63', 131)" onmouseover="showTip(event, 'fs63', 131)" class="prop">Symbol</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs60', 132)" onmouseover="showTip(event, 'fs60', 132)" class="vt">char</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs64', 133)" onmouseover="showTip(event, 'fs64', 133)" class="prop">Mass</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs51', 134)" onmouseover="showTip(event, 'fs51', 134)" class="vt">float</span> <span class="pn">}</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs40', 61)" onmouseover="showTip(event, 'fs40', 61)" class="rt">NucleotideMass</span> <span class="o">=</span> <span class="pn">{</span> <span onmouseout="hideTip(event, 'fs41', 62)" onmouseover="showTip(event, 'fs41', 62)" class="prop">Symbol</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs38', 63)" onmouseover="showTip(event, 'fs38', 63)" class="vt">char</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs42', 64)" onmouseover="showTip(event, 'fs42', 64)" class="prop">Mass</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs29', 65)" onmouseover="showTip(event, 'fs29', 65)" class="vt">float</span> <span class="pn">}</span>
 
 <span class="c">// Bind an amino acid value to a name binding</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs65', 135)" onmouseover="showTip(event, 'fs65', 135)" class="id">asp</span> <span class="o">=</span> <span class="pn">{</span> <span class="prop">OneLetterCode</span> <span class="o">=</span> <span class="s">&#39;D&#39;</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs66', 136)" onmouseover="showTip(event, 'fs66', 136)" class="prop">Mass</span> <span class="o">=</span> <span class="n">115.026943</span> <span class="pn">}</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs43', 66)" onmouseover="showTip(event, 'fs43', 66)" class="id">asp</span> <span class="o">=</span> <span class="pn">{</span> <span class="prop">OneLetterCode</span> <span class="o">=</span> <span class="s">&#39;D&#39;</span><span class="pn">;</span> <span class="prop">Mass</span> <span class="o">=</span> <span class="n">115.026943</span> <span class="pn">}</span>
 </code></pre>
 <p>A record type has the standard preamble: <code>type</code> typename = followed by curly braces. Inside the curly braces is a list of label: type pairs, separated by semicolons (notice: We
 will see later that all lists in F# use semicolon separators -- commas are for tuples).</p>
 <p>Let's compare the "type syntax" for a record type with a tuple type:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Definition of a record type </span>
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs67', 137)" onmouseover="showTip(event, 'fs67', 137)" class="rt">AminoAcidMassRecord</span> <span class="o">=</span> <span class="pn">{</span> <span onmouseout="hideTip(event, 'fs68', 138)" onmouseover="showTip(event, 'fs68', 138)" class="prop">OneLetterCode</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs60', 139)" onmouseover="showTip(event, 'fs60', 139)" class="vt">char</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs69', 140)" onmouseover="showTip(event, 'fs69', 140)" class="prop">Mass</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs51', 141)" onmouseover="showTip(event, 'fs51', 141)" class="vt">float</span> <span class="pn">}</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs44', 67)" onmouseover="showTip(event, 'fs44', 67)" class="rt">AminoAcidMassRecord</span> <span class="o">=</span> <span class="pn">{</span> <span onmouseout="hideTip(event, 'fs45', 68)" onmouseover="showTip(event, 'fs45', 68)" class="prop">OneLetterCode</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs38', 69)" onmouseover="showTip(event, 'fs38', 69)" class="vt">char</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs46', 70)" onmouseover="showTip(event, 'fs46', 70)" class="prop">Mass</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs29', 71)" onmouseover="showTip(event, 'fs29', 71)" class="vt">float</span> <span class="pn">}</span>
 <span class="c">// Definition of a tuple type </span>
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs70', 142)" onmouseover="showTip(event, 'fs70', 142)" class="rt">AminoAcidMassTuple</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs60', 143)" onmouseover="showTip(event, 'fs60', 143)" class="vt">char</span> <span class="pn">*</span> <span onmouseout="hideTip(event, 'fs51', 144)" onmouseover="showTip(event, 'fs51', 144)" class="vt">float</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs47', 72)" onmouseover="showTip(event, 'fs47', 72)" class="rt">AminoAcidMassTuple</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs38', 73)" onmouseover="showTip(event, 'fs38', 73)" class="vt">char</span> <span class="pn">*</span> <span onmouseout="hideTip(event, 'fs29', 74)" onmouseover="showTip(event, 'fs29', 74)" class="vt">float</span>
 </code></pre>
 <p>You see that record types have named fields that make them easily accessible. A Field of a record type can be accessed individually with the dot operator <code>.Fieldname</code></p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">//Create cysteine  </span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs71', 145)" onmouseover="showTip(event, 'fs71', 145)" class="id">cys</span> <span class="o">=</span> <span class="pn">{</span> <span class="prop">OneLetterCode</span> <span class="o">=</span> <span class="s">&#39;C&#39;</span><span class="pn">;</span> <span onmouseout="hideTip(event, 'fs66', 146)" onmouseover="showTip(event, 'fs66', 146)" class="prop">Mass</span> <span class="o">=</span> <span class="n">103.0091848</span> <span class="pn">}</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs48', 75)" onmouseover="showTip(event, 'fs48', 75)" class="id">cys</span> <span class="o">=</span> <span class="pn">{</span> <span class="prop">OneLetterCode</span> <span class="o">=</span> <span class="s">&#39;C&#39;</span><span class="pn">;</span> <span class="prop">Mass</span> <span class="o">=</span> <span class="n">103.0091848</span> <span class="pn">}</span>
 <span class="c">// Access the one-letter-code of cysteine</span>
-<span onmouseout="hideTip(event, 'fs71', 147)" onmouseover="showTip(event, 'fs71', 147)" class="id">cys</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs68', 148)" onmouseover="showTip(event, 'fs68', 148)" class="id">OneLetterCode</span>
+<span onmouseout="hideTip(event, 'fs48', 76)" onmouseover="showTip(event, 'fs48', 76)" class="id">cys</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs45', 77)" onmouseover="showTip(event, 'fs45', 77)" class="id">OneLetterCode</span>
 <span class="c">// Access the monoisotopic mass of cysteine and multiply it times 3</span>
-<span onmouseout="hideTip(event, 'fs71', 149)" onmouseover="showTip(event, 'fs71', 149)" class="id">cys</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs72', 150)" onmouseover="showTip(event, 'fs72', 150)" class="id">Mass</span> <span class="o">*</span> <span class="n">3.</span>
+<span onmouseout="hideTip(event, 'fs48', 78)" onmouseover="showTip(event, 'fs48', 78)" class="id">cys</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs46', 79)" onmouseover="showTip(event, 'fs46', 79)" class="id">Mass</span> <span class="o">*</span> <span class="n">3.</span>
 </code></pre>
 
                 </div>
@@ -528,80 +528,26 @@ from Microsoft.FSharp.Core<br /><em>&lt;summary&gt;Functional programming operat
  and &lt;a href=&quot;http://msdn2.microsoft.com/library/system.text.regularexpressions.aspx&quot;&gt;System.Text.RegularExpressions&lt;/a&gt; types.
  &lt;/summary&gt;<br />&lt;category&gt;Strings and Text&lt;/category&gt;</em></div>
 <div class="fsdocs-tip" id="fs3">val length : str:string -&gt; int<br /><em>&lt;summary&gt;Returns the length of the string.&lt;/summary&gt;<br />&lt;param name=&quot;str&quot;&gt;The input string.&lt;/param&gt;<br />&lt;returns&gt;The number of characters in the string.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs4">namespace BioFSharp</div>
-<div class="fsdocs-tip" id="fs5">val adenine : Nucleotides.Nucleotide</div>
-<div class="fsdocs-tip" id="fs6">module Nucleotides
-
-from BioFSharp<br /><em>&lt;summary&gt;
-Contains the Nucleotide type and its according functions.
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs7">union case Nucleotides.Nucleotide.A: Nucleotides.Nucleotide<br /><em>&lt;summary&gt;
- A : Adenine
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs8">val alanine : AminoAcids.AminoAcid</div>
-<div class="fsdocs-tip" id="fs9">module AminoAcids
-
-from BioFSharp<br /><em>&lt;summary&gt;
-Contains the AminoAcid type and its according functions. The AminoAcid type is a complex presentation of amino acids, allowing modifications
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs10">union case AminoAcids.AminoAcid.Ala: AminoAcids.AminoAcid<br /><em>&lt;summary&gt;
- &#39;A&#39; - Ala - Alanine
-
- Very abundant and very versatile, it is more stiff than glycine, but small enough to pose only small steric limits for the protein conformation. It behaves fairly neutrally, and can be located in both hydrophilic regions on the protein outside and the hydrophobic areas inside.
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs11">val nucs : Nucleotide list</div>
-<div class="fsdocs-tip" id="fs12">union case Nucleotide.A: Nucleotide<br /><em>&lt;summary&gt;
- A : Adenine
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs13">union case Nucleotide.T: Nucleotide<br /><em>&lt;summary&gt;
- T : Thymidine (only DNA)
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs14">union case Nucleotide.C: Nucleotide<br /><em>&lt;summary&gt;
- C : Cytosine
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs15">union case Nucleotide.G: Nucleotide<br /><em>&lt;summary&gt;
- G : Guanine
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs16">val nucs&#39; : Nucleotide list</div>
-<div class="fsdocs-tip" id="fs17">val nucsArr : Nucleotide []</div>
-<div class="fsdocs-tip" id="fs18">Multiple items<br />module BioArray
-
-from BioFSharp.BioCollectionsExtensions<br /><br />--------------------<br />module BioArray
-
-from BioFSharp<br /><em>&lt;summary&gt;
-This module contains the BioArray type and its according functions. The BioArray type is an array of objects using the IBioItem interface
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs19">val reverseComplement : nucs:BioArray.BioArray&lt;Nucleotide&gt; -&gt; BioArray.BioArray&lt;Nucleotide&gt;<br /><em>&lt;summary&gt;
- Create the reverse complement strand meaning antiparallel DNA strand or the cDNA (from RNA) respectivly. For example, the sequence &quot;ATGC&quot; is converted to &quot;GCAT&quot;. &quot;Antiparallel&quot; combines the two functions &quot;Complement&quot; and &quot;Inverse&quot;.
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs20">Multiple items<br />module BioList
-
-from BioFSharp.BioCollectionsExtensions<br /><br />--------------------<br />module BioList
-
-from BioFSharp<br /><em>&lt;summary&gt;
-This module contains the BioList type and its according functions. The BioList type is a List of objects using the IBioItem interface
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs21">val translate : nucleotideOffset:int -&gt; rnaSeq:BioList.BioList&lt;Nucleotide&gt; -&gt; BioList.BioList&lt;AminoAcids.AminoAcid&gt;<br /><em>&lt;summary&gt;
- translates nucleotide sequence to aminoacid sequence    
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs22">union case Nucleotide.U: Nucleotide<br /><em>&lt;summary&gt;
- U : Uracil    (only RNA)
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs23">module Array
+<div class="fsdocs-tip" id="fs4">val adenine : obj</div>
+<div class="fsdocs-tip" id="fs5">val alanine : obj</div>
+<div class="fsdocs-tip" id="fs6">val nucs : obj list</div>
+<div class="fsdocs-tip" id="fs7">val nucs&#39; : obj list</div>
+<div class="fsdocs-tip" id="fs8">val nucsArr : obj []</div>
+<div class="fsdocs-tip" id="fs9">module Array
 
 from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with arrays.&lt;/summary&gt;<br />&lt;remarks&gt;
   See also &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/arrays&quot;&gt;F# Language Guide - Arrays&lt;/a&gt;.
  &lt;/remarks&gt;</em></div>
-<div class="fsdocs-tip" id="fs24">val findIndex : predicate:(&#39;T -&gt; bool) -&gt; array:&#39;T [] -&gt; int<br /><em>&lt;summary&gt;Returns the index of the first element in the array
+<div class="fsdocs-tip" id="fs10">val findIndex : predicate:(&#39;T -&gt; bool) -&gt; array:&#39;T [] -&gt; int<br /><em>&lt;summary&gt;Returns the index of the first element in the array
  that satisfies the given predicate. Raise &lt;see cref=&quot;T:System.Collections.Generic.KeyNotFoundException&quot; /&gt; if 
  none of the elements satisfy the predicate.&lt;/summary&gt;<br />&lt;param name=&quot;predicate&quot;&gt;The function to test the input elements.&lt;/param&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;exception cref=&quot;T:System.Collections.Generic.KeyNotFoundException&quot;&gt;Thrown if &lt;c&gt;predicate&lt;/c&gt;
  never returns true.&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;<br />&lt;returns&gt;The index of the first element in the array that satisfies the given predicate.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs25">val n : Nucleotide</div>
-<div class="fsdocs-tip" id="fs26">module Seq
+<div class="fsdocs-tip" id="fs11">val n : obj</div>
+<div class="fsdocs-tip" id="fs12">module Seq
 
 from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with values of type &lt;see cref=&quot;T:Microsoft.FSharp.Collections.seq`1&quot; /&gt;.&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs27">val length : source:seq&lt;&#39;T&gt; -&gt; int<br /><em>&lt;summary&gt;Returns the length of the sequence&lt;/summary&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The length of the sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
-<div class="fsdocs-tip" id="fs28">Multiple items<br />module List
+<div class="fsdocs-tip" id="fs13">val length : source:seq&lt;&#39;T&gt; -&gt; int<br /><em>&lt;summary&gt;Returns the length of the sequence&lt;/summary&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The length of the sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs14">Multiple items<br />module List
 
 from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with values of type &lt;see cref=&quot;T:Microsoft.FSharp.Collections.list`1&quot; /&gt;.&lt;/summary&gt;<br />&lt;namespacedoc&gt;&lt;summary&gt;Operations for collections such as lists, arrays, sets, maps and sequences. See also 
     &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/fsharp-collection-types&quot;&gt;F# Collection Types&lt;/a&gt; in the F# Language Guide.
@@ -622,9 +568,9 @@ from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations fo
  the notation &lt;c&gt;[1;2;3]&lt;/c&gt;. Use the values in the &lt;c&gt;List&lt;/c&gt; module to manipulate 
  values of this type, or pattern match against the values directly.
  &lt;/remarks&gt;<br />&lt;exclude /&gt;</em></div>
-<div class="fsdocs-tip" id="fs29">val toArray : list:&#39;T list -&gt; &#39;T []<br /><em>&lt;summary&gt;Builds an array from the given list.&lt;/summary&gt;<br />&lt;param name=&quot;list&quot;&gt;The input list.&lt;/param&gt;<br />&lt;returns&gt;The array containing the elements of the list.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs30">val mass : Map&lt;string,float&gt;</div>
-<div class="fsdocs-tip" id="fs31">Multiple items<br />module Map
+<div class="fsdocs-tip" id="fs15">val toArray : list:&#39;T list -&gt; &#39;T []<br /><em>&lt;summary&gt;Builds an array from the given list.&lt;/summary&gt;<br />&lt;param name=&quot;list&quot;&gt;The input list.&lt;/param&gt;<br />&lt;returns&gt;The array containing the elements of the list.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs16">val mass : Map&lt;string,float&gt;</div>
+<div class="fsdocs-tip" id="fs17">Multiple items<br />module Map
 
 from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with values of type &lt;see cref=&quot;T:Microsoft.FSharp.Collections.Map`2&quot; /&gt;.&lt;/summary&gt;</em><br /><br />--------------------<br />type Map&lt;&#39;Key,&#39;Value (requires comparison)&gt; =
   interface IReadOnlyDictionary&lt;&#39;Key,&#39;Value&gt;
@@ -641,51 +587,15 @@ from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations fo
  comparison is the F# structural comparison function or uses implementations of the IComparable interface on key values.&lt;/summary&gt;<br />&lt;remarks&gt;See the &lt;see cref=&quot;T:Microsoft.FSharp.Collections.MapModule&quot; /&gt; module for further operations on maps.
 
  All members of this class are thread-safe and may be used concurrently from multiple threads.&lt;/remarks&gt;</em><br /><br />--------------------<br />new : elements:seq&lt;&#39;Key * &#39;Value&gt; -&gt; Map&lt;&#39;Key,&#39;Value&gt;</div>
-<div class="fsdocs-tip" id="fs32">val find : key:&#39;Key -&gt; table:Map&lt;&#39;Key,&#39;T&gt; -&gt; &#39;T (requires comparison)<br /><em>&lt;summary&gt;Lookup an element in the map, raising &lt;c&gt;KeyNotFoundException&lt;/c&gt; if no binding
+<div class="fsdocs-tip" id="fs18">val find : key:&#39;Key -&gt; table:Map&lt;&#39;Key,&#39;T&gt; -&gt; &#39;T (requires comparison)<br /><em>&lt;summary&gt;Lookup an element in the map, raising &lt;c&gt;KeyNotFoundException&lt;/c&gt; if no binding
  exists in the map.&lt;/summary&gt;<br />&lt;param name=&quot;key&quot;&gt;The input key.&lt;/param&gt;<br />&lt;param name=&quot;table&quot;&gt;The input map.&lt;/param&gt;<br />&lt;exception cref=&quot;T:System.Collections.Generic.KeyNotFoundException&quot;&gt;Thrown when the key does not exist in the map.&lt;/exception&gt;<br />&lt;returns&gt;The value mapped to the given key.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs33">val monoisoMass : aa:AminoAcids.AminoAcid -&gt; float<br /><em>&lt;summary&gt;
- Returns the monoisotopic mass of AminoAcid (without H20)
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs34">union case AminoAcids.AminoAcid.Ser: AminoAcids.AminoAcid<br /><em>&lt;summary&gt;
- &#39;S&#39; - Ser - Serine
-
- Serine and threonine have a short group ended with a hydroxyl group. Its hydrogen is easy to remove, so serine and threonine often act as hydrogen donors in enzymes. Both are very hydrophilic, so the outer regions of soluble proteins tend to be rich with them.
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs35">val peptide : AminoAcid list</div>
-<div class="fsdocs-tip" id="fs36">union case AminoAcid.Pro: AminoAcid<br /><em>&lt;summary&gt;
- &#39;P&#39; - Pro - Proline
-
- Pro contains an unusual ring to the N-end amine group, which forces the CO-NH amide sequence into a fixed conformation. It can disrupt protein folding structures like α helix or β sheet, forcing the desired kink in the protein chain. Common in collagen, it often undergoes a post-translational modification to hydroxyproline.
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs37">union case AminoAcid.Glu: AminoAcid<br /><em>&lt;summary&gt;
- &#39;E&#39; - Glu - Glutamic Acid
-
- Glu behaves similarly to aspartic acid, and has a longer, slightly more flexible side chain.
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs38">union case AminoAcid.Thr: AminoAcid<br /><em>&lt;summary&gt;
- &#39;T&#39; - Thr - Threonine
-
- Essential for humans, Thr behaves similarly to serine.
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs39">union case AminoAcid.Ile: AminoAcid<br /><em>&lt;summary&gt;
- &#39;I&#39; - Ile - Isoleucine
-
- Ile is essential for humans. Isoleucine, leucine, and valine have large aliphatic hydrophobic side chains. Their molecules are rigid, and their mutual hydrophobic interactions are important for the correct folding of proteins, as these chains tend to be located inside of the protein molecule.
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs40">union case AminoAcid.Asp: AminoAcid<br /><em>&lt;summary&gt;
- &#39;D&#39; - Asp - Aspartic Acid
-
- Asp behaves similarly to glutamic acid, and carries a hydrophilic acidic group with strong negative charge. Usually, it is located on the outer surface of the protein, making it water-soluble. It binds to positively charged molecules and ions, and is often used in enzymes to fix the metal ion. When located inside of the protein, aspartate and glutamate are usually paired with arginine and lysine.
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs41">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; list:&#39;T list -&gt; &#39;U list<br /><em>&lt;summary&gt;Builds a new collection whose elements are the results of applying the given function
+<div class="fsdocs-tip" id="fs19">val peptide : obj list</div>
+<div class="fsdocs-tip" id="fs20">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; list:&#39;T list -&gt; &#39;U list<br /><em>&lt;summary&gt;Builds a new collection whose elements are the results of applying the given function
  to each of the elements of the collection.&lt;/summary&gt;<br />&lt;param name=&quot;mapping&quot;&gt;The function to transform elements from the input list.&lt;/param&gt;<br />&lt;param name=&quot;list&quot;&gt;The input list.&lt;/param&gt;<br />&lt;returns&gt;The list of transformed elements.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs42">val monoisoMass : aa:AminoAcid -&gt; float<br /><em>&lt;summary&gt;
- Returns the monoisotopic mass of AminoAcid (without H20)
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs43">val sumBy : projection:(&#39;T -&gt; &#39;U) -&gt; list:&#39;T list -&gt; &#39;U (requires member ( + ) and member get_Zero)<br /><em>&lt;summary&gt;Returns the sum of the results generated by applying the function to each element of the list.&lt;/summary&gt;<br />&lt;param name=&quot;projection&quot;&gt;The function to transform the list elements into the type to be summed.&lt;/param&gt;<br />&lt;param name=&quot;list&quot;&gt;The input list.&lt;/param&gt;<br />&lt;returns&gt;The resulting sum.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs44">val sum : list:&#39;T list -&gt; &#39;T (requires member ( + ) and member get_Zero)<br /><em>&lt;summary&gt;Returns the sum of the elements in the list.&lt;/summary&gt;<br />&lt;param name=&quot;list&quot;&gt;The input list.&lt;/param&gt;<br />&lt;returns&gt;The resulting sum.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs45">type A = int * int</div>
-<div class="fsdocs-tip" id="fs46">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to signed 32-bit integer. This is a direct conversion for all 
+<div class="fsdocs-tip" id="fs21">val sumBy : projection:(&#39;T -&gt; &#39;U) -&gt; list:&#39;T list -&gt; &#39;U (requires member ( + ) and member get_Zero)<br /><em>&lt;summary&gt;Returns the sum of the results generated by applying the function to each element of the list.&lt;/summary&gt;<br />&lt;param name=&quot;projection&quot;&gt;The function to transform the list elements into the type to be summed.&lt;/param&gt;<br />&lt;param name=&quot;list&quot;&gt;The input list.&lt;/param&gt;<br />&lt;returns&gt;The resulting sum.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs22">val sum : list:&#39;T list -&gt; &#39;T (requires member ( + ) and member get_Zero)<br /><em>&lt;summary&gt;Returns the sum of the elements in the list.&lt;/summary&gt;<br />&lt;param name=&quot;list&quot;&gt;The input list.&lt;/param&gt;<br />&lt;returns&gt;The resulting sum.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs23">type A = int * int</div>
+<div class="fsdocs-tip" id="fs24">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to signed 32-bit integer. This is a direct conversion for all 
  primitive numeric types. For strings, the input is converted using &lt;c&gt;Int32.Parse()&lt;/c&gt;  
  with InvariantCulture settings. Otherwise the operation requires an appropriate
  static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted int&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
@@ -694,17 +604,13 @@ type int = int32<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;se
  of measure is erased in compiled code and when values of this type
  are analyzed using reflection. The type is representationally equivalent to 
  &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
-<div class="fsdocs-tip" id="fs47">type B =
+<div class="fsdocs-tip" id="fs25">type B =
   { AminoAcidName: string
     Mass: float }</div>
-<div class="fsdocs-tip" id="fs48">B.AminoAcidName: string</div>
-<div class="fsdocs-tip" id="fs49">Multiple items<br />val string : value:&#39;T -&gt; string<br /><em>&lt;summary&gt;Converts the argument to a string using &lt;c&gt;ToString&lt;/c&gt;.&lt;/summary&gt;<br />&lt;remarks&gt;For standard integer and floating point values the and any type that implements &lt;c&gt;IFormattable&lt;/c&gt;&lt;c&gt;ToString&lt;/c&gt; conversion uses &lt;c&gt;CultureInfo.InvariantCulture&lt;/c&gt;. &lt;/remarks&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted string.&lt;/returns&gt;</em><br /><br />--------------------<br />type string = System.String<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.String&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em></div>
-<div class="fsdocs-tip" id="fs50">Multiple items<br />B.Mass: float<br /><br />--------------------<br />module Mass
-
-from BioFSharp<br /><em>&lt;summary&gt;
-Molecular mass related functions
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs51">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to 64-bit float. This is a direct conversion for all 
+<div class="fsdocs-tip" id="fs26">B.AminoAcidName: string</div>
+<div class="fsdocs-tip" id="fs27">Multiple items<br />val string : value:&#39;T -&gt; string<br /><em>&lt;summary&gt;Converts the argument to a string using &lt;c&gt;ToString&lt;/c&gt;.&lt;/summary&gt;<br />&lt;remarks&gt;For standard integer and floating point values the and any type that implements &lt;c&gt;IFormattable&lt;/c&gt;&lt;c&gt;ToString&lt;/c&gt; conversion uses &lt;c&gt;CultureInfo.InvariantCulture&lt;/c&gt;. &lt;/remarks&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted string.&lt;/returns&gt;</em><br /><br />--------------------<br />type string = System.String<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.String&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs28">B.Mass: float</div>
+<div class="fsdocs-tip" id="fs29">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to 64-bit float. This is a direct conversion for all 
  primitive numeric types. For strings, the input is converted using &lt;c&gt;Double.Parse()&lt;/c&gt;  
  with InvariantCulture settings. Otherwise the operation requires an appropriate
  static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted float&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
@@ -713,52 +619,34 @@ type float = System.Double<br /><em>&lt;summary&gt;An abbreviation for the CLI t
  The unit of measure is erased in compiled code and when values of this type
  are analyzed using reflection. The type is representationally equivalent to 
  &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category index=&quot;6&quot;&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
-<div class="fsdocs-tip" id="fs52">val monoMass : float</div>
-<div class="fsdocs-tip" id="fs53">val threeLetterCode : string</div>
-<div class="fsdocs-tip" id="fs54">val getThreeLetterCode : monoMass:&#39;a * threeLetterCode:&#39;b -&gt; &#39;b</div>
-<div class="fsdocs-tip" id="fs55">val monoMass : &#39;a</div>
-<div class="fsdocs-tip" id="fs56">val threeLetterCode : &#39;b</div>
-<div class="fsdocs-tip" id="fs57">val returnTwoValues : unit -&gt; char * int</div>
-<div class="fsdocs-tip" id="fs58">type AminoAcidMass =
+<div class="fsdocs-tip" id="fs30">val monoMass : float</div>
+<div class="fsdocs-tip" id="fs31">val threeLetterCode : string</div>
+<div class="fsdocs-tip" id="fs32">val getThreeLetterCode : monoMass:&#39;a * threeLetterCode:&#39;b -&gt; &#39;b</div>
+<div class="fsdocs-tip" id="fs33">val monoMass : &#39;a</div>
+<div class="fsdocs-tip" id="fs34">val threeLetterCode : &#39;a</div>
+<div class="fsdocs-tip" id="fs35">val returnTwoValues : unit -&gt; char * int</div>
+<div class="fsdocs-tip" id="fs36">type AminoAcidMass =
   { OneLetterCode: char
     Mass: float }</div>
-<div class="fsdocs-tip" id="fs59">AminoAcidMass.OneLetterCode: char</div>
-<div class="fsdocs-tip" id="fs60">Multiple items<br />val char : value:&#39;T -&gt; char (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to character. Numeric inputs are converted according to the UTF-16 
+<div class="fsdocs-tip" id="fs37">AminoAcidMass.OneLetterCode: char</div>
+<div class="fsdocs-tip" id="fs38">Multiple items<br />val char : value:&#39;T -&gt; char (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to character. Numeric inputs are converted according to the UTF-16 
  encoding for characters. String inputs must be exactly one character long. For other
  input types the operation requires an appropriate static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted char.&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
 type char = System.Char<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Char&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em></div>
-<div class="fsdocs-tip" id="fs61">Multiple items<br />AminoAcidMass.Mass: float<br /><br />--------------------<br />module Mass
-
-from BioFSharp<br /><em>&lt;summary&gt;
-Molecular mass related functions
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs62">type NucleotideMass =
+<div class="fsdocs-tip" id="fs39">AminoAcidMass.Mass: float</div>
+<div class="fsdocs-tip" id="fs40">type NucleotideMass =
   { Symbol: char
     Mass: float }</div>
-<div class="fsdocs-tip" id="fs63">NucleotideMass.Symbol: char</div>
-<div class="fsdocs-tip" id="fs64">Multiple items<br />NucleotideMass.Mass: float<br /><br />--------------------<br />module Mass
-
-from BioFSharp<br /><em>&lt;summary&gt;
-Molecular mass related functions
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs65">val asp : AminoAcidMass</div>
-<div class="fsdocs-tip" id="fs66">module Mass
-
-from BioFSharp<br /><em>&lt;summary&gt;
-Molecular mass related functions
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs67">type AminoAcidMassRecord =
+<div class="fsdocs-tip" id="fs41">NucleotideMass.Symbol: char</div>
+<div class="fsdocs-tip" id="fs42">NucleotideMass.Mass: float</div>
+<div class="fsdocs-tip" id="fs43">val asp : AminoAcidMass</div>
+<div class="fsdocs-tip" id="fs44">type AminoAcidMassRecord =
   { OneLetterCode: char
     Mass: float }</div>
-<div class="fsdocs-tip" id="fs68">AminoAcidMassRecord.OneLetterCode: char</div>
-<div class="fsdocs-tip" id="fs69">Multiple items<br />AminoAcidMassRecord.Mass: float<br /><br />--------------------<br />module Mass
-
-from BioFSharp<br /><em>&lt;summary&gt;
-Molecular mass related functions
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs70">type AminoAcidMassTuple = char * float</div>
-<div class="fsdocs-tip" id="fs71">val cys : AminoAcidMassRecord</div>
-<div class="fsdocs-tip" id="fs72">AminoAcidMassRecord.Mass: float</div>
+<div class="fsdocs-tip" id="fs45">AminoAcidMassRecord.OneLetterCode: char</div>
+<div class="fsdocs-tip" id="fs46">AminoAcidMassRecord.Mass: float</div>
+<div class="fsdocs-tip" id="fs47">type AminoAcidMassTuple = char * float</div>
+<div class="fsdocs-tip" id="fs48">val cys : AminoAcidMassRecord</div>
 
     </div>
 

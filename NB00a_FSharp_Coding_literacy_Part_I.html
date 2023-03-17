@@ -69,7 +69,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB01a_Systems_Biology_FSharp_Introduction.html">
                                 <span class="text">
                                     <span>NB01a Systems Biology</span>
@@ -152,7 +152,7 @@
                                     <span>NB06a Research Data Management</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-item">
                             <a class="nav-link" href="NB07a_Working_With_Deedle.html">
                                 <span class="text">
@@ -160,7 +160,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB08a_Data_Access_And_Quality_Control.html">
                                 <span class="text">
                                     <span>NB08a Data Access and Quality Control</span>
@@ -222,7 +222,7 @@
                                     <span>NB08c Absolute Quantification (BN)</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-header">Links</li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://csb.bio.uni-kl.de/#teaching">
@@ -430,11 +430,11 @@ In the following you can see how you can profit from the amazing F# community ef
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="pp">#r</span> <span class="s">&quot;nuget: BioFSharp, 2.0.0-beta5&quot;</span>
 
 <span class="c">// Access adenine without &#39;open&#39;</span>
-<span onmouseout="hideTip(event, 'fs32', 53)" onmouseover="showTip(event, 'fs32', 53)" class="id">BioFSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs33', 54)" onmouseover="showTip(event, 'fs33', 54)" class="m">Nucleotides</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs34', 55)" onmouseover="showTip(event, 'fs34', 55)" class="id">A</span>
+<span class="id">BioFSharp</span><span class="pn">.</span><span class="id">Nucleotides</span><span class="pn">.</span><span class="id">A</span>
 
 <span class="c">// Access adenine with &#39;open&#39;</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs32', 56)" onmouseover="showTip(event, 'fs32', 56)" class="id">BioFSharp</span>
-<span onmouseout="hideTip(event, 'fs33', 57)" onmouseover="showTip(event, 'fs33', 57)" class="m">Nucleotides</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs35', 58)" onmouseover="showTip(event, 'fs35', 58)" class="id">A</span>
+<span class="k">open</span> <span class="id">BioFSharp</span>
+<span class="id">Nucleotides</span><span class="pn">.</span><span class="id">A</span>
 </code></pre>
 <p>The first line automatically pulls the necessary files from the internet and allows you to use the library in your scripting environment. Due to the <code>open</code> statement you can shorten the path to access the modules
 and functions in the library. This just saves you the effort to always type <code>BioFSharp.</code> in front of everything…</p>
@@ -443,18 +443,18 @@ and functions in the library. This just saves you the effort to always type <cod
 Frequently, a program needs to skip over or choose between alternate sets of paths to execute.
 That is where control structures come in. A control structure directs the order of evaluation of expressions in a program (referred to as the program’s control flow).</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">//Function for calculating buffer recipes that uses if-conditionals </span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs36', 59)" onmouseover="showTip(event, 'fs36', 59)" class="fn">bufferRecipe</span> <span onmouseout="hideTip(event, 'fs9', 60)" onmouseover="showTip(event, 'fs9', 60)" class="fn">buffer</span> <span onmouseout="hideTip(event, 'fs37', 61)" onmouseover="showTip(event, 'fs37', 61)" class="fn">molarity</span> <span class="o">=</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 62)" onmouseover="showTip(event, 'fs38', 62)" class="fn">grams</span> <span class="o">=</span> 
-        <span class="k">if</span> <span onmouseout="hideTip(event, 'fs9', 63)" onmouseover="showTip(event, 'fs9', 63)" class="fn">buffer</span> <span class="o">=</span> <span class="s">&quot;Tris&quot;</span> <span class="k">then</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs32', 53)" onmouseover="showTip(event, 'fs32', 53)" class="fn">bufferRecipe</span> <span onmouseout="hideTip(event, 'fs9', 54)" onmouseover="showTip(event, 'fs9', 54)" class="fn">buffer</span> <span onmouseout="hideTip(event, 'fs33', 55)" onmouseover="showTip(event, 'fs33', 55)" class="fn">molarity</span> <span class="o">=</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 56)" onmouseover="showTip(event, 'fs34', 56)" class="fn">grams</span> <span class="o">=</span> 
+        <span class="k">if</span> <span onmouseout="hideTip(event, 'fs9', 57)" onmouseover="showTip(event, 'fs9', 57)" class="fn">buffer</span> <span class="o">=</span> <span class="s">&quot;Tris&quot;</span> <span class="k">then</span>
             <span class="n">121.14</span>
-        <span class="k">elif</span> <span onmouseout="hideTip(event, 'fs9', 64)" onmouseover="showTip(event, 'fs9', 64)" class="fn">buffer</span> <span class="o">=</span> <span class="s">&quot;MES&quot;</span> <span class="k">then</span>
+        <span class="k">elif</span> <span onmouseout="hideTip(event, 'fs9', 58)" onmouseover="showTip(event, 'fs9', 58)" class="fn">buffer</span> <span class="o">=</span> <span class="s">&quot;MES&quot;</span> <span class="k">then</span>
             <span class="n">217.22</span> 
-        <span class="k">elif</span> <span onmouseout="hideTip(event, 'fs9', 65)" onmouseover="showTip(event, 'fs9', 65)" class="fn">buffer</span> <span class="o">=</span> <span class="s">&quot;HEPES&quot;</span> <span class="k">then</span>
+        <span class="k">elif</span> <span onmouseout="hideTip(event, 'fs9', 59)" onmouseover="showTip(event, 'fs9', 59)" class="fn">buffer</span> <span class="o">=</span> <span class="s">&quot;HEPES&quot;</span> <span class="k">then</span>
             <span class="n">238.30</span> 
         <span class="k">else</span>
-            <span onmouseout="hideTip(event, 'fs39', 66)" onmouseover="showTip(event, 'fs39', 66)" class="fn">failwith</span> <span class="s">&quot;Huh???&quot;</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs40', 67)" onmouseover="showTip(event, 'fs40', 67)" class="fn">gramsPerLiter</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs38', 68)" onmouseover="showTip(event, 'fs38', 68)" class="fn">grams</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs37', 69)" onmouseover="showTip(event, 'fs37', 69)" class="fn">molarity</span> 
-    <span onmouseout="hideTip(event, 'fs40', 70)" onmouseover="showTip(event, 'fs40', 70)" class="fn">gramsPerLiter</span>
+            <span onmouseout="hideTip(event, 'fs35', 60)" onmouseover="showTip(event, 'fs35', 60)" class="fn">failwith</span> <span class="s">&quot;Huh???&quot;</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs36', 61)" onmouseover="showTip(event, 'fs36', 61)" class="fn">gramsPerLiter</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs34', 62)" onmouseover="showTip(event, 'fs34', 62)" class="fn">grams</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs33', 63)" onmouseover="showTip(event, 'fs33', 63)" class="fn">molarity</span> 
+    <span onmouseout="hideTip(event, 'fs36', 64)" onmouseover="showTip(event, 'fs36', 64)" class="fn">gramsPerLiter</span>
 </code></pre>
 <p>The function <code>bufferRecipe</code> takes two arguments that specify the name of the <code>buffer</code> and <code>molarity</code> of the stock solution you want to make. Based upon the buffer name that you provide; it then binds the appropriate value
 to the name grams and returns the required weight of buffer (in grams) to make up a 1 L solution.</p>
@@ -469,27 +469,27 @@ to the name grams and returns the required weight of buffer (in grams) to make u
 </ul>
 <p>However, there is a more powerful control flow construct called Matching expression. You can write the <code>bufferRecipe</code> example from above as follows:</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">//Function for calculating buffer recipes that uses match-conditions </span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs41', 71)" onmouseover="showTip(event, 'fs41', 71)" class="fn">bufferRecipe&#39;</span> <span onmouseout="hideTip(event, 'fs9', 72)" onmouseover="showTip(event, 'fs9', 72)" class="fn">buffer</span> <span onmouseout="hideTip(event, 'fs37', 73)" onmouseover="showTip(event, 'fs37', 73)" class="fn">molarity</span> <span class="o">=</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 74)" onmouseover="showTip(event, 'fs38', 74)" class="fn">grams</span> <span class="o">=</span>
-        <span class="k">match</span> <span onmouseout="hideTip(event, 'fs9', 75)" onmouseover="showTip(event, 'fs9', 75)" class="fn">buffer</span> <span class="k">with</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 65)" onmouseover="showTip(event, 'fs37', 65)" class="fn">bufferRecipe&#39;</span> <span onmouseout="hideTip(event, 'fs9', 66)" onmouseover="showTip(event, 'fs9', 66)" class="fn">buffer</span> <span onmouseout="hideTip(event, 'fs33', 67)" onmouseover="showTip(event, 'fs33', 67)" class="fn">molarity</span> <span class="o">=</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 68)" onmouseover="showTip(event, 'fs34', 68)" class="fn">grams</span> <span class="o">=</span>
+        <span class="k">match</span> <span onmouseout="hideTip(event, 'fs9', 69)" onmouseover="showTip(event, 'fs9', 69)" class="fn">buffer</span> <span class="k">with</span>
         <span class="pn">|</span> <span class="s">&quot;Tris&quot;</span>  <span class="k">-&gt;</span> <span class="n">121.14</span>
         <span class="pn">|</span> <span class="s">&quot;MES&quot;</span>   <span class="k">-&gt;</span> <span class="n">217.22</span> 
         <span class="pn">|</span> <span class="s">&quot;HEPES&quot;</span> <span class="k">-&gt;</span> <span class="n">238.30</span> 
-        <span class="pn">|</span> <span class="id">_</span>       <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs39', 76)" onmouseover="showTip(event, 'fs39', 76)" class="fn">failwith</span> <span class="s">&quot;Huh???&quot;</span>
-    <span onmouseout="hideTip(event, 'fs38', 77)" onmouseover="showTip(event, 'fs38', 77)" class="fn">grams</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs37', 78)" onmouseover="showTip(event, 'fs37', 78)" class="fn">molarity</span> 
+        <span class="pn">|</span> <span class="id">_</span>       <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs35', 70)" onmouseover="showTip(event, 'fs35', 70)" class="fn">failwith</span> <span class="s">&quot;Huh???&quot;</span>
+    <span onmouseout="hideTip(event, 'fs34', 71)" onmouseover="showTip(event, 'fs34', 71)" class="fn">grams</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs33', 72)" onmouseover="showTip(event, 'fs33', 72)" class="fn">molarity</span> 
     
 </code></pre>
 <p>Each <code>|</code> defines a condition, the <code>-&gt;</code> means "if the condition is true, follow this path...". The <code>_</code> is the default pattern, meaning that it matches anything, sort of like a wildcard. Occasionally, it's not enough to
 match an input against a particular value; we can add filters, or guards, to patterns using the <code>when</code> keyword. We can rewrite our <code>bufferRecipe</code> function once again.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">//Function for calculating buffer recipes that uses match-conditions with guards</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 79)" onmouseover="showTip(event, 'fs42', 79)" class="fn">bufferRecipe&#39;&#39;</span> <span onmouseout="hideTip(event, 'fs9', 80)" onmouseover="showTip(event, 'fs9', 80)" class="fn">buffer</span> <span onmouseout="hideTip(event, 'fs37', 81)" onmouseover="showTip(event, 'fs37', 81)" class="fn">molarity</span> <span class="o">=</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 82)" onmouseover="showTip(event, 'fs38', 82)" class="fn">grams</span> <span class="o">=</span>
-        <span class="k">match</span> <span onmouseout="hideTip(event, 'fs9', 83)" onmouseover="showTip(event, 'fs9', 83)" class="fn">buffer</span> <span class="k">with</span>
-        <span class="pn">|</span> <span onmouseout="hideTip(event, 'fs43', 84)" onmouseover="showTip(event, 'fs43', 84)" class="fn">x</span> <span class="k">when</span> <span onmouseout="hideTip(event, 'fs43', 85)" onmouseover="showTip(event, 'fs43', 85)" class="fn">x</span> <span class="o">=</span> <span class="s">&quot;Tris&quot;</span>  <span class="k">-&gt;</span> <span class="n">121.14</span>
-        <span class="pn">|</span> <span onmouseout="hideTip(event, 'fs43', 86)" onmouseover="showTip(event, 'fs43', 86)" class="fn">x</span> <span class="k">when</span> <span onmouseout="hideTip(event, 'fs43', 87)" onmouseover="showTip(event, 'fs43', 87)" class="fn">x</span> <span class="o">=</span> <span class="s">&quot;MES&quot;</span>   <span class="k">-&gt;</span> <span class="n">217.22</span> 
-        <span class="pn">|</span> <span onmouseout="hideTip(event, 'fs43', 88)" onmouseover="showTip(event, 'fs43', 88)" class="fn">x</span> <span class="k">when</span> <span onmouseout="hideTip(event, 'fs43', 89)" onmouseover="showTip(event, 'fs43', 89)" class="fn">x</span> <span class="o">=</span> <span class="s">&quot;HEPES&quot;</span> <span class="k">-&gt;</span> <span class="n">238.30</span> 
-        <span class="pn">|</span> <span class="id">_</span>       <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs39', 90)" onmouseover="showTip(event, 'fs39', 90)" class="fn">failwith</span> <span class="s">&quot;Huh???&quot;</span>
-    <span onmouseout="hideTip(event, 'fs38', 91)" onmouseover="showTip(event, 'fs38', 91)" class="fn">grams</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs37', 92)" onmouseover="showTip(event, 'fs37', 92)" class="fn">molarity</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 73)" onmouseover="showTip(event, 'fs38', 73)" class="fn">bufferRecipe&#39;&#39;</span> <span onmouseout="hideTip(event, 'fs9', 74)" onmouseover="showTip(event, 'fs9', 74)" class="fn">buffer</span> <span onmouseout="hideTip(event, 'fs33', 75)" onmouseover="showTip(event, 'fs33', 75)" class="fn">molarity</span> <span class="o">=</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 76)" onmouseover="showTip(event, 'fs34', 76)" class="fn">grams</span> <span class="o">=</span>
+        <span class="k">match</span> <span onmouseout="hideTip(event, 'fs9', 77)" onmouseover="showTip(event, 'fs9', 77)" class="fn">buffer</span> <span class="k">with</span>
+        <span class="pn">|</span> <span onmouseout="hideTip(event, 'fs39', 78)" onmouseover="showTip(event, 'fs39', 78)" class="fn">x</span> <span class="k">when</span> <span onmouseout="hideTip(event, 'fs39', 79)" onmouseover="showTip(event, 'fs39', 79)" class="fn">x</span> <span class="o">=</span> <span class="s">&quot;Tris&quot;</span>  <span class="k">-&gt;</span> <span class="n">121.14</span>
+        <span class="pn">|</span> <span onmouseout="hideTip(event, 'fs39', 80)" onmouseover="showTip(event, 'fs39', 80)" class="fn">x</span> <span class="k">when</span> <span onmouseout="hideTip(event, 'fs39', 81)" onmouseover="showTip(event, 'fs39', 81)" class="fn">x</span> <span class="o">=</span> <span class="s">&quot;MES&quot;</span>   <span class="k">-&gt;</span> <span class="n">217.22</span> 
+        <span class="pn">|</span> <span onmouseout="hideTip(event, 'fs39', 82)" onmouseover="showTip(event, 'fs39', 82)" class="fn">x</span> <span class="k">when</span> <span onmouseout="hideTip(event, 'fs39', 83)" onmouseover="showTip(event, 'fs39', 83)" class="fn">x</span> <span class="o">=</span> <span class="s">&quot;HEPES&quot;</span> <span class="k">-&gt;</span> <span class="n">238.30</span> 
+        <span class="pn">|</span> <span class="id">_</span>       <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs35', 84)" onmouseover="showTip(event, 'fs35', 84)" class="fn">failwith</span> <span class="s">&quot;Huh???&quot;</span>
+    <span onmouseout="hideTip(event, 'fs34', 85)" onmouseover="showTip(event, 'fs34', 85)" class="fn">grams</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs33', 86)" onmouseover="showTip(event, 'fs33', 86)" class="fn">molarity</span> 
     
 </code></pre>
 <p>Maybe we should notice that in this function we use the function <code>failwith</code> to throw an error, if we do not know the buffer. This is not particular nice, however necessary in our example.</p>
@@ -537,26 +537,14 @@ type float = System.Double<br /><em>&lt;summary&gt;An abbreviation for the CLI t
 <div class="fsdocs-tip" id="fs29">val gasConstant : float</div>
 <div class="fsdocs-tip" id="fs30">val density : float</div>
 <div class="fsdocs-tip" id="fs31">val co2MolarVolume : float</div>
-<div class="fsdocs-tip" id="fs32">namespace BioFSharp</div>
-<div class="fsdocs-tip" id="fs33">module Nucleotides
-
-from BioFSharp<br /><em>&lt;summary&gt;
-Contains the Nucleotide type and its according functions.
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs34">union case BioFSharp.Nucleotides.Nucleotide.A: BioFSharp.Nucleotides.Nucleotide<br /><em>&lt;summary&gt;
- A : Adenine
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs35">union case Nucleotides.Nucleotide.A: Nucleotides.Nucleotide<br /><em>&lt;summary&gt;
- A : Adenine
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs36">val bufferRecipe : buffer:string -&gt; molarity:float -&gt; float</div>
-<div class="fsdocs-tip" id="fs37">val molarity : float</div>
-<div class="fsdocs-tip" id="fs38">val grams : float</div>
-<div class="fsdocs-tip" id="fs39">val failwith : message:string -&gt; &#39;T<br /><em>&lt;summary&gt;Throw a &lt;see cref=&quot;T:System.Exception&quot; /&gt; exception.&lt;/summary&gt;<br />&lt;param name=&quot;message&quot;&gt;The exception message.&lt;/param&gt;<br />&lt;returns&gt;The result value.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs40">val gramsPerLiter : float</div>
-<div class="fsdocs-tip" id="fs41">val bufferRecipe&#39; : buffer:string -&gt; molarity:float -&gt; float</div>
-<div class="fsdocs-tip" id="fs42">val bufferRecipe&#39;&#39; : buffer:string -&gt; molarity:float -&gt; float</div>
-<div class="fsdocs-tip" id="fs43">val x : string</div>
+<div class="fsdocs-tip" id="fs32">val bufferRecipe : buffer:string -&gt; molarity:float -&gt; float</div>
+<div class="fsdocs-tip" id="fs33">val molarity : float</div>
+<div class="fsdocs-tip" id="fs34">val grams : float</div>
+<div class="fsdocs-tip" id="fs35">val failwith : message:string -&gt; &#39;T<br /><em>&lt;summary&gt;Throw a &lt;see cref=&quot;T:System.Exception&quot; /&gt; exception.&lt;/summary&gt;<br />&lt;param name=&quot;message&quot;&gt;The exception message.&lt;/param&gt;<br />&lt;returns&gt;The result value.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs36">val gramsPerLiter : float</div>
+<div class="fsdocs-tip" id="fs37">val bufferRecipe&#39; : buffer:string -&gt; molarity:float -&gt; float</div>
+<div class="fsdocs-tip" id="fs38">val bufferRecipe&#39;&#39; : buffer:string -&gt; molarity:float -&gt; float</div>
+<div class="fsdocs-tip" id="fs39">val x : string</div>
 
     </div>
 

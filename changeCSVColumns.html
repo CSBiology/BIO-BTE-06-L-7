@@ -68,7 +68,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB01a_Systems_Biology_FSharp_Introduction.html">
                                 <span class="text">
                                     <span>NB01a Systems Biology</span>
@@ -151,7 +151,7 @@
                                     <span>NB06a Research Data Management</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-item">
                             <a class="nav-link" href="NB07a_Working_With_Deedle.html">
                                 <span class="text">
@@ -159,7 +159,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB08a_Data_Access_And_Quality_Control.html">
                                 <span class="text">
                                     <span>NB08a Data Access and Quality Control</span>
@@ -221,7 +221,7 @@
                                     <span>NB08c Absolute Quantification (BN)</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-header">Links</li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://csb.bio.uni-kl.de/#teaching">
@@ -273,83 +273,50 @@
                     <pre class="fssnip highlighted"><code lang="fsharp"><span class="m">#r</span> <span class="s">&quot;nuget: Deedle&quot;</span>
 <span class="pp">#r</span> <span class="s">&quot;nuget: FSharpAux&quot;</span>
 
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">Deedle</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="id">FSharpAux</span>
+<span class="k">open</span> <span class="id">Deedle</span>
+<span class="k">open</span> <span class="id">FSharpAux</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="id">myPathSDS</span> <span class="o">=</span> <span class="s">@&quot;C:\Repos\BIO-BTE-06-L-7\docs\downloads\Quantifications_sds_annotated.txt&quot;</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="id">myPathBN</span> <span class="o">=</span> <span class="s">@&quot;C:\Repos\BIO-BTE-06-L-7\docs\downloads\Quantifications_bn_annotated.txt&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">myPathSDS</span> <span class="o">=</span> <span class="s">@&quot;C:\Repos\BIO-BTE-06-L-7\docs\downloads\Quantifications_sds_annotated.txt&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="id">myPathBN</span> <span class="o">=</span> <span class="s">@&quot;C:\Repos\BIO-BTE-06-L-7\docs\downloads\Quantifications_bn_annotated.txt&quot;</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="id">framSDS</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="id">ReadCsv</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs3', 8)" onmouseover="showTip(event, 'fs3', 8)" class="id">myPathSDS</span><span class="pn">,</span> <span class="fn">separators</span> <span class="o">=</span> <span class="s">&quot;\t&quot;</span><span class="pn">)</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 9)" onmouseover="showTip(event, 'fs8', 9)" class="id">framBN</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs6', 10)" onmouseover="showTip(event, 'fs6', 10)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs7', 11)" onmouseover="showTip(event, 'fs7', 11)" class="id">ReadCsv</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs4', 12)" onmouseover="showTip(event, 'fs4', 12)" class="id">myPathBN</span><span class="pn">,</span> <span class="fn">separators</span> <span class="o">=</span> <span class="s">&quot;\t&quot;</span><span class="pn">)</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="id">framSDS</span> <span class="o">=</span> <span class="id">Frame</span><span class="pn">.</span><span class="id">ReadCsv</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs1', 4)" onmouseover="showTip(event, 'fs1', 4)" class="id">myPathSDS</span><span class="pn">,</span> <span class="id">separators</span> <span class="o">=</span> <span class="s">&quot;\t&quot;</span><span class="pn">)</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="id">framBN</span> <span class="o">=</span> <span class="id">Frame</span><span class="pn">.</span><span class="id">ReadCsv</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs2', 6)" onmouseover="showTip(event, 'fs2', 6)" class="id">myPathBN</span><span class="pn">,</span> <span class="id">separators</span> <span class="o">=</span> <span class="s">&quot;\t&quot;</span><span class="pn">)</span>
 
-<span onmouseout="hideTip(event, 'fs5', 13)" onmouseover="showTip(event, 'fs5', 13)" class="id">framSDS</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs9', 14)" onmouseover="showTip(event, 'fs9', 14)" class="id">ColumnKeys</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 15)" onmouseover="showTip(event, 'fs10', 15)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs11', 16)" onmouseover="showTip(event, 'fs11', 16)" class="id">ofSeq</span>
-<span onmouseout="hideTip(event, 'fs8', 17)" onmouseover="showTip(event, 'fs8', 17)" class="id">framBN</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs9', 18)" onmouseover="showTip(event, 'fs9', 18)" class="id">ColumnKeys</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 19)" onmouseover="showTip(event, 'fs10', 19)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs11', 20)" onmouseover="showTip(event, 'fs11', 20)" class="id">ofSeq</span>
+<span onmouseout="hideTip(event, 'fs3', 7)" onmouseover="showTip(event, 'fs3', 7)" class="id">framSDS</span><span class="pn">.</span><span class="id">ColumnKeys</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs5', 8)" onmouseover="showTip(event, 'fs5', 8)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs6', 9)" onmouseover="showTip(event, 'fs6', 9)" class="id">ofSeq</span>
+<span onmouseout="hideTip(event, 'fs4', 10)" onmouseover="showTip(event, 'fs4', 10)" class="id">framBN</span><span class="pn">.</span><span class="id">ColumnKeys</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs5', 11)" onmouseover="showTip(event, 'fs5', 11)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs6', 12)" onmouseover="showTip(event, 'fs6', 12)" class="id">ofSeq</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 21)" onmouseover="showTip(event, 'fs12', 21)" class="id">framSDS&#39;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 22)" onmouseover="showTip(event, 'fs5', 22)" class="id">framSDS</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 23)" onmouseover="showTip(event, 'fs6', 23)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs13', 24)" onmouseover="showTip(event, 'fs13', 24)" class="id">mapColKeys</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs14', 25)" onmouseover="showTip(event, 'fs14', 25)" class="fn">cK</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs14', 26)" onmouseover="showTip(event, 'fs14', 26)" class="fn">cK</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 27)" onmouseover="showTip(event, 'fs15', 27)" class="m">String</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs16', 28)" onmouseover="showTip(event, 'fs16', 28)" class="id">replace</span> <span class="s">&quot;2.5&quot;</span> <span class="s">&quot;2_5&quot;</span><span class="pn">)</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 29)" onmouseover="showTip(event, 'fs17', 29)" class="id">framBN&#39;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs8', 30)" onmouseover="showTip(event, 'fs8', 30)" class="id">framBN</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 31)" onmouseover="showTip(event, 'fs6', 31)" class="m">Frame</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs13', 32)" onmouseover="showTip(event, 'fs13', 32)" class="id">mapColKeys</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs14', 33)" onmouseover="showTip(event, 'fs14', 33)" class="fn">cK</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs14', 34)" onmouseover="showTip(event, 'fs14', 34)" class="fn">cK</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 35)" onmouseover="showTip(event, 'fs15', 35)" class="m">String</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs16', 36)" onmouseover="showTip(event, 'fs16', 36)" class="id">replace</span> <span class="s">&quot;2.5&quot;</span> <span class="s">&quot;2_5&quot;</span><span class="pn">)</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 13)" onmouseover="showTip(event, 'fs7', 13)" class="id">framSDS&#39;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 14)" onmouseover="showTip(event, 'fs3', 14)" class="id">framSDS</span> <span class="o">|&gt;</span> <span class="id">Frame</span><span class="pn">.</span><span class="id">mapColKeys</span> <span class="pn">(</span><span class="k">fun</span> <span class="id">cK</span> <span class="k">-&gt;</span> <span class="id">cK</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 15)" onmouseover="showTip(event, 'fs8', 15)" class="id">String</span><span class="pn">.</span><span class="id">replace</span> <span class="s">&quot;2.5&quot;</span> <span class="s">&quot;2_5&quot;</span><span class="pn">)</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 16)" onmouseover="showTip(event, 'fs9', 16)" class="id">framBN&#39;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs4', 17)" onmouseover="showTip(event, 'fs4', 17)" class="id">framBN</span> <span class="o">|&gt;</span> <span class="id">Frame</span><span class="pn">.</span><span class="id">mapColKeys</span> <span class="pn">(</span><span class="k">fun</span> <span class="id">cK</span> <span class="k">-&gt;</span> <span class="id">cK</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 18)" onmouseover="showTip(event, 'fs8', 18)" class="id">String</span><span class="pn">.</span><span class="id">replace</span> <span class="s">&quot;2.5&quot;</span> <span class="s">&quot;2_5&quot;</span><span class="pn">)</span>
 
-<span onmouseout="hideTip(event, 'fs12', 37)" onmouseover="showTip(event, 'fs12', 37)" class="id">framSDS&#39;</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs9', 38)" onmouseover="showTip(event, 'fs9', 38)" class="id">ColumnKeys</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 39)" onmouseover="showTip(event, 'fs10', 39)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs11', 40)" onmouseover="showTip(event, 'fs11', 40)" class="id">ofSeq</span>
-<span onmouseout="hideTip(event, 'fs17', 41)" onmouseover="showTip(event, 'fs17', 41)" class="id">framBN&#39;</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs9', 42)" onmouseover="showTip(event, 'fs9', 42)" class="id">ColumnKeys</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 43)" onmouseover="showTip(event, 'fs10', 43)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs11', 44)" onmouseover="showTip(event, 'fs11', 44)" class="id">ofSeq</span>
+<span onmouseout="hideTip(event, 'fs7', 19)" onmouseover="showTip(event, 'fs7', 19)" class="id">framSDS&#39;</span><span class="pn">.</span><span class="id">ColumnKeys</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs5', 20)" onmouseover="showTip(event, 'fs5', 20)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs6', 21)" onmouseover="showTip(event, 'fs6', 21)" class="id">ofSeq</span>
+<span onmouseout="hideTip(event, 'fs9', 22)" onmouseover="showTip(event, 'fs9', 22)" class="id">framBN&#39;</span><span class="pn">.</span><span class="id">ColumnKeys</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs5', 23)" onmouseover="showTip(event, 'fs5', 23)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs6', 24)" onmouseover="showTip(event, 'fs6', 24)" class="id">ofSeq</span>
 
-<span onmouseout="hideTip(event, 'fs12', 45)" onmouseover="showTip(event, 'fs12', 45)" class="id">framSDS&#39;</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 46)" onmouseover="showTip(event, 'fs18', 46)" class="id">SaveCsv</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs3', 47)" onmouseover="showTip(event, 'fs3', 47)" class="id">myPathSDS</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 48)" onmouseover="showTip(event, 'fs15', 48)" class="m">String</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs16', 49)" onmouseover="showTip(event, 'fs16', 49)" class="id">replace</span> <span class="s">&quot;.txt&quot;</span> <span class="s">&quot;_replaced.txt&quot;</span><span class="pn">,</span> <span class="fn">separator</span> <span class="o">=</span> <span class="s">&#39;\t&#39;</span><span class="pn">,</span> <span class="fn">includeRowKeys</span> <span class="o">=</span> <span class="k">false</span><span class="pn">)</span>
-<span onmouseout="hideTip(event, 'fs17', 50)" onmouseover="showTip(event, 'fs17', 50)" class="id">framBN&#39;</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 51)" onmouseover="showTip(event, 'fs18', 51)" class="id">SaveCsv</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs4', 52)" onmouseover="showTip(event, 'fs4', 52)" class="id">myPathBN</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 53)" onmouseover="showTip(event, 'fs15', 53)" class="m">String</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs16', 54)" onmouseover="showTip(event, 'fs16', 54)" class="id">replace</span> <span class="s">&quot;.txt&quot;</span> <span class="s">&quot;_replaced.txt&quot;</span><span class="pn">,</span> <span class="fn">separator</span> <span class="o">=</span> <span class="s">&#39;\t&#39;</span><span class="pn">,</span> <span class="fn">includeRowKeys</span> <span class="o">=</span> <span class="k">false</span><span class="pn">)</span>
+<span onmouseout="hideTip(event, 'fs7', 25)" onmouseover="showTip(event, 'fs7', 25)" class="id">framSDS&#39;</span><span class="pn">.</span><span class="id">SaveCsv</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs1', 26)" onmouseover="showTip(event, 'fs1', 26)" class="id">myPathSDS</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 27)" onmouseover="showTip(event, 'fs8', 27)" class="id">String</span><span class="pn">.</span><span class="id">replace</span> <span class="s">&quot;.txt&quot;</span> <span class="s">&quot;_replaced.txt&quot;</span><span class="pn">,</span> <span class="id">separator</span> <span class="o">=</span> <span class="s">&#39;\t&#39;</span><span class="pn">,</span> <span class="id">includeRowKeys</span> <span class="o">=</span> <span class="k">false</span><span class="pn">)</span>
+<span onmouseout="hideTip(event, 'fs9', 28)" onmouseover="showTip(event, 'fs9', 28)" class="id">framBN&#39;</span><span class="pn">.</span><span class="id">SaveCsv</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs2', 29)" onmouseover="showTip(event, 'fs2', 29)" class="id">myPathBN</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 30)" onmouseover="showTip(event, 'fs8', 30)" class="id">String</span><span class="pn">.</span><span class="id">replace</span> <span class="s">&quot;.txt&quot;</span> <span class="s">&quot;_replaced.txt&quot;</span><span class="pn">,</span> <span class="id">separator</span> <span class="o">=</span> <span class="s">&#39;\t&#39;</span><span class="pn">,</span> <span class="id">includeRowKeys</span> <span class="o">=</span> <span class="k">false</span><span class="pn">)</span>
 </code></pre>
 
                 </div>
             </div>
         </div>
-        <div class="fsdocs-tip" id="fs1">namespace Deedle</div>
-<div class="fsdocs-tip" id="fs2">namespace FSharpAux</div>
-<div class="fsdocs-tip" id="fs3">val myPathSDS : string</div>
-<div class="fsdocs-tip" id="fs4">val myPathBN : string</div>
-<div class="fsdocs-tip" id="fs5">val framSDS : Frame&lt;int,string&gt;</div>
-<div class="fsdocs-tip" id="fs6">Multiple items<br />module Frame
-
-from Deedle<br /><br />--------------------<br />type Frame =
-  static member ReadCsv : location:string * hasHeaders:Nullable&lt;bool&gt; * inferTypes:Nullable&lt;bool&gt; * inferRows:Nullable&lt;int&gt; * schema:string * separators:string * culture:string * maxRows:Nullable&lt;int&gt; * missingValues:string [] * preferOptions:bool -&gt; Frame&lt;int,string&gt; + 1 overload
-  static member ReadReader : reader:IDataReader -&gt; Frame&lt;int,string&gt;
-  static member CustomExpanders : Dictionary&lt;Type,Func&lt;obj,seq&lt;string * Type * obj&gt;&gt;&gt;
-  static member NonExpandableInterfaces : ResizeArray&lt;Type&gt;
-  static member NonExpandableTypes : HashSet&lt;Type&gt;<br /><br />--------------------<br />type Frame&lt;&#39;TRowKey,&#39;TColumnKey (requires equality and equality)&gt; =
-  interface IDynamicMetaObjectProvider
-  interface INotifyCollectionChanged
-  interface IFsiFormattable
-  interface IFrame
-  new : rowIndex:IIndex&lt;&#39;TRowKey&gt; * columnIndex:IIndex&lt;&#39;TColumnKey&gt; * data:IVector&lt;IVector&gt; * indexBuilder:IIndexBuilder * vectorBuilder:IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt; + 1 overload
-  member AddColumn : column:&#39;TColumnKey * series:seq&lt;&#39;V&gt; -&gt; unit + 3 overloads
-  member AggregateRowsBy : groupBy:seq&lt;&#39;TColumnKey&gt; * aggBy:seq&lt;&#39;TColumnKey&gt; * aggFunc:Func&lt;Series&lt;&#39;TRowKey,&#39;a&gt;,&#39;b&gt; -&gt; Frame&lt;int,&#39;TColumnKey&gt;
-  member Clone : unit -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;
-  member ColumnApply : f:Func&lt;Series&lt;&#39;TRowKey,&#39;T&gt;,ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt; + 1 overload
-  member DropColumn : column:&#39;TColumnKey -&gt; unit
-  ...<br /><br />--------------------<br />new : names:seq&lt;&#39;TColumnKey&gt; * columns:seq&lt;ISeries&lt;&#39;TRowKey&gt;&gt; -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;<br />new : rowIndex:Indices.IIndex&lt;&#39;TRowKey&gt; * columnIndex:Indices.IIndex&lt;&#39;TColumnKey&gt; * data:IVector&lt;IVector&gt; * indexBuilder:Indices.IIndexBuilder * vectorBuilder:Vectors.IVectorBuilder -&gt; Frame&lt;&#39;TRowKey,&#39;TColumnKey&gt;</div>
-<div class="fsdocs-tip" id="fs7">static member Frame.ReadCsv : path:string * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : stream:System.IO.Stream * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : reader:System.IO.TextReader * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : stream:System.IO.Stream * hasHeaders:System.Nullable&lt;bool&gt; * inferTypes:System.Nullable&lt;bool&gt; * inferRows:System.Nullable&lt;int&gt; * schema:string * separators:string * culture:string * maxRows:System.Nullable&lt;int&gt; * missingValues:string [] * preferOptions:System.Nullable&lt;bool&gt; -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : location:string * hasHeaders:System.Nullable&lt;bool&gt; * inferTypes:System.Nullable&lt;bool&gt; * inferRows:System.Nullable&lt;int&gt; * schema:string * separators:string * culture:string * maxRows:System.Nullable&lt;int&gt; * missingValues:string [] * preferOptions:bool -&gt; Frame&lt;int,string&gt;<br />static member Frame.ReadCsv : path:string * indexCol:string * ?hasHeaders:bool * ?inferTypes:bool * ?inferRows:int * ?schema:string * ?separators:string * ?culture:string * ?maxRows:int * ?missingValues:string [] * ?preferOptions:bool -&gt; Frame&lt;&#39;R,string&gt; (requires equality)</div>
-<div class="fsdocs-tip" id="fs8">val framBN : Frame&lt;int,string&gt;</div>
-<div class="fsdocs-tip" id="fs9">property Frame.ColumnKeys: seq&lt;string&gt; with get</div>
-<div class="fsdocs-tip" id="fs10">Multiple items<br />module Array
-
-from FSharpAux<br /><br />--------------------<br />module Array
+        <div class="fsdocs-tip" id="fs1">val myPathSDS : string</div>
+<div class="fsdocs-tip" id="fs2">val myPathBN : string</div>
+<div class="fsdocs-tip" id="fs3">val framSDS : obj</div>
+<div class="fsdocs-tip" id="fs4">val framBN : obj</div>
+<div class="fsdocs-tip" id="fs5">module Array
 
 from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with arrays.&lt;/summary&gt;<br />&lt;remarks&gt;
   See also &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/arrays&quot;&gt;F# Language Guide - Arrays&lt;/a&gt;.
  &lt;/remarks&gt;</em></div>
-<div class="fsdocs-tip" id="fs11">val ofSeq : source:seq&lt;&#39;T&gt; -&gt; &#39;T []<br /><em>&lt;summary&gt;Builds a new array from the given enumerable object.&lt;/summary&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The array of elements from the sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
-<div class="fsdocs-tip" id="fs12">val framSDS&#39; : Frame&lt;int,string&gt;</div>
-<div class="fsdocs-tip" id="fs13">val mapColKeys : f:(&#39;C -&gt; &#39;a) -&gt; frame:Frame&lt;&#39;R,&#39;C&gt; -&gt; Frame&lt;&#39;R,&#39;a&gt; (requires equality and equality and equality)</div>
-<div class="fsdocs-tip" id="fs14">val cK : string</div>
-<div class="fsdocs-tip" id="fs15">Multiple items<br />module String
-
-from FSharpAux<br /><br />--------------------<br />module String
+<div class="fsdocs-tip" id="fs6">val ofSeq : source:seq&lt;&#39;T&gt; -&gt; &#39;T []<br /><em>&lt;summary&gt;Builds a new array from the given enumerable object.&lt;/summary&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The array of elements from the sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs7">val framSDS&#39; : obj</div>
+<div class="fsdocs-tip" id="fs8">module String
 
 from Microsoft.FSharp.Core<br /><em>&lt;summary&gt;Functional programming operators for string processing.  Further string operations
  are available via the member functions on strings and other functionality in
   &lt;a href=&quot;http://msdn2.microsoft.com/en-us/library/system.string.aspx&quot;&gt;System.String&lt;/a&gt; 
  and &lt;a href=&quot;http://msdn2.microsoft.com/library/system.text.regularexpressions.aspx&quot;&gt;System.Text.RegularExpressions&lt;/a&gt; types.
  &lt;/summary&gt;<br />&lt;category&gt;Strings and Text&lt;/category&gt;</em></div>
-<div class="fsdocs-tip" id="fs16">val replace : pattern:string -&gt; replacement:string -&gt; text:string -&gt; string<br /><em>&lt;summary&gt;
- Replaces the given &quot;replacement&quot; for every occurence of the pattern in the given text 
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs17">val framBN&#39; : Frame&lt;int,string&gt;</div>
-<div class="fsdocs-tip" id="fs18">member Frame.SaveCsv : path:string * keyNames:seq&lt;string&gt; -&gt; unit<br />static member FrameExtensions.SaveCsv : frame:Frame&lt;&#39;R,&#39;C&gt; * path:string * keyNames:seq&lt;string&gt; * separator:char * culture:System.Globalization.CultureInfo -&gt; unit (requires equality and equality)<br />static member FrameExtensions.SaveCsv : frame:Frame&lt;&#39;R,&#39;C&gt; * writer:System.IO.TextWriter * includeRowKeys:bool * keyNames:seq&lt;string&gt; * separator:char * culture:System.Globalization.CultureInfo -&gt; unit (requires equality and equality)<br />static member FrameExtensions.SaveCsv : frame:Frame&lt;&#39;R,&#39;C&gt; * path:string * includeRowKeys:bool * keyNames:seq&lt;string&gt; * separator:char * culture:System.Globalization.CultureInfo -&gt; unit (requires equality and equality)<br />member Frame.SaveCsv : writer:System.IO.TextWriter * ?includeRowKeys:bool * ?keyNames:seq&lt;string&gt; * ?separator:char * ?culture:System.Globalization.CultureInfo -&gt; unit<br />member Frame.SaveCsv : path:string * ?includeRowKeys:bool * ?keyNames:seq&lt;string&gt; * ?separator:char * ?culture:System.Globalization.CultureInfo -&gt; unit</div>
+<div class="fsdocs-tip" id="fs9">val framBN&#39; : obj</div>
 
     </div>
 

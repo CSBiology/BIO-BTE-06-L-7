@@ -69,7 +69,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB01a_Systems_Biology_FSharp_Introduction.html">
                                 <span class="text">
                                     <span>NB01a Systems Biology</span>
@@ -152,7 +152,7 @@
                                     <span>NB06a Research Data Management</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-item">
                             <a class="nav-link" href="NB07a_Working_With_Deedle.html">
                                 <span class="text">
@@ -160,7 +160,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB08a_Data_Access_And_Quality_Control.html">
                                 <span class="text">
                                     <span>NB08a Data Access and Quality Control</span>
@@ -222,7 +222,7 @@
                                     <span>NB08c Absolute Quantification (BN)</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-header">Links</li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://csb.bio.uni-kl.de/#teaching">
@@ -309,8 +309,8 @@ Simulate the isotopic cluster of the peptide sequence ‘PEPTIDES’ and ‘PEPT
 <span class="inactive">#r</span><span class="inactive"> </span><span class="inactive">&quot;nuget:</span><span class="inactive"> </span><span class="inactive">Plotly.NET.Interactive,</span><span class="inactive"> </span><span class="inactive">2.0.0-preview.16&quot;</span>
 <span class="pp">#endif</span> <span class="c">// IPYNB</span>
 
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">Plotly</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="id">NET</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="id">BioFSharp</span>
+<span class="k">open</span> <span class="id">Plotly</span><span class="pn">.</span><span class="id">NET</span>
+<span class="k">open</span> <span class="id">BioFSharp</span>
 </code></pre>
 <h2><a name="Simulating-Isotopic-Clusters-for-peptides" class="anchor" href="#Simulating-Isotopic-Clusters-for-peptides">Simulating Isotopic Clusters for peptides</a></h2>
 <p>We will use two artificial peptide sequences and translate them into their elemental composition to simulate their isotopic clusters.
@@ -318,37 +318,37 @@ Therefore, we first define a function that maps from a peptide sequence to its f
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 1</span>
 
 <span class="c">// create chemical formula for amino acid and add water to reflect hydrolysed state in mass spectrometer</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="fn">toFormula</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="fn">bioseq</span> <span class="o">=</span>  
-    <span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="fn">bioseq</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="m">BioSeq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="id">toFormula</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="fn">toFormula</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="fn">bioseq</span> <span class="o">=</span>  
+    <span onmouseout="hideTip(event, 'fs2', 3)" onmouseover="showTip(event, 'fs2', 3)" class="fn">bioseq</span>
+    <span class="o">|&gt;</span> <span class="id">BioSeq</span><span class="pn">.</span><span class="id">toFormula</span>
     <span class="c">// peptides are hydrolysed in the mass spectrometer, so we add H2O</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 9)" onmouseover="showTip(event, 'fs8', 9)" class="m">Formula</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs9', 10)" onmouseover="showTip(event, 'fs9', 10)" class="id">add</span> <span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="m">Formula</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="id">H2O</span>
+    <span class="o">|&gt;</span> <span class="id">Formula</span><span class="pn">.</span><span class="id">add</span> <span class="id">Formula</span><span class="pn">.</span><span class="id">Table</span><span class="pn">.</span><span class="id">H2O</span>
 </code></pre>
 <p>Next, we will apply our function to receive the elemental composition or chemical formula of the peptides.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 2</span>
 
 <span class="c">// translate single letter code into amino acids and create chemical formula of it.</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="id">peptide_short</span> <span class="o">=</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs3', 4)" onmouseover="showTip(event, 'fs3', 4)" class="id">peptide_short</span> <span class="o">=</span> 
     <span class="s">&quot;PEPTIDES&quot;</span> 
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 15)" onmouseover="showTip(event, 'fs6', 15)" class="m">BioSeq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs13', 16)" onmouseover="showTip(event, 'fs13', 16)" class="id">ofAminoAcidString</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs4', 17)" onmouseover="showTip(event, 'fs4', 17)" class="fn">toFormula</span>
+    <span class="o">|&gt;</span> <span class="id">BioSeq</span><span class="pn">.</span><span class="id">ofAminoAcidString</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs1', 5)" onmouseover="showTip(event, 'fs1', 5)" class="fn">toFormula</span>
     
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 18)" onmouseover="showTip(event, 'fs14', 18)" class="id">peptide_long</span>  <span class="o">=</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="id">peptide_long</span>  <span class="o">=</span> 
     <span class="s">&quot;PEPTIDEPEPTIDEPEPTIDEPEPTIDES&quot;</span> 
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 19)" onmouseover="showTip(event, 'fs6', 19)" class="m">BioSeq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs13', 20)" onmouseover="showTip(event, 'fs13', 20)" class="id">ofAminoAcidString</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs4', 21)" onmouseover="showTip(event, 'fs4', 21)" class="fn">toFormula</span>
+    <span class="o">|&gt;</span> <span class="id">BioSeq</span><span class="pn">.</span><span class="id">ofAminoAcidString</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs1', 7)" onmouseover="showTip(event, 'fs1', 7)" class="fn">toFormula</span>
     
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs15', 22)" onmouseover="showTip(event, 'fs15', 22)" class="id">peptide_shortString</span> <span class="o">=</span>
-    <span onmouseout="hideTip(event, 'fs12', 23)" onmouseover="showTip(event, 'fs12', 23)" class="id">peptide_short</span> 
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 24)" onmouseover="showTip(event, 'fs8', 24)" class="m">Formula</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs16', 25)" onmouseover="showTip(event, 'fs16', 25)" class="id">toString</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 8)" onmouseover="showTip(event, 'fs5', 8)" class="id">peptide_shortString</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs3', 9)" onmouseover="showTip(event, 'fs3', 9)" class="id">peptide_short</span> 
+    <span class="o">|&gt;</span> <span class="id">Formula</span><span class="pn">.</span><span class="id">toString</span>
 
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 26)" onmouseover="showTip(event, 'fs17', 26)" class="id">peptide_longString</span> <span class="o">=</span>
-    <span onmouseout="hideTip(event, 'fs14', 27)" onmouseover="showTip(event, 'fs14', 27)" class="id">peptide_long</span> 
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 28)" onmouseover="showTip(event, 'fs8', 28)" class="m">Formula</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs16', 29)" onmouseover="showTip(event, 'fs16', 29)" class="id">toString</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs6', 10)" onmouseover="showTip(event, 'fs6', 10)" class="id">peptide_longString</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs4', 11)" onmouseover="showTip(event, 'fs4', 11)" class="id">peptide_long</span> 
+    <span class="o">|&gt;</span> <span class="id">Formula</span><span class="pn">.</span><span class="id">toString</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>"C37.00 H58.00 N8.00 O17.00"</code></pre></td></tr></table>
-<table class="pre"><tr><td><pre><code>"C139.00 H211.00 N29.00 O59.00"</code></pre></td></tr></table>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
 <p>Additionally, we need a function that maps from Formula (and charge) to the isotopic distribution. Here, we
 can use <code>IsotopicDistribution.MIDA.ofFormula</code> from the BioFSharp library. However, for convenience
 (to use the same parameter twice), we define our function <code>generateIsotopicDistribution</code>:</p>
@@ -356,70 +356,44 @@ can use <code>IsotopicDistribution.MIDA.ofFormula</code> from the BioFSharp libr
 
 <span class="c">// Predicts an isotopic distribution of the given formula at the given charge, </span>
 <span class="c">// normalized by the sum of probabilities, using the MIDAs algorithm</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 30)" onmouseover="showTip(event, 'fs18', 30)" class="fn">generateIsotopicDistribution</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs19', 31)" onmouseover="showTip(event, 'fs19', 31)" class="fn">charge</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs20', 32)" onmouseover="showTip(event, 'fs20', 32)" class="vt">int</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs21', 33)" onmouseover="showTip(event, 'fs21', 33)" class="fn">f</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs8', 34)" onmouseover="showTip(event, 'fs8', 34)" class="m">Formula</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs22', 35)" onmouseover="showTip(event, 'fs22', 35)" class="id">Formula</span><span class="pn">)</span> <span class="o">=</span>
-    <span onmouseout="hideTip(event, 'fs23', 36)" onmouseover="showTip(event, 'fs23', 36)" class="m">IsotopicDistribution</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 37)" onmouseover="showTip(event, 'fs24', 37)" class="m">MIDA</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs25', 38)" onmouseover="showTip(event, 'fs25', 38)" class="id">ofFormula</span> 
-        <span onmouseout="hideTip(event, 'fs23', 39)" onmouseover="showTip(event, 'fs23', 39)" class="m">IsotopicDistribution</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 40)" onmouseover="showTip(event, 'fs24', 40)" class="m">MIDA</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 41)" onmouseover="showTip(event, 'fs26', 41)" class="id">normalizeByMaxProb</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 12)" onmouseover="showTip(event, 'fs7', 12)" class="fn">generateIsotopicDistribution</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs8', 13)" onmouseover="showTip(event, 'fs8', 13)" class="fn">charge</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs9', 14)" onmouseover="showTip(event, 'fs9', 14)" class="vt">int</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs10', 15)" onmouseover="showTip(event, 'fs10', 15)" class="fn">f</span><span class="pn">:</span> <span class="id">Formula</span><span class="pn">.</span><span class="id">Formula</span><span class="pn">)</span> <span class="o">=</span>
+    <span class="id">IsotopicDistribution</span><span class="pn">.</span><span class="id">MIDA</span><span class="pn">.</span><span class="id">ofFormula</span> 
+        <span class="id">IsotopicDistribution</span><span class="pn">.</span><span class="id">MIDA</span><span class="pn">.</span><span class="id">normalizeByMaxProb</span>
         <span class="n">0.01</span>
         <span class="n">0.005</span>
-        <span onmouseout="hideTip(event, 'fs19', 42)" onmouseover="showTip(event, 'fs19', 42)" class="fn">charge</span>
-        <span onmouseout="hideTip(event, 'fs21', 43)" onmouseover="showTip(event, 'fs21', 43)" class="fn">f</span>
+        <span onmouseout="hideTip(event, 'fs8', 16)" onmouseover="showTip(event, 'fs8', 16)" class="id">charge</span>
+        <span onmouseout="hideTip(event, 'fs10', 17)" onmouseover="showTip(event, 'fs10', 17)" class="id">f</span>
 
 <span class="c">// create pattern for peptide_short</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs27', 44)" onmouseover="showTip(event, 'fs27', 44)" class="id">isoPattern_peptide_short</span> <span class="o">=</span> 
-    <span onmouseout="hideTip(event, 'fs18', 45)" onmouseover="showTip(event, 'fs18', 45)" class="fn">generateIsotopicDistribution</span> <span class="n">1</span> <span onmouseout="hideTip(event, 'fs12', 46)" onmouseover="showTip(event, 'fs12', 46)" class="id">peptide_short</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 18)" onmouseover="showTip(event, 'fs11', 18)" class="id">isoPattern_peptide_short</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs7', 19)" onmouseover="showTip(event, 'fs7', 19)" class="fn">generateIsotopicDistribution</span> <span class="n">1</span> <span onmouseout="hideTip(event, 'fs3', 20)" onmouseover="showTip(event, 'fs3', 20)" class="id">peptide_short</span>
 
 <span class="c">// create pattern for peptide_long</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs28', 47)" onmouseover="showTip(event, 'fs28', 47)" class="id">isoPattern_peptide_long</span> <span class="o">=</span> 
-    <span onmouseout="hideTip(event, 'fs18', 48)" onmouseover="showTip(event, 'fs18', 48)" class="fn">generateIsotopicDistribution</span> <span class="n">1</span> <span onmouseout="hideTip(event, 'fs14', 49)" onmouseover="showTip(event, 'fs14', 49)" class="id">peptide_long</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 21)" onmouseover="showTip(event, 'fs12', 21)" class="id">isoPattern_peptide_long</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs7', 22)" onmouseover="showTip(event, 'fs7', 22)" class="fn">generateIsotopicDistribution</span> <span class="n">1</span> <span onmouseout="hideTip(event, 'fs4', 23)" onmouseover="showTip(event, 'fs4', 23)" class="id">peptide_long</span>
     
 <span class="c">//isoPattern_peptide_long</span>
-<span onmouseout="hideTip(event, 'fs27', 50)" onmouseover="showTip(event, 'fs27', 50)" class="id">isoPattern_peptide_short</span>
+<span onmouseout="hideTip(event, 'fs11', 24)" onmouseover="showTip(event, 'fs11', 24)" class="id">isoPattern_peptide_short</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>[(887.3995582, 1.0); (888.4024873, 0.4323677453); (889.4049943, 0.1257824784);
- (890.4081885, 0.02413420567)]</code></pre></td></tr></table>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 4</span>
 
 <span class="c">// create one chart for both, short and long peptide isotopic patterns.</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 51)" onmouseover="showTip(event, 'fs29', 51)" class="id">isoPatternChart</span> <span class="o">=</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs13', 25)" onmouseover="showTip(event, 'fs13', 25)" class="id">isoPatternChart</span> <span class="o">=</span> 
     <span class="pn">[</span>
-        <span onmouseout="hideTip(event, 'fs30', 52)" onmouseover="showTip(event, 'fs30', 52)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs31', 53)" onmouseover="showTip(event, 'fs31', 53)" class="id">Column</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs27', 54)" onmouseover="showTip(event, 'fs27', 54)" class="id">isoPattern_peptide_short</span><span class="pn">,</span> <span class="fn">Name</span> <span class="o">=</span> <span class="s">&quot;peptide_short&quot;</span> <span class="pn">)</span>
-        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 55)" onmouseover="showTip(event, 'fs30', 55)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs32', 56)" onmouseover="showTip(event, 'fs32', 56)" class="id">withXAxisStyle</span> <span class="pn">(</span><span class="s">&quot;m/z&quot;</span><span class="pn">,</span> <span class="fn">MinMax</span> <span class="o">=</span> <span class="pn">(</span><span class="n">885.</span><span class="pn">,</span> <span class="n">895.</span><span class="pn">)</span><span class="pn">)</span>
-        <span onmouseout="hideTip(event, 'fs30', 57)" onmouseover="showTip(event, 'fs30', 57)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs31', 58)" onmouseover="showTip(event, 'fs31', 58)" class="id">Column</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs28', 59)" onmouseover="showTip(event, 'fs28', 59)" class="id">isoPattern_peptide_long</span><span class="pn">,</span> <span class="fn">Name</span> <span class="o">=</span> <span class="s">&quot;peptide_long&quot;</span> <span class="pn">)</span>
-        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 60)" onmouseover="showTip(event, 'fs30', 60)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs32', 61)" onmouseover="showTip(event, 'fs32', 61)" class="id">withXAxisStyle</span> <span class="pn">(</span><span class="s">&quot;m/z&quot;</span><span class="pn">,</span> <span class="fn">MinMax</span> <span class="o">=</span> <span class="pn">(</span><span class="n">3230.</span><span class="pn">,</span> <span class="n">3240.</span><span class="pn">)</span><span class="pn">)</span>
+        <span class="id">Chart</span><span class="pn">.</span><span class="id">Column</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs11', 26)" onmouseover="showTip(event, 'fs11', 26)" class="id">isoPattern_peptide_short</span><span class="pn">,</span> <span class="id">Name</span> <span class="o">=</span> <span class="s">&quot;peptide_short&quot;</span> <span class="pn">)</span>
+        <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">withXAxisStyle</span> <span class="pn">(</span><span class="s">&quot;m/z&quot;</span><span class="pn">,</span> <span class="id">MinMax</span> <span class="o">=</span> <span class="pn">(</span><span class="n">885.</span><span class="pn">,</span> <span class="n">895.</span><span class="pn">)</span><span class="pn">)</span>
+        <span class="id">Chart</span><span class="pn">.</span><span class="id">Column</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs12', 27)" onmouseover="showTip(event, 'fs12', 27)" class="id">isoPattern_peptide_long</span><span class="pn">,</span> <span class="id">Name</span> <span class="o">=</span> <span class="s">&quot;peptide_long&quot;</span> <span class="pn">)</span>
+        <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">withXAxisStyle</span> <span class="pn">(</span><span class="s">&quot;m/z&quot;</span><span class="pn">,</span> <span class="id">MinMax</span> <span class="o">=</span> <span class="pn">(</span><span class="n">3230.</span><span class="pn">,</span> <span class="n">3240.</span><span class="pn">)</span><span class="pn">)</span>
     <span class="pn">]</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 62)" onmouseover="showTip(event, 'fs30', 62)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs33', 63)" onmouseover="showTip(event, 'fs33', 63)" class="id">Grid</span> <span class="pn">(</span><span class="n">1</span><span class="pn">,</span><span class="n">2</span><span class="pn">)</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 64)" onmouseover="showTip(event, 'fs30', 64)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs34', 65)" onmouseover="showTip(event, 'fs34', 65)" class="id">withSize</span> <span class="pn">(</span><span class="n">900.</span><span class="pn">,</span><span class="n">600.</span><span class="pn">)</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 66)" onmouseover="showTip(event, 'fs30', 66)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs35', 67)" onmouseover="showTip(event, 'fs35', 67)" class="id">withTitle</span> <span class="s">&quot;Isotopeclusters&quot;</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 68)" onmouseover="showTip(event, 'fs30', 68)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs36', 69)" onmouseover="showTip(event, 'fs36', 69)" class="id">withYAxisStyle</span> <span class="s">&quot;intensity&quot;</span>
+    <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">Grid</span> <span class="pn">(</span><span class="n">1</span><span class="pn">,</span><span class="n">2</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">withSize</span> <span class="pn">(</span><span class="n">900.</span><span class="pn">,</span><span class="n">600.</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">withTitle</span> <span class="s">&quot;Isotopeclusters&quot;</span>
+    <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">withYAxisStyle</span> <span class="s">&quot;intensity&quot;</span>
 
-<span onmouseout="hideTip(event, 'fs29', 70)" onmouseover="showTip(event, 'fs29', 70)" class="id">isoPatternChart</span>
+<span onmouseout="hideTip(event, 'fs13', 28)" onmouseover="showTip(event, 'fs13', 28)" class="id">isoPatternChart</span>
 </code></pre>
-<div id="7b2dd7c9-dfd2-4bbf-861e-dd59672e7b15"><!-- Plotly chart will be drawn inside this DIV --></div>
-<script type="text/javascript">
-
-            var renderPlotly_7b2dd7c9dfd24bbf861edd59672e7b15 = function() {
-            var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-2.6.3.min'}}) || require;
-            fsharpPlotlyRequire(['plotly'], function(Plotly) {
-
-            var data = [{"type":"bar","name":"peptide_short","x":[887.399558199034,888.4024872665019,889.4049942776403,890.4081884772683],"y":[1.0,0.43236774529511174,0.12578247843311785,0.024134205673036688],"orientation":"v","marker":{"pattern":{}},"xaxis":"x","yaxis":"y"},{"type":"bar","name":"peptide_long","x":[3231.4470647196554,3232.4500572584698,3233.452986075872,3234.4559191540584,3235.4583946426615,3236.4625915315855],"y":[0.6079646485424579,1.0,0.9085467193387605,0.5658743566632869,0.26182515682174157,0.08134469002336972],"orientation":"v","marker":{"pattern":{}},"xaxis":"x2","yaxis":"y2"}];
-            var layout = {"width":900,"height":600,"template":{"layout":{"title":{"x":0.05},"font":{"color":"rgba(42, 63, 95, 1.0)"},"paper_bgcolor":"rgba(255, 255, 255, 1.0)","plot_bgcolor":"rgba(229, 236, 246, 1.0)","autotypenumbers":"strict","colorscale":{"diverging":[[0.0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1.0,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"hovermode":"closest","hoverlabel":{"align":"left"},"coloraxis":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"geo":{"showland":true,"landcolor":"rgba(229, 236, 246, 1.0)","showlakes":true,"lakecolor":"rgba(255, 255, 255, 1.0)","subunitcolor":"rgba(255, 255, 255, 1.0)","bgcolor":"rgba(255, 255, 255, 1.0)"},"mapbox":{"style":"light"},"polar":{"bgcolor":"rgba(229, 236, 246, 1.0)","radialaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""},"angularaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""}},"scene":{"xaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"yaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"zaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true}},"ternary":{"aaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"baxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"caxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"bgcolor":"rgba(229, 236, 246, 1.0)"},"xaxis":{"title":{"standoff":15},"ticks":"","automargin":true,"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"yaxis":{"title":{"standoff":15},"ticks":"","automargin":true,"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"shapedefaults":{"line":{"color":"rgba(42, 63, 95, 1.0)"}},"colorway":["rgba(99, 110, 250, 1.0)","rgba(239, 85, 59, 1.0)","rgba(0, 204, 150, 1.0)","rgba(171, 99, 250, 1.0)","rgba(255, 161, 90, 1.0)","rgba(25, 211, 243, 1.0)","rgba(255, 102, 146, 1.0)","rgba(182, 232, 128, 1.0)","rgba(255, 151, 255, 1.0)","rgba(254, 203, 82, 1.0)"]},"data":{"bar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"errorx":{"color":"rgba(42, 63, 95, 1.0)"},"errory":{"color":"rgba(42, 63, 95, 1.0)"}}],"barpolar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"carpet":[{"aaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"},"baxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"}}],"choropleth":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"heatmap":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"histogram2d":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"pie":[{"automargin":true}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatter3d":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"surface":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"table":[{"cells":{"fill":{"color":"rgba(235, 240, 248, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}},"header":{"fill":{"color":"rgba(200, 212, 227, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}}}]}},"xaxis":{"title":{"text":"m/z"},"range":[885.0,895.0]},"yaxis":{"title":{"text":"intensity"}},"xaxis2":{"title":{"text":"m/z"},"range":[3230.0,3240.0]},"yaxis2":{},"grid":{"rows":1,"columns":2,"pattern":"independent"},"title":{"text":"Isotopeclusters"}};
-            var config = {"responsive":true};
-            Plotly.newPlot('7b2dd7c9-dfd2-4bbf-861e-dd59672e7b15', data, layout, config);
-});
-            };
-            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
-                var script = document.createElement("script");
-                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
-                script.onload = function(){
-                    renderPlotly_7b2dd7c9dfd24bbf861edd59672e7b15();
-                };
-                document.getElementsByTagName("head")[0].appendChild(script);
-            }
-            else {
-                renderPlotly_7b2dd7c9dfd24bbf861edd59672e7b15();
-            }
-</script>
-
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
 <h2><a name="Simulating-Isotopic-Clusters-for-peptides-with-stable-isotope-labeled-variant" class="anchor" href="#Simulating-Isotopic-Clusters-for-peptides-with-stable-isotope-labeled-variant">Simulating Isotopic Clusters for peptides with stable isotope labeled variant</a></h2>
 <p>In addition to the natural occurring isotopic distribution, the field of proteomics has benefited greatly from the ability to
 introduce stable isotopes into peptide sequences. So called isotopic labeling refers to the introduction of a naturally low-abundance
@@ -437,243 +411,69 @@ of the peptide sequence ‘PEPTIDES’ and ‘PEPTIDEPEPTIDEPEPTIDEPEPTIDES’ w
 
 <span class="c">/// returns a function that replaces the nitrogen atoms in a formula</span>
 <span class="c">/// with the 15N isotope</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs39', 74)" onmouseover="showTip(event, 'fs39', 74)" class="fn">label</span> <span onmouseout="hideTip(event, 'fs40', 75)" onmouseover="showTip(event, 'fs40', 75)" class="fn">formula</span> <span class="o">=</span>
-    <span onmouseout="hideTip(event, 'fs8', 76)" onmouseover="showTip(event, 'fs8', 76)" class="m">Formula</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs41', 77)" onmouseover="showTip(event, 'fs41', 77)" class="id">replaceElement</span> <span onmouseout="hideTip(event, 'fs40', 78)" onmouseover="showTip(event, 'fs40', 78)" class="fn">formula</span> <span onmouseout="hideTip(event, 'fs42', 79)" onmouseover="showTip(event, 'fs42', 79)" class="m">Elements</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs43', 80)" onmouseover="showTip(event, 'fs43', 80)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs44', 81)" onmouseover="showTip(event, 'fs44', 81)" class="id">N</span> <span onmouseout="hideTip(event, 'fs42', 82)" onmouseover="showTip(event, 'fs42', 82)" class="m">Elements</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs43', 83)" onmouseover="showTip(event, 'fs43', 83)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs45', 84)" onmouseover="showTip(event, 'fs45', 84)" class="m">Heavy</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs46', 85)" onmouseover="showTip(event, 'fs46', 85)" class="id">N15</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 30)" onmouseover="showTip(event, 'fs14', 30)" class="fn">label</span> <span onmouseout="hideTip(event, 'fs15', 31)" onmouseover="showTip(event, 'fs15', 31)" class="fn">formula</span> <span class="o">=</span>
+    <span class="id">Formula</span><span class="pn">.</span><span class="id">replaceElement</span> <span onmouseout="hideTip(event, 'fs15', 32)" onmouseover="showTip(event, 'fs15', 32)" class="id">formula</span> <span class="id">Elements</span><span class="pn">.</span><span class="id">Table</span><span class="pn">.</span><span class="id">N</span> <span class="id">Elements</span><span class="pn">.</span><span class="id">Table</span><span class="pn">.</span><span class="id">Heavy</span><span class="pn">.</span><span class="id">N15</span>
 
 <span class="c">// Code-Block 6</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs47', 86)" onmouseover="showTip(event, 'fs47', 86)" class="id">N15_peptide_short</span> <span class="o">=</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 33)" onmouseover="showTip(event, 'fs16', 33)" class="id">N15_peptide_short</span> <span class="o">=</span> 
     <span class="s">&quot;PEPTIDES&quot;</span> 
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 87)" onmouseover="showTip(event, 'fs6', 87)" class="m">BioSeq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs13', 88)" onmouseover="showTip(event, 'fs13', 88)" class="id">ofAminoAcidString</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs4', 89)" onmouseover="showTip(event, 'fs4', 89)" class="fn">toFormula</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs39', 90)" onmouseover="showTip(event, 'fs39', 90)" class="fn">label</span>
+    <span class="o">|&gt;</span> <span class="id">BioSeq</span><span class="pn">.</span><span class="id">ofAminoAcidString</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs1', 34)" onmouseover="showTip(event, 'fs1', 34)" class="fn">toFormula</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs14', 35)" onmouseover="showTip(event, 'fs14', 35)" class="fn">label</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs48', 91)" onmouseover="showTip(event, 'fs48', 91)" class="id">N15_peptide_long</span>  <span class="o">=</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 36)" onmouseover="showTip(event, 'fs17', 36)" class="id">N15_peptide_long</span>  <span class="o">=</span> 
     <span class="s">&quot;PEPTIDEPEPTIDEPEPTIDEPEPTIDES&quot;</span> 
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 92)" onmouseover="showTip(event, 'fs6', 92)" class="m">BioSeq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs13', 93)" onmouseover="showTip(event, 'fs13', 93)" class="id">ofAminoAcidString</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs4', 94)" onmouseover="showTip(event, 'fs4', 94)" class="fn">toFormula</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs39', 95)" onmouseover="showTip(event, 'fs39', 95)" class="fn">label</span>
+    <span class="o">|&gt;</span> <span class="id">BioSeq</span><span class="pn">.</span><span class="id">ofAminoAcidString</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs1', 37)" onmouseover="showTip(event, 'fs1', 37)" class="fn">toFormula</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs14', 38)" onmouseover="showTip(event, 'fs14', 38)" class="fn">label</span>
 
 <span class="c">//result: N15_peptide_short</span>
-<span onmouseout="hideTip(event, 'fs47', 96)" onmouseover="showTip(event, 'fs47', 96)" class="id">N15_peptide_short</span>
+<span onmouseout="hideTip(event, 'fs16', 39)" onmouseover="showTip(event, 'fs16', 39)" class="id">N15_peptide_short</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>map
-  [(Di { Symbol = "C"
-         X = { AtomicSymbol = "C"
-               AtomicNumberZ = 6
-               MassNumber = 12
-               Mass = 12.0
-               NatAbundance = 0.98938
-               RelAtomicMass = 12.01078 }
-         Xcomp = 0.98938
-         X1 = { AtomicSymbol = "C"
-                AtomicNumberZ = 6
-                MassNumber = 13
-                Mass = 13.00335484
-                NatAbundance = 0.01078
-                RelAtomicMass = 12.01078 }
-         X1comp = 0.01078
-         Root = -91.77922078 }, 37.0); (Di { Symbol = "H"
-                                             X = { AtomicSymbol = "H"
-                                                   AtomicNumberZ = 1
-                                                   MassNumber = 1
-                                                   Mass = 1.007825032
-                                                   NatAbundance = 0.999885
-                                                   RelAtomicMass = 1.007947 }
-                                             Xcomp = 0.999885
-                                             X1 = { AtomicSymbol = "D"
-                                                    AtomicNumberZ = 1
-                                                    MassNumber = 2
-                                                    Mass = 2.014101778
-                                                    NatAbundance = 0.000115
-                                                    RelAtomicMass = 1.007947 }
-                                             X1comp = 0.000115
-                                             Root = -8694.652174 }, 58.0);
-   (Di { Symbol = "N15"
-         X = { AtomicSymbol = "N"
-               AtomicNumberZ = 7
-               MassNumber = 15
-               Mass = 15.0001089
-               NatAbundance = 0.00364
-               RelAtomicMass = 14.0067 }
-         Xcomp = 0.99636
-         X1 = { AtomicSymbol = "N"
-                AtomicNumberZ = 7
-                MassNumber = 14
-                Mass = 14.003074
-                NatAbundance = 0.99636
-                RelAtomicMass = 14.0067 }
-         X1comp = 0.00364
-         Root = -273.7252747 }, 8.0);
-   (Tri
-      { Symbol = "O"
-        X = { AtomicSymbol = "O"
-              AtomicNumberZ = 8
-              MassNumber = 16
-              Mass = 15.99491462
-              NatAbundance = 0.99757
-              RelAtomicMass = 15.9994 }
-        Xcomp = 0.99757
-        X1 = { AtomicSymbol = "O"
-               AtomicNumberZ = 8
-               MassNumber = 17
-               Mass = 16.9991317
-               NatAbundance = 0.00038
-               RelAtomicMass = 15.9994 }
-        X1comp = 0.00038
-        X2 = { AtomicSymbol = "O"
-               AtomicNumberZ = 8
-               MassNumber = 18
-               Mass = 17.9991611
-               NatAbundance = 0.00205
-               RelAtomicMass = 15.9994 }
-        X2comp = 0.00205
-        Root =
-         ((-0.09268292682926829, 22.05925932732548),
-          (-0.09268292682926829, -22.05925932732548)) }, 17.0)]</code></pre></td></tr></table>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">//result: N15_peptide_long</span>
-<span onmouseout="hideTip(event, 'fs48', 97)" onmouseover="showTip(event, 'fs48', 97)" class="id">N15_peptide_long</span>
+<span onmouseout="hideTip(event, 'fs17', 40)" onmouseover="showTip(event, 'fs17', 40)" class="id">N15_peptide_long</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>map
-  [(Di { Symbol = "C"
-         X = { AtomicSymbol = "C"
-               AtomicNumberZ = 6
-               MassNumber = 12
-               Mass = 12.0
-               NatAbundance = 0.98938
-               RelAtomicMass = 12.01078 }
-         Xcomp = 0.98938
-         X1 = { AtomicSymbol = "C"
-                AtomicNumberZ = 6
-                MassNumber = 13
-                Mass = 13.00335484
-                NatAbundance = 0.01078
-                RelAtomicMass = 12.01078 }
-         X1comp = 0.01078
-         Root = -91.77922078 }, 139.0); (Di { Symbol = "H"
-                                              X = { AtomicSymbol = "H"
-                                                    AtomicNumberZ = 1
-                                                    MassNumber = 1
-                                                    Mass = 1.007825032
-                                                    NatAbundance = 0.999885
-                                                    RelAtomicMass = 1.007947 }
-                                              Xcomp = 0.999885
-                                              X1 = { AtomicSymbol = "D"
-                                                     AtomicNumberZ = 1
-                                                     MassNumber = 2
-                                                     Mass = 2.014101778
-                                                     NatAbundance = 0.000115
-                                                     RelAtomicMass = 1.007947 }
-                                              X1comp = 0.000115
-                                              Root = -8694.652174 }, 211.0);
-   (Di { Symbol = "N15"
-         X = { AtomicSymbol = "N"
-               AtomicNumberZ = 7
-               MassNumber = 15
-               Mass = 15.0001089
-               NatAbundance = 0.00364
-               RelAtomicMass = 14.0067 }
-         Xcomp = 0.99636
-         X1 = { AtomicSymbol = "N"
-                AtomicNumberZ = 7
-                MassNumber = 14
-                Mass = 14.003074
-                NatAbundance = 0.99636
-                RelAtomicMass = 14.0067 }
-         X1comp = 0.00364
-         Root = -273.7252747 }, 29.0);
-   (Tri
-      { Symbol = "O"
-        X = { AtomicSymbol = "O"
-              AtomicNumberZ = 8
-              MassNumber = 16
-              Mass = 15.99491462
-              NatAbundance = 0.99757
-              RelAtomicMass = 15.9994 }
-        Xcomp = 0.99757
-        X1 = { AtomicSymbol = "O"
-               AtomicNumberZ = 8
-               MassNumber = 17
-               Mass = 16.9991317
-               NatAbundance = 0.00038
-               RelAtomicMass = 15.9994 }
-        X1comp = 0.00038
-        X2 = { AtomicSymbol = "O"
-               AtomicNumberZ = 8
-               MassNumber = 18
-               Mass = 17.9991611
-               NatAbundance = 0.00205
-               RelAtomicMass = 15.9994 }
-        X2comp = 0.00205
-        Root =
-         ((-0.09268292682926829, 22.05925932732548),
-          (-0.09268292682926829, -22.05925932732548)) }, 59.0)]</code></pre></td></tr></table>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 7</span>
 
 <span class="c">// create pattern for N15_peptide_short</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs49', 98)" onmouseover="showTip(event, 'fs49', 98)" class="id">N15_isoPattern_peptide_short</span> <span class="o">=</span> 
-    <span onmouseout="hideTip(event, 'fs18', 99)" onmouseover="showTip(event, 'fs18', 99)" class="fn">generateIsotopicDistribution</span> <span class="n">1</span> <span onmouseout="hideTip(event, 'fs47', 100)" onmouseover="showTip(event, 'fs47', 100)" class="id">N15_peptide_short</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 41)" onmouseover="showTip(event, 'fs18', 41)" class="id">N15_isoPattern_peptide_short</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs7', 42)" onmouseover="showTip(event, 'fs7', 42)" class="fn">generateIsotopicDistribution</span> <span class="n">1</span> <span onmouseout="hideTip(event, 'fs16', 43)" onmouseover="showTip(event, 'fs16', 43)" class="id">N15_peptide_short</span>
 
 <span class="c">// create pattern for N15_peptide_long</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs50', 101)" onmouseover="showTip(event, 'fs50', 101)" class="id">N15_isoPattern_peptid_long</span> <span class="o">=</span> 
-    <span onmouseout="hideTip(event, 'fs18', 102)" onmouseover="showTip(event, 'fs18', 102)" class="fn">generateIsotopicDistribution</span> <span class="n">1</span> <span onmouseout="hideTip(event, 'fs48', 103)" onmouseover="showTip(event, 'fs48', 103)" class="id">N15_peptide_long</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 44)" onmouseover="showTip(event, 'fs19', 44)" class="id">N15_isoPattern_peptid_long</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs7', 45)" onmouseover="showTip(event, 'fs7', 45)" class="fn">generateIsotopicDistribution</span> <span class="n">1</span> <span onmouseout="hideTip(event, 'fs17', 46)" onmouseover="showTip(event, 'fs17', 46)" class="id">N15_peptide_long</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>[(894.3788366, 0.02888603821); (895.3759499, 1.0); (896.3792324, 0.3984467169);
- (897.38185, 0.1130793873); (898.3845066, 0.02385315906)]</code></pre></td></tr></table>
-<table class="pre"><tr><td><pre><code>[(3259.364178, 0.06384122647); (3260.36211, 0.7008291559); (3261.365076, 1.0);
- (3262.368107, 0.8402034739); (3263.370813, 0.4705485682);
- (3264.373788, 0.2169537728); (3265.376745, 0.08062486598)]</code></pre></td></tr></table>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Code-Block 8</span>
 
 <span class="c">// Create two charts. Each with the related 14N and 15N isotopic clusters. Then stack them to one unit.</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs51', 104)" onmouseover="showTip(event, 'fs51', 104)" class="id">isoPatternChart2</span> <span class="o">=</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs20', 47)" onmouseover="showTip(event, 'fs20', 47)" class="id">isoPatternChart2</span> <span class="o">=</span> 
     <span class="pn">[</span>
         <span class="pn">[</span>
-            <span onmouseout="hideTip(event, 'fs30', 105)" onmouseover="showTip(event, 'fs30', 105)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs31', 106)" onmouseover="showTip(event, 'fs31', 106)" class="id">Column</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs27', 107)" onmouseover="showTip(event, 'fs27', 107)" class="id">isoPattern_peptide_short</span><span class="pn">,</span> <span class="fn">Name</span> <span class="o">=</span> <span class="s">&quot;peptide_short&quot;</span> <span class="pn">)</span>
-            <span onmouseout="hideTip(event, 'fs30', 108)" onmouseover="showTip(event, 'fs30', 108)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs31', 109)" onmouseover="showTip(event, 'fs31', 109)" class="id">Column</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs49', 110)" onmouseover="showTip(event, 'fs49', 110)" class="id">N15_isoPattern_peptide_short</span><span class="pn">,</span> <span class="fn">Name</span> <span class="o">=</span> <span class="s">&quot;N15_peptide_short&quot;</span> <span class="pn">)</span>
+            <span class="id">Chart</span><span class="pn">.</span><span class="id">Column</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs11', 48)" onmouseover="showTip(event, 'fs11', 48)" class="id">isoPattern_peptide_short</span><span class="pn">,</span> <span class="id">Name</span> <span class="o">=</span> <span class="s">&quot;peptide_short&quot;</span> <span class="pn">)</span>
+            <span class="id">Chart</span><span class="pn">.</span><span class="id">Column</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs18', 49)" onmouseover="showTip(event, 'fs18', 49)" class="id">N15_isoPattern_peptide_short</span><span class="pn">,</span> <span class="id">Name</span> <span class="o">=</span> <span class="s">&quot;N15_peptide_short&quot;</span> <span class="pn">)</span>
         <span class="pn">]</span> 
-        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 111)" onmouseover="showTip(event, 'fs30', 111)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs52', 112)" onmouseover="showTip(event, 'fs52', 112)" class="id">combine</span> 
-        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 113)" onmouseover="showTip(event, 'fs30', 113)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs32', 114)" onmouseover="showTip(event, 'fs32', 114)" class="id">withXAxisStyle</span> <span class="pn">(</span><span class="s">&quot;m/z&quot;</span><span class="pn">,</span> <span class="fn">MinMax</span> <span class="o">=</span> <span class="pn">(</span><span class="n">885.</span><span class="pn">,</span> <span class="n">905.0</span><span class="pn">)</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">combine</span> 
+        <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">withXAxisStyle</span> <span class="pn">(</span><span class="s">&quot;m/z&quot;</span><span class="pn">,</span> <span class="id">MinMax</span> <span class="o">=</span> <span class="pn">(</span><span class="n">885.</span><span class="pn">,</span> <span class="n">905.0</span><span class="pn">)</span><span class="pn">)</span>
 
         <span class="pn">[</span>
-            <span onmouseout="hideTip(event, 'fs30', 115)" onmouseover="showTip(event, 'fs30', 115)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs31', 116)" onmouseover="showTip(event, 'fs31', 116)" class="id">Column</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs28', 117)" onmouseover="showTip(event, 'fs28', 117)" class="id">isoPattern_peptide_long</span><span class="pn">,</span><span class="fn">Name</span> <span class="o">=</span> <span class="s">&quot;peptide_long&quot;</span> <span class="pn">)</span>
-            <span onmouseout="hideTip(event, 'fs30', 118)" onmouseover="showTip(event, 'fs30', 118)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs31', 119)" onmouseover="showTip(event, 'fs31', 119)" class="id">Column</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs50', 120)" onmouseover="showTip(event, 'fs50', 120)" class="id">N15_isoPattern_peptid_long</span><span class="pn">,</span> <span class="fn">Name</span> <span class="o">=</span> <span class="s">&quot;N15_peptide_long&quot;</span> <span class="pn">)</span>
+            <span class="id">Chart</span><span class="pn">.</span><span class="id">Column</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs12', 50)" onmouseover="showTip(event, 'fs12', 50)" class="id">isoPattern_peptide_long</span><span class="pn">,</span><span class="id">Name</span> <span class="o">=</span> <span class="s">&quot;peptide_long&quot;</span> <span class="pn">)</span>
+            <span class="id">Chart</span><span class="pn">.</span><span class="id">Column</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs19', 51)" onmouseover="showTip(event, 'fs19', 51)" class="id">N15_isoPattern_peptid_long</span><span class="pn">,</span> <span class="id">Name</span> <span class="o">=</span> <span class="s">&quot;N15_peptide_long&quot;</span> <span class="pn">)</span>
         <span class="pn">]</span> 
-        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 121)" onmouseover="showTip(event, 'fs30', 121)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs52', 122)" onmouseover="showTip(event, 'fs52', 122)" class="id">combine</span> 
-        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 123)" onmouseover="showTip(event, 'fs30', 123)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs32', 124)" onmouseover="showTip(event, 'fs32', 124)" class="id">withXAxisStyle</span> <span class="pn">(</span><span class="s">&quot;m/z&quot;</span><span class="pn">,</span> <span class="fn">MinMax</span> <span class="o">=</span> <span class="pn">(</span><span class="n">3230.0</span><span class="pn">,</span> <span class="n">3270.0</span><span class="pn">)</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">combine</span> 
+        <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">withXAxisStyle</span> <span class="pn">(</span><span class="s">&quot;m/z&quot;</span><span class="pn">,</span> <span class="id">MinMax</span> <span class="o">=</span> <span class="pn">(</span><span class="n">3230.0</span><span class="pn">,</span> <span class="n">3270.0</span><span class="pn">)</span><span class="pn">)</span>
     <span class="pn">]</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 125)" onmouseover="showTip(event, 'fs30', 125)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs33', 126)" onmouseover="showTip(event, 'fs33', 126)" class="id">Grid</span> <span class="pn">(</span><span class="n">1</span><span class="pn">,</span> <span class="n">2</span><span class="pn">)</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 127)" onmouseover="showTip(event, 'fs30', 127)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs35', 128)" onmouseover="showTip(event, 'fs35', 128)" class="id">withTitle</span> <span class="s">&quot;Isotopeclusters&quot;</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs30', 129)" onmouseover="showTip(event, 'fs30', 129)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs36', 130)" onmouseover="showTip(event, 'fs36', 130)" class="id">withYAxisStyle</span> <span class="s">&quot;intensity&quot;</span>
+    <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">Grid</span> <span class="pn">(</span><span class="n">1</span><span class="pn">,</span> <span class="n">2</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">withTitle</span> <span class="s">&quot;Isotopeclusters&quot;</span>
+    <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">withYAxisStyle</span> <span class="s">&quot;intensity&quot;</span>
 
-<span onmouseout="hideTip(event, 'fs51', 131)" onmouseover="showTip(event, 'fs51', 131)" class="id">isoPatternChart2</span>
+<span onmouseout="hideTip(event, 'fs20', 52)" onmouseover="showTip(event, 'fs20', 52)" class="id">isoPatternChart2</span>
 </code></pre>
-<div id="6a51ae4d-8f65-49b2-8079-598c07c67756"><!-- Plotly chart will be drawn inside this DIV --></div>
-<script type="text/javascript">
-
-            var renderPlotly_6a51ae4d8f6549b28079598c07c67756 = function() {
-            var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-2.6.3.min'}}) || require;
-            fsharpPlotlyRequire(['plotly'], function(Plotly) {
-
-            var data = [{"type":"bar","name":"peptide_short","x":[887.399558199034,888.4024872665019,889.4049942776403,890.4081884772683],"y":[1.0,0.43236774529511174,0.12578247843311785,0.024134205673036688],"orientation":"v","marker":{"pattern":{}},"xaxis":"x","yaxis":"y"},{"type":"bar","name":"N15_peptide_short","x":[894.3788365975154,895.3759499224518,896.3792323902378,897.3818499569743,898.3845066469612],"y":[0.0288860382140478,1.0,0.3984467169061343,0.11307938727778763,0.023853159064528624],"orientation":"v","marker":{"pattern":{}},"xaxis":"x","yaxis":"y"},{"type":"bar","name":"peptide_long","x":[3231.4470647196554,3232.4500572584698,3233.452986075872,3234.4559191540584,3235.4583946426615,3236.4625915315855],"y":[0.6079646485424579,1.0,0.9085467193387605,0.5658743566632869,0.26182515682174157,0.08134469002336972],"orientation":"v","marker":{"pattern":{}},"xaxis":"x2","yaxis":"y2"},{"type":"bar","name":"N15_peptide_long","x":[3259.3641783135813,3260.362110012513,3261.365076207296,3262.3681072195172,3263.370812501318,3264.3737877709027,3265.3767448967224],"y":[0.06384122646754022,0.7008291559420009,1.0,0.8402034738792131,0.4705485682431846,0.21695377275354297,0.08062486597973496],"orientation":"v","marker":{"pattern":{}},"xaxis":"x2","yaxis":"y2"}];
-            var layout = {"width":600,"height":600,"template":{"layout":{"title":{"x":0.05},"font":{"color":"rgba(42, 63, 95, 1.0)"},"paper_bgcolor":"rgba(255, 255, 255, 1.0)","plot_bgcolor":"rgba(229, 236, 246, 1.0)","autotypenumbers":"strict","colorscale":{"diverging":[[0.0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1.0,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"hovermode":"closest","hoverlabel":{"align":"left"},"coloraxis":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"geo":{"showland":true,"landcolor":"rgba(229, 236, 246, 1.0)","showlakes":true,"lakecolor":"rgba(255, 255, 255, 1.0)","subunitcolor":"rgba(255, 255, 255, 1.0)","bgcolor":"rgba(255, 255, 255, 1.0)"},"mapbox":{"style":"light"},"polar":{"bgcolor":"rgba(229, 236, 246, 1.0)","radialaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""},"angularaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""}},"scene":{"xaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"yaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"zaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true}},"ternary":{"aaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"baxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"caxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"bgcolor":"rgba(229, 236, 246, 1.0)"},"xaxis":{"title":{"standoff":15},"ticks":"","automargin":true,"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"yaxis":{"title":{"standoff":15},"ticks":"","automargin":true,"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"shapedefaults":{"line":{"color":"rgba(42, 63, 95, 1.0)"}},"colorway":["rgba(99, 110, 250, 1.0)","rgba(239, 85, 59, 1.0)","rgba(0, 204, 150, 1.0)","rgba(171, 99, 250, 1.0)","rgba(255, 161, 90, 1.0)","rgba(25, 211, 243, 1.0)","rgba(255, 102, 146, 1.0)","rgba(182, 232, 128, 1.0)","rgba(255, 151, 255, 1.0)","rgba(254, 203, 82, 1.0)"]},"data":{"bar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"errorx":{"color":"rgba(42, 63, 95, 1.0)"},"errory":{"color":"rgba(42, 63, 95, 1.0)"}}],"barpolar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"carpet":[{"aaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"},"baxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"}}],"choropleth":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"heatmap":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"histogram2d":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"pie":[{"automargin":true}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatter3d":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"surface":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"table":[{"cells":{"fill":{"color":"rgba(235, 240, 248, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}},"header":{"fill":{"color":"rgba(200, 212, 227, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}}}]}},"xaxis":{"title":{"text":"m/z"},"range":[885.0,905.0]},"yaxis":{"title":{"text":"intensity"}},"xaxis2":{"title":{"text":"m/z"},"range":[3230.0,3270.0]},"yaxis2":{},"grid":{"rows":1,"columns":2,"pattern":"independent"},"title":{"text":"Isotopeclusters"}};
-            var config = {"responsive":true};
-            Plotly.newPlot('6a51ae4d-8f65-49b2-8079-598c07c67756', data, layout, config);
-});
-            };
-            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
-                var script = document.createElement("script");
-                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
-                script.onload = function(){
-                    renderPlotly_6a51ae4d8f6549b28079598c07c67756();
-                };
-                document.getElementsByTagName("head")[0].appendChild(script);
-            }
-            else {
-                renderPlotly_6a51ae4d8f6549b28079598c07c67756();
-            }
-</script>
-
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
 <h2><a name="Questions" class="anchor" href="#Questions">Questions</a></h2>
 <ol>
 <li>Does the isotopic distribution tend to vary more or less the larger a peptide sequence becomes?</li>
@@ -693,48 +493,15 @@ of the peptide sequence ‘PEPTIDES’ and ‘PEPTIDEPEPTIDEPEPTIDEPEPTIDES’ w
                 </div>
             </div>
         </div>
-        <div class="fsdocs-tip" id="fs1">namespace Plotly</div>
-<div class="fsdocs-tip" id="fs2">namespace Plotly.NET</div>
-<div class="fsdocs-tip" id="fs3">namespace BioFSharp</div>
-<div class="fsdocs-tip" id="fs4">val toFormula : bioseq:seq&lt;#IBioItem&gt; -&gt; Formula.Formula</div>
-<div class="fsdocs-tip" id="fs5">val bioseq : seq&lt;#IBioItem&gt;</div>
-<div class="fsdocs-tip" id="fs6">Multiple items<br />module BioSeq
-
-from BioFSharp.BioCollectionsExtensions<br /><br />--------------------<br />module BioSeq
-
-from BioFSharp<br /><em>&lt;summary&gt;
-This module contains the BioSeq type and its according functions. The BioSeq type is a sequence of objects using the IBioItem interface
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs7">val toFormula : bs:seq&lt;#IBioItem&gt; -&gt; Formula.Formula<br /><em>&lt;summary&gt;
- Returns formula
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs8">module Formula
-
-from BioFSharp<br /><em>&lt;summary&gt;
-Contains functionality for working with molecules as a formula of their elements and formulas of biologically relevant molecules
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs9">val add : f1:Formula.Formula -&gt; f2:Formula.Formula -&gt; Formula.Formula<br /><em>&lt;summary&gt;
- adds two formula
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs10">module Table
-
-from BioFSharp.Formula<br /><em>&lt;summary&gt;
-Contains formulas for amino acids, nucleotides and biologically relevant anorganic molecules
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs11">val H2O : Formula.Formula</div>
-<div class="fsdocs-tip" id="fs12">val peptide_short : Formula.Formula</div>
-<div class="fsdocs-tip" id="fs13">val ofAminoAcidString : s:#seq&lt;char&gt; -&gt; BioSeq.BioSeq&lt;AminoAcids.AminoAcid&gt;<br /><em>&lt;summary&gt;
- Generates AminoAcid sequence of one-letter-code raw string
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs14">val peptide_long : Formula.Formula</div>
-<div class="fsdocs-tip" id="fs15">val peptide_shortString : string</div>
-<div class="fsdocs-tip" id="fs16">val toString : f:Formula.Formula -&gt; string<br /><em>&lt;summary&gt;
- Returns Formula as string
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs17">val peptide_longString : string</div>
-<div class="fsdocs-tip" id="fs18">val generateIsotopicDistribution : charge:int -&gt; f:Formula.Formula -&gt; (float * float) list</div>
-<div class="fsdocs-tip" id="fs19">val charge : int</div>
-<div class="fsdocs-tip" id="fs20">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to signed 32-bit integer. This is a direct conversion for all 
+        <div class="fsdocs-tip" id="fs1">val toFormula : bioseq:&#39;a -&gt; &#39;b</div>
+<div class="fsdocs-tip" id="fs2">val bioseq : &#39;a</div>
+<div class="fsdocs-tip" id="fs3">val peptide_short : obj</div>
+<div class="fsdocs-tip" id="fs4">val peptide_long : obj</div>
+<div class="fsdocs-tip" id="fs5">val peptide_shortString : obj</div>
+<div class="fsdocs-tip" id="fs6">val peptide_longString : obj</div>
+<div class="fsdocs-tip" id="fs7">val generateIsotopicDistribution : charge:int -&gt; f:&#39;a -&gt; &#39;b</div>
+<div class="fsdocs-tip" id="fs8">val charge : int</div>
+<div class="fsdocs-tip" id="fs9">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to signed 32-bit integer. This is a direct conversion for all 
  primitive numeric types. For strings, the input is converted using &lt;c&gt;Int32.Parse()&lt;/c&gt;  
  with InvariantCulture settings. Otherwise the operation requires an appropriate
  static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted int&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
@@ -743,85 +510,17 @@ type int = int32<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;se
  of measure is erased in compiled code and when values of this type
  are analyzed using reflection. The type is representationally equivalent to 
  &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
-<div class="fsdocs-tip" id="fs21">val f : Formula.Formula</div>
-<div class="fsdocs-tip" id="fs22">type Formula = Map&lt;Elements.Element,float&gt;<br /><em>&lt;summary&gt;
- Type abreviation for Map&amp;lt;Elements.Element,float&amp;gt;
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs23">module IsotopicDistribution
-
-from BioFSharp<br /><em>&lt;summary&gt;
-Contains functionality for working with isotopic abundancies of molecules
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs24">module MIDA
-
-from BioFSharp.IsotopicDistribution</div>
-<div class="fsdocs-tip" id="fs25">val ofFormula : normF:(float -&gt; IsotopicDistribution.MIDA.Polynomial list -&gt; IsotopicDistribution.MIDA.Polynomial list) -&gt; resolution:float -&gt; minProb:float -&gt; charge:int -&gt; fml:Formula.Formula -&gt; (float * float) list<br /><em>&lt;summary&gt;
- Generates the distribution of the isotopic abundancy using MIDAs polynomial based algorithm (MIDAs_a)
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs26">val normalizeByMaxProb : minProb:float -&gt; pols:IsotopicDistribution.MIDA.Polynomial list -&gt; IsotopicDistribution.MIDA.Polynomial list<br /><em>&lt;summary&gt;
- normalizes istopic distribution probabilities to sum up to 1.
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs27">val isoPattern_peptide_short : (float * float) list</div>
-<div class="fsdocs-tip" id="fs28">val isoPattern_peptide_long : (float * float) list</div>
-<div class="fsdocs-tip" id="fs29">val isoPatternChart : GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs30">type Chart =
-  static member AnnotatedHeatmap : zData:seq&lt;#seq&lt;&#39;a1&gt;&gt; * annotationText:seq&lt;#seq&lt;string&gt;&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?X:seq&lt;#IConvertible&gt; * ?XGap:int * ?Y:seq&lt;#IConvertible&gt; * ?YGap:int * ?Text:&#39;a5 * ?MultiText:seq&lt;&#39;a5&gt; * ?ColorBar:ColorBar * ?ColorScale:Colorscale * ?ShowScale:bool * ?ReverseScale:bool * ?ZSmooth:SmoothAlg * ?Transpose:bool * ?UseWebGL:bool * ?ReverseYAxis:bool * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a1 :&gt; IConvertible and &#39;a5 :&gt; IConvertible)
-  static member Area : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?ShowLegend:bool * ?MarkerSymbol:MarkerSymbol * ?Color:Color * ?Opacity:float * ?Labels:seq&lt;#IConvertible&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:float * ?UseDefaults:bool -&gt; GenericChart + 1 overload
-  static member Bar : values:seq&lt;#IConvertible&gt; * ?Keys:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?MarkerColor:Color * ?MarkerColorScale:Colorscale * ?MarkerOutline:Line * ?MarkerPatternShape:PatternShape * ?MultiMarkerPatternShape:seq&lt;PatternShape&gt; * ?MarkerPattern:Pattern * ?Marker:Marker * ?Base:#IConvertible * ?Width:&#39;a4 * ?MultiWidth:seq&lt;&#39;a4&gt; * ?TextPosition:TextPosition * ?MultiTextPosition:seq&lt;TextPosition&gt; * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a2 :&gt; IConvertible and &#39;a4 :&gt; IConvertible) + 1 overload
-  static member BoxPlot : ?x:seq&lt;#IConvertible&gt; * ?y:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?Fillcolor:Color * ?MarkerColor:Color * ?OutlierColor:Color * ?OutlierWidth:int * ?Opacity:float * ?WhiskerWidth:float * ?BoxPoints:BoxPoints * ?BoxMean:BoxMean * ?Jitter:float * ?PointPos:float * ?Orientation:Orientation * ?Marker:Marker * ?Line:Line * ?AlignmentGroup:string * ?Offsetgroup:string * ?Notched:bool * ?NotchWidth:float * ?QuartileMethod:QuartileMethod * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a2 :&gt; IConvertible) + 1 overload
-  static member Bubble : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * sizes:seq&lt;int&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?TextPosition:TextPosition * ?MultiTextPosition:seq&lt;TextPosition&gt; * ?MarkerColor:Color * ?MarkerColorScale:Colorscale * ?MarkerOutline:Line * ?MarkerSymbol:MarkerSymbol * ?MultiMarkerSymbol:seq&lt;MarkerSymbol&gt; * ?Marker:Marker * ?LineColor:Color * ?LineColorScale:Colorscale * ?LineWidth:float * ?LineDash:DrawingStyle * ?Line:Line * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a2 :&gt; IConvertible) + 1 overload
-  static member Candlestick : open:seq&lt;#IConvertible&gt; * high:seq&lt;#IConvertible&gt; * low:seq&lt;#IConvertible&gt; * close:seq&lt;#IConvertible&gt; * x:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?Text:&#39;a5 * ?MultiText:seq&lt;&#39;a5&gt; * ?Line:Line * ?IncreasingColor:Color * ?Increasing:FinanceMarker * ?DecreasingColor:Color * ?Decreasing:FinanceMarker * ?WhiskerWidth:float * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a5 :&gt; IConvertible) + 1 overload
-  static member Column : values:seq&lt;#IConvertible&gt; * ?Keys:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?MarkerColor:Color * ?MarkerColorScale:Colorscale * ?MarkerOutline:Line * ?MarkerPatternShape:PatternShape * ?MultiMarkerPatternShape:seq&lt;PatternShape&gt; * ?MarkerPattern:Pattern * ?Marker:Marker * ?Base:#IConvertible * ?Width:&#39;a4 * ?MultiWidth:seq&lt;&#39;a4&gt; * ?TextPosition:TextPosition * ?MultiTextPosition:seq&lt;TextPosition&gt; * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a2 :&gt; IConvertible and &#39;a4 :&gt; IConvertible) + 1 overload
-  static member Contour : zData:seq&lt;#seq&lt;&#39;a1&gt;&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?X:seq&lt;#IConvertible&gt; * ?Y:seq&lt;#IConvertible&gt; * ?Text:&#39;a4 * ?MultiText:seq&lt;&#39;a4&gt; * ?ColorBar:ColorBar * ?ColorScale:Colorscale * ?ShowScale:bool * ?ReverseScale:bool * ?Transpose:bool * ?LineColor:Color * ?LineDash:DrawingStyle * ?Line:Line * ?ContoursColoring:ContourColoring * ?ContoursOperation:ConstraintOperation * ?ContoursType:ContourType * ?ShowContourLabels:bool * ?ContourLabelFont:Font * ?Contours:Contours * ?FillColor:Color * ?NContours:int * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a1 :&gt; IConvertible and &#39;a4 :&gt; IConvertible)
-  static member Funnel : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?Width:float * ?Offset:float * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?TextPosition:TextPosition * ?MultiTextPosition:seq&lt;TextPosition&gt; * ?Orientation:Orientation * ?AlignmentGroup:string * ?OffsetGroup:string * ?MarkerColor:Color * ?MarkerOutline:Line * ?Marker:Marker * ?TextInfo:TextInfo * ?ConnectorLineColor:Color * ?ConnectorLineStyle:DrawingStyle * ?ConnectorFillColor:Color * ?ConnectorLine:Line * ?Connector:FunnelConnector * ?InsideTextFont:Font * ?OutsideTextFont:Font * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a2 :&gt; IConvertible)
-  static member Heatmap : zData:seq&lt;#seq&lt;&#39;a1&gt;&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?X:seq&lt;#IConvertible&gt; * ?XGap:int * ?Y:seq&lt;#IConvertible&gt; * ?YGap:int * ?Text:&#39;a4 * ?MultiText:seq&lt;&#39;a4&gt; * ?ColorBar:ColorBar * ?ColorScale:Colorscale * ?ShowScale:bool * ?ReverseScale:bool * ?ZSmooth:SmoothAlg * ?Transpose:bool * ?UseWebGL:bool * ?ReverseYAxis:bool * ?UseDefaults:bool -&gt; GenericChart (requires &#39;a1 :&gt; IConvertible and &#39;a4 :&gt; IConvertible) + 1 overload
-  ...</div>
-<div class="fsdocs-tip" id="fs31">static member Chart.Column : keysValues:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;c * ?MultiText:seq&lt;&#39;c&gt; * ?MarkerColor:Color * ?MarkerColorScale:StyleParam.Colorscale * ?MarkerOutline:Line * ?MarkerPatternShape:StyleParam.PatternShape * ?MultiMarkerPatternShape:seq&lt;StyleParam.PatternShape&gt; * ?MarkerPattern:TraceObjects.Pattern * ?Marker:TraceObjects.Marker * ?Base:#System.IConvertible * ?Width:&#39;e * ?MultiWidth:seq&lt;&#39;e&gt; * ?TextPosition:StyleParam.TextPosition * ?MultiTextPosition:seq&lt;StyleParam.TextPosition&gt; * ?UseDefaults:bool -&gt; GenericChart.GenericChart (requires &#39;c :&gt; System.IConvertible and &#39;e :&gt; System.IConvertible)<br />static member Chart.Column : values:seq&lt;#System.IConvertible&gt; * ?Keys:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?MarkerColor:Color * ?MarkerColorScale:StyleParam.Colorscale * ?MarkerOutline:Line * ?MarkerPatternShape:StyleParam.PatternShape * ?MultiMarkerPatternShape:seq&lt;StyleParam.PatternShape&gt; * ?MarkerPattern:TraceObjects.Pattern * ?Marker:TraceObjects.Marker * ?Base:#System.IConvertible * ?Width:&#39;a4 * ?MultiWidth:seq&lt;&#39;a4&gt; * ?TextPosition:StyleParam.TextPosition * ?MultiTextPosition:seq&lt;StyleParam.TextPosition&gt; * ?UseDefaults:bool -&gt; GenericChart.GenericChart (requires &#39;a2 :&gt; System.IConvertible and &#39;a4 :&gt; System.IConvertible)</div>
-<div class="fsdocs-tip" id="fs32">static member Chart.withXAxisStyle : title:string * ?TitleFont:Font * ?MinMax:(float * float) * ?ShowGrid:bool * ?ShowLine:bool * ?Side:StyleParam.Side * ?Overlaying:StyleParam.LinearAxisId * ?Id:StyleParam.SubPlotId * ?Domain:(float * float) * ?Position:float * ?Zeroline:bool * ?Anchor:StyleParam.LinearAxisId -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
-<div class="fsdocs-tip" id="fs33">static member Chart.Grid : ?SubPlots:(StyleParam.LinearAxisId * StyleParam.LinearAxisId) [] [] * ?XAxes:StyleParam.LinearAxisId [] * ?YAxes:StyleParam.LinearAxisId [] * ?RowOrder:StyleParam.LayoutGridRowOrder * ?Pattern:StyleParam.LayoutGridPattern * ?XGap:float * ?YGap:float * ?Domain:LayoutObjects.Domain * ?XSide:StyleParam.LayoutGridXSide * ?YSide:StyleParam.LayoutGridYSide -&gt; (#seq&lt;&#39;a1&gt; -&gt; GenericChart.GenericChart) (requires &#39;a1 :&gt; seq&lt;GenericChart.GenericChart&gt;)<br />static member Chart.Grid : nRows:int * nCols:int * ?SubPlots:(StyleParam.LinearAxisId * StyleParam.LinearAxisId) [] [] * ?XAxes:StyleParam.LinearAxisId [] * ?YAxes:StyleParam.LinearAxisId [] * ?RowOrder:StyleParam.LayoutGridRowOrder * ?Pattern:StyleParam.LayoutGridPattern * ?XGap:float * ?YGap:float * ?Domain:LayoutObjects.Domain * ?XSide:StyleParam.LayoutGridXSide * ?YSide:StyleParam.LayoutGridYSide -&gt; (#seq&lt;GenericChart.GenericChart&gt; -&gt; GenericChart.GenericChart)</div>
-<div class="fsdocs-tip" id="fs34">static member Chart.withSize : width:float * height:float -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)<br />static member Chart.withSize : ?Width:int * ?Height:int -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
-<div class="fsdocs-tip" id="fs35">static member Chart.withTitle : title:string * ?TitleFont:Font -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
-<div class="fsdocs-tip" id="fs36">static member Chart.withYAxisStyle : title:string * ?TitleFont:Font * ?MinMax:(float * float) * ?ShowGrid:bool * ?ShowLine:bool * ?Side:StyleParam.Side * ?Overlaying:StyleParam.LinearAxisId * ?Id:StyleParam.SubPlotId * ?Domain:(float * float) * ?Position:float * ?ZeroLine:bool * ?Anchor:StyleParam.LinearAxisId -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
-<div class="fsdocs-tip" id="fs37">module GenericChart
-
-from Plotly.NET<br /><em>&lt;summary&gt;
- Module to represent a GenericChart
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs38">val toChartHTML : gChart:GenericChart.GenericChart -&gt; string<br /><em>&lt;summary&gt;
- Converts a GenericChart to it HTML representation. The div layer has a default size of 600 if not specified otherwise.
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs39">val label : formula:Formula.Formula -&gt; Formula.Formula<br /><em>&#160;returns a function that replaces the nitrogen atoms in a formula<br />&#160;with the 15N isotope</em></div>
-<div class="fsdocs-tip" id="fs40">val formula : Formula.Formula</div>
-<div class="fsdocs-tip" id="fs41">val replaceElement : f:Formula.Formula -&gt; unlabled:Elements.Element -&gt; labled:Elements.Element -&gt; Formula.Formula<br /><em>&lt;summary&gt;
- Lables all elements of a certain kind within a formula
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs42">module Elements
-
-from BioFSharp<br /><em>&lt;summary&gt;
-Contains chemical elements represented as a mixture of their stable isotopes and functionality for building them
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs43">module Table
-
-from BioFSharp.Elements<br /><em>&lt;summary&gt;
-Contains the biologically relevant, chemical elements represented as a mixture of their stable isotopes
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs44">val N : Elements.Element<br /><em>&lt;summary&gt;
-Nitrogen
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs45">module Heavy
-
-from BioFSharp.Elements.Table<br /><em>&lt;summary&gt;
-Contains elements with higher proportions of their heavy isotopes
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs46">val N15 : Elements.Element<br /><em>&lt;summary&gt;
-Diisotopic representation of nitrogen with abundancy of N14 and N15 swapped
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs47">val N15_peptide_short : Formula.Formula</div>
-<div class="fsdocs-tip" id="fs48">val N15_peptide_long : Formula.Formula</div>
-<div class="fsdocs-tip" id="fs49">val N15_isoPattern_peptide_short : (float * float) list</div>
-<div class="fsdocs-tip" id="fs50">val N15_isoPattern_peptid_long : (float * float) list</div>
-<div class="fsdocs-tip" id="fs51">val isoPatternChart2 : GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs52">static member Chart.combine : gCharts:seq&lt;GenericChart.GenericChart&gt; -&gt; GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs10">val f : &#39;a</div>
+<div class="fsdocs-tip" id="fs11">val isoPattern_peptide_short : obj</div>
+<div class="fsdocs-tip" id="fs12">val isoPattern_peptide_long : obj</div>
+<div class="fsdocs-tip" id="fs13">val isoPatternChart : obj</div>
+<div class="fsdocs-tip" id="fs14">val label : formula:&#39;a -&gt; &#39;b<br /><em>&#160;returns a function that replaces the nitrogen atoms in a formula<br />&#160;with the 15N isotope</em></div>
+<div class="fsdocs-tip" id="fs15">val formula : &#39;a</div>
+<div class="fsdocs-tip" id="fs16">val N15_peptide_short : obj</div>
+<div class="fsdocs-tip" id="fs17">val N15_peptide_long : obj</div>
+<div class="fsdocs-tip" id="fs18">val N15_isoPattern_peptide_short : obj</div>
+<div class="fsdocs-tip" id="fs19">val N15_isoPattern_peptid_long : obj</div>
+<div class="fsdocs-tip" id="fs20">val isoPatternChart2 : obj</div>
 
     </div>
 

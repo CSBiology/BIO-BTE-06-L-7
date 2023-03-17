@@ -69,7 +69,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB01a_Systems_Biology_FSharp_Introduction.html">
                                 <span class="text">
                                     <span>NB01a Systems Biology</span>
@@ -152,7 +152,7 @@
                                     <span>NB06a Research Data Management</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-item">
                             <a class="nav-link" href="NB07a_Working_With_Deedle.html">
                                 <span class="text">
@@ -160,7 +160,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="NB08a_Data_Access_And_Quality_Control.html">
                                 <span class="text">
                                     <span>NB08a Data Access and Quality Control</span>
@@ -222,7 +222,7 @@
                                     <span>NB08c Absolute Quantification (BN)</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-header">Links</li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://csb.bio.uni-kl.de/#teaching">
@@ -273,87 +273,6 @@
                 <div class="container" id="fsdocs-content">
                     <h1><a name="BIO-BTE-06-L-7" class="anchor" href="#BIO-BTE-06-L-7">BIO-BTE-06-L-7</a></h1>
 <br>
-<h2><a name="Course-objective-and-procedure" class="anchor" href="#Course-objective-and-procedure">Course objective and procedure</a></h2>
-<p>A typical modern proteomics workflow reaches from the experiment and measurement over deconvolution, identification,
-quantification, protein assembly and statistical analysis. This shows that independent from the different specialized
-workflows at hand, the computational part in proteomics is noticeable.</p>
-<p>The objective of this course is to provide insights in both aspects. Now, is time to start the computational proteomics part. In the following notebooks you will learn:</p>
-<ol>
-<li>How to model growth for a defined cell number to relate the findings in your proteomics experiments to a meaningful basis.</li>
-<li>Getting in-silico information about the proteome of interest to be able to make sense out of your experimental measurements.</li>
-<li>How to access and look at your measurements from an m/z perspective and what it is that we actually measure.</li>
-<li>How does peptide or protein identification work computationally?</li>
-<li>What must be done to quantify a peptide?</li>
-</ol>
-<p>The most hands-on approach to provide those insights is to use a combination of explanatory text, images, interactive charts,
-and program code. This will be combined within interactive notebooks, that allow you to play around with the code examples and learn.</p>
-<p>In this course, we want to support your coding literacy by a practical learning approach without the attempt to detail every mechanisms of the
-programming language. This means that the focus is on reading, understanding, and learning to manipulate the code not on coding itself.</p>
-<p>However, in the beginning you will get a rapid introduction into F# programming that should allow you to understand code
-and do some manipulations to achieve your desired outcome.</p>
-<h2><a name="Schedule" class="anchor" href="#Schedule">Schedule</a></h2>
-<table>
-<thead>
-<tr class="header">
-<th><p>Day</p></th>
-<th><p>Topic</p></th>
-<th><p>Notebooks</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>21.02.22</p></td>
-<td><p>Getting started; Coding literacy</p></td>
-<td><p>00a; 00b</p></td>
-</tr>
-<tr class="even">
-<td><p>22.02.22</p></td>
-<td><p>1: Growth Model and Cell number</p></td>
-<td><p>01a; 01b</p></td>
-</tr>
-<tr class="odd">
-<td><p>23.02.22</p></td>
-<td><p>2: In-silico proteome analysis</p></td>
-<td><p>02a; 02b; 02c</p></td>
-</tr>
-<tr class="even">
-<td><p>24.02.22</p></td>
-<td><p>3: Understanding the Data</p></td>
-<td><p>03a; 03b; 03c</p></td>
-</tr>
-<tr class="odd">
-<td><p>25.02.22</p></td>
-<td><p>4: Protein and Peptide identification</p></td>
-<td><p>04a; 04b</p></td>
-</tr>
-<tr class="even">
-<td><p>28.02.22</p></td>
-<td><p>5: Peptide quantification</p></td>
-<td><p>05a</p></td>
-</tr>
-<tr class="odd">
-<td><p>01.03.22</p></td>
-<td><p>Research Data Management</p></td>
-<td><p>06a</p></td>
-</tr>
-<tr class="even">
-<td><p>02.03.22</p></td>
-<td><p>Working with Deedle</p></td>
-<td><p>07a</p></td>
-</tr>
-<tr class="odd">
-<td><p>03.03.22</p></td>
-<td><p>Analysing the course Experiment</p></td>
-<td><p>08a</p></td>
-</tr>
-<tr class="even">
-<td><p>04.03.22</p></td>
-<td><p>Analysing the course Experiment</p></td>
-<td><p>08b, 08c</p></td>
-</tr>
-</tbody>
-</table>
-
 <h2><a name="Getting-started" class="anchor" href="#Getting-started">Getting started</a></h2>
 <ul>
 <li><p>Download the latest stable build for <a href="https://code.visualstudio.com/">Visual Studio Code</a> and install it.</p></li>
@@ -361,7 +280,7 @@ and do some manipulations to achieve your desired outcome.</p>
 <li>
 <p>Open Visual Studio Code, navigate to the "Extensions" tab and install</p>
 <ul>
-<li>.NET Interactive Notebooks</li>
+<li>.NET Polyglot Notebooks</li>
 <li>
 <p>Ionide-fsharp</p>
 <p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/CodeExtensions.png" alt="" /></p>
@@ -373,7 +292,7 @@ and do some manipulations to achieve your desired outcome.</p>
 <p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/DownloadNotebook.png" alt="" /></p>
 </li>
 <li>
-<p>In Visual Studio Code press <code>Strg + Shift + P</code> and klick on <code>.NET Interactive Open notebook</code>.</p>
+<p>In Visual Studio Code press <code>Strg + Shift + P</code> and klick on <code>Polyglot Notebook: Open notebook</code>.</p>
 <p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/OpenNotebook.png" alt="" /></p>
 </li>
 <li>Navigate to the location of your notebook and open it.</li>
@@ -392,7 +311,7 @@ Once you are finished you can press the <code>Esc</code> button.</p>
 <li>
 <p>Working with Codeblocks:
 You can start editing any Codeblock by clicking in it. In there you can start writing your own code or edit existing code. Once you are done you can execute the Codeblock by pressing <code>Strg + Alt + Enter</code>.
-If you want to execute all codeblocks at once, you can press on the two arrows in the upper right corner of the notebook:</p>
+If you want to execute all codeblocks at once, you can press on the two arrows in the upper part of the notebook:</p>
 <p><img src="https://raw.githubusercontent.com/CSBiology/BIO-BTE-06-L-7/main/docs/img/ExecuteAll.png" alt="" /></p>
 </li>
 </ul>
