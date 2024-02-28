@@ -20,11 +20,11 @@ We start by loading our usual nuget packages and the Deedle package.
 #r "nuget: BioFSharp.IO, 2.0.0-preview.3"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
 #r "nuget: BIO-BTE-06-L-7_Aux, 0.0.10"
-#r "nuget: FSharp.Stats"
+#r "nuget: FSharp.Stats, 0.4.2"
 
 #if IPYNB
-#r "nuget: Plotly.NET, 2.0.0-preview.16"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
+#r "nuget: Plotly.NET, 4.2.0"
+#r "nuget: Plotly.NET.Interactive, 4.2.0"
 #endif // IPYNB
 
 open Plotly.NET
@@ -49,9 +49,7 @@ let persons =
     |> Frame.addCol "cpw" coffeesPerWeek
 (***condition:ipynb***)
 #if IPYNB
-persons
-|> formatAsTable 0.
-|> Chart.withSize (600.,700.)
+persons.Print()
 #endif // IPYNB
 
 (**
@@ -102,10 +100,7 @@ let peptidesFrame =
 
 (***condition:ipynb***)
 #if IPYNB
-peptidesFrame
-|> Frame.take 10
-|> formatAsTable 0.
-|> Chart.withSize (700.,900.)
+peptidesFrame.Print()
 #endif // IPYNB
 (***hide***)
 peptidesFrame |> Frame.take 10 |> fun x -> x.Print()
@@ -127,10 +122,7 @@ let pfIndexedSequenceList : Frame<list<AminoAcids.AminoAcid>,string> =
 
 (***condition:ipynb***)
 #if IPYNB
-pfIndexedSequenceList
-|> Frame.take 10
-|> formatAsTable 0.
-|> Chart.withSize (500.,900.)
+pfIndexedSequenceList.Print()
 #endif // IPYNB
 (***hide***)
 pfIndexedSequenceList |> Frame.take 10 |> fun x -> x.Print()
@@ -146,10 +138,7 @@ let pfIndexedStringSequence =
 
 (***condition:ipynb***)
 #if IPYNB
-pfIndexedStringSequence
-|> Frame.take 10
-|> formatAsTable 0.
-|> Chart.withSize (800.,900.)
+pfIndexedStringSequence.Print()
 #endif // IPYNB
 (***hide***)
 pfIndexedStringSequence |> Frame.take 10 |> fun x -> x.Print()
@@ -183,10 +172,7 @@ let pfAddedMass =
 
 (***condition:ipynb***)
 #if IPYNB
-pfAddedMass
-|> Frame.take 10
-|> formatAsTable 0.
-|> Chart.withSize (1000.,900.)
+pfAddedMass.Print()
 #endif // IPYNB
 (***hide***)
 pfAddedMass |> Frame.take 10 |> fun x -> x.Print()
@@ -204,10 +190,7 @@ let pfChargedMass =
 
 (***condition:ipynb***)
 #if IPYNB
-pfChargedMass
-|> Frame.take 10
-|> formatAsTable 0.
-|> Chart.withSize (1000.,900.)
+pfChargedMass.Print()
 #endif // IPYNB
 (***hide***)
 pfChargedMass |> Frame.take 10 |> fun x -> x.Print()
@@ -223,9 +206,7 @@ let joinedFrame =
 
 (***condition:ipynb***)
 #if IPYNB
-joinedFrame
-|> Frame.take 10
-|> formatAsTable 0.
+joinedFrame.Print()
 |> Chart.withSize (1500.,900.)
 #endif // IPYNB
 (***hide***)
