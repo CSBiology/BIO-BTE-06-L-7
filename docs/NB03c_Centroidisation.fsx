@@ -25,12 +25,12 @@ explained under quantification in the following section.
 
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-#r "nuget: Plotly.NET, 2.0.0-preview.16"
+#r "nuget: Plotly.NET, 4.2.0"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.9"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.10"
 
 #if IPYNB
-#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
+#r "nuget: Plotly.NET.Interactive, 4.2.0"
 #endif // IPYNB
 
 open Plotly.NET

@@ -34,11 +34,11 @@ Amino acid composition of the proteome is simply counting each amino acid occurr
 
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-#r "nuget: Plotly.NET, 2.0.0-preview.16"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.9"
+#r "nuget: Plotly.NET, 4.2.0"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.10"
 
 #if IPYNB
-#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
+#r "nuget: Plotly.NET.Interactive, 4.2.0"
 #endif // IPYNB
 
 open Plotly.NET
@@ -165,7 +165,7 @@ let chartDigestedProteins =
     |> Array.filter (fun x -> x < 3000.)
     // visualize distribution of all peptide masses < 3000 Da
     |> fun masses -> Chart.Histogram(data = masses, orientation = StyleParam.Orientation.Vertical, NBinsX = 100)
-    |> Chart.withXAxisStyle (title = "Mass [Da]", MinMax = (0., 3000.))
+    |> Chart.withXAxisStyle (TitleText = "Mass [Da]", MinMax = (0., 3000.))
     |> Chart.withYAxisStyle "Count"
 
 chartDigestedProteins
@@ -197,7 +197,7 @@ let chartDigestedPeptideMasses =
     |> Array.map (fun ucMass -> Mass.toMZ ucMass 2.)
     |> Array.filter (fun x -> x < 3000.)
     |> fun masses -> Chart.Histogram(data = masses, orientation = StyleParam.Orientation.Vertical, NBinsX=100)
-    |> Chart.withXAxisStyle (title = "m/z", MinMax = (0., 3000.))
+    |> Chart.withXAxisStyle (TitleText = "m/z", MinMax = (0., 3000.))
     |> Chart.withYAxisStyle "Count"
     
 chartDigestedPeptideMasses

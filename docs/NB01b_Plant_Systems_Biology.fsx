@@ -73,10 +73,10 @@ Now, let's get started by loading the required libraries first.
 *)
 
 #r "nuget: FSharp.Stats, 0.4.3"
-#r "nuget: Plotly.NET, 2.0.0-preview.16"
+#r "nuget: Plotly.NET, 4.2.0"
 
 #if IPYNB
-#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
+#r "nuget: Plotly.NET.Interactive, 4.2.0"
 #endif // IPYNB
 
 open System
@@ -299,8 +299,8 @@ let fittedValuesGompertz =
 // combine the raw data and the fit into one chart
 let fittedChartGompertz = 
     [
-        example_Chart_2      |> Chart.withTraceName "raw data"
-        fittedValuesGompertz |> Chart.withTraceName "gompertz model"
+        example_Chart_2      |> Chart.withTraceInfo "raw data"
+        fittedValuesGompertz |> Chart.withTraceInfo "gompertz model"
     ]
     |> Chart.combine
 

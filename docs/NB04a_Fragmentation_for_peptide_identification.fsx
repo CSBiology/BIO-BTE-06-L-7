@@ -42,11 +42,11 @@ These losses do not change the charge of the ions and are observable as natural 
 
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-#r "nuget: Plotly.NET, 2.0.0-preview.16"
+#r "nuget: Plotly.NET, 4.2.0"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
 
 #if IPYNB
-#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
+#r "nuget: Plotly.NET.Interactive, 4.2.0"
 #endif // IPYNB
 
 open Plotly.NET

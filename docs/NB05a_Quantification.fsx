@@ -90,16 +90,16 @@ Let’s start and extract a XIC…
 #r "nuget: FSharp.Stats, 0.4.3"
 #r "nuget: BioFSharp, 2.0.0-beta5"
 #r "nuget: BioFSharp.IO, 2.0.0-beta5"
-#r "nuget: Plotly.NET, 2.0.0-preview.16"
+#r "nuget: Plotly.NET, 4.2.0"
 #r "nuget: System.Data.SQLite, 1.0.113.7"
 #r "nuget: BioFSharp.Mz, 0.1.5-beta"
 #r "nuget: MzIO, 0.1.1"
 #r "nuget: MzIO.SQL, 0.1.4"
 #r "nuget: MzIO.Processing, 0.1.2"
-#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.9"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.10"
 
 #if IPYNB
-#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
+#r "nuget: Plotly.NET.Interactive, 4.2.0"
 #endif // IPYNB
 
 open Plotly.NET
@@ -253,7 +253,7 @@ let quantifiedAreaChart =
         Chart.SplineArea(quantifiedArea, Name = "quantified XIC")
     ]
     |> Chart.combine
-    |> Chart.withXAxisStyle (title = "Retention Time", MinMax = (51.,58.))
+    |> Chart.withXAxisStyle (TitleText = "Retention Time", MinMax = (51.,58.))
     |> Chart.withYAxisStyle "Intensity"
     |> Chart.withSize (900., 900.)
 
